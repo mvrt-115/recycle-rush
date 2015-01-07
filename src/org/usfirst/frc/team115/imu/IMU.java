@@ -44,6 +44,21 @@ public class IMU extends SensorBase implements LiveWindowSendable {
 		return gyro.getZ();
 	}
 	
+	public double getRoll() {
+		//TODO add accumulator
+		return 0.0;
+	}
+	
+	public double getPitch() {
+		//TODO add accumulator
+		return 0.0;
+	}
+	
+	public double getYaw() {
+		//TODO add accumulator
+		return 0.0;
+	}
+	
 	public double getXAcceleration() {
 		return accel.getX();
 	}
@@ -82,6 +97,10 @@ public class IMU extends SensorBase implements LiveWindowSendable {
 		table.putNumber("X Rate", getXRate());
 		table.putNumber("Y Rate", getYRate());
 		table.putNumber("Z Rate", getZRate());
+		
+		table.putNumber("Yaw", getYaw());
+		table.putNumber("Pitch", getPitch());
+		table.putNumber("Roll", getRoll());
 	}
 
 	@Override
