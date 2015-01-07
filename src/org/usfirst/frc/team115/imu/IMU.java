@@ -85,15 +85,9 @@ public class IMU extends SensorBase implements LiveWindowSendable {
 	}
 
 	@Override
-	public void startLiveWindowMode() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void startLiveWindowMode() { }
 
 	@Override
-	public void stopLiveWindowMode() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void stopLiveWindowMode() { }
 
 }
