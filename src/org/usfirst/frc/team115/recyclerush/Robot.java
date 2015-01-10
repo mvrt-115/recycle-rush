@@ -1,5 +1,7 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.subsystems.MecanumDriveTrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -14,13 +16,13 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
  */
 public class Robot extends IterativeRobot {
 
-    public static DriveTrain drive;
+    public static MecanumDriveTrain drive;
     public static Claw claw;
     public static Grabber grabber;
     public static OI oi;
 
     public Robot() {
-        drive = new DriveTrain();
+        drive = new MecanumDriveTrain();
         claw = new Claw();
         grabber = new Grabber();
         oi = new OI();

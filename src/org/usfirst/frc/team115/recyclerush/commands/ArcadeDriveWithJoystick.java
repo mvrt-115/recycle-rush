@@ -31,7 +31,7 @@ public class ArcadeDriveWithJoystick extends Command {
 
     @Override
     protected void end() {
-        Robot.drive.drive(0, 0);
+        Robot.drive.stop();
     }
 
     @Override
