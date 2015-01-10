@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.subsystems.MecanumDriveTrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -12,8 +14,12 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot {
 
+	public static OI oi;
+	public static MecanumDriveTrain drive;
+	
     public void robotInit() {
-
+    	drive = new MecanumDriveTrain();
+    	oi = new OI();
     }
 	
 	public void disabledPeriodic() {
