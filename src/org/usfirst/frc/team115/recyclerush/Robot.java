@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.subsystems.WCDriveTrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -11,6 +13,23 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * Note: If you change the class name or package, the manifest must be updated.
  */
 public class Robot extends IterativeRobot {
+	
+	private WCDriveTrain drive;
+	private static Robot robotInstance;
+	
+	private Robot() {
+		drive = new WCDriveTrain();
+	}
+	
+	public static Robot getRobot() {
+		if (robotInstance == null)
+			robotInstance = new Robot();
+		return robotInstance;
+	}
+	
+	public WCDriveTrain getDrive() {
+		return drive;
+	}
 
     public void robotInit() {
 
