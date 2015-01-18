@@ -7,15 +7,13 @@
 
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import edu.wpi.first.wpilibj.*;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class WCDriveTrain extends Subsystem {
+public class DriveTrain extends Subsystem {
 
 	private RobotDrive drive;
 	private final int BACK_LEFT = 0;
@@ -29,7 +27,7 @@ public class WCDriveTrain extends Subsystem {
 	/**
 	 * Initializes each other motors based on ports set in RobotMap
 	 */
-	public WCDriveTrain() {
+	public DriveTrain() {
 		motors = new CANTalon[4];
 		motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
 		motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);

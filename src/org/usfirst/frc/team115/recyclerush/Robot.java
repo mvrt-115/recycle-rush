@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.subsystems.WCDriveTrain;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot {
 	
-	private WCDriveTrain drive;
+	private DriveTrain drive;
 	private static Robot robotInstance;
 	
 	private Robot() {
-		drive = new WCDriveTrain();
+		drive = new DriveTrain();
 	}
 	
 	public static Robot getRobot() {
@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
 		return robotInstance;
 	}
 	
-	public WCDriveTrain getDrive() {
+	public DriveTrain getDrive() {
 		return drive;
 	}
 
