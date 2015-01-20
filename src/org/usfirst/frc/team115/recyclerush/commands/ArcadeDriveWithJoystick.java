@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ArcadeDriveWithJoystick extends Command {
 	
 	public ArcadeDriveWithJoystick() {
-		requires(Robot.getRobot().getDrive());
+		requires(Robot.drive);
 	}
 
 	@Override
