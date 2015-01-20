@@ -14,22 +14,15 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot {
 	
-	private DriveTrain drive;
+	public static DriveTrain drive;
+    public static OI oi;
 	private static Robot robotInstance;
 	
 	private Robot() {
 		drive = new DriveTrain();
+        oi = new OI();
 	}
-	
-	public static Robot getRobot() {
-		if (robotInstance == null)
-			robotInstance = new Robot();
-		return robotInstance;
-	}
-	
-	public DriveTrain getDrive() {
-		return drive;
-	}
+
 
     public void robotInit() {
 

@@ -8,8 +8,11 @@ package org.usfirst.frc.team115.recyclerush;
  */
 public class RobotMap {
 	// motors
-	public static final int FRONT_LEFT_DRIVE = 7;
-	public static final int FRONT_RIGHT_DRIVE = 6;
-	public static final int BACK_LEFT_DRIVE = 8;
-	public static final int BACK_RIGHT_DRIVE = 5;
+	public static final int FRONT_LEFT_DRIVE 	= 7;
+	public static final int FRONT_RIGHT_DRIVE 	= 6;
+	public static final int BACK_LEFT_DRIVE 	= 8;
+	public static final int BACK_RIGHT_DRIVE 	= 5;
+
+	// joysticks
+	public static final int MAIN_JOYSTICK 		= 1;
 }
