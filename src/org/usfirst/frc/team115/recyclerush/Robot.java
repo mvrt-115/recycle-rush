@@ -1,12 +1,11 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.subsystems.FourMotorDrive;
-import org.usfirst.frc.team115.recyclerush.subsystems.RobotElevator;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+import org.usfirst.frc.team115.recyclerush.subsystems.RobotElevator;
 
 /**
  * @author Lee Mracek
@@ -16,9 +15,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static RobotElevator Elevator;
-	public static FourMotorDrive drive;
+	public static DriveTrain drive;
 	
-	public FourMotorDrive getDrive() {
+	public DriveTrain getDrive() {
 		return drive;
 	}
 
@@ -26,7 +25,7 @@ public class Robot extends IterativeRobot {
     
     	oi = new OI();
     	Elevator = new RobotElevator();
-    	drive = new FourMotorDrive();
+    	drive = new DriveTrain();
     	
     }
     

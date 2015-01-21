@@ -1,77 +1,56 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
-import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+/**
+ * Created by Lee Mracek on 1/20/15.
+ */
 
-public class DriveStraight extends Command{
-	//idk how to control this.
-	Joystick joystick;	
-	Gyro gyro;
-	PIDController control = new PIDController( 0.1, 0.001, 0.0, gyro, (PIDOutput)Robot.drive);
-	
-	double Kp = 0.03;
-	
-	public DriveStraight(Joystick j){
-		requires(Robot.drive);
-		joystick = j;
-	}
+public class DriveStraight extends PIDCommand {
 
-	// reset gyro, and start using PID
-	@Override
-	protected void initialize() {
-		gyro.reset();
-		control.enable();
-		control.get();
-		
-	}
-	
-	// return angle output from gyro
-	public double getAngle() {
-		return gyro.getAngle();
-	}
-	
-	// turn-drive based on angle. If angle is 0 +- 1 degrees, just don't turn; just drive
-	public void driveWithAngle(double angle) {
-		// Use output to drive your system, like a motor
-		// e.g. yourMotor.set(output);
-		if (angle > 1) {
-			Robot.drive.drive(joystick.getY()-(angle*Kp/2), joystick.getY()+angle*Kp);
-		}else if (angle < -1){
-			Robot.drive.drive(joystick.getY()+angle*Kp, joystick.getY()-(angle*Kp/2));
-		}else Robot.drive.drive(joystick.getY(),joystick.getY());
-	}
+    Gyro gyro;
 
-	@Override	// please add this command to fourmotordrive's drive(joystick).
+    public DriveStraight() {
+        super(0.0, 0.0, 0.0);
+        requires(Robot.drive);
 
-	// arcadedrive -> ?
-	// when execute(), don't call drive(); in drive(), please call new DriveStraight() or similar.
-	// do the current drive()'s methods in driveStraight() 
-	public void execute() {
-		driveWithAngle(getAngle());
-        Timer.delay(0.004);
-	}
+        gyro = new Gyro(0);
+    }
 
-	@Override
-	// keep on driving - don't stop driving straight.
-	protected boolean isFinished() {
-		return false;
-	}
+    @Override
+    protected double returnPIDInput() {
+        return gyro.getAngle();
+    }
 
-	// end all running programs in relation to driveStraight.
-	@Override
-	protected void end() {
-		control.reset();	//resets the controller and disables it.
-		Robot.drive.stop();
-	}
+    @Override
+    protected void usePIDOutput(double output) {
+        Robot.drive.drive(Robot.oi.getJoystick().getY(), output);
+    }
 
-	@Override
-	protected void interrupted() {
-		end();
-	}
+    @Override
+    protected void initialize() {
+
+    }
+
+    @Override
+    protected void execute() {
+
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
+
+    @Override
+    protected void end() {
+
+    }
+
+    @Override
+    protected void interrupted() {
+
+    }
 }

@@ -55,7 +55,10 @@ public class DriveTrain extends Subsystem {
 	public void drive(Joystick joystick) {
 		drive.arcadeDrive(joystick);
 	}
-	
+
+	public void stop() {
+		drive(0, 0);
+	}
 	/**
 	 * Initializes the default command of the subsystem.
 	 */

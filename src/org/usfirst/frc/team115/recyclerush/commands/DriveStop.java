@@ -13,7 +13,6 @@ public class DriveStop extends Command{
 	@Override
 	protected void initialize() {
 		Robot.drive.stop();
-		
 	}
 
 	@Override
