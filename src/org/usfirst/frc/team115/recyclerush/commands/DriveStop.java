@@ -9,7 +9,7 @@ public class DriveStop extends Command{
 	public DriveStop(){
 		requires(Robot.drive);
 	}
-	
+
 	@Override
 	protected void initialize() {
 		Robot.drive.stop();
