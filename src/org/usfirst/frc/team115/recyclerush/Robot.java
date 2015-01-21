@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
-import org.usfirst.frc.team115.recyclerush.subsystems.RobotElevator;
 
 /**
  * @author Lee Mracek
@@ -13,21 +12,14 @@ import org.usfirst.frc.team115.recyclerush.subsystems.RobotElevator;
  * Note: If you change the class name or package, the manifest must be updated.
  */
 public class Robot extends IterativeRobot {
-	public static OI oi;
-	public static RobotElevator Elevator;
-	public static DriveTrain drive;
 	
-	public DriveTrain getDrive() {
-		return drive;
-	}
+	public static DriveTrain drive;
+    public static OI oi;
 
-    public void robotInit() {
-    
-    	oi = new OI();
-    	Elevator = new RobotElevator();
-    	drive = new DriveTrain();
-    	
-    }
+	private Robot() {
+		drive = new DriveTrain();
+        oi = new OI();
+	}
     
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();

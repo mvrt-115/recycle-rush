@@ -1,4 +1,3 @@
-
 /**
  * This is the drive train for the robot for the competition.
  * 
@@ -20,7 +19,6 @@ public class DriveTrain extends Subsystem {
 	private final int BACK_RIGHT = 1;
 	private final int FRONT_LEFT = 2;
 	private final int FRONT_RIGHT = 3;
-	private final double MAX_SPEED = 10.0;
 
 	private CANTalon motors[];
 
@@ -39,13 +37,11 @@ public class DriveTrain extends Subsystem {
 
 	/**
 	 * This thing drives the robot!
-	 * @param left    The left speed
-	 * @param right	  The right speed
+	 * @param move	the forward speed of the rotation
+	 * @param rotate	the rotation value of the robot
 	 */
-	public void drive(double left, double right) {
-		left = Math.min(left, MAX_SPEED);
-		right = Math.min(right, MAX_SPEED);
-		drive.setLeftRightMotorOutputs(left, right);
+	public void drive(double move, double rotate) {
+		drive.arcadeDrive(move, rotate);
 	}
 
 	/**

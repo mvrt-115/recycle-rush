@@ -1,7 +1,6 @@
 package org.usfirst.frc.team115.recyclerush;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * @author Lee Mracek
@@ -10,8 +9,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	private Joystick joystick;
-	private JoystickButton ElevateUpButton, ElevateDownButton, DriveButton, RightTurnButton, LeftTurnButton;
-	
 	
 	public OI() {
 		
@@ -24,6 +21,5 @@ public class OI {
 	public Joystick getJoystick() {
 		return joystick;
 	}
-
 }
 
