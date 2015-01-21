@@ -4,7 +4,9 @@ package org.usfirst.frc.team115.recyclerush;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 /**
  * @author Lee Mracek
@@ -15,10 +17,12 @@ public class Robot extends IterativeRobot {
 	
 	public static DriveTrain drive;
     public static OI oi;
+    public static Elevator elevator;
 
 	private Robot() {
 		drive = new DriveTrain();
         oi = new OI();
+        elevator = new Elevator(0, 0, 0);
 	}
     
 	public void disabledPeriodic() {
