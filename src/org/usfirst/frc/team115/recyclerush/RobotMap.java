@@ -16,4 +16,6 @@ public class RobotMap {
 
     //joystick
     public static final int JOYSTICK 			 = 0;
+    
+    public static final int ELEVATOR			 = 0;
 }

@@ -1,37 +1,32 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import org.usfirst.frc.team115.recyclerush.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorStop extends Command{
-
-	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
-		
+	
+	public ElevatorStop(){
+		requires(Robot.elevator);
 	}
+	
+	@Override
+	protected void initialize() {}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		
+		Robot.elevator.stop();	
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	protected void end() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void end() {}
 
 	@Override
-	protected void interrupted() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void interrupted() {}
 
 }
