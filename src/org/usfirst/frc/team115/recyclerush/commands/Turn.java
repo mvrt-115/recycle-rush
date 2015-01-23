@@ -5,16 +5,17 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
-public class TurnNinetyLeft extends PIDCommand {
+public class Turn extends PIDCommand {
 
+	private static final double K = 90;
 	double desiredAngle;
 	Gyro gyro;
+	
 
-	public TurnNinetyLeft(double p, double i, double d) {
+	public Turn(double p, double i, double d) {
 		super(p, i, d);
 
 		gyro = new Gyro(0);
-		this.setSetpoint(desiredAngle);
 	}
 
 	@Override
@@ -24,16 +25,18 @@ public class TurnNinetyLeft extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Robot.drive.drive(Robot.oi.getJoystick().getY(), output);
+		Robot.drive.drive(Robot.oi.getJoystick().getX(), output);
 	}
 
 	@Override
-	protected void initialize() {
-		desiredAngle = returnPIDInput() - 90;
-	}
+	protected void initialize() {}
 	
 	@Override
-	protected void execute() {}
+	protected void execute() {
+		desiredAngle = returnPIDInput() + (Robot.oi.getJoystick().getX()*K);
+		this.setSetpoint(desiredAngle);
+
+	}
 
 	@Override
 	protected boolean isFinished() {
@@ -50,5 +53,4 @@ public class TurnNinetyLeft extends PIDCommand {
 		end();
 	}
 
-	
 }
