@@ -7,8 +7,12 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.SerialPort.Port;
+
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
+
+import com.kauailabs.nav6.frc.IMUAdvanced;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -19,6 +23,8 @@ public class DriveTrain extends Subsystem {
 	private final int BACK_RIGHT = 1;
 	private final int FRONT_LEFT = 2;
 	private final int FRONT_RIGHT = 3;
+	private final IMUAdvanced NAVX;
+	private final SerialPort SERIAL_PORT = new SerialPort(57600, Port.kMXP);
 
 	private CANTalon motors[];
 
@@ -26,6 +32,7 @@ public class DriveTrain extends Subsystem {
 	 * Initializes each other motors based on ports set in RobotMap
 	 */
 	public DriveTrain() {
+		NAVX = new IMUAdvanced(SERIAL_PORT);
 		motors = new CANTalon[4];
 		motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
 		motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -73,5 +80,29 @@ public class DriveTrain extends Subsystem {
 			current += motor.getOutputCurrent();
 		return current;
 	}
-
+	
+	/**
+	 * Returns the angle of rotational displacement
+	 * @return 
+	 */
+	public float getYaw(){
+		return NAVX.getYaw();
+	}
+	
+	/**
+	 * Returns the angle of tilt along the horizontal plane
+	 * @return 
+	 */
+	public float getPitch(){
+		return NAVX.getPitch();
+	}
+	
+	/**
+	 * Returns the angle of tilt along the vertical plane
+	 * @return 
+	 */
+	public float getRoll(){
+		return NAVX.getRoll();
+	}
+	
 }
