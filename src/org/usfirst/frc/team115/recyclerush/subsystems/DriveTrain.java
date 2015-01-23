@@ -23,8 +23,7 @@ public class DriveTrain extends Subsystem {
 	private final int BACK_RIGHT = 1;
 	private final int FRONT_LEFT = 2;
 	private final int FRONT_RIGHT = 3;
-	private final IMUAdvanced NAVX;
-	private final SerialPort SERIAL_PORT = new SerialPort(57600, Port.kMXP);
+	private final IMUAdvanced NAVX;	
 
 	private CANTalon motors[];
 
@@ -32,7 +31,9 @@ public class DriveTrain extends Subsystem {
 	 * Initializes each other motors based on ports set in RobotMap
 	 */
 	public DriveTrain() {
+		SerialPort SERIAL_PORT = new SerialPort(57600, Port.kMXP);
 		NAVX = new IMUAdvanced(SERIAL_PORT);
+		
 		motors = new CANTalon[4];
 		motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
 		motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -59,9 +60,13 @@ public class DriveTrain extends Subsystem {
 		drive.arcadeDrive(joystick);
 	}
 
+	/**
+	 * Stops the drivetrain
+	 */
 	public void stop() {
 		drive(0, 0);
 	}
+	
 	/**
 	 * Initializes the default command of the subsystem.
 	 */
@@ -72,7 +77,7 @@ public class DriveTrain extends Subsystem {
 	
 	/**
 	 * This returns the current.
-	 * @return 		the current
+	 * @return the current
 	 */
 	public double getCurrent() {
 		double current = 0;
@@ -83,7 +88,7 @@ public class DriveTrain extends Subsystem {
 	
 	/**
 	 * Returns the angle of rotational displacement
-	 * @return 
+	 * @return the current yaw of the gyro
 	 */
 	public float getYaw(){
 		return NAVX.getYaw();
@@ -91,7 +96,7 @@ public class DriveTrain extends Subsystem {
 	
 	/**
 	 * Returns the angle of tilt along the horizontal plane
-	 * @return 
+	 * @return the gyro's pitch
 	 */
 	public float getPitch(){
 		return NAVX.getPitch();
@@ -99,10 +104,17 @@ public class DriveTrain extends Subsystem {
 	
 	/**
 	 * Returns the angle of tilt along the vertical plane
-	 * @return 
+	 * @return the gyro's roll
 	 */
 	public float getRoll(){
 		return NAVX.getRoll();
+	}
+	
+	/**
+	 * Resets the navx so that the current yaw value now returns zero
+	 */
+	public void resetYaw(){
+		NAVX.zeroYaw();
 	}
 	
 }
