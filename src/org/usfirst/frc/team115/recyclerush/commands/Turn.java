@@ -19,7 +19,7 @@ public class Turn extends PIDCommand {
 	 */
 	public Turn(double goal) {
 		super(0, 0, 0);
-		gyro = new Gyro(0);
+		gyro = Robot.drive.getGyro();
 		
 		this.goal = goal;
 	}

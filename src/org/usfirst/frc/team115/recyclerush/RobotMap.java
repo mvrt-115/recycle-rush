@@ -16,4 +16,7 @@ public class RobotMap {
 
     //joystick
     public static final int JOYSTICK 			 = 0;
+    
+    //gyro on drivetrain
+    public static final int GYRO                 = 0;
 }

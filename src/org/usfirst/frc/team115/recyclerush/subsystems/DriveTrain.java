@@ -22,6 +22,8 @@ public class DriveTrain extends Subsystem {
 
 	private CANTalon motors[];
 
+	private Gyro gyro;
+	
 	/**
 	 * Initializes each other motors based on ports set in RobotMap
 	 */
@@ -33,6 +35,8 @@ public class DriveTrain extends Subsystem {
 		motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
 		drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
 				motors[FRONT_RIGHT], motors[BACK_RIGHT]);
+		
+		gyro = new Gyro(RobotMap.GYRO);
 	}
 
 	/**
@@ -54,6 +58,14 @@ public class DriveTrain extends Subsystem {
 
 	public void stop() {
 		drive(0, 0);
+	}
+	
+	/**
+	 * Get gyro reference.
+	 * @return gyro	The Gyro reference
+	 */
+	public Gyro getGyro(){
+		return gyro;
 	}
 	/**
 	 * Initializes the default command of the subsystem.
