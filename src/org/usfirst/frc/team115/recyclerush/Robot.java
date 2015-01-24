@@ -16,7 +16,7 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain drive;
     public static OI oi;
 
-	private Robot() {
+	public Robot() {
 		drive = new DriveTrain();
         oi = new OI();
 	}
