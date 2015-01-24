@@ -8,12 +8,17 @@ package org.usfirst.frc.team115.recyclerush;
  */
 public class RobotMap {
 
-	//motors
+	// motors
     public static final int BACK_LEFT_DRIVE		 = 0;
 	public static final int BACK_RIGHT_DRIVE	 = 0;
 	public static final int FRONT_LEFT_DRIVE	 = 0;
 	public static final int FRONT_RIGHT_DRIVE 	 = 0;
 
-    //joystick
+    // joystick
     public static final int JOYSTICK 			 = 0;
+    
+    // solenoids
+    public static final int CLAW_SOLENOID_1		 = 0;
+    public static final int CLAW_SOLENOID_2 	 = 0;
+    
 }

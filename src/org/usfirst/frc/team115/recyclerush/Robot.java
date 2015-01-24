@@ -1,10 +1,12 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 
 /**
  * @author Lee Mracek
@@ -14,10 +16,12 @@ import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 public class Robot extends IterativeRobot {
 	
 	public static DriveTrain drive;
+	public static Claw claw;
     public static OI oi;
 
 	private Robot() {
 		drive = new DriveTrain();
+		claw = new Claw();
         oi = new OI();
 	}
     
