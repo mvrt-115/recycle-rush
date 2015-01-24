@@ -6,7 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class CloseClaw extends Command {
 	
-	public CloseClaw(){}
+	public CloseClaw() {
+		requires(Robot.claw);
+	}
 
 	@Override
 	protected void initialize() {}
