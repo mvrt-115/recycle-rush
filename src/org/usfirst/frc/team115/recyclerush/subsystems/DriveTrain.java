@@ -23,7 +23,7 @@ public class DriveTrain extends Subsystem {
 	private final int BACK_RIGHT = 1;
 	private final int FRONT_LEFT = 2;
 	private final int FRONT_RIGHT = 3;
-	private final IMUAdvanced NAVX;	
+	private final IMUAdvanced NAVX;
 
 	private CANTalon motors[];
 
@@ -115,6 +115,30 @@ public class DriveTrain extends Subsystem {
 	 */
 	public void resetYaw(){
 		NAVX.zeroYaw();
+	}
+	
+	/**
+	 * Returns the displacement along x axis
+	 * @return the x displacement
+	 */
+	public float getX(){
+		return NAVX.getWorldLinearAccelX();
+	}
+	
+	/**
+	 * Returns the displacement along x axis
+	 * @return the x displacement
+	 */
+	public float getY(){
+		return NAVX.getWorldLinearAccelY();
+	}
+	
+	/**
+	 * Returns the displacement along x axis
+	 * @return the x displacement
+	 */
+	public float getZ(){
+		return NAVX.getWorldLinearAccelZ();
 	}
 	
 }
