@@ -21,4 +21,6 @@ public class RobotMap {
     public static final int CLAW_SOLENOID_1		 = 0;
     public static final int CLAW_SOLENOID_2 	 = 0;
     
+    // compressor
+    public static final int COMPRESSOR           = 0;
 }
