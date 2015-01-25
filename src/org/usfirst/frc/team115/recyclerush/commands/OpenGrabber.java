@@ -3,10 +3,10 @@ package org.usfirst.frc.team115.recyclerush.commands;
 import org.usfirst.frc.team115.recyclerush.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OpenClaw extends Command {
+public class OpenGrabber extends Command {
 	
-	public OpenClaw() {
-		requires(Robot.claw);
+	public OpenGrabber() {
+		requires(Robot.grabber);
 	}
 
 	@Override
@@ -14,7 +14,7 @@ public class OpenClaw extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.claw.open();
+		Robot.grabber.open();
 	}
 
 	@Override

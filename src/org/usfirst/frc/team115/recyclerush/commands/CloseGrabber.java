@@ -4,10 +4,10 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CloseClaw extends Command {
+public class CloseGrabber extends Command {
 	
-	public CloseClaw() {
-		requires(Robot.claw);
+	public CloseGrabber() {
+		requires(Robot.grabber);
 	}
 
 	@Override
@@ -15,7 +15,7 @@ public class CloseClaw extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.claw.close();
+		Robot.grabber.close();
 	}
 
 	@Override
