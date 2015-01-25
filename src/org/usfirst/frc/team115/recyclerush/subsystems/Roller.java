@@ -1,79 +1,73 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
-import org.usfirst.frc.team115.recyclerush.commands.RollerStop;
+import org.usfirst.frc.team115.recyclerush.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Contains the two motors that make up the Robot's roller mechanism
- * @author MVRT
+ * @author Alex Erf
  *
  */
 public class Roller extends Subsystem {
 	
-	private CANTalon rollerMotorLeft;
-	private CANTalon rollerMotorRight;
+	private CANTalon rollerMotor;
+	private DoubleSolenoid rollerSolenoid;
 	
-	public static final double CLOCKWISE = 1.0;
-	public static final double COUNTER_CLOCKWISE = -1.0;
 	
 	/**
 	 * Creates the two motors with the specified ports
-	 * @param l_port	The port for the left motor
-	 * @param r_port	The port for the right motor
+	 * @param m_port	Port for the CANTalon motor
+	 * @param s_port1	First port for the solenoid
+	 * @param s_port2	Second port for the solenoid
 	 */
-	public Roller(int l_port, int r_port) {
-		rollerMotorLeft = new CANTalon(l_port);
-		rollerMotorRight = new CANTalon(r_port);
-		rollerMotorRight.reverseOutput(true);
+	public Roller(int m_port) {
+		rollerMotor = new CANTalon(m_port);		
+		rollerSolenoid = new DoubleSolenoid(RobotMap.ROLLER_SOLENOID_PORT_1, RobotMap.ROLLER_SOLENOID_PORT_2);
 	}
 
 	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new RollerStop());
-	}
+	protected void initDefaultCommand() {}
 	
-	public CANTalon getRollerMotorLeft() {
-		return rollerMotorLeft;
-	}
-	
-	public CANTalon getRollerMotorRight() {
-		return rollerMotorRight;
+	public CANTalon getMotor() {
+		return rollerMotor;
 	}
 	
 	/**
-	 * Turns the left motor
+	 * Turns the roller's motor
 	 * @param val	The speed to turn the left motor at (corrected to be between -1.0 and 1.0)
 	 */
-	public void turnLeft(double val) {
+	public void set(double val) {
 		if (Math.abs(val) <= 1.0)
-			rollerMotorLeft.set(val);
+			rollerMotor.set(val);
 		else if (val > 1.0)
-			rollerMotorLeft.set(1.0);
+			rollerMotor.set(1.0);
 		else
-			rollerMotorLeft.set(-1.0);
+			rollerMotor.set(-1.0);
 	}
 	
 	/**
-	 * Turns the right motor
-	 * @param val	The speed to turn the right motor at (corrected to be between -1.0 and 1.0)
-	 */
-	public void turnRight(double val) {
-		if (Math.abs(val) <= 1.0)
-			rollerMotorRight.set(val);
-		else if (val > 1.0)
-			rollerMotorRight.set(1.0);
-		else
-			rollerMotorRight.set(-1.0);
-	}
-	
-	/**
-	 * Stops both of the roller's motor
+	 * Stops the roller's motor
 	 */
 	public void stop() {
-		turnLeft(0.0);
-		turnRight(0.0);
+		set(0.0);
+	}
+	
+	/**
+	 * Closes the arm
+	 */
+	public void close() {
+		rollerSolenoid.set(Value.kReverse);
+	}
+	
+	/**
+	 * Opens the arm
+	 */
+	public void open() {
+		rollerSolenoid.set(Value.kForward);
 	}
 
 }

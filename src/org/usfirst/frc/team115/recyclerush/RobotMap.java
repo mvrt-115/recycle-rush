@@ -19,4 +19,8 @@ public class RobotMap {
     
     public static final int ROLLER_MOTOR_LEFT	 = 0;
     public static final int ROLLER_MOTOR_RIGHT	 = 0;
+    
+    public static final int ROLLER_SOLENOID_PORT_1 = 0;
+    public static final int ROLLER_SOLENOID_PORT_2 = 0;
+    
 }

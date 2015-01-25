@@ -17,12 +17,13 @@ public class Robot extends IterativeRobot {
 	
 	public static DriveTrain drive;
     public static OI oi;
-    public static Roller roller;
+    public static Roller leftRoller, rightRoller;
 
 	public Robot() {
 		drive = new DriveTrain();
         oi = new OI();
-        roller = new Roller(RobotMap.ROLLER_MOTOR_LEFT, RobotMap.ROLLER_MOTOR_RIGHT);
+        leftRoller = new Roller(RobotMap.ROLLER_MOTOR_LEFT);
+        rightRoller = new Roller(RobotMap.ROLLER_MOTOR_RIGHT);
 	}
     
 	public void disabledPeriodic() {
