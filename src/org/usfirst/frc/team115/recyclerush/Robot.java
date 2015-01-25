@@ -1,6 +1,9 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -11,11 +14,17 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * Note: If you change the class name or package, the manifest must be updated.
  */
 public class Robot extends IterativeRobot {
-
-    public void robotInit() {
-
-    }
 	
+	public static DriveTrain drive;
+	public static Claw claw;
+    public static OI oi;
+
+	private Robot() {
+		drive = new DriveTrain();
+		claw = new Claw();
+        oi = new OI();
+	}
+    
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
