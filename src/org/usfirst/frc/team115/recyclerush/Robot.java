@@ -1,10 +1,12 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 
 /**
  * @author Lee Mracek
@@ -15,10 +17,12 @@ public class Robot extends IterativeRobot {
 	
 	public static DriveTrain drive;
     public static OI oi;
+    public static Roller roller;
 
-	private Robot() {
+	public Robot() {
 		drive = new DriveTrain();
         oi = new OI();
+        roller = new Roller(RobotMap.ROLLER_MOTOR_LEFT, RobotMap.ROLLER_MOTOR_RIGHT);
 	}
     
 	public void disabledPeriodic() {
