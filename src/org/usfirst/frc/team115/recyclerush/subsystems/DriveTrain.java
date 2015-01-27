@@ -26,7 +26,7 @@ public class DriveTrain extends Subsystem {
 	private final IMUAdvanced navX;
 
 	private CANTalon motors[];
-
+	
 	/**
 	 * Initializes each other motors based on ports set in RobotMap
 	 */
@@ -64,7 +64,7 @@ public class DriveTrain extends Subsystem {
 	public void stop() {
 		drive(0, 0);
 	}
-	
+
 	/**
 	 * Initializes the default command of the subsystem.
 	 */
