@@ -23,7 +23,7 @@ public class DriveTrain extends Subsystem {
 	private final int BACK_RIGHT = 1;
 	private final int FRONT_LEFT = 2;
 	private final int FRONT_RIGHT = 3;
-	private final IMUAdvanced NAVX;
+	private final IMUAdvanced navX;
 
 	private CANTalon motors[];
 
@@ -31,9 +31,7 @@ public class DriveTrain extends Subsystem {
 	 * Initializes each other motors based on ports set in RobotMap
 	 */
 	public DriveTrain() {
-		SerialPort SERIAL_PORT = new SerialPort(57600, Port.kMXP);
-		NAVX = new IMUAdvanced(SERIAL_PORT);
-		
+		navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
 		motors = new CANTalon[4];
 		motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
 		motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -91,7 +89,7 @@ public class DriveTrain extends Subsystem {
 	 * @return the current yaw of the gyro
 	 */
 	public float getYaw(){
-		return NAVX.getYaw();
+		return navX.getYaw();
 	}
 	
 	/**
@@ -99,7 +97,7 @@ public class DriveTrain extends Subsystem {
 	 * @return the gyro's pitch
 	 */
 	public float getPitch(){
-		return NAVX.getPitch();
+		return navX.getPitch();
 	}
 	
 	/**
@@ -107,14 +105,15 @@ public class DriveTrain extends Subsystem {
 	 * @return the gyro's roll
 	 */
 	public float getRoll(){
-		return NAVX.getRoll();
+		return navX.getRoll();
 	}
 	
 	/**
-	 * Resets the navx so that the current yaw value now returns zero
+	 * Resets the navx and any encoders
 	 */
-	public void resetYaw(){
-		NAVX.zeroYaw();
+	public void resetAll(){
+		navX.zeroYaw();
+		//encoder reset goes here
 	}
 	
 	/**
@@ -122,7 +121,7 @@ public class DriveTrain extends Subsystem {
 	 * @return the x displacement
 	 */
 	public float getX(){
-		return NAVX.getWorldLinearAccelX();
+		return navX.getWorldLinearAccelX();
 	}
 	
 	/**
@@ -130,7 +129,7 @@ public class DriveTrain extends Subsystem {
 	 * @return the x displacement
 	 */
 	public float getY(){
-		return NAVX.getWorldLinearAccelY();
+		return navX.getWorldLinearAccelY();
 	}
 	
 	/**
@@ -138,7 +137,8 @@ public class DriveTrain extends Subsystem {
 	 * @return the x displacement
 	 */
 	public float getZ(){
-		return NAVX.getWorldLinearAccelZ();
+		return navX.getWorldLinearAccelZ();
 	}
 	
+
 }
