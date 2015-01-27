@@ -10,13 +10,7 @@ public class Turn extends PIDCommand {
 	private double desiredAngle; // the final angle we strive for
 	private Gyro gyro;	// Creates a Gyro object
 	private double goal;
-
-	/**
-	 * Constructor
-	 * @param p, proportional coefficient
-	 * @param i, integral coefficient
-	 * @param d, derivative coefficient
-	 */
+	
 	public Turn(double goal) {
 		super(0, 0, 0);
 		gyro = Robot.drive.getGyro();
