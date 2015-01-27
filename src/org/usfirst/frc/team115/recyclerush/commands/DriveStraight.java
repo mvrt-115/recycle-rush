@@ -27,6 +27,7 @@ public class DriveStraight extends PIDCommand {
 		hasDistanceLimit = hasSpeed = true;
 		this.distance = distance;
 		this.speed = speed;
+		encoder = new Encoder(RobotMap.DRIVE_STRAIGHT_ENCODER_A, RobotMap.DRIVE_STRAIGHT_ENCODER_B);
 	}
 	
 	public DriveStraight(long ms, double p, double i, double d) {
@@ -34,6 +35,7 @@ public class DriveStraight extends PIDCommand {
 		isDone = false;
 		hasTimeLimit = hasSpeed = true;
 		speed = DEFAULT_SPEED;
+		encoder = new Encoder(RobotMap.DRIVE_STRAIGHT_ENCODER_A, RobotMap.DRIVE_STRAIGHT_ENCODER_B);
 		Runnable run = new Runnable() {
 			
 			@Override
