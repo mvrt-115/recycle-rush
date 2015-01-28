@@ -14,9 +14,10 @@ public class DriveStraight extends PIDCommand {
 	private double desiredAngle;
 	private double distance;
 	private double speed;
-	private boolean isDone, hasTimeLimit, hasDistanceLimit, hasSpeed;
+	private boolean hasTimeLimit, hasDistanceLimit, hasSpeed;
 	private Encoder encoder;
 	private Gyro gyro;
+	private long startTime, timeLimit;
 
 	public DriveStraight(double distance, double p, double i, double d) {
 		this(distance, DEFAULT_SPEED, p, i, d);
@@ -32,28 +33,16 @@ public class DriveStraight extends PIDCommand {
 	
 	public DriveStraight(long ms, double p, double i, double d) {
 		this(p, i, d);
-		isDone = false;
 		hasTimeLimit = hasSpeed = true;
+		timeLimit = ms;
 		speed = DEFAULT_SPEED;
 		encoder = new Encoder(RobotMap.DRIVE_STRAIGHT_ENCODER_A, RobotMap.DRIVE_STRAIGHT_ENCODER_B);
-		Runnable run = new Runnable() {
-			
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(ms);
-				}
-				catch(InterruptedException e) {}
-				isDone = true;
-			}
-		};
-		run.run();
+		startTime = System.currentTimeMillis();
 	}
 	
 	public DriveStraight(double p, double i, double d) {
 		super(p, i, d);
 		hasDistanceLimit = hasSpeed = hasTimeLimit = false;
-		distance = speed = -1;
 		gyro = new Gyro(0);
 		this.setSetpoint(desiredAngle);
 	}
@@ -79,9 +68,9 @@ public class DriveStraight extends PIDCommand {
 	@Override
 	protected boolean isFinished() {
 		if(hasDistanceLimit)
-			return encoder.getDistance() < distance;
+			return encoder.getDistance() >= distance;
 		else if (hasTimeLimit)
-			return isDone;
+			return (System.currentTimeMillis()-startTime) >= timeLimit;
 		else
 			return false;
 	}
