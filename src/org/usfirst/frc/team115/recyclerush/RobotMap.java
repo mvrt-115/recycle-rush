@@ -20,4 +20,7 @@ public class RobotMap {
     // solenoids
     public static final int CLAW_SOLENOID_1		 = 0;
     public static final int CLAW_SOLENOID_2 	 = 1;
+
+    public static final int GRABBER_SOLENOID_1   = 2;
+    public static final int GRABBER_SOLENOID_2   = 3;
 }
