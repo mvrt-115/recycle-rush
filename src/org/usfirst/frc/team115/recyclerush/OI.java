@@ -1,15 +1,15 @@
 package org.usfirst.frc.team115.recyclerush;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
-/**
- * @author Lee Mracek
- *         This class should contain all interactions between physical controls and the robot,
- *         including Cypress, Joystick, Triggers, etc.
+
+ /* @author MVRT
+ * This class should contain all interactions between physical controls and the robot,
+ * including Cypress, Joystick, Triggers, etc.
+ * Added XboxTrigger class, to use the triggers/other axes as triggers, to run a command when the trigger passes a certain threshold
  */
+
 public class OI {
 	
 	private Joystick joystick;
@@ -18,6 +18,8 @@ public class OI {
 	public OI() {
 		joystick = new Joystick(RobotMap.JOYSTICK);
 		xbox = new Joystick(RobotMap.XBOX);
+		XboxTrigger rt;
+		rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.8);
 	}	
 	
 	public Joystick getJoystick() {
@@ -39,6 +41,22 @@ public class OI {
 	public int getXboxPOV(){
 		return xbox.getPOV();
 	}
+	
+}
 
+class XboxTrigger extends Trigger{
+
+	Joystick xbox;
+	int channel;
+	double threshold;
+	
+	public XboxTrigger(Joystick xbox, int channel, double threshold) {
+		this.xbox = xbox;
+		this.channel = channel;
+	}
+	
+	public boolean get() {
+		return xbox.getRawAxis(channel) >= threshold;
+	}
 }
 
