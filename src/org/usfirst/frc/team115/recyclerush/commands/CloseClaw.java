@@ -1,32 +1,34 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 public class CloseClaw extends Command {
-	
-	public CloseClaw() {
-		requires(Robot.claw);
-	}
 
-	@Override
-	protected void initialize() {}
+    public CloseClaw() {
+        requires(Robot.claw);
+    }
 
-	@Override
-	protected void execute() {
-		Robot.claw.close();
-	}
+    @Override
+    protected void initialize() {
+    }
 
-	@Override
-	protected boolean isFinished() {
-		return true;
-	}
+    @Override
+    protected void execute() {
+        Robot.claw.close();
+    }
 
-	@Override
-	protected void end() {}
-	
-	@Override
-	protected void interrupted() {}
+    @Override
+    protected boolean isFinished() {
+        return true;
+    }
+
+    @Override
+    protected void end() {
+    }
+
+    @Override
+    protected void interrupted() {
+    }
 
 }
