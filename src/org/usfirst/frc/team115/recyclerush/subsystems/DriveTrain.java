@@ -7,6 +7,7 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import edu.wpi.first.wpilibj.*;
+
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
@@ -22,6 +23,8 @@ public class DriveTrain extends Subsystem {
 
 	private CANTalon motors[];
 
+	private double scaleFactor = 0.25;
+	
 	/**
 	 * Initializes each other motors based on ports set in RobotMap
 	 */
@@ -61,6 +64,29 @@ public class DriveTrain extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new ArcadeDriveWithJoystick());
+	}
+	
+	public void enableControl() {
+		for (CANTalon motor : motors)
+			motor.enableControl();
+	}
+	
+	public void setMode(CANTalon.ControlMode mode) {
+		for (CANTalon motor : motors)
+			motor.changeControlMode(mode);
+	}
+	
+	public CANTalon.ControlMode getMode() {
+		return motors[0].getControlMode();
+	}
+	
+	public void setPosition(double position) {
+		for (CANTalon motor : motors)
+			motor.set(position);
+	}
+	
+	public double getDistance() {
+		return motors[0].getPosition()*scaleFactor;
 	}
 	
 	/**
