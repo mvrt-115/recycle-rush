@@ -46,6 +46,7 @@ public class StrobeLEDs extends Command{
 		}
 		strip.setColor(currentColor, brightness);
 		brightness += fadeAmount;
+		Timer.delay(0.1);
 	}
 
 	@Override
