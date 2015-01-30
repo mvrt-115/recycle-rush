@@ -10,6 +10,6 @@ public class DriveTrigger extends Trigger {
 
     @Override
     public boolean get() {
-        return !Robot.drive.getSelector().equals(Robot.drive.getCurrentCommand());
+        return !Robot.drive.getSelector().getName().equals(Robot.drive.getCurrentCommand().getName());
     }
 }

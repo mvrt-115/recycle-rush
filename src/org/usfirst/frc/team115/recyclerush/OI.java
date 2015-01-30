@@ -11,15 +11,12 @@ import org.usfirst.frc.team115.recyclerush.triggers.DriveTrigger;
  */
 public class OI {
     private Joystick joystick, joystickLeft, joystickRight;
-    private DriveTrigger dt;
 
     public OI() {
 
         joystick = new Joystick(RobotMap.JOYSTICK);
         joystickLeft = new Joystick(RobotMap.JOYSTICK_LEFT);
         joystickRight = new Joystick(RobotMap.JOYSTICK_RIGHT);
-
-        dt.whenActive(new UpdateDriveType());
 
         //todo: map buttons for commands (@akhil99)
     }

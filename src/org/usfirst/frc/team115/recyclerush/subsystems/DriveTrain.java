@@ -6,7 +6,14 @@
 
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.recyclerush.RobotMap;
+import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
+import org.usfirst.frc.team115.recyclerush.commands.TankDriveWithJoysticks;
+import org.usfirst.frc.team115.recyclerush.commands.UpdateDriveType;
+import org.usfirst.frc.team115.recyclerush.triggers.DriveTrigger;
+
 import com.kauailabs.nav6.frc.IMUAdvanced;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -14,12 +21,8 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team115.recyclerush.RobotMap;
-import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
-import org.usfirst.frc.team115.recyclerush.commands.TankDriveWithJoysticks;
 
 public class DriveTrain extends Subsystem {
 
@@ -32,7 +35,6 @@ public class DriveTrain extends Subsystem {
 
     private SendableChooser chooser;
 
-    private boolean tank = false;
 
     private CANTalon motors[];
 
@@ -48,10 +50,20 @@ public class DriveTrain extends Subsystem {
         motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
         drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
                 motors[FRONT_RIGHT], motors[BACK_RIGHT]);
-
-        chooser = new SendableChooser();
+    	chooser = new SendableChooser();
+    }
+    
+    public void initialize() {
         chooser.addDefault("Arcade Drive", new ArcadeDriveWithJoystick());
         chooser.addObject("Tank Drive", new TankDriveWithJoysticks());
+        
+    	SmartDashboard.putData("Drive Selector", chooser);
+        
+        new DriveTrigger().whenActive(new UpdateDriveType());
+    }
+    
+    public void log() {
+    	SmartDashboard.putData("Drive Selector", chooser);
     }
 
     public void resetDriveType() {
