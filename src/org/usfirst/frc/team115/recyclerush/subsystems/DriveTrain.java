@@ -12,9 +12,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
+import org.usfirst.frc.team115.recyclerush.commands.TankDriveWithJoysticks;
 
 public class DriveTrain extends Subsystem {
 
@@ -24,6 +29,10 @@ public class DriveTrain extends Subsystem {
     private final int FRONT_LEFT = 2;
     private final int FRONT_RIGHT = 3;
     private final IMUAdvanced navX;
+
+    private SendableChooser chooser;
+
+    private boolean tank = false;
 
     private CANTalon motors[];
 
@@ -39,6 +48,20 @@ public class DriveTrain extends Subsystem {
         motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
         drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
                 motors[FRONT_RIGHT], motors[BACK_RIGHT]);
+
+        chooser = new SendableChooser();
+        chooser.addDefault("Arcade Drive", new ArcadeDriveWithJoystick());
+        chooser.addObject("Tank Drive", new TankDriveWithJoysticks());
+    }
+
+    public void resetDriveType() {
+        this.getCurrentCommand().cancel();
+        this.setDefaultCommand((Command) chooser.getSelected());
+        this.getDefaultCommand().start();
+    }
+
+    public Command getSelector() {
+        return (Command) chooser.getSelected();
     }
 
     /**
@@ -49,6 +72,16 @@ public class DriveTrain extends Subsystem {
      */
     public void drive(double move, double rotate) {
         drive.arcadeDrive(move, rotate);
+    }
+
+    /**
+     * This function drives the robot tank style
+     *
+     * @param joystickLeft the left joystick
+     * @param joystickRight the right joystick
+     */
+    public void tankDrive(Joystick joystickLeft, Joystick joystickRight) {
+        drive.tankDrive(joystickLeft, joystickRight);
     }
 
     /**
