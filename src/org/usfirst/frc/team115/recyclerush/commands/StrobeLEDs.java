@@ -1,13 +1,13 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-
-import javafx.scene.paint.Color;
+import java.awt.Color;
 
 import org.usfirst.frc.team115.recyclerush.subsystems.LEDstrip;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class StrobeLEDs extends Command{
 
@@ -16,12 +16,17 @@ public class StrobeLEDs extends Command{
 	
 	double brightness = 0;
 	double fadeAmount = 0.05;
-	Color currentColor = Color.PURPLE;
+
+	Color one, two;
+	Color curr;
 	
-	public StrobeLEDs(LEDstrip strip) {
+	public StrobeLEDs(LEDstrip strip, Color colorOne, Color colorTwo) {
 		requires(strip);
 		this.strip = strip;
 		timer = new Timer();
+		one = colorOne;
+		two = colorTwo;
+		curr = one;
 	}
 
 	@Override
@@ -35,17 +40,18 @@ public class StrobeLEDs extends Command{
 			brightness = 0;
 			fadeAmount = -fadeAmount;
 			//swap colors:
-			if(currentColor.equals(Color.PURPLE)){
-				currentColor = Color.GOLD;
+			if(curr.equals(one)){
+				curr = two;
 			} else {
-				currentColor = Color.PURPLE;
+				curr = one;
 			}
 		}else if(brightness >= 1){
 			brightness = 1;
 			fadeAmount = -fadeAmount;
 		}
-		strip.setColor(currentColor, brightness);
+		strip.setColor(curr.getRed(), curr.getGreen(), curr.getBlue(), brightness);
 		brightness += fadeAmount;
+		SmartDashboard.putNumber("brightness", brightness);
 		Timer.delay(0.1);
 	}
 
