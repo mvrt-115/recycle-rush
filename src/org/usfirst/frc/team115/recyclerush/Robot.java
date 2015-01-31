@@ -3,6 +3,8 @@ package org.usfirst.frc.team115.recyclerush;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
+import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
@@ -39,7 +41,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-
+    	Scheduler.getInstance().add(new ArcadeDriveWithJoystick());
     }
 
     public void disabledInit() {
