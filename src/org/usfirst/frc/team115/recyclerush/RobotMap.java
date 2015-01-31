@@ -17,10 +17,6 @@ public class RobotMap {
     // joystick
     public static final int JOYSTICK 			 = 0;
     
-    // solenoids
-    public static final int CLAW_SOLENOID_1		 = 0;
-    public static final int CLAW_SOLENOID_2 	 = 0;
-    
     // compressor
     public static final int COMPRESSOR           = 0;
 }

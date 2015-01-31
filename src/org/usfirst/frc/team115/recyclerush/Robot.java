@@ -1,7 +1,6 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 
@@ -17,13 +16,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 	
 	public static DriveTrain drive;
-	public static Claw claw;
     public static OI oi;
     public static CompressorSystem compressor;
 
 	private Robot() {
 		drive = new DriveTrain();
-		claw = new Claw();
         oi = new OI();
         compressor = new CompressorSystem(RobotMap.COMPRESSOR);
 	}
