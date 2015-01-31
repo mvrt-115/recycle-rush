@@ -1,6 +1,10 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
+import org.usfirst.frc.team115.recyclerush.commands.OpenClaw;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
 
@@ -18,9 +22,15 @@ public class OI {
 	public OI() {
 		joystick = new Joystick(RobotMap.JOYSTICK);
 		xbox = new Joystick(RobotMap.XBOX);
-		XboxTrigger rt;
-		rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.8);
-	}	
+		initXboxController();
+	}
+	
+	private void initXboxController(){
+		JoystickButton lb = new JoystickButton(xbox, RobotMap.XBOX_LB);
+		lb.whenPressed(new OpenClaw());
+		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
+		rb.whenPressed(new CloseClaw());
+	}
 	
 	public Joystick getJoystick() {
 		return joystick;
