@@ -5,13 +5,15 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 public class Turn extends PIDCommand {
 
-    private double desiredAngle; // the final angle we strive for
     private double goal;
+    private double initial;
 
     public Turn(double goal) {
         super(0, 0, 0);
 
         this.goal = goal;
+
+        initial = Robot.drive.getYaw();
     }
     
     /**
@@ -19,7 +21,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected double returnPIDInput() {
-        return Robot.drive.getYaw();
+        return Robot.drive.getYaw() - initial;
     }
 
     /**
@@ -34,7 +36,7 @@ public class Turn extends PIDCommand {
 
     @Override
     protected void initialize() {
-        desiredAngle = goal + Robot.drive.getYaw(); // Goal degree.
+
     }
 
     @Override
@@ -46,7 +48,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected boolean isFinished() {
-        if (Math.abs(desiredAngle - Robot.drive.getYaw()) <= 2) {
+        if (Math.abs(goal - returnPIDInput()) <= 2) {
             return true;
         }
         return false;
