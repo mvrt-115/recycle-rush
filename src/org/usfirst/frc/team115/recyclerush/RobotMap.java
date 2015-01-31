@@ -23,4 +23,6 @@ public class RobotMap {
 
     public static final int GRABBER_SOLENOID_1 = 2;
     public static final int GRABBER_SOLENOID_2 = 3;
+    
+    public static final int DRIVE_STRAIGHT_BUTTON = 1;
 }

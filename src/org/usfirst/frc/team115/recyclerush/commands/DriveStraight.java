@@ -28,7 +28,7 @@ public class DriveStraight extends PIDCommand {
 	public DriveStraight(double speed, double p, double i, double d) {
 		this(p, i, d);
 		Robot.drive.setMode(CANTalon.ControlMode.Speed);
-		desiredSpeed = speed;
+		desiredSpeed = (speed > 1.0) ? 1.0 : (speed < -1.0) ? -1.0 : speed;
 	}
 	
 	public DriveStraight(long ms, double p, double i, double d) {
@@ -69,6 +69,7 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void execute() {
+		System.out.println("No homo");
 		usePIDOutput(desiredAngle);
 	}
 
