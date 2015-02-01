@@ -1,9 +1,5 @@
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
-import org.usfirst.frc.team115.recyclerush.commands.DriveStraight;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -14,16 +10,10 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
     private Joystick joystick;
-    private JoystickButton driveStraightButton;
 
     public OI() {
 
         joystick = new Joystick(RobotMap.JOYSTICK);
-        driveStraightButton = new JoystickButton(joystick, RobotMap.DRIVE_STRAIGHT_BUTTON);
-        
-        // Drive for 3 seconds TEST
-        driveStraightButton.whenPressed(new DriveStraight(0.05, 0.008, 0.1));
-        driveStraightButton.whenReleased(new ArcadeDriveWithJoystick());
 
         //todo: map buttons for commands (@akhil99)
     }
