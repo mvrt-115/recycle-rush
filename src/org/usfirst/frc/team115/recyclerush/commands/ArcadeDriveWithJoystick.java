@@ -1,7 +1,10 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.RobotMap;
 
 /**
  * Arcade Drive with joystick.

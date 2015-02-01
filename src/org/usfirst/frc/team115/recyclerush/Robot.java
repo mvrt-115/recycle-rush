@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
     }
     
     public void robotInit() {
-    	drive.initialize();
+    	//drive.initialize();
     }
 
     public void disabledPeriodic() {

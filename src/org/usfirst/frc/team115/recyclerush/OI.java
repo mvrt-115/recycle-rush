@@ -21,6 +21,7 @@ public class OI {
         joystick = new Joystick(RobotMap.JOYSTICK);
         driveStraightButton = new JoystickButton(joystick, RobotMap.DRIVE_STRAIGHT_BUTTON);
         
+        // Drive for 3 seconds TEST
         driveStraightButton.whenPressed(new DriveStraight(0.05, 0.008, 0.1));
         driveStraightButton.whenReleased(new ArcadeDriveWithJoystick());
 

@@ -48,7 +48,7 @@ public class DriveTrain extends Subsystem {
     public void initialize() {
     	for (CANTalon motor : motors) {
         	motor.enableControl();
-        	motor.setVoltageRampRate(24);
+   //     	motor.setVoltageRampRate(24);
         } 
     }
 
@@ -175,6 +175,7 @@ public class DriveTrain extends Subsystem {
 	 * This returns the current.
 	 * @return 		the current
 	 */
+	
 	public double getCurrent() {
 		double current = 0;
 		for (CANTalon motor : motors)
