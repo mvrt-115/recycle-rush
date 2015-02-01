@@ -25,7 +25,7 @@ public class RobotMap {
     public static final int GRABBER_SOLENOID_2 = 3;
     
     //LED's
-    public static final int PWM_LED1_RED = 2;
-    public static final int PWM_LED1_GREEN = 1;
-    public static final int PWM_LED1_BLUE = 3;
+    public static final int PWM_LED1_RED = 11;
+    public static final int PWM_LED1_GREEN = 10;
+    public static final int PWM_LED1_BLUE = 12;
 }

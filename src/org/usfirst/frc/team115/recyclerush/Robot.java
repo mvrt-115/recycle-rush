@@ -1,13 +1,12 @@
 package org.usfirst.frc.team115.recyclerush;
 
-import java.awt.Color;
-
 import org.usfirst.frc.team115.recyclerush.commands.LEDStaticColor;
 import org.usfirst.frc.team115.recyclerush.commands.StrobeLEDs;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
 import org.usfirst.frc.team115.recyclerush.subsystems.LEDstrip;
+import org.usfirst.frc.team115.recyclerush.subsystems.LEDstrip.Color;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -49,6 +48,7 @@ public class Robot extends IterativeRobot {
 
     public void teleopInit() {
 		SmartDashboard.putData(new StrobeLEDs(ledStrip, new Color(255, 0, 0), new Color(0, 0, 255)));
+		SmartDashboard.putData(new LEDStaticColor(new Color(255, 0, 0), ledStrip));
     }
 
     public void disabledInit() {

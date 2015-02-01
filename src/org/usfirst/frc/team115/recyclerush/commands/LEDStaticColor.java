@@ -1,8 +1,7 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-import java.awt.Color;
-
 import org.usfirst.frc.team115.recyclerush.subsystems.LEDstrip;
+import org.usfirst.frc.team115.recyclerush.subsystems.LEDstrip.Color;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

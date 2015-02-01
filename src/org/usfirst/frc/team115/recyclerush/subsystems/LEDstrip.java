@@ -11,8 +11,11 @@ public class LEDstrip extends Subsystem {
 	
 	public LEDstrip(int redChannel, int greenChannel, int blueChannel) {
 		red = new PWM(redChannel);
+		red.enableDeadbandElimination(true);
 		blue = new PWM(blueChannel);
+		blue.enableDeadbandElimination(true);
 		green = new PWM(greenChannel);
+		green.enableDeadbandElimination(true);
 	}
 	
 	
@@ -32,6 +35,26 @@ public class LEDstrip extends Subsystem {
 		red.setRaw(0);
 		blue.setRaw(0);
 		green.setRaw(0);
+	}
+	
+	public static class Color{
+		
+		int red;
+		int green;
+		int blue;
+		
+		public Color(int red, int green, int blue){
+			this.red = red;
+			this.green = green;
+			this.blue = blue;
+		}
+		
+		public int getRed(){ return red; }
+		
+		public int getBlue(){ return blue; }
+		
+		public int getGreen(){ return green; }
+		
 	}
 
 }
