@@ -27,6 +27,8 @@ public class Roller extends Subsystem {
 		rollerSolenoid = new DoubleSolenoid(RobotMap.ROLLER_SOLENOID_PORT_1, RobotMap.ROLLER_SOLENOID_PORT_2);
 	}
 
+	public void initialize() {}
+	
 	@Override
 	protected void initDefaultCommand() {}
 	
@@ -36,7 +38,7 @@ public class Roller extends Subsystem {
 	
 	/**
 	 * Turns the roller's motor
-	 * @param val	The speed to turn the left motor at (corrected to be between -1.0 and 1.0)
+	 * @param val	The speed to turn the motor at (corrected to be between -1.0 and 1.0)
 	 */
 	public void set(double val) {
 		if (Math.abs(val) <= 1.0)
