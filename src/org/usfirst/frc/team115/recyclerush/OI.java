@@ -21,9 +21,8 @@ public class OI {
         joystick = new Joystick(RobotMap.JOYSTICK);
         driveStraightButton = new JoystickButton(joystick, RobotMap.DRIVE_STRAIGHT_BUTTON);
         
-        driveStraightButton.whenPressed(new DriveStraight(0.05, 0, 0.05));
+        driveStraightButton.whenPressed(new DriveStraight(0.05, 0.008, 0.1));
         driveStraightButton.whenReleased(new ArcadeDriveWithJoystick());
-
 
         //todo: map buttons for commands (@akhil99)
     }

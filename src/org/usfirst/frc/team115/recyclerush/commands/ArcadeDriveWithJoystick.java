@@ -17,13 +17,11 @@ public class ArcadeDriveWithJoystick extends Command {
 
     @Override
     protected void initialize() {
-		Robot.drive.getCurrentCommand().cancel();
     }
 
     @Override
     protected void execute() {
         Robot.drive.drive(Robot.oi.getJoystick());
-        System.out.println("Homo");
     }
 
     @Override

@@ -1,8 +1,10 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
@@ -27,6 +29,10 @@ public class Robot extends IterativeRobot {
         grabber = new Grabber();
         oi = new OI();
     }
+    
+    public void robotInit() {
+    	drive.initialize();
+    }
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
@@ -41,7 +47,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-    	Scheduler.getInstance().add(new ArcadeDriveWithJoystick());
+    	Robot.drive.resetAll();
     }
 
     public void disabledInit() {
@@ -50,6 +56,7 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("NavX", Robot.drive.getYaw());
     }
 
     public void testPeriodic() {

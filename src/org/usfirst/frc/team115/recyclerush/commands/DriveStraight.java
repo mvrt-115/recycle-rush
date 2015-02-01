@@ -10,6 +10,7 @@ public class DriveStraight extends PIDCommand {
 	
 	public DriveStraight(double p, double i, double d) {
 		super(p, i, d);
+		requires(Robot.drive);
 		Robot.drive.setMode(CANTalon.ControlMode.PercentVbus);
 	}
 
@@ -25,13 +26,12 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void initialize() {
-		//Robot.drive.getCurrentCommand().cancel();
+		this.setSetpoint(Robot.drive.getYaw());
 	}
 	
 
 	@Override
 	protected void execute() {
-		System.out.println("No homo");
 	}
 
 	@Override
