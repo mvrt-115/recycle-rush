@@ -14,16 +14,20 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
     private Joystick joystick;
-    private JoystickButton driveStraightButton;
+    private JoystickButton driveStraightButton, timeButton;
 
     public OI() {
 
         joystick = new Joystick(RobotMap.JOYSTICK);
         driveStraightButton = new JoystickButton(joystick, RobotMap.DRIVE_STRAIGHT_BUTTON);
+        timeButton = new JoystickButton(joystick, 2);
         
         // Drive for 3 seconds TEST
         driveStraightButton.whenPressed(new DriveStraight(0.05, 0.008, 0.1));
         driveStraightButton.whenReleased(new ArcadeDriveWithJoystick());
+        
+        timeButton.whenPressed(new DriveStraight(2000, 0.05, 0.08, 0.01));
+        timeButton.whenReleased(new ArcadeDriveWithJoystick());
 
         //todo: map buttons for commands (@akhil99)
     }
