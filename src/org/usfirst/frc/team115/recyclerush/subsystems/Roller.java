@@ -22,9 +22,9 @@ public class Roller extends Subsystem {
 	 * Creates the two motors with the specified ports
 	 * @param m_port	Port for the CANTalon motor
 	 */
-	public Roller(int m_port) {
+	public Roller(int m_port, int solenoid_port1, int solenoid_port2) {
 		rollerMotor = new CANTalon(m_port);		
-		rollerSolenoid = new DoubleSolenoid(RobotMap.ROLLER_SOLENOID_PORT_1, RobotMap.ROLLER_SOLENOID_PORT_2);
+		rollerSolenoid = new DoubleSolenoid(solenoid_port1, solenoid_port2);
 	}
 
 	public void initialize() {}
