@@ -8,8 +8,7 @@ public class ElevatorDown extends PIDCommand {
 
 	public ElevatorDown(double p, double i, double d) {
 		super(p, i, d);
-		requires(Robot.elevator);
-		
+		requires(Robot.elevator);		
 	}
 
 	@Override
@@ -21,7 +20,9 @@ public class ElevatorDown extends PIDCommand {
 	protected void usePIDOutput(double output) {}
 
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+		Robot.elevator.release();
+	}
 
 	@Override
 	protected void execute() {

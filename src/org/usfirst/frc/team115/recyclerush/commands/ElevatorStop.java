@@ -13,13 +13,11 @@ public class ElevatorStop extends Command{
 	@Override
 	protected void initialize() {
 		Robot.elevator.stop();
-		Robot.elevator.Brake();
+		Robot.elevator.brake();
 	}
 
 	@Override
-	protected void execute() {
-		Robot.elevator.Release();
-	}
+	protected void execute() {}
 
 	@Override
 	protected boolean isFinished() {

@@ -58,11 +58,11 @@ public class Elevator extends PIDSubsystem {
 		usePIDOutput(0);
 	}
 	
-	public void Brake() {
+	public void brake() {
 		elevatorSolenoid.set(Value.kForward);
 	}
 	
-	public void Release() {
+	public void release() {
 		elevatorSolenoid.set(Value.kReverse);
 	}
 	
