@@ -50,6 +50,10 @@ public class RobotMap {
     public static final int ROLLER_SOLENOID_1		= 5;
     public static final int ROLLER_SOLENOID_2		= 6;
     
+    public static final int BREAK_SOLENOID_1		= 7;
+    public static final int BREAK_SOLENOID_2		= 8;
+    
+    
     //gyro on drivetrain
     public static final int GYRO					= 0;
     public static final int GYRO_TEMP				= 0;
