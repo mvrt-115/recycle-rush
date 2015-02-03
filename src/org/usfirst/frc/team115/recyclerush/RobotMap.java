@@ -2,9 +2,9 @@ package org.usfirst.frc.team115.recyclerush;
 
 /**
  * @author Lee Mracek
- * This class should contain final static variables
- * corresponding to each physical device on the robot. Naming scheme can
- * be found in the Electrical 2015 Excel Doc
+ *         This class should contain final static variables
+ *         corresponding to each physical device on the robot. Naming scheme can
+ *         be found in the Electrical 2015 Excel Doc
  */
 public class RobotMap {
 
@@ -64,4 +64,4 @@ public class RobotMap {
     public static final int PWM_LED1_GREEN			= 10;
     public static final int PWM_LED1_BLUE			= 12;
 
-}
+	}
