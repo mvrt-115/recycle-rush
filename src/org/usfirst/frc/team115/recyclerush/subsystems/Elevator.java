@@ -26,8 +26,12 @@ public class Elevator extends PIDSubsystem {
 
 	@Override
 	protected double returnPIDInput() {
-		//return rotationToLinear(encoder.get());
 		return encoder.getDistance();
+	}
+	
+	@Override
+	protected void usePIDOutput(double output) {
+		elevatorMotor.set(output);
 	}
 	
 	public void goUp() {
@@ -45,20 +49,7 @@ public class Elevator extends PIDSubsystem {
 	public void stop() {
 		usePIDOutput(0);
 	}
-
-	@Override
-	protected void usePIDOutput(double output) {
-		elevatorMotor.set(output);
-	}
 	
-//	// filler code - to edit later. D:
-//	public double rotationToLinear(int rotation){
-//		return 0;
-//	}
-//	public double linearToRotation(int linear){
-//		return 0;
-//	}
-//	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new ElevatorStop());

@@ -8,6 +8,7 @@ public class ElevatorUp extends PIDCommand {
 
 	public ElevatorUp(double p, double i, double d) {
 		super(p, i, d);
+		requires(Robot.elevator);
 	}
 
 	@Override
