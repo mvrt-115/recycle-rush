@@ -2,6 +2,7 @@ package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc.team115.recyclerush.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Turn extends PIDCommand {
 
@@ -12,6 +13,7 @@ public class Turn extends PIDCommand {
         super(0, 0, 0);
 
         this.goal = goal;
+        SmartDashboard.putString("Chassis Desired Angle", goal+"");
     }
     
     /**
@@ -29,16 +31,19 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void usePIDOutput(double output) {
+        SmartDashboard.putString("Chassis Current Angle", returnPIDInput()+"");
         Robot.drive.drive(Robot.oi.getJoystick().getY(), output);
     }
 
     @Override
     protected void initialize() {
         desiredAngle = goal + Robot.drive.getYaw(); // Goal degree.
+		SmartDashboard.putString("Chassis Current Angle", returnPIDInput()+"");
     }
 
     @Override
     protected void execute() {
+		SmartDashboard.putString("Chassis Current Angle", returnPIDInput()+"");
     }
 
     /**
@@ -57,6 +62,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void end() {
+    	SmartDashboard.putNumber("Chassis Gyro Angle Current", returnPIDInput());
         Robot.drive.stop();
     }
 

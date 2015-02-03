@@ -4,6 +4,7 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveStraight extends PIDCommand {
 		
@@ -13,11 +14,15 @@ public class DriveStraight extends PIDCommand {
 	public DriveStraight(double distance, double p, double i, double d) {
 		this(p, i, d);
 		Robot.drive.setMode(CANTalon.ControlMode.Position);
+		SmartDashboard.putString("DriveStraight Mode", "Distance");
+		SmartDashboard.putString("Distance", distance+"");
 		displacement = distance;
 	}
 	
 	public DriveStraight(long ms, double p, double i, double d) {
 		this(p, i, d);
+		SmartDashboard.putString("DriveStraight Mode", "Time");
+		SmartDashboard.putString("Drive time", ms+"");
 		this.setTimeout((float) (ms / 1000));
 		time = true;
 	}
@@ -27,6 +32,7 @@ public class DriveStraight extends PIDCommand {
 		time = false;
 		requires(Robot.drive);
 		Robot.drive.setMode(CANTalon.ControlMode.PercentVbus);
+		SmartDashboard.putString("DriveStraight Mode", "Default");
 	}
 
 	@Override
@@ -36,6 +42,7 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
+		SmartDashboard.putNumber("Chassis Gyro Angle Yaw", returnPIDInput());
 		if(time) {
 			Robot.drive.drive(1, output);
 		} else {
@@ -49,12 +56,12 @@ public class DriveStraight extends PIDCommand {
 			Robot.drive.enableControl();
 		}
 		this.setSetpoint(Robot.drive.getYaw());
+		SmartDashboard.putNumber("Chassis Gyro Angle Yaw", returnPIDInput());
 	}
 	
 
 	@Override
-	protected void execute() {
-	}
+	protected void execute() { }
 
 	@Override
 	protected boolean isFinished() {
