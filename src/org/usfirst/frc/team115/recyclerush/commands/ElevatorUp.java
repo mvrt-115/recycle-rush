@@ -4,10 +4,11 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
-public class ElevatorUp extends PIDCommand{
+public class ElevatorUp extends PIDCommand {
 
 	public ElevatorUp(double p, double i, double d) {
 		super(p, i, d);
+		requires(Robot.elevator);
 	}
 
 	@Override

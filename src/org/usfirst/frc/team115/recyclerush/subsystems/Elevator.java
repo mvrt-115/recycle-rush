@@ -33,19 +33,22 @@ public class Elevator extends PIDSubsystem {
 
 	@Override
 	protected double returnPIDInput() {
-		//return rotationToLinear(encoder.get());
 		return encoder.getDistance();
 	}
 	
-	public void goUp(){//would this keep running even when stop() is called, because then... it would loop till at max...
-		
-		while(returnPIDInput() <= MAX_HEIGHT){
+	@Override
+	protected void usePIDOutput(double output) {
+		elevatorMotor.set(output);
+	}
+	
+	public void goUp() {
+		if (returnPIDInput() < MAX_HEIGHT){
 			usePIDOutput(1);
 		}
 	}
 		
-	public void goDown(){
-		while(returnPIDInput() >= MIN_HEIGHT){
+	public void goDown() {
+		if (returnPIDInput() > MIN_HEIGHT){
 			usePIDOutput(-1);
 		}	
 	}
@@ -53,20 +56,7 @@ public class Elevator extends PIDSubsystem {
 	public void stop() {
 		usePIDOutput(0);
 	}
-
-	@Override
-	protected void usePIDOutput(double output) {
-		elevatorMotor.set(output);
-	}
 	
-//	// filler code - to edit later. D:
-//	public double rotationToLinear(int rotation){
-//		return 0;
-//	}
-//	public double linearToRotation(int linear){
-//		return 0;
-//	}
-//	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new ElevatorStop());
