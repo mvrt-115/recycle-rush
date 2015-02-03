@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -55,6 +56,14 @@ public class Elevator extends PIDSubsystem {
 	
 	public void stop() {
 		usePIDOutput(0);
+	}
+	
+	public void elevatorBreak() {
+		elevatorSolenoid.set(Value.kForward);
+	}
+	
+	public void elevatorRelease() {
+		elevatorSolenoid.set(Value.kReverse);
 	}
 	
 	@Override
