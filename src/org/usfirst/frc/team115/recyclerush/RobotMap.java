@@ -18,4 +18,7 @@ public class RobotMap {
     public static final int JOYSTICK 			 = 0;
     
     public static final int ELEVATOR			 = 0;
+    
+    public static final int BREAK_SOLENOID_1     = 0;
+    public static final int BREAK_SOLENOID_2     = 0;
 }

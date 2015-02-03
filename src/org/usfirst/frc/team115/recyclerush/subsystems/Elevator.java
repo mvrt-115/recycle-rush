@@ -6,6 +6,7 @@ import org.usfirst.frc.team115.recyclerush.commands.ElevatorStop;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Elevator extends PIDSubsystem {
 	private Encoder encoder;
 	private CANTalon elevatorMotor;
+	private DoubleSolenoid elevatorSolenoid;
 	public static final double MAX_HEIGHT = 10.0;
 	public static final double MIN_HEIGHT = 0;
 	
@@ -23,6 +25,8 @@ public class Elevator extends PIDSubsystem {
 		
 		elevatorMotor = new CANTalon(RobotMap.ELEVATOR);
 		elevatorMotor.changeControlMode(ControlMode.Position);
+		
+		elevatorSolenoid = new DoubleSolenoid(RobotMap.BREAK_SOLENOID_1, RobotMap.BREAK_SOLENOID_2);
 		
 		SmartDashboard.putNumber("Elevator Height", returnPIDInput());
 	}
