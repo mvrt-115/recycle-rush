@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator extends PIDSubsystem {
 	private Encoder encoder;
@@ -19,9 +20,11 @@ public class Elevator extends PIDSubsystem {
 		super(p, i, d);
 
 		encoder = new Encoder(1,2,true,EncodingType.k4X);
+		
 		elevatorMotor = new CANTalon(RobotMap.ELEVATOR);
 		elevatorMotor.changeControlMode(ControlMode.Position);
-		encoder.reset();
+		
+		SmartDashboard.putNumber("Elevator Height", returnPIDInput());
 	}
 
 	@Override
