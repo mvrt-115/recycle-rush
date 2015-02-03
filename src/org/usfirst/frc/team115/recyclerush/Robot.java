@@ -3,6 +3,8 @@ package org.usfirst.frc.team115.recyclerush;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
@@ -48,6 +50,8 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        drive.enableUltrasonicAll();
+        SmartDashboard.putNumber("Ultrasonic", drive.getFrontUltrasonicInches());
     }
 
     public void testPeriodic() {
