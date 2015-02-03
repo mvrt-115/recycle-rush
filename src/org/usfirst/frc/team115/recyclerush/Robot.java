@@ -22,8 +22,8 @@ public class Robot extends IterativeRobot {
 	public Robot() {
 		drive = new DriveTrain();
         oi = new OI();
-        leftRoller  = new Roller(RobotMap.ROLLER_MOTOR_LEFT,  RobotMap.ROLLER_SOLENOID_LEFT_PORT_1,  RobotMap.ROLLER_SOLENOID_LEFT_PORT_2);
-        rightRoller = new Roller(RobotMap.ROLLER_MOTOR_RIGHT, RobotMap.ROLLER_SOLENOID_RIGHT_PORT_1, RobotMap.ROLLER_SOLENOID_RIGHT_PORT_2);
+        leftRoller  = new Roller(RobotMap.ROLLER_MOTOR_LEFT,  RobotMap.ROLLER_SOLENOID_1,  RobotMap.ROLLER_SOLENOID_2);
+        rightRoller = new Roller(RobotMap.ROLLER_MOTOR_RIGHT, RobotMap.ROLLER_SOLENOID_1, RobotMap.ROLLER_SOLENOID_2);
 	}
     
 	public void disabledPeriodic() {
