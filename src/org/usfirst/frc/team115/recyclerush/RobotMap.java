@@ -47,12 +47,8 @@ public class RobotMap {
     public static final int GRABBER_SOLENOID_1		= 2;
     public static final int GRABBER_SOLENOID_2		= 3;
     
-    public static final int LEFT_ROLLER_SOLENOID_1	= 5;
-    public static final int LEFT_ROLLER_SOLENOID_2	= 6;
-    
-    public static final int RIGHT_ROLLER_SOLENOID_1 = 7;
-    public static final int RIGHT_ROLLER_SOLENOID_2 = 8;
-    
+    public static final int ROLLER_SOLENOID_1		= 5;
+    public static final int ROLLER_SOLENOID_2		= 6;
     
     //gyro on drivetrain
     public static final int GYRO					= 0;
