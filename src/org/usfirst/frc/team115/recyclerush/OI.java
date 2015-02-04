@@ -3,7 +3,6 @@ package org.usfirst.frc.team115.recyclerush;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 import org.usfirst.frc.team115.recyclerush.commands.DriveStraight;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -28,7 +27,6 @@ public class OI {
         
         timeButton.whenPressed(new DriveStraight(2000, 0.05, 0.08, 0.01));
         timeButton.whenReleased(new ArcadeDriveWithJoystick());
-
         //todo: map buttons for commands (@akhil99)
     }
 
