@@ -22,7 +22,9 @@ public class ElevatorUp extends PIDCommand {
 	protected void usePIDOutput(double output) {}
 
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+		Robot.elevator.release();
+	}
 
 	@Override
 	protected void execute() {
