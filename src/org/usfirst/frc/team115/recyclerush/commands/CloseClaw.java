@@ -3,19 +3,19 @@ package org.usfirst.frc.team115.recyclerush.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
-public class DriveStop extends Command {
+public class CloseClaw extends Command {
 
-    public DriveStop() {
-        requires(Robot.drive);
+    public CloseClaw() {
+        requires(Robot.claw);
     }
 
     @Override
     protected void initialize() {
-        Robot.drive.stop();
     }
 
     @Override
     protected void execute() {
+        Robot.claw.close();
     }
 
     @Override
