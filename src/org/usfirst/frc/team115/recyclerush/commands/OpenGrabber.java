@@ -1,12 +1,15 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 public class OpenGrabber extends Command {
 
     public OpenGrabber() {
         requires(Robot.grabber);
+        SmartDashboard.putBoolean("GrabberOpen", true);
     }
 
     @Override

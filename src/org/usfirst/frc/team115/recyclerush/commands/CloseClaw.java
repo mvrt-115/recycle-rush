@@ -1,12 +1,15 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 public class CloseClaw extends Command {
 
     public CloseClaw() {
         requires(Robot.claw);
+        SmartDashboard.putBoolean("ClawClose", false);
     }
 
     @Override
