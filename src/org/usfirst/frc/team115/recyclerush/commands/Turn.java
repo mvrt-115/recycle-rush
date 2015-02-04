@@ -18,12 +18,11 @@ public class Turn extends PIDCommand {
 	 * @param i, integral coefficient
 	 * @param d, derivative coefficient
 	 */
-	public Turn(double goal) {
+	public Turn() {
 		super(0, 0, 0);
 		gyro = Robot.drive.getGyro();
 		
-		desiredAngle = SmartDashboard.getNumber("Angle to turn");
-		this.goal = goal;
+		this.goal = SmartDashboard.getNumber("Angle to turn");
 	}
 
 	/**
