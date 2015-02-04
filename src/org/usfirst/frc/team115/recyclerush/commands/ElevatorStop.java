@@ -3,11 +3,13 @@ package org.usfirst.frc.team115.recyclerush.commands;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorStop extends Command{
 	
 	public ElevatorStop(){
 		requires(Robot.elevator);
+		SmartDashboard.putString("ElevatorDirection", "Stop");
 	}
 	
 	@Override

@@ -3,13 +3,14 @@ package org.usfirst.frc.team115.recyclerush.commands;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorDown extends PIDCommand {
 
 	public ElevatorDown(double p, double i, double d) {
 		super(p, i, d);
 		requires(Robot.elevator);
-		
+		SmartDashboard.putString("ElevatorDirection", "Down");
 	}
 
 	@Override
