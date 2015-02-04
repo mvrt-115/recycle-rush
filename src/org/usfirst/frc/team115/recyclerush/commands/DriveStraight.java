@@ -10,9 +10,9 @@ public class DriveStraight extends PIDCommand {
 		
 	private double displacement;
 	private boolean time = false;
-	private double distance;
+	//private double distance;
 	
-	distance = SmartDashboard.getNumber("drive distance");
+	//distance = SmartDashboard.getNumber("drive distance");
 	
 	public DriveStraight(double distance, double p, double i, double d) {
 		this(p, i, d);
