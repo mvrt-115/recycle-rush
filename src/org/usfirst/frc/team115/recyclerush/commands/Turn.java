@@ -4,6 +4,7 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Turn extends PIDCommand {
 
@@ -21,6 +22,7 @@ public class Turn extends PIDCommand {
 		super(0, 0, 0);
 		gyro = Robot.drive.getGyro();
 		
+		desiredAngle = SmartDashboard.getNumber("Angle to turn");
 		this.goal = goal;
 	}
 
