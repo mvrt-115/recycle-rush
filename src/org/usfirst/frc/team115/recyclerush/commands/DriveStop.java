@@ -1,6 +1,8 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 public class DriveStop extends Command {
@@ -11,6 +13,7 @@ public class DriveStop extends Command {
 
     @Override
     protected void initialize() {
+    	SmartDashboard.putString("Chassis Drive", "Off");
         Robot.drive.stop();
     }
 

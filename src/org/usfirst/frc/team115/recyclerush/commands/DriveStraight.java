@@ -15,6 +15,8 @@ public class DriveStraight extends PIDCommand {
 		this(p, i, d);
 		timeUsed = false;
 		Robot.drive.setMode(CANTalon.ControlMode.Position);
+		SmartDashboard.putString("DriveStraight Mode", "Distance");
+		SmartDashboard.putString("Distance", distance+"");
 		displacement = distance;
 		SmartDashboard.putNumber("DriveDistance", displacement);
 		SmartDashboard.putBoolean("TimeUsed", timeUsed);
@@ -22,6 +24,8 @@ public class DriveStraight extends PIDCommand {
 	
 	public DriveStraight(long ms, double p, double i, double d) {
 		this(p, i, d);
+		SmartDashboard.putString("DriveStraight Mode", "Time");
+		SmartDashboard.putString("Drive time", ms+"");
 		this.setTimeout((float) (ms / 1000));
 		timeUsed = true;
 	}
@@ -31,6 +35,7 @@ public class DriveStraight extends PIDCommand {
 		timeUsed = false;
 		requires(Robot.drive);
 		Robot.drive.setMode(CANTalon.ControlMode.PercentVbus);
+		SmartDashboard.putString("DriveStraight Mode", "Default");
 	}
 
 	@Override
@@ -40,6 +45,7 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
+		SmartDashboard.putNumber("Chassis Gyro Angle Yaw", returnPIDInput());
 		if(timeUsed) {
 			Robot.drive.drive(1, output);
 		} else {
@@ -53,12 +59,12 @@ public class DriveStraight extends PIDCommand {
 			Robot.drive.enableControl();
 		}
 		this.setSetpoint(Robot.drive.getYaw());
+		SmartDashboard.putNumber("Chassis Gyro Angle Yaw", returnPIDInput());
 	}
 	
 
 	@Override
-	protected void execute() {
-	}
+	protected void execute() { }
 
 	@Override
 	protected boolean isFinished() {
