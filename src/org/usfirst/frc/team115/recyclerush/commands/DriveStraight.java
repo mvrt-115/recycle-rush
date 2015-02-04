@@ -6,6 +6,7 @@ import org.usfirst.frc.team115.recyclerush.RobotMap;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveStraight extends PIDCommand {
 	
@@ -19,8 +20,11 @@ public class DriveStraight extends PIDCommand {
 	private Gyro gyro;
 	private long startTime, timeLimit;
 
-	public DriveStraight(double distance, double p, double i, double d) {
-		this(distance, DEFAULT_SPEED, p, i, d);
+	public DriveStraight(double displacement, double p, double i, double d) {
+		this(displacement, DEFAULT_SPEED, p, i, d);
+		speed = SmartDashboard.getNumber("Speed");
+		distance = SmartDashboard.getNumber("Distance");
+		timeLimit = (long)SmartDashboard.getNumber("Time Limit");
 	}
 	
 	public DriveStraight(double distance, double speed, double p, double i, double d) {
