@@ -25,12 +25,8 @@ public class RobotMap {
     public static final int GRABBER_SOLENOID_2 = 3;
     
     //ultrasonic
-    public static final int INPUT_FRONT = 19;
-    public static final int OUTPUT_FRONT = 18;
-    public static final int INPUT_BACK = 12;
-    public static final int OUTPUT_BACK = 11;
-    public static final int INPUT_LEFT = 15;
-    public static final int OUTPUT_LEFT = 16;
-    public static final int INPUT_RIGHT = 17;
-    public static final int OUTPUT_RIGHT = 18;
+    public static final int INPUT_FRONT = 4;
+    public static final int INPUT_BACK = 5;
+    public static final int INPUT_LEFT = 6;
+    public static final int INPUT_RIGHT = 7;
 }

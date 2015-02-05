@@ -50,8 +50,10 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        drive.enableUltrasonicAll();
-        SmartDashboard.putNumber("Ultrasonic", drive.getFrontUltrasonicInches());
+        SmartDashboard.putNumber("Front Ultrasonic", drive.getFrontUltrasonicInches());
+        SmartDashboard.putNumber("Back Ultrasonic", drive.getBackUltrasonicInches());
+        SmartDashboard.putNumber("Left Ultrasonic", drive.getLeftUltrasonicInches());
+        SmartDashboard.putNumber("Right Ultrasonic", drive.getRightUltrasonicInches());
     }
 
     public void testPeriodic() {

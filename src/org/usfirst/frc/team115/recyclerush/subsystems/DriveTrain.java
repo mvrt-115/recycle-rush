@@ -8,6 +8,7 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
@@ -27,10 +29,10 @@ public class DriveTrain extends Subsystem {
 	private final int FRONT_LEFT = 2;
 	private final int FRONT_RIGHT = 3;
 	private IMUAdvanced navX;
-	private Ultrasonic ultrasonicFront;
-	private Ultrasonic ultrasonicBack;
-	private Ultrasonic ultrasonicLeft;
-	private Ultrasonic ultrasonicRight;
+	private AnalogInput ultrasonicFront;
+	private AnalogInput ultrasonicBack;
+	private AnalogInput ultrasonicLeft;
+	private AnalogInput ultrasonicRight;
 
 	private CANTalon motors[];
 
@@ -39,11 +41,11 @@ public class DriveTrain extends Subsystem {
 	 */
 	public DriveTrain() {
 		navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
-
-		ultrasonicFront = new Ultrasonic(RobotMap.OUTPUT_FRONT, RobotMap.INPUT_FRONT);
-		ultrasonicBack = new Ultrasonic(RobotMap.OUTPUT_BACK, RobotMap.INPUT_BACK);
-		ultrasonicLeft = new Ultrasonic(RobotMap.OUTPUT_LEFT, RobotMap.INPUT_LEFT);
-		ultrasonicRight = new Ultrasonic(RobotMap.OUTPUT_RIGHT, RobotMap.INPUT_RIGHT);
+		
+		ultrasonicFront = new AnalogInput(RobotMap.INPUT_FRONT);
+		ultrasonicBack = new AnalogInput(RobotMap.INPUT_BACK);
+		ultrasonicLeft = new AnalogInput(RobotMap.INPUT_LEFT);
+		ultrasonicRight = new AnalogInput(RobotMap.INPUT_RIGHT);
 
 		motors = new CANTalon[4];
 		motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
@@ -168,7 +170,7 @@ public class DriveTrain extends Subsystem {
 	 * @return
 	 */
 	public double getFrontUltrasonicInches(){
-		return ultrasonicFront.getRangeInches();
+		 return ultrasonicFront.getVoltage()/0.00644;
 	}
 	
 	/**
@@ -177,7 +179,7 @@ public class DriveTrain extends Subsystem {
 	 * @return 
 	 */
 	public double getBackUltrasonicInches(){
-		return ultrasonicBack.getRangeInches();
+		 return ultrasonicBack.getVoltage()/0.00644;
 	}
 	
 	/**
@@ -186,7 +188,7 @@ public class DriveTrain extends Subsystem {
 	 * @return 
 	 */
 	public double getLeftUltrasonicInches(){
-		return ultrasonicLeft.getRangeInches();
+		 return ultrasonicLeft.getVoltage()/0.00644;
 	}
 	
 	/**
@@ -195,18 +197,10 @@ public class DriveTrain extends Subsystem {
 	 * @return
 	 */
 	public double getRightUltrasonicInches(){
-		return ultrasonicRight.getRangeInches();
+		  return ultrasonicRight.getVoltage()/0.00644;
+		 
 	}
 	
-	/**
-	 * Enables all Ultrasonic sensors
-	 * 
-	 */
-	public void enableUltrasonicAll(){
-		ultrasonicFront.setEnabled(true);
-		ultrasonicBack.setEnabled(true);
-		ultrasonicLeft.setEnabled(true);
-		ultrasonicRight.setEnabled(true);
-	}
+
 
 }
