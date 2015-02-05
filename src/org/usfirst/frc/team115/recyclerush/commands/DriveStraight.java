@@ -14,9 +14,9 @@ public class DriveStraight extends PIDCommand {
 	
 	public static final int DISTANCE = 0;
 	public static final int TIME = 1;
-	public static final int JOYSTICKCONTROL = 2; 
+	public static final int JOYSTICKCONTROL = 2; //Sorry crappy name
 	
-	private double desiredAngle;
+	private double desiredAngle; 
 	private double distance;
 	private double speed;
 	private boolean hasTimeLimit, hasDistanceLimit, useJoystick;
