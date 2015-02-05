@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Turn extends PIDCommand {
 
-	private double desiredAngle; // the final angle we strive for
+	private double desiredAngle; // the final angle we strive for, relative to current. (DELTA ANGLE)
 	private Gyro gyro;	// Creates a Gyro object
-	private double goal;
+	private double goal; //the final angle we strive for, relative to original (ABSOLUTE ANGLE)
 
 	/**
 	 * Constructor
@@ -21,8 +21,7 @@ public class Turn extends PIDCommand {
 	public Turn() {
 		super(0, 0, 0);
 		gyro = Robot.drive.getGyro();
-		
-		this.goal = SmartDashboard.getNumber("Angle to turn");
+		goal = SmartDashboard.getNumber("Angle to turn");
 	}
 
 	/**
