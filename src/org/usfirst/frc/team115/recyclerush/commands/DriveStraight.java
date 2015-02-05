@@ -11,20 +11,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveStraight extends PIDCommand {
 	
 	public static final double DEFAULT_SPEED = 0.5;
-
+	
+	public static final int DISTANCE = 0;
+	public static final int TIME = 1;
+	public static final int JOYSTICKCONTROL = 2; 
+	
 	private double desiredAngle;
 	private double distance;
 	private double speed;
-	private boolean hasTimeLimit, hasDistanceLimit, hasSpeed;
+	private boolean hasTimeLimit, hasDistanceLimit, useJoystick;
 	private Encoder encoder;
 	private Gyro gyro;
 	private long startTime, timeLimit;
 
-	public DriveStraight(double displacement, double p, double i, double d) {
-		this(displacement, DEFAULT_SPEED, p, i, d);
-		speed = SmartDashboard.getNumber("Speed");
-		distance = SmartDashboard.getNumber("Distance");
-		timeLimit = (long)SmartDashboard.getNumber("Time Limit");
+	/*Old Constructors:
+	 * public DriveStraight(double inDistance, double p, double i, double d) {
+		this(inDistance, DEFAULT_SPEED, p, i, d);
+		distance = inDistance;
 	}
 	
 	public DriveStraight(double distance, double speed, double p, double i, double d) {
@@ -43,12 +46,36 @@ public class DriveStraight extends PIDCommand {
 		encoder = new Encoder(RobotMap.DRIVE_STRAIGHT_ENCODER_A, RobotMap.DRIVE_STRAIGHT_ENCODER_B);
 		startTime = System.currentTimeMillis();
 	}
+	*/
 	
-	public DriveStraight(double p, double i, double d) {
+	
+	/*Modes
+	 *  0: User-set distance
+	 *  1: User-set time
+	 *  2: Use joystick
+	*/
+	public DriveStraight(double p, double i, double d, int mode) {
 		super(p, i, d);
-		hasDistanceLimit = hasSpeed = hasTimeLimit = false;
+		hasDistanceLimit = hasTimeLimit = false;
+		useJoystick = false;
 		gyro = new Gyro(0);
 		this.setSetpoint(desiredAngle);
+		speed = (long)SmartDashboard.getNumber("Drive speed", (double)DEFAULT_SPEED);
+		encoder = new Encoder(RobotMap.DRIVE_STRAIGHT_ENCODER_A, RobotMap.DRIVE_STRAIGHT_ENCODER_B);
+		
+		switch(mode) {
+			case DISTANCE: //Drive a set distance
+				hasDistanceLimit = true;
+				distance = SmartDashboard.getNumber("Drive distance");
+				break;
+			case TIME: //Drive for a period of time
+				hasTimeLimit = true;
+				timeLimit = (long)SmartDashboard.getNumber("Drive time");
+				startTime = System.currentTimeMillis();
+				break;
+			case JOYSTICKCONTROL: //Use joystick with PID
+				useJoystick = true;
+		}
 	}
 
 	@Override
@@ -58,7 +85,7 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		if (hasSpeed)
+		if (!useJoystick)
 			Robot.drive.drive(speed, output);
 		else
 			Robot.drive.drive(Robot.oi.getJoystick().getY(), output);
