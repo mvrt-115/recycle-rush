@@ -1,24 +1,21 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team115.recyclerush.Robot;
 
-public class DriveStop extends Command {
+public class CloseGrabber extends Command {
 
-    public DriveStop() {
-        requires(Robot.drive);
+    public CloseGrabber() {
+        requires(Robot.grabber);
     }
 
     @Override
     protected void initialize() {
-    	SmartDashboard.putString("Chassis Drive", "Off");
-        Robot.drive.stop();
     }
 
     @Override
     protected void execute() {
+        Robot.grabber.close();
     }
 
     @Override

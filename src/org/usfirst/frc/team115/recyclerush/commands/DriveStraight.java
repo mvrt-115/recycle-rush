@@ -14,7 +14,7 @@ public class DriveStraight extends PIDCommand {
 	
 	public static final int DISTANCE = 0;
 	public static final int TIME = 1;
-	public static final int JOYSTICKCONTROL = 2; //Sorry crappy name
+	public static final int JOYSTICK_CONTROL = 2;
 	
 	private double desiredAngle; 
 	private double distance;
@@ -73,7 +73,7 @@ public class DriveStraight extends PIDCommand {
 				timeLimit = (long)SmartDashboard.getNumber("Drive time");
 				startTime = System.currentTimeMillis();
 				break;
-			case JOYSTICKCONTROL: //Use joystick with PID
+			case JOYSTICK_CONTROL: //Use joystick with PID
 				useJoystick = true;
 		}
 	}
