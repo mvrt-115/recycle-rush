@@ -28,7 +28,13 @@ public class OI {
 		initXboxController();
 	}
 	
+	/**
+	 * Sets up each button of the Xbox controller, and performs a command when pressed,
+	 * held, etc.
+	 * 
+	 */
 	private void initXboxController(){
+		
 		JoystickButton lb = new JoystickButton(xbox, RobotMap.XBOX_LB);
 		lb.whenPressed(new OpenClaw());
 		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
@@ -43,7 +49,8 @@ public class OI {
 		
 		//TODO: Finish AutoIntake.java
 		JoystickButton ab =  new JoystickButton(xbox, RobotMap.XBOX_A);
-		ab.whenPressed(new AutoIntake());
+		ab.whenPressed(new AutoIntake()); 
+		
 		
 	}
 	
@@ -65,6 +72,11 @@ public class OI {
 	
 	public int getXboxPOV(){
 		return xbox.getPOV();
+	}
+	
+	public double getElevAxis(){
+		//elev.getAxis();
+		return getXboxAxis(RobotMap.XBOX_AXIS_LY);
 	}
 	
 }

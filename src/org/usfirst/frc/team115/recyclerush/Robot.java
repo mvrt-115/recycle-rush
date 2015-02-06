@@ -3,9 +3,12 @@ package org.usfirst.frc.team115.recyclerush;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
+import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 
 /**
  * @author Lee Mracek
@@ -18,12 +21,16 @@ public class Robot extends IterativeRobot {
     public static Claw claw;
     public static Grabber grabber;
     public static OI oi;
+    public static Elevator elevator;
+    public static Roller roller;
 
     public Robot() {
         drive = new DriveTrain();
         claw = new Claw();
         grabber = new Grabber();
         oi = new OI();
+        elevator = new Elevator(0, 0, 0);
+        roller  = new Roller(RobotMap.ROLLER_MOTOR_LEFT, RobotMap.ROLLER_MOTOR_RIGHT, RobotMap.ROLLER_SOLENOID_1, RobotMap.ROLLER_SOLENOID_2);
     }
 
     public void disabledPeriodic() {

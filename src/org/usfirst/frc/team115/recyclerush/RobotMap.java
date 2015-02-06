@@ -21,9 +21,20 @@ public class RobotMap {
     public static final int GRABBER_SOLENOID_1 = 2;
     public static final int GRABBER_SOLENOID_2 = 3;
 
-    //joystick
+    //joystick stuff
     public static final int JOYSTICK 			 = 0;
     public static final int XBOX                 = 1;
+    
+    //subsystem stuff
+    public static final int ELEVATOR			 = 0;
+    
+    public static final int BREAK_SOLENOID_1     = 0;
+    public static final int BREAK_SOLENOID_2     = 0;
+    
+    public static final int ROLLER_MOTOR_LEFT	 = 0;
+    public static final int ROLLER_MOTOR_RIGHT	 = 0;
+    public static final int ROLLER_SOLENOID_1  = 0;
+    public static final int ROLLER_SOLENOID_2  = 0;
     
     //xbox buttons
     public static final int XBOX_A			 = 1;
