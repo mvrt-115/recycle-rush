@@ -6,6 +6,9 @@
 
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.recyclerush.RobotMap;
+import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
+
 import com.kauailabs.nav6.frc.IMUAdvanced;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -15,12 +18,10 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.usfirst.frc.team115.recyclerush.RobotMap;
-import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
 public class DriveTrain extends Subsystem {
 
-    private RobotDrive drive;
+	private RobotDrive drive;
     private final int BACK_LEFT = 0;
     private final int BACK_RIGHT = 1;
     private final int FRONT_LEFT = 2;
@@ -31,6 +32,7 @@ public class DriveTrain extends Subsystem {
     private AnalogInput ultrasonicBack;
     private AnalogInput ultrasonicLeft;
     private AnalogInput ultrasonicRight;
+    private static final double ANALOG_SCALE_3_3V = 0.00644;
 
     private CANTalon motors[];
 
@@ -166,28 +168,28 @@ public class DriveTrain extends Subsystem {
      * @return the distance from front
      */
     public double getFrontUltrasonicInches(){
-        return ultrasonicFront.getVoltage()/0.00644;
+        return ultrasonicFront.getVoltage()/ANALOG_SCALE_3_3V;
     }
 
     /**
      * @return the distance from back 
      */
     public double getBackUltrasonicInches(){
-        return ultrasonicBack.getVoltage()/0.00644;
+        return ultrasonicBack.getVoltage()/ANALOG_SCALE_3_3V;
     }
 
     /**
      * @return the distance from left
      */
     public double getLeftUltrasonicInches(){
-        return ultrasonicLeft.getVoltage()/0.00644;
+        return ultrasonicLeft.getVoltage()/ANALOG_SCALE_3_3V;
     }
 
     /**
      * @return the distance from right
      */
     public double getRightUltrasonicInches(){
-        return ultrasonicRight.getVoltage()/0.00644;
+        return ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V;
     }
 
 

@@ -1,16 +1,15 @@
 package org.usfirst.frc.team115.recyclerush;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
 
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
 /**
- * @author Lee Mracek
+ * @author MVRT
  *         This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
  *         Note: If you change the class name or package, the manifest must be updated.
  */
