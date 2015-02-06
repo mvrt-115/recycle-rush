@@ -29,6 +29,7 @@ public class DriveTrain extends Subsystem {
 	private final int FRONT_LEFT = 2;
 	private final int FRONT_RIGHT = 3;
 	private IMUAdvanced navX;
+	
 	private AnalogInput ultrasonicFront;
 	private AnalogInput ultrasonicBack;
 	private AnalogInput ultrasonicLeft;
@@ -165,40 +166,31 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	/**
-	 * Returns the distance from front
-	 * 
-	 * @return
+	 * @return the distance from front
 	 */
 	public double getFrontUltrasonicInches(){
 		 return ultrasonicFront.getVoltage()/0.00644;
 	}
 	
 	/**
-	 * Returns the distance from back
-	 * 
-	 * @return 
+	 * @return the distance from back 
 	 */
 	public double getBackUltrasonicInches(){
 		 return ultrasonicBack.getVoltage()/0.00644;
 	}
 	
 	/**
-	 * Returns the distance from left
-	 * 
-	 * @return 
+	 * @return the distance from left
 	 */
 	public double getLeftUltrasonicInches(){
 		 return ultrasonicLeft.getVoltage()/0.00644;
 	}
 	
 	/**
-	 * Returns the distance from right
-	 * 
-	 * @return
+	 * @return the distance from right
 	 */
 	public double getRightUltrasonicInches(){
 		  return ultrasonicRight.getVoltage()/0.00644;
-		 
 	}
 	
 
