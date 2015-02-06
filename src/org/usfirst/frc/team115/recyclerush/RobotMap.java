@@ -23,7 +23,7 @@ public class RobotMap {
 
     public static final int GRABBER_SOLENOID_1 = 2;
     public static final int GRABBER_SOLENOID_2 = 3;
-    
+
     //ultrasonic
     public static final int INPUT_FRONT = 4;
     public static final int INPUT_BACK = 5;

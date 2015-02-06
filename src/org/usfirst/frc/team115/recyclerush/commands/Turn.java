@@ -13,7 +13,7 @@ public class Turn extends PIDCommand {
 
         this.goal = goal;
     }
-    
+
     /**
      * @return the gyro's current angle
      */

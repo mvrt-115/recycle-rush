@@ -14,185 +14,182 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
 public class DriveTrain extends Subsystem {
 
-	private RobotDrive drive;
-	private final int BACK_LEFT = 0;
-	private final int BACK_RIGHT = 1;
-	private final int FRONT_LEFT = 2;
-	private final int FRONT_RIGHT = 3;
-	private IMUAdvanced navX;
-	
-	private AnalogInput ultrasonicFront;
-	private AnalogInput ultrasonicBack;
-	private AnalogInput ultrasonicLeft;
-	private AnalogInput ultrasonicRight;
+    private RobotDrive drive;
+    private final int BACK_LEFT = 0;
+    private final int BACK_RIGHT = 1;
+    private final int FRONT_LEFT = 2;
+    private final int FRONT_RIGHT = 3;
+    private IMUAdvanced navX;
 
-	private CANTalon motors[];
+    private AnalogInput ultrasonicFront;
+    private AnalogInput ultrasonicBack;
+    private AnalogInput ultrasonicLeft;
+    private AnalogInput ultrasonicRight;
 
-	/**
-	 * Initializes each other motors based on ports set in RobotMap
-	 */
-	public DriveTrain() {
-		navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
-		
-		ultrasonicFront = new AnalogInput(RobotMap.INPUT_FRONT);
-		ultrasonicBack = new AnalogInput(RobotMap.INPUT_BACK);
-		ultrasonicLeft = new AnalogInput(RobotMap.INPUT_LEFT);
-		ultrasonicRight = new AnalogInput(RobotMap.INPUT_RIGHT);
+    private CANTalon motors[];
 
-		motors = new CANTalon[4];
-		motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
-		motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
-		motors[FRONT_LEFT] = new CANTalon(RobotMap.FRONT_LEFT_DRIVE);
-		motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
-		drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
-				motors[FRONT_RIGHT], motors[BACK_RIGHT]);
-	}
+    /**
+     * Initializes each other motors based on ports set in RobotMap
+     */
+    public DriveTrain() {
+        navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
 
-	/**
-	 * This thing drives the robot!
-	 *
-	 * @param move   the forward speed of the rotation
-	 * @param rotate the rotation value of the robot
-	 */
-	public void drive(double move, double rotate) {
-		drive.arcadeDrive(move, rotate);
-	}
+        ultrasonicFront = new AnalogInput(RobotMap.INPUT_FRONT);
+        ultrasonicBack = new AnalogInput(RobotMap.INPUT_BACK);
+        ultrasonicLeft = new AnalogInput(RobotMap.INPUT_LEFT);
+        ultrasonicRight = new AnalogInput(RobotMap.INPUT_RIGHT);
 
-	/**
-	 * Drives the robot
-	 *
-	 * @param joystick The joystick to drive based on
-	 */
-	public void drive(Joystick joystick) {
-		drive.arcadeDrive(joystick);
-	}
+        motors = new CANTalon[4];
+        motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
+        motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
+        motors[FRONT_LEFT] = new CANTalon(RobotMap.FRONT_LEFT_DRIVE);
+        motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
+        drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
+                motors[FRONT_RIGHT], motors[BACK_RIGHT]);
+    }
 
-	/**
-	 * Stops the drivetrain
-	 */
-	public void stop() {
-		drive(0, 0);
-	}
+    /**
+     * This thing drives the robot!
+     *
+     * @param move   the forward speed of the rotation
+     * @param rotate the rotation value of the robot
+     */
+    public void drive(double move, double rotate) {
+        drive.arcadeDrive(move, rotate);
+    }
 
-	/**
-	 * Initializes the default command of the subsystem.
-	 */
-	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new ArcadeDriveWithJoystick());
-	}
+    /**
+     * Drives the robot
+     *
+     * @param joystick The joystick to drive based on
+     */
+    public void drive(Joystick joystick) {
+        drive.arcadeDrive(joystick);
+    }
 
-	/**
-	 * This returns the current.
-	 *
-	 * @return the current
-	 */
-	public double getCurrent() {
-		double current = 0;
-		for (CANTalon motor : motors)
-			current += motor.getOutputCurrent();
-		return current;
-	}
+    /**
+     * Stops the drivetrain
+     */
+    public void stop() {
+        drive(0, 0);
+    }
 
-	/**
-	 * Returns the angle of rotational displacement
-	 *
-	 * @return the current yaw of the gyro
-	 */
-	public float getYaw() {
-		return navX.getYaw();
-	}
+    /**
+     * Initializes the default command of the subsystem.
+     */
+    @Override
+    protected void initDefaultCommand() {
+        setDefaultCommand(new ArcadeDriveWithJoystick());
+    }
 
-	/**
-	 * Returns the angle of tilt along the horizontal plane
-	 *
-	 * @return the gyro's pitch
-	 */
-	public float getPitch() {
-		return navX.getPitch();
-	}
+    /**
+     * This returns the current.
+     *
+     * @return the current
+     */
+    public double getCurrent() {
+        double current = 0;
+        for (CANTalon motor : motors)
+            current += motor.getOutputCurrent();
+        return current;
+    }
 
-	/**
-	 * Returns the angle of tilt along the vertical plane
-	 *
-	 * @return the gyro's roll
-	 */
-	public float getRoll() {
-		return navX.getRoll();
-	}
+    /**
+     * Returns the angle of rotational displacement
+     *
+     * @return the current yaw of the gyro
+     */
+    public float getYaw() {
+        return navX.getYaw();
+    }
 
-	/**
-	 * Resets the navx and any encoders
-	 */
-	public void resetAll() {
-		navX.zeroYaw();
-		//encoder reset goes here
-	}
+    /**
+     * Returns the angle of tilt along the horizontal plane
+     *
+     * @return the gyro's pitch
+     */
+    public float getPitch() {
+        return navX.getPitch();
+    }
 
-	/**
-	 * Returns the displacement along x axis
-	 *
-	 * @return the x displacement
-	 */
-	public float getX() {
-		return navX.getWorldLinearAccelX();
-	}
+    /**
+     * Returns the angle of tilt along the vertical plane
+     *
+     * @return the gyro's roll
+     */
+    public float getRoll() {
+        return navX.getRoll();
+    }
 
-	/**
-	 * Returns the displacement along x axis
-	 *
-	 * @return the x displacement
-	 */
-	public float getY() {
-		return navX.getWorldLinearAccelY();
-	}
+    /**
+     * Resets the navx and any encoders
+     */
+    public void resetAll() {
+        navX.zeroYaw();
+        //encoder reset goes here
+    }
 
-	/**
-	 * Returns the displacement along x axis
-	 *
-	 * @return the x displacement
-	 */
-	public float getZ() {
-		return navX.getWorldLinearAccelZ();
-	}
-	
-	/**
-	 * @return the distance from front
-	 */
-	public double getFrontUltrasonicInches(){
-		 return ultrasonicFront.getVoltage()/0.00644;
-	}
-	
-	/**
-	 * @return the distance from back 
-	 */
-	public double getBackUltrasonicInches(){
-		 return ultrasonicBack.getVoltage()/0.00644;
-	}
-	
-	/**
-	 * @return the distance from left
-	 */
-	public double getLeftUltrasonicInches(){
-		 return ultrasonicLeft.getVoltage()/0.00644;
-	}
-	
-	/**
-	 * @return the distance from right
-	 */
-	public double getRightUltrasonicInches(){
-		  return ultrasonicRight.getVoltage()/0.00644;
-	}
-	
+    /**
+     * Returns the displacement along x axis
+     *
+     * @return the x displacement
+     */
+    public float getX() {
+        return navX.getWorldLinearAccelX();
+    }
+
+    /**
+     * Returns the displacement along x axis
+     *
+     * @return the x displacement
+     */
+    public float getY() {
+        return navX.getWorldLinearAccelY();
+    }
+
+    /**
+     * Returns the displacement along x axis
+     *
+     * @return the x displacement
+     */
+    public float getZ() {
+        return navX.getWorldLinearAccelZ();
+    }
+
+    /**
+     * @return the distance from front
+     */
+    public double getFrontUltrasonicInches(){
+        return ultrasonicFront.getVoltage()/0.00644;
+    }
+
+    /**
+     * @return the distance from back 
+     */
+    public double getBackUltrasonicInches(){
+        return ultrasonicBack.getVoltage()/0.00644;
+    }
+
+    /**
+     * @return the distance from left
+     */
+    public double getLeftUltrasonicInches(){
+        return ultrasonicLeft.getVoltage()/0.00644;
+    }
+
+    /**
+     * @return the distance from right
+     */
+    public double getRightUltrasonicInches(){
+        return ultrasonicRight.getVoltage()/0.00644;
+    }
+
 
 
 }
