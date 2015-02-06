@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorStop;
 
@@ -18,6 +19,8 @@ public class Elevator extends PIDSubsystem {
 	private DoubleSolenoid elevatorSolenoid;
 	public static final double MAX_HEIGHT = 10.0;
 	public static final double MIN_HEIGHT = 0;
+	public static final double MAX_SPEED_FINE = 0.4;
+	public static boolean stateOfSolenoid = false; //false is brakes are off
 	
 	public Elevator(double p, double i, double d) {
 		super(p, i, d);
@@ -60,11 +63,28 @@ public class Elevator extends PIDSubsystem {
 	
 	public void brake() {
 		elevatorSolenoid.set(Value.kForward);
+		stateOfSolenoid = true;
 	}
 	
 	public void release() {
 		elevatorSolenoid.set(Value.kReverse);
+		stateOfSolenoid = false;
 	}
+	
+	public void control(double y_axis) {	
+		if (returnPIDInput()< MAX_HEIGHT && returnPIDInput()> MIN_HEIGHT) {
+			if (stateOfSolenoid == true) {
+				release();
+			}
+			elevatorMotor.set(y_axis * MAX_SPEED_FINE);
+		}
+		else if (returnPIDInput()== MAX_HEIGHT || returnPIDInput()==MIN_HEIGHT) {
+			elevatorMotor.set(0.0);
+			brake();
+		}
+	}
+	
+
 	
 	@Override
 	protected void initDefaultCommand() {
