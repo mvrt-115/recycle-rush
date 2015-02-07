@@ -64,4 +64,9 @@ public class RobotMap {
     public static final int PWM_LED1_GREEN			= 10;
     public static final int PWM_LED1_BLUE			= 12;
 
-	}
+    //ultrasonic
+    public static final int INPUT_FRONT = 4;
+    public static final int INPUT_BACK = 5;
+    public static final int INPUT_LEFT = 6;
+    public static final int INPUT_RIGHT = 7;
+}

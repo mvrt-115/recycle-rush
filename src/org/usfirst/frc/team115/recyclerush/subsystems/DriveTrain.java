@@ -6,24 +6,33 @@
 
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.recyclerush.RobotMap;
+import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
+
 import com.kauailabs.nav6.frc.IMUAdvanced;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.usfirst.frc.team115.recyclerush.RobotMap;
-import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
 public class DriveTrain extends Subsystem {
 
-    private RobotDrive drive;
+	private RobotDrive drive;
     private final int BACK_LEFT = 0;
     private final int BACK_RIGHT = 1;
     private final int FRONT_LEFT = 2;
     private final int FRONT_RIGHT = 3;
-    private final IMUAdvanced navX;
+    private IMUAdvanced navX;
+
+    private AnalogInput ultrasonicFront;
+    private AnalogInput ultrasonicBack;
+    private AnalogInput ultrasonicLeft;
+    private AnalogInput ultrasonicRight;
+    private static final double ANALOG_SCALE_3_3V = 0.00644;
 
     private CANTalon motors[];
 
@@ -32,6 +41,12 @@ public class DriveTrain extends Subsystem {
      */
     public DriveTrain() {
         navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
+
+        ultrasonicFront = new AnalogInput(RobotMap.INPUT_FRONT);
+        ultrasonicBack = new AnalogInput(RobotMap.INPUT_BACK);
+        ultrasonicLeft = new AnalogInput(RobotMap.INPUT_LEFT);
+        ultrasonicRight = new AnalogInput(RobotMap.INPUT_RIGHT);
+
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
         motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -148,6 +163,35 @@ public class DriveTrain extends Subsystem {
     public float getZ() {
         return navX.getWorldLinearAccelZ();
     }
+
+    /**
+     * @return the distance from front
+     */
+    public double getFrontUltrasonicInches(){
+        return ultrasonicFront.getVoltage()/ANALOG_SCALE_3_3V;
+    }
+
+    /**
+     * @return the distance from back 
+     */
+    public double getBackUltrasonicInches(){
+        return ultrasonicBack.getVoltage()/ANALOG_SCALE_3_3V;
+    }
+
+    /**
+     * @return the distance from left
+     */
+    public double getLeftUltrasonicInches(){
+        return ultrasonicLeft.getVoltage()/ANALOG_SCALE_3_3V;
+    }
+
+    /**
+     * @return the distance from right
+     */
+    public double getRightUltrasonicInches(){
+        return ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V;
+    }
+
 
 
 }
