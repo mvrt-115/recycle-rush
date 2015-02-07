@@ -3,6 +3,8 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 
 public class Claw extends Subsystem {
@@ -24,6 +26,10 @@ public class Claw extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
+    }
+    
+    public void logStatus(){
+    	SmartDashboard.putNumber("claw_solenoid_state", clawSolenoid.get().value);
     }
 
 }

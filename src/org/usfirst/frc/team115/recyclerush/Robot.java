@@ -51,6 +51,9 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        drive.logStatus();
+        claw.logStatus();
+        grabber.logStatus();
     }
 
     public void testPeriodic() {

@@ -7,12 +7,15 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
@@ -147,6 +150,14 @@ public class DriveTrain extends Subsystem {
      */
     public float getZ() {
         return navX.getWorldLinearAccelZ();
+    }
+    
+    public void logStatus(){
+    	SmartDashboard.putData("drivetrain_navx", navX);
+    	SmartDashboard.putNumber("drivetrain_frontright_vbus", motors[FRONT_RIGHT].get());
+    	SmartDashboard.putNumber("drivetrain_frontleft_vbus", motors[FRONT_LEFT].get());
+    	SmartDashboard.putNumber("drivetrain_backright_vbus", motors[BACK_RIGHT].get());
+    	SmartDashboard.putNumber("drivetrain_backleft_vbus", motors[BACK_LEFT].get());
     }
 
 
