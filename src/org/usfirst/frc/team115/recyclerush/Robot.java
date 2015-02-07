@@ -1,46 +1,37 @@
-
 package org.usfirst.frc.team115.recyclerush;
-
-import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
 
 /**
- * @author Lee Mracek
- * This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
- * Note: If you change the class name or package, the manifest must be updated.
+ *	This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
+ *  Note: If you change the class name or package, the manifest must be updated.
+ *  @author MVRT
  */
 public class Robot extends IterativeRobot {
-	
-	private DriveTrain drive;
-	private static Robot robotInstance;
-	
-	private Robot() {
-		drive = new DriveTrain();
-	}
-	
-	public static Robot getRobot() {
-		if (robotInstance == null)
-			robotInstance = new Robot();
-		return robotInstance;
-	}
-	
-	public DriveTrain getDrive() {
-		return drive;
-	}
 
-    public void robotInit() {
+    public static DriveTrain drive;
+    public static Claw claw;
+    public static Grabber grabber;
+    public static OI oi;
 
+    public Robot() {
+        drive = new DriveTrain();
+        claw = new Claw();
+        grabber = new Grabber();
+        oi = new OI();
     }
-	
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-	}
+
+    public void disabledPeriodic() {
+        Scheduler.getInstance().run();
+    }
 
     public void autonomousInit() {
-    	
+
     }
 
     public void autonomousPeriodic() {
@@ -51,14 +42,14 @@ public class Robot extends IterativeRobot {
 
     }
 
-    public void disabledInit(){
+    public void disabledInit() {
 
     }
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
-    
+
     public void testPeriodic() {
         LiveWindow.run();
     }

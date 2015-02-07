@@ -4,14 +4,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
- * Drives the robot using the Arcade Drive control scheme
+ * This command opens the robot's claw
  * @author MVRT
  */
+public class OpenClaw extends Command {
 
-public class ArcadeDriveWithJoystick extends Command {
-
-    public ArcadeDriveWithJoystick() {
-        requires(Robot.drive);
+    public OpenClaw() {
+        requires(Robot.claw);
     }
 
     @Override
@@ -20,22 +19,20 @@ public class ArcadeDriveWithJoystick extends Command {
 
     @Override
     protected void execute() {
-        Robot.drive.drive(Robot.oi.getJoystick());
+        Robot.claw.open();
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     @Override
     protected void end() {
-    	//stop the robot when this command ends
-        Robot.drive.drive(0, 0);
     }
 
     @Override
     protected void interrupted() {
-        end();
     }
+
 }
