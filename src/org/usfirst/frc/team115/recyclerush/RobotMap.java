@@ -35,6 +35,8 @@ public class RobotMap {
     public static final int ROLLER_MOTOR_RIGHT	 = 0;
     public static final int ROLLER_SOLENOID_1  = 0;
     public static final int ROLLER_SOLENOID_2  = 0;
+    public static final int ROLLER_LIMIT_R = 0;
+    public static final int ROLLER_LIMIT_L = 0;
     
     //xbox buttons
     public static final int XBOX_A			 = 1;

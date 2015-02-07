@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot {
         grabber = new Grabber();
         oi = new OI();
         elevator = new Elevator(0, 0, 0);
-        roller  = new Roller(RobotMap.ROLLER_MOTOR_LEFT, RobotMap.ROLLER_MOTOR_RIGHT, RobotMap.ROLLER_SOLENOID_1, RobotMap.ROLLER_SOLENOID_2);
+        roller  = new Roller();
     }
 
     public void disabledPeriodic() {

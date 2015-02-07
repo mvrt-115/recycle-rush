@@ -1,8 +1,10 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.RollerControl;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,15 +21,20 @@ public class Roller extends Subsystem {
 	
 	private DoubleSolenoid rollerSolenoid;
 	
+	private DigitalInput limitSwitchRight;
+	private DigitalInput limitSwitchLeft;
+	
 	
 	/**
 	 * Creates the two motors with the specified ports
-	 * @param m_port	Port for the CANTalon motor
+	 * 
 	 */
-	public Roller(int lm_port, int rm_port, int solenoid1, int solenoid2) {
-		leftMotor = new CANTalon(lm_port);
-		rightMotor = new CANTalon(rm_port);
-		rollerSolenoid = new DoubleSolenoid(solenoid1, solenoid2);
+	public Roller() {
+		leftMotor = new CANTalon(RobotMap.ROLLER_MOTOR_LEFT);
+		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
+		rollerSolenoid = new DoubleSolenoid(RobotMap.ROLLER_SOLENOID_1, RobotMap.ROLLER_SOLENOID_2);
+		limitSwitchRight = new DigitalInput(RobotMap.ROLLER_LIMIT_R);
+		limitSwitchLeft = new DigitalInput(RobotMap.ROLLER_LIMIT_L);
 	}
 
 	public void initialize() {}
@@ -66,6 +73,14 @@ public class Roller extends Subsystem {
 	public void stop() {
 		leftMotor.set(0.0);
 		rightMotor.set(0.0);
+	}
+	
+	public boolean getLeftLimitSwitch(){
+		return limitSwitchLeft.get();
+	}
+	
+	public boolean getRightLimitSwitch(){
+		return limitSwitchRight.get();
 	}
 	
 	/**
