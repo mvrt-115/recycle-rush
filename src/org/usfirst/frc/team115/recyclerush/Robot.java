@@ -10,7 +10,7 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
 import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 
 /**
- * @author Lee Mracek
+ * @author MVRT
  *         This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
  *         Note: If you change the class name or package, the manifest must be updated.
  */

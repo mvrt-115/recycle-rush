@@ -112,4 +112,3 @@ class DpadTrigger extends Trigger{
 	}
 	
 }
-
