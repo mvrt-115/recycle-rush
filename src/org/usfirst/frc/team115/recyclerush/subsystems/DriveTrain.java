@@ -1,9 +1,3 @@
-/**
- * This is the drive train for the robot for the competition.
- *
- * @author Heather Baker
- */
-
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import org.usfirst.frc.team115.recyclerush.RobotMap;
@@ -19,6 +13,10 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * A subsystem representing the drive train for the robot
+ * @author MVRT
+ */
 public class DriveTrain extends Subsystem {
 
 	private RobotDrive drive;
@@ -58,7 +56,6 @@ public class DriveTrain extends Subsystem {
 
     /**
      * This thing drives the robot!
-     *
      * @param move   the forward speed of the rotation
      * @param rotate the rotation value of the robot
      */
@@ -68,7 +65,6 @@ public class DriveTrain extends Subsystem {
 
     /**
      * Drives the robot
-     *
      * @param joystick The joystick to drive based on
      */
     public void drive(Joystick joystick) {
@@ -91,9 +87,7 @@ public class DriveTrain extends Subsystem {
     }
 
     /**
-     * This returns the current.
-     *
-     * @return the current
+     * @return the total current being sent to motors
      */
     public double getCurrent() {
         double current = 0;
@@ -103,27 +97,21 @@ public class DriveTrain extends Subsystem {
     }
 
     /**
-     * Returns the angle of rotational displacement
-     *
-     * @return the current yaw of the gyro
+     * @return the angle of rotational displacement
      */
     public float getYaw() {
         return navX.getYaw();
     }
 
     /**
-     * Returns the angle of tilt along the horizontal plane
-     *
-     * @return the gyro's pitch
+     * @return the angle of tilt along the horizontal plane
      */
     public float getPitch() {
         return navX.getPitch();
     }
 
     /**
-     * Returns the angle of tilt along the vertical plane
-     *
-     * @return the gyro's roll
+     * @return the angle of tilt along the vertical plane
      */
     public float getRoll() {
         return navX.getRoll();
@@ -134,31 +122,25 @@ public class DriveTrain extends Subsystem {
      */
     public void resetAll() {
         navX.zeroYaw();
-        //encoder reset goes here
+        //TODO: encoder reset goes here
     }
 
     /**
-     * Returns the displacement along x axis
-     *
-     * @return the x displacement
+     * @return the displacement along x axis
      */
     public float getX() {
         return navX.getWorldLinearAccelX();
     }
 
     /**
-     * Returns the displacement along x axis
-     *
-     * @return the x displacement
+     * @return the displacement along x axis
      */
     public float getY() {
         return navX.getWorldLinearAccelY();
     }
 
     /**
-     * Returns the displacement along x axis
-     *
-     * @return the x displacement
+     * @return the displacement along x axis
      */
     public float getZ() {
         return navX.getWorldLinearAccelZ();

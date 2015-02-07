@@ -3,6 +3,10 @@ package org.usfirst.frc.team115.recyclerush.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
+/**
+ * Opens the robot's grabber
+ * @author MVRT
+ */
 public class OpenGrabber extends Command {
 
     public OpenGrabber() {
