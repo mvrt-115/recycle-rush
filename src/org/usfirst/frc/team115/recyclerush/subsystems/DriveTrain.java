@@ -40,10 +40,10 @@ public class DriveTrain extends Subsystem {
     public DriveTrain() {
         navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
 
-        ultrasonicFront = new AnalogInput(RobotMap.INPUT_FRONT);
-        ultrasonicBack = new AnalogInput(RobotMap.INPUT_BACK);
-        ultrasonicLeft = new AnalogInput(RobotMap.INPUT_LEFT);
-        ultrasonicRight = new AnalogInput(RobotMap.INPUT_RIGHT);
+        ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
+        ultrasonicBack = new AnalogInput(RobotMap.ULTRASONIC_BACK);
+        ultrasonicLeft = new AnalogInput(RobotMap.ULTRASONIC_LEFT);
+        ultrasonicRight = new AnalogInput(RobotMap.ULTRASONIC_RIGHT);
 
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
