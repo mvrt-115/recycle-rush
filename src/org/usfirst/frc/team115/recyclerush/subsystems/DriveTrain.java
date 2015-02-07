@@ -24,9 +24,9 @@ public class DriveTrain extends Subsystem {
 	private final int FRONT_LEFT = 2;
 	private final int FRONT_RIGHT = 3;
 	private final IMUAdvanced navX;
-	
+
 	private CANTalon motors[];
-	
+
 	/**
 	 * Initializes each other motors based on ports set in RobotMap
 	 */
@@ -40,7 +40,7 @@ public class DriveTrain extends Subsystem {
 	    drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
 	            motors[FRONT_RIGHT], motors[BACK_RIGHT]);
 	}
-	
+
 	/**
 	 * This thing drives the robot!
 	 *
@@ -48,25 +48,25 @@ public class DriveTrain extends Subsystem {
 	 * @param rotate the rotation value of the robot
 	 */
 	public void drive(double move, double rotate) {
-	    drive.arcadeDrive(move, rotate);
+		drive.arcadeDrive(move, rotate);
 	}
-	
+
 	/**
 	 * Drives the robot
 	 *
 	 * @param joystick The joystick to drive based on
 	 */
 	public void drive(Joystick joystick) {
-	    drive.arcadeDrive(joystick);
+		drive.arcadeDrive(joystick);
 	}
-	
+
 	/**
 	 * Stops the drivetrain
 	 */
 	public void stop() {
 	    drive(0, 0);
 	}
-	
+
 	/**
 	 * Initializes the default command of the subsystem.
 	 */
@@ -74,79 +74,79 @@ public class DriveTrain extends Subsystem {
 	protected void initDefaultCommand() {
 	    setDefaultCommand(new ArcadeDriveWithJoystick());
 	}
-	
+
 	/**
 	 * This returns the current.
 	 *
 	 * @return the current
 	 */
 	public double getCurrent() {
-	    double current = 0;
-	    for (CANTalon motor : motors)
-	        current += motor.getOutputCurrent();
-	    return current;
+		double current = 0;
+		for (CANTalon motor : motors)
+			current += motor.getOutputCurrent();
+		return current;
 	}
-	
+
 	/**
 	 * Returns the angle of rotational displacement
 	 *
 	 * @return the current yaw of the gyro
 	 */
 	public float getYaw() {
-	    return navX.getYaw();
+		return navX.getYaw();
 	}
-	
+
 	/**
 	 * Returns the angle of tilt along the horizontal plane
 	 *
 	 * @return the gyro's pitch
 	 */
 	public float getPitch() {
-	    return navX.getPitch();
+		return navX.getPitch();
 	}
-	
+
 	/**
 	 * Returns the angle of tilt along the vertical plane
 	 *
 	 * @return the gyro's roll
 	 */
 	public float getRoll() {
-	    return navX.getRoll();
+		return navX.getRoll();
 	}
-	
+
 	/**
 	 * Resets the navx and any encoders
 	 */
 	public void resetAll() {
-	    navX.zeroYaw();
-	    //encoder reset goes here
+		navX.zeroYaw();
+		//encoder reset goes here
 	}
-	
+
 	/**
 	 * Returns the displacement along x axis
 	 *
 	 * @return the x displacement
 	 */
 	public float getX() {
-	    return navX.getWorldLinearAccelX();
+		return navX.getWorldLinearAccelX();
 	}
-	
+
 	/**
 	 * Returns the displacement along x axis
 	 *
 	 * @return the x displacement
 	 */
 	public float getY() {
-	    return navX.getWorldLinearAccelY();
+		return navX.getWorldLinearAccelY();
 	}
-	
+
 	/**
 	 * Returns the displacement along x axis
 	 *
 	 * @return the x displacement
 	 */
 	public float getZ() {
-	    return navX.getWorldLinearAccelZ();
+		return navX.getWorldLinearAccelZ();
 	}
-	
+
 }
