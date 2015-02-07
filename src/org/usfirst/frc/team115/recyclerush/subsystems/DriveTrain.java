@@ -1,11 +1,12 @@
 /**
  * This is the drive train for the robot for the competition.
  *
- * @author Heather Baker
+ * @author MVRT
  */
 
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
@@ -31,6 +32,11 @@ public class DriveTrain extends Subsystem {
 
 	private double scaleFactor = 0.25;
 	
+	private double limited_speed = 0.0;
+	private static final double SPEED_CHANGE_LIMIT = 0.05;
+	private double limited_angle = 0.0;
+	private static final double ANGLE_CHANGE_LIMIT = 0.05;
+	
     /**
      * Initializes each other motors based on ports set in RobotMap
      */
@@ -51,6 +57,33 @@ public class DriveTrain extends Subsystem {
    //     	motor.setVoltageRampRate(24);
         } 
     }
+    
+    
+    /**
+     * Limit the change in speed
+     * @param output The desired speed to limit
+     */
+    public void ramping(double output) {    	
+    	double change = output - limited_speed;
+    	if (change > SPEED_CHANGE_LIMIT)
+    		change = SPEED_CHANGE_LIMIT;
+    	else if (change < -SPEED_CHANGE_LIMIT)
+    		change = -SPEED_CHANGE_LIMIT;
+    	limited_speed += change;
+	}
+    
+    /** 
+     * Limits the rotation speed
+     * @param output The desired rotation angle to limit
+     */
+    public void limitRotation(double output) {
+    	double change = output - limited_angle;
+    	if (change > ANGLE_CHANGE_LIMIT)
+    		change = ANGLE_CHANGE_LIMIT;
+    	else if (change < -ANGLE_CHANGE_LIMIT)
+    		change = -ANGLE_CHANGE_LIMIT;
+    	limited_angle += change;
+    }
 
     /**
      * This thing drives the robot!
@@ -59,7 +92,9 @@ public class DriveTrain extends Subsystem {
      * @param rotate the rotation value of the robot
      */
     public void drive(double move, double rotate) {
-        drive.arcadeDrive(move, rotate);
+    	ramping(move);
+    	limitRotation(rotate);
+        drive.arcadeDrive(limited_speed, rotate);
     }
 
     /**
@@ -155,7 +190,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void setMode(CANTalon.ControlMode mode) {
 		for (CANTalon motor : motors)
-			motor.changeControlMode(mode);
+			motor.changeControlMode(mode);		
 	}
 	
 	public CANTalon.ControlMode getMode() {
@@ -171,6 +206,14 @@ public class DriveTrain extends Subsystem {
 		return motors[0].getPosition()*scaleFactor;
 	}
 	
+	public double getSpeed() {
+		double total = 0.0;
+		for (CANTalon motor : motors)
+			total += motor.get();
+		return total / motors.length;
+	}
+	
+	
 	/**
 	 * This returns the current.
 	 * @return 		the current
@@ -182,5 +225,5 @@ public class DriveTrain extends Subsystem {
 			current += motor.getOutputCurrent();
 		return current;
 	}
-
+	
 }

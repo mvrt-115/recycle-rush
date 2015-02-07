@@ -17,6 +17,10 @@ public class ArcadeDriveWithJoystick extends Command {
     public ArcadeDriveWithJoystick() {
         requires(Robot.drive);
     }
+    
+    public void ramping(double output) {
+    	
+	}
 
     @Override
     protected void initialize() {

@@ -85,10 +85,8 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		if (!useJoystick)
-			Robot.drive.drive(speed, output);
-		else
-			Robot.drive.drive(Robot.oi.getJoystick().getY(), output);
+		double speed = (useJoystick ? Robot.oi.getJoystick().getY() : this.speed);
+		Robot.drive.drive(speed, output);
 	}
 
 	@Override
