@@ -15,7 +15,7 @@ public class Turn extends PIDCommand {
 
         initial = Robot.drive.getYaw();
     }
-    
+
     /**
      * @return the gyro's current angle
      */
