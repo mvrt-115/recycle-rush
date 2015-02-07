@@ -3,6 +3,10 @@ package org.usfirst.frc.team115.recyclerush.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
+/**
+ * Stops the drivetrain
+ * @author MVRT
+ */
 public class DriveStop extends Command {
 
     public DriveStop() {
