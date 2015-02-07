@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends Subsystem {
 
@@ -33,9 +34,9 @@ public class DriveTrain extends Subsystem {
 	private double scaleFactor = 0.25;
 	
 	private double limited_speed = 0.0;
-	private static final double SPEED_CHANGE_LIMIT = 0.05;
+	private double speed_change_limit = 0.05;
 	private double limited_angle = 0.0;
-	private static final double ANGLE_CHANGE_LIMIT = 0.05;
+	private double angle_change_limit = 0.05;
 	
     /**
      * Initializes each other motors based on ports set in RobotMap
@@ -63,12 +64,13 @@ public class DriveTrain extends Subsystem {
      * Limit the change in speed
      * @param output The desired speed to limit
      */
-    public void ramping(double output) {    	
+    public void ramping(double output) {  
+    	speed_change_limit = SmartDashboard.getNumber("Speed Change Limit");
     	double change = output - limited_speed;
-    	if (change > SPEED_CHANGE_LIMIT)
-    		change = SPEED_CHANGE_LIMIT;
-    	else if (change < -SPEED_CHANGE_LIMIT)
-    		change = -SPEED_CHANGE_LIMIT;
+    	if (change > speed_change_limit)
+    		change = speed_change_limit;
+    	else if (change < -speed_change_limit)
+    		change = -speed_change_limit;
     	limited_speed += change;
 	}
     
@@ -78,10 +80,10 @@ public class DriveTrain extends Subsystem {
      */
     public void limitRotation(double output) {
     	double change = output - limited_angle;
-    	if (change > ANGLE_CHANGE_LIMIT)
-    		change = ANGLE_CHANGE_LIMIT;
-    	else if (change < -ANGLE_CHANGE_LIMIT)
-    		change = -ANGLE_CHANGE_LIMIT;
+    	if (change > angle_change_limit)
+    		change = angle_change_limit;
+    	else if (change < -angle_change_limit)
+    		change = -angle_change_limit;
     	limited_angle += change;
     }
 
