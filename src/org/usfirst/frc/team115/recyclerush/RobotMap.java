@@ -21,7 +21,6 @@ public class RobotMap {
     public static final int ROLLER_MOTOR_LEFT		= 5;
     public static final int ROLLER_MOTOR_RIGHT		= 6;
 
-    
     //joystick for arcade drive
     public static final int JOYSTICK				= 0;
     
@@ -36,7 +35,6 @@ public class RobotMap {
     //joystick buttons
     public static final int DRIVE_STRAIGHT_BUTTON	= 1;
     
-    
     //compressor
     public static final int COMPRESSOR				= 0;
     
@@ -50,14 +48,12 @@ public class RobotMap {
     public static final int ROLLER_SOLENOID_1		= 5;
     public static final int ROLLER_SOLENOID_2		= 6;
     
-    public static final int BREAK_SOLENOID_1		= 7;
-    public static final int BREAK_SOLENOID_2		= 8;
-    
+    public static final int BRAKE_SOLENOID_1		= 7;
+    public static final int BRAKE_SOLENOID_2		= 8;
     
     //gyro on drivetrain
     public static final int GYRO					= 0;
     public static final int GYRO_TEMP				= 0;
-    
     
     //LEDS
     public static final int PWM_LED1_RED			= 11;
@@ -65,8 +61,8 @@ public class RobotMap {
     public static final int PWM_LED1_BLUE			= 12;
 
     //ultrasonic
-    public static final int INPUT_FRONT = 4;
-    public static final int INPUT_BACK = 5;
-    public static final int INPUT_LEFT = 6;
-    public static final int INPUT_RIGHT = 7;
+    public static final int ULTRASONIC_FRONT 		= 4;
+    public static final int ULTRASONIC_BACK 		= 5;
+    public static final int ULTRASONIC_LEFT 		= 6;
+    public static final int ULTRASONIC_RIGHT		= 7;
 }
