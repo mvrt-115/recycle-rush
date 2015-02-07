@@ -4,6 +4,10 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Controls the rollers using joystick axis values
+ * @author MVRT
+ */
 public class RollerControl extends Command {
 
 	public RollerControl() {

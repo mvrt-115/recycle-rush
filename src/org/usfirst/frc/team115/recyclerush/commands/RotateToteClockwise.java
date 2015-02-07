@@ -4,9 +4,14 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class RollerRight extends Command {
+/**
+ * Rotates the tote clockwise until it is
+ * ready to intake
+ * @author MVRT
+ */
+public class RotateToteClockwise extends Command {
 
-	public RollerRight() {
+	public RotateToteClockwise() {
 		requires(Robot.roller);
 	}
 
@@ -16,7 +21,6 @@ public class RollerRight extends Command {
 	@Override
 	protected void execute() {
 		Robot.roller.control(1.0, 0.0);
-
 	}
 
 	@Override

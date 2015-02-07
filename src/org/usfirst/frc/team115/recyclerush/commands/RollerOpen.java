@@ -4,23 +4,30 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Opens the roller/intake arm
+ * @author MVRT
+ */
 public class RollerOpen extends Command {
 
+	boolean finished = false;
+	
 	public RollerOpen() {
 		requires(Robot.roller);
 	}
 	
 	@Override
-	protected void initialize() {
+	protected void initialize() {}
+
+	@Override
+	protected void execute() {
 		Robot.roller.open();
+		finished = true;
 	}
 
 	@Override
-	protected void execute() {}
-
-	@Override
 	protected boolean isFinished() {
-		return true;
+		return finished;
 	}
 
 	@Override

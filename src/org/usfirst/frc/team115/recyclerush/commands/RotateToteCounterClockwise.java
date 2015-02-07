@@ -4,9 +4,14 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class RollerLeft extends Command {
+/**
+ * Rotates the tote counter-clockwise until it is ready
+ * to intake
+ * @author MVRT
+ */
+public class RotateToteCounterClockwise extends Command {
 
-	public RollerLeft() {
+	public RotateToteCounterClockwise() {
 		requires(Robot.roller);
 	}
 

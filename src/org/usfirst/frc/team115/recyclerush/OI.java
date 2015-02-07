@@ -1,10 +1,10 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
 import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
 import org.usfirst.frc.team115.recyclerush.commands.OpenClaw;
-import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
-import org.usfirst.frc.team115.recyclerush.commands.OpenArm;
-import org.usfirst.frc.team115.recyclerush.commands.CloseArm;
+import org.usfirst.frc.team115.recyclerush.commands.RollerClose;
+import org.usfirst.frc.team115.recyclerush.commands.RollerOpen;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -44,14 +44,12 @@ public class OI {
 		XboxTrigger rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.8);
 		 
 		//TODO: Finish CloseArm and OpenArm
-		lt.whenActive(new CloseArm());
-		rt.whenActive(new OpenArm());
+		lt.whenActive(new RollerClose());
+		rt.whenActive(new RollerOpen());
 		
 		//TODO: Finish AutoIntake.java
 		JoystickButton ab =  new JoystickButton(xbox, RobotMap.XBOX_A);
 		ab.whenPressed(new AutoIntake()); 
-		
-		
 	}
 	
 	public Joystick getJoystick() {
