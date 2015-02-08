@@ -5,15 +5,14 @@ import org.usfirst.frc.team115.recyclerush.commands.UpdateDriveType;
 import org.usfirst.frc.team115.recyclerush.triggers.DriveTrigger;
 
 /**
- * @author Lee Mracek
- *         This class should contain all interactions between physical controls and the robot,
- *         including Cypress, Joystick, Triggers, etc.
+ * This class contains all interactions between physical controls and the robot,
+ * including Joystick, Triggers, etc.
+ * @author MVRT
  */
 public class OI {
     private Joystick joystick, joystickLeft, joystickRight;
 
     public OI() {
-
         joystick = new Joystick(RobotMap.JOYSTICK);
         joystickLeft = new Joystick(RobotMap.JOYSTICK_LEFT);
         joystickRight = new Joystick(RobotMap.JOYSTICK_RIGHT);
