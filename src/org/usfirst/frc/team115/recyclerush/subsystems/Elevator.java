@@ -3,8 +3,6 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorControl;
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorStop;
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -14,10 +12,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Elevator extends Subsystem {
 	private CANTalon elevatorMotor;
 	private DoubleSolenoid elevatorSolenoid;
-	public static final double MAX_HEIGHT = 10.0;
+	public static final double MAX_HEIGHT = 70.36; // in inches
 	public static final double MIN_HEIGHT = 0;
 	public static final double MAX_SPEED_FINE = 0.2;
+	private static final double revLength = 3.18;	// in inches
 	public static boolean stateOfSolenoid = false; // false is brakes are off
+	public int fullRots = 0;	// number of full rotations by elevatorMotor.
 	
 	public Elevator(double p, double i, double d) {		
 		elevatorMotor = new CANTalon(RobotMap.ELEVATOR);
@@ -29,7 +29,14 @@ public class Elevator extends Subsystem {
 	}
 	
 	public double getHeight() {
-		return elevatorMotor.getPosition();
+		if(elevatorMotor.getPosition() == 1023){
+			if(elevatorMotor.getAnalogInVelocity() < 0){
+				fullRots--;
+			}else{
+				fullRots++;
+			}
+		}
+		return revLength*((double)fullRots+elevatorMotor.getPosition()/1023.0);	
 	}
 	
 	public void goToHeight(double height) {
