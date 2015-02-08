@@ -4,22 +4,22 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
- * Stops the drivetrain
+ * This command closes the robot's claw
  * @author MVRT
  */
-public class DriveStop extends Command {
+public class CloseClaw extends Command {
 
-    public DriveStop() {
-        requires(Robot.drive);
+    public CloseClaw() {
+        requires(Robot.claw);
     }
 
     @Override
     protected void initialize() {
-        Robot.drive.stop();
     }
 
     @Override
     protected void execute() {
+        Robot.claw.close();
     }
 
     @Override
