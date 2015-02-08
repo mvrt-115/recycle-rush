@@ -3,7 +3,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoIntakeRight extends CommandGroup{
     public AutoIntakeRight(){
-        //rotate tote right
+        addSequential(new RotateToteClockwise());
         addSequential(new AutoIntake());
     }
 

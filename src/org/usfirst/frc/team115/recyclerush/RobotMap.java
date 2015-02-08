@@ -2,7 +2,11 @@ package org.usfirst.frc.team115.recyclerush;
 
 /**
  * @author MVRT
+<<<<<<< HEAD
  * This class contains final static variables
+=======
+ * This class should contain final static variables
+>>>>>>> 17d1c34f3702e96485f091f68932be2880bd156a
  * corresponding to each physical device on the robot. Naming scheme can
  * be found in the Electrical 2015 Excel Doc
  */
@@ -23,6 +27,7 @@ public class RobotMap {
 
     //joystick for arcade drive
     public static final int JOYSTICK				= 0;
+    public static final int XBOX                 = 1;
     
     //joysticks for tank drive
     //public static final int JOYSTICK_LEFT			= 0;
@@ -47,6 +52,8 @@ public class RobotMap {
     
     public static final int ROLLER_SOLENOID_1		= 5;
     public static final int ROLLER_SOLENOID_2		= 6;
+    public static final int ROLLER_LIMIT_R = 0;
+    public static final int ROLLER_LIMIT_L = 0;
     
     public static final int BRAKE_SOLENOID_1		= 7;
     public static final int BRAKE_SOLENOID_2		= 8;
@@ -65,4 +72,23 @@ public class RobotMap {
     public static final int ULTRASONIC_BACK 		= 5;
     public static final int ULTRASONIC_LEFT 		= 6;
     public static final int ULTRASONIC_RIGHT		= 7;
+	
+	//xbox buttons
+    public static final int XBOX_A			 = 1;
+    public static final int XBOX_B			 = 2;
+    public static final int XBOX_Y			 = 4;
+    public static final int XBOX_X           = 3;
+    public static final int XBOX_LB			 = 5;
+    public static final int XBOX_RB			 = 6;
+    public static final int XBOX_BACK		 = 7;
+    public static final int XBOX_START 		 = 8;
+    public static final int XBOX_LAXIS_PRESS = 9;
+    public static final int XBOX_RAXIS_PRESS = 10;
+    public static final int XBOX_RT		 	 = 3;
+    public static final int XBOX_LT			 = 2;
+    public static final int XBOX_AXIS_LX 	 = 0;
+    public static final int XBOX_AXIS_LY	 = 1;
+    public static final int XBOX_AXIS_RX	 = 4;
+    public static final int XBOX_AXIS_RY 	 = 5;
+	    
 }

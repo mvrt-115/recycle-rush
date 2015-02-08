@@ -173,7 +173,4 @@ public class DriveTrain extends Subsystem {
     public double getRightUltrasonicInches(){
         return ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V;
     }
-
-
-
 }
