@@ -1,36 +1,28 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-import org.usfirst.frc.team115.recyclerush.Robot;
-
-import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.PIDCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team115.recyclerush.Robot;
 
 public class Turn extends PIDCommand {
 
-	private double desiredAngle; // the final angle we strive for, relative to current. (DELTA ANGLE)
-	private Gyro gyro;	// Creates a Gyro object
-	private double goal; //the final angle we strive for, relative to original (ABSOLUTE ANGLE)
+	private double goal;
+    private double initial;
 
-	/**
-	 * Constructor
-	 * @param p, proportional coefficient
-	 * @param i, integral coefficient
-	 * @param d, derivative coefficient
-	 */
-	public Turn() {
-		super(0, 0, 0);
-		gyro = Robot.drive.getGyro();
-		goal = SmartDashboard.getNumber("Angle to turn");
-	}
+    public Turn(double goal) {
+        super(0, 0, 0);
 
-	/**
-	 * @return the gyro's current angle
-	 */
-	@Override
-	protected double returnPIDInput() {
-		return gyro.getAngle();
-	}
+        this.goal = goal;
+
+        initial = Robot.drive.getYaw();
+    }
+    
+    /**
+     * @return the gyro's current angle
+     */
+    @Override
+    protected double returnPIDInput() {
+        return Robot.drive.getYaw() - initial;
+    }
 	
 	/**
 	 * Drives the robot forward at the joystick's speed, and at the output angle.
@@ -42,39 +34,36 @@ public class Turn extends PIDCommand {
 	}
 
 	@Override
-	protected void initialize() {
-		desiredAngle = goal + gyro.getAngle(); // Goal degree.
-	}
+	protected void initialize() {}
 	
-	@Override
-	protected void execute() {
-	}
+    @Override
+    protected void execute() {}
 	
-	/**
-	 * @returns whether the current angle is within 2 degrees of desired angle
-	 */
-	@Override
-	protected boolean isFinished() {
-		if(Math.abs(desiredAngle - gyro.getAngle()) <= 2){
-			return true;
-		}
-		return false;
-	}
+    /**
+     * @returns whether the current angle is within 2 degrees of desired angle
+     */
+    @Override
+    protected boolean isFinished() {
+        if (Math.abs(goal - returnPIDInput()) <= 2) {
+            return true;
+        }
+        return false;
+    }
+	
+    /**
+     * Stops the robot
+     */
+    @Override
+    protected void end() {
+        Robot.drive.stop();
+    }
 
-	/**
-	 * Stops the robot
-	 */
-	@Override
-	protected void end() {
-		Robot.drive.stop();
-	}
-	
-	/**
-	 * Calls end()
-	 */
-	@Override
-	protected void interrupted() {
-		end();
-	}
+    /**
+     * Calls end()
+     */
+    @Override
+    protected void interrupted() {
+        end();
+    }
 
 }
