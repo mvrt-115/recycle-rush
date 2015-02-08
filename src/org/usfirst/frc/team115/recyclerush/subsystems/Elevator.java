@@ -30,9 +30,9 @@ public class Elevator extends Subsystem {
 	
 	public double getHeight() {
 		if(elevatorMotor.getPosition() == 1023){
-			if(elevatorMotor.getAnalogInVelocity() < 0){
+			if(elevatorMotor.getAnalogInVelocity() < 0) {
 				fullRots--;
-			}else{
+			} else {
 				fullRots++;
 			}
 		}
