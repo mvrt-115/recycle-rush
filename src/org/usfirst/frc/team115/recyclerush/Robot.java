@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team115.recyclerush;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -9,18 +8,18 @@ import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 /**
- * @author Lee Mracek
- * This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
- * Note: If you change the class name or package, the manifest must be updated.
+ *	This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
+ *  Note: If you change the class name or package, the manifest must be updated.
+ *  @author MVRT
  */
 public class Robot extends IterativeRobot {
-	
-	public static DriveTrain drive;
+
+    public static DriveTrain drive;
     public static OI oi;
     public static Elevator elevator;
 
-	private Robot() {
-		drive = new DriveTrain();
+    public Robot() {
+        drive = new DriveTrain();
         oi = new OI();
         elevator = new Elevator(0, 0, 0);
 	}
@@ -30,7 +29,7 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
-    	
+
     }
 
     public void autonomousPeriodic() {
@@ -41,14 +40,14 @@ public class Robot extends IterativeRobot {
 
     }
 
-    public void disabledInit(){
+    public void disabledInit() {
 
     }
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
-    
+
     public void testPeriodic() {
         LiveWindow.run();
     }
