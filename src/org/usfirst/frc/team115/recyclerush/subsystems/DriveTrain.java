@@ -19,6 +19,11 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
+	
+	public enum DriveMode{
+		UserControl,
+		CommandControl
+	}
 
 	private RobotDrive drive;
 	private final int BACK_LEFT = 0;
@@ -30,6 +35,8 @@ public class DriveTrain extends Subsystem {
     private final IMUAdvanced navX;
 
 	private double scaleFactor = 0.25;
+	
+	private DriveMode dm;
 	
     /**
      * Initializes each other motors based on ports set in RobotMap
@@ -43,6 +50,7 @@ public class DriveTrain extends Subsystem {
         motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
         drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
                 motors[FRONT_RIGHT], motors[BACK_RIGHT]);
+        dm = DriveMode.UserControl;
     }
     
     public void initialize() {
@@ -52,6 +60,13 @@ public class DriveTrain extends Subsystem {
         } 
     }
 
+    public DriveMode getControlMode(){
+    	return dm;
+    }
+    
+    public void setControlMode(DriveMode mode){
+    	dm = mode;
+    }
     /**
      * This thing drives the robot!
      *

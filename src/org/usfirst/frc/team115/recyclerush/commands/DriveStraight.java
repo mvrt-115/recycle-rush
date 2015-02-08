@@ -2,6 +2,7 @@ package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
@@ -56,25 +57,29 @@ public class DriveStraight extends PIDCommand {
 	*/
 	public DriveStraight(double p, double i, double d, int mode) {
 		super(p, i, d);
-		hasDistanceLimit = hasTimeLimit = false;
-		useJoystick = false;
-		gyro = new Gyro(0);
-		this.setSetpoint(desiredAngle);
-		speed = (long)SmartDashboard.getNumber("Drive speed", (double)DEFAULT_SPEED);
-		encoder = new Encoder(RobotMap.DRIVE_STRAIGHT_ENCODER_A, RobotMap.DRIVE_STRAIGHT_ENCODER_B);
-		
-		switch(mode) {
-			case DISTANCE: //Drive a set distance
-				hasDistanceLimit = true;
-				distance = SmartDashboard.getNumber("Drive distance");
-				break;
-			case TIME: //Drive for a period of time
-				hasTimeLimit = true;
-				timeLimit = (long)SmartDashboard.getNumber("Drive time");
-				startTime = System.currentTimeMillis();
-				break;
-			case JOYSTICK_CONTROL: //Use joystick with PID
-				useJoystick = true;
+		if(Robot.drive.getControlMode() == DriveTrain.DriveMode.CommandControl){
+			hasDistanceLimit = hasTimeLimit = false;
+			useJoystick = false;
+			gyro = new Gyro(0);
+			this.setSetpoint(desiredAngle);
+			speed = (long)SmartDashboard.getNumber("Drive speed", (double)DEFAULT_SPEED);
+			encoder = new Encoder(RobotMap.DRIVE_STRAIGHT_ENCODER_A, RobotMap.DRIVE_STRAIGHT_ENCODER_B);
+			
+			switch(mode) {
+				case DISTANCE: //Drive a set distance
+					hasDistanceLimit = true;
+					distance = SmartDashboard.getNumber("Drive distance");
+					break;
+				case TIME: //Drive for a period of time
+					hasTimeLimit = true;
+					timeLimit = (long)SmartDashboard.getNumber("Drive time");
+					startTime = System.currentTimeMillis();
+					break;
+				case JOYSTICK_CONTROL: //Use joystick with PID
+					useJoystick = true;
+			}
+		}else{
+			end();
 		}
 	}
 
@@ -108,7 +113,9 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void end() {
-		Robot.drive.stop();
+		if(Robot.drive.getControlMode() == DriveTrain.DriveMode.CommandControl){
+			Robot.drive.stop();
+		}
 	}
 
 	@Override

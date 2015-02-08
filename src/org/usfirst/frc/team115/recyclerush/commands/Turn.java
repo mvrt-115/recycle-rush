@@ -1,7 +1,9 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Turn extends PIDCommand {
@@ -11,9 +13,12 @@ public class Turn extends PIDCommand {
 
     public Turn(double goal) {
         super(0, 0, 0);
-
-        this.goal = goal;
-        SmartDashboard.putString("Chassis Desired Angle", goal+"");
+        if(Robot.drive.getControlMode() == DriveTrain.DriveMode.CommandControl){
+        	this.goal = goal;
+        	SmartDashboard.putString("Chassis Desired Angle", goal+"");
+        }else{
+        	end();
+        }
     }
     
     /**
@@ -62,8 +67,10 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void end() {
-    	SmartDashboard.putNumber("Chassis Gyro Angle Current", returnPIDInput());
-        Robot.drive.stop();
+    	if(Robot.drive.getControlMode() == DriveTrain.DriveMode.CommandControl){
+    		SmartDashboard.putNumber("Chassis Gyro Angle Current", returnPIDInput());
+    		Robot.drive.stop();
+    	}
     }
 
     /**
