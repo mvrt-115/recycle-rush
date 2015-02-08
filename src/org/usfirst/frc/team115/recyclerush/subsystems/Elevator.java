@@ -25,7 +25,7 @@ public class Elevator extends Subsystem {
 		elevatorMotor.changeControlMode(ControlMode.Position);
 		elevatorMotor.setPID(p, i, d);
 		
-		elevatorSolenoid = new DoubleSolenoid(RobotMap.BREAK_SOLENOID_1, RobotMap.BREAK_SOLENOID_2);
+		elevatorSolenoid = new DoubleSolenoid(RobotMap.BRAKE_SOLENOID_1, RobotMap.BRAKE_SOLENOID_2);
 	}
 	
 	public double getHeight() {
