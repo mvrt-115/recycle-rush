@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Turn extends PIDCommand {
 
-    private double desiredAngle; // the final angle we strive for
     private double goal;
+    private double initial;
 
     public Turn(double goal) {
         super(0, 0, 0);
@@ -15,13 +15,13 @@ public class Turn extends PIDCommand {
         this.goal = goal;
         SmartDashboard.putString("Chassis Desired Angle", goal+"");
     }
-    
+
     /**
      * @return the gyro's current angle
      */
     @Override
     protected double returnPIDInput() {
-        return Robot.drive.getYaw();
+        return Robot.drive.getYaw() - initial;
     }
 
     /**
@@ -37,7 +37,6 @@ public class Turn extends PIDCommand {
 
     @Override
     protected void initialize() {
-        desiredAngle = goal + Robot.drive.getYaw(); // Goal degree.
 		SmartDashboard.putString("Chassis Current Angle", returnPIDInput()+"");
     }
 
@@ -51,7 +50,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected boolean isFinished() {
-        if (Math.abs(desiredAngle - Robot.drive.getYaw()) <= 2) {
+        if (Math.abs(goal - returnPIDInput()) <= 2) {
             return true;
         }
         return false;
