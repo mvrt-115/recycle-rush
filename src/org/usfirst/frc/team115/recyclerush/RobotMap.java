@@ -2,11 +2,7 @@ package org.usfirst.frc.team115.recyclerush;
 
 /**
  * @author MVRT
-<<<<<<< HEAD
  * This class contains final static variables
-=======
- * This class should contain final static variables
->>>>>>> 17d1c34f3702e96485f091f68932be2880bd156a
  * corresponding to each physical device on the robot. Naming scheme can
  * be found in the Electrical 2015 Excel Doc
  */

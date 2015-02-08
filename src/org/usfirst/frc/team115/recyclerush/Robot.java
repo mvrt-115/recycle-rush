@@ -15,15 +15,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
-<<<<<<< HEAD
- *	This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
- *  Note: If you change the class name or package, the manifest must be updated.
- *  @author MVRT
-=======
  * @author MVRT
  * This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
  * Note: If you change the class name or package, the manifest must be updated.
->>>>>>> 17d1c34f3702e96485f091f68932be2880bd156a
  */
 public class Robot extends IterativeRobot {
 
