@@ -22,6 +22,14 @@ public class Claw extends Subsystem {
         clawSolenoid.set(Value.kForward);
     }
 
+    public boolean isOpen(){
+    	return clawSolenoid.get() == Value.kForward;
+    }
+    
+    public boolean isClosed(){
+    	return clawSolenoid.get() == Value.kReverse;
+    }
+    
     @Override
     protected void initDefaultCommand() {
     }

@@ -1,7 +1,8 @@
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
-import org.usfirst.frc.team115.recyclerush.commands.OpenClaw;
+import org.usfirst.frc.team115.recyclerush.commands.CloseGrabber;
+import org.usfirst.frc.team115.recyclerush.commands.OpenGrabber;
+import org.usfirst.frc.team115.recyclerush.commands.ToggleClaw;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -26,10 +27,15 @@ public class OI {
 	}
 	
 	private void initXboxController(){
+		//open grabber on LB press, close on RB
 		JoystickButton lb = new JoystickButton(xbox, RobotMap.XBOX_LB);
-		lb.whenPressed(new OpenClaw());
+		lb.whenPressed(new OpenGrabber());
 		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
-		rb.whenPressed(new CloseClaw());
+		rb.whenPressed(new CloseGrabber());
+		
+		//toggle claw/stabilizer on (y) button press
+		JoystickButton y = new JoystickButton(xbox, RobotMap.XBOX_Y);
+		y.whenPressed(new ToggleClaw());
 	}
 	
 	public Joystick getJoystick() {
