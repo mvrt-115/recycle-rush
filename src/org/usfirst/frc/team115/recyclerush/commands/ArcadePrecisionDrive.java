@@ -15,11 +15,12 @@ public class ArcadePrecisionDrive extends Command {
 	
 	public ArcadePrecisionDrive() {
 		requires(Robot.drive);
-		joystick = Robot.oi.getJoystick();
 	}
 	
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+	    joystick = Robot.oi.getJoystick();
+	}
 
 	@Override
 	protected void execute() {
