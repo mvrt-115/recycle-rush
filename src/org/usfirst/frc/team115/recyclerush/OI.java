@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
 import org.usfirst.frc.team115.recyclerush.commands.CloseGrabber;
 import org.usfirst.frc.team115.recyclerush.commands.OpenGrabber;
 import org.usfirst.frc.team115.recyclerush.commands.ToggleClaw;
@@ -24,6 +25,12 @@ public class OI {
 		joystick = new Joystick(RobotMap.JOYSTICK);
 		xbox = new Joystick(RobotMap.XBOX);
 		initXboxController();
+		initJoystick();
+	}
+	
+	private void initJoystick(){
+		JoystickButton trigButton = new JoystickButton(joystick, RobotMap.JOYSTICK_TRIGGER);
+		trigButton.whileHeld(new ArcadePrecisionDrive());
 	}
 	
 	private void initXboxController(){
