@@ -50,8 +50,16 @@ public class OI {
 		return xbox.getRawButton(btn);
 	}
 	
+	public boolean getJoystickButton(int btn){
+		return joystick.getRawButton(btn);
+	}
+	
 	public double getXboxAxis(int axis){
 		return xbox.getRawAxis(axis);
+	}
+	
+	public double getJoystickAxis(int axis){
+		return joystick.getRawAxis(axis);
 	}
 	
 	public int getXboxPOV(){
