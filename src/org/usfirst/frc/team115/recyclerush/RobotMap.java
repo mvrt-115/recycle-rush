@@ -34,6 +34,7 @@ public class RobotMap {
     
     //joystick buttons
     public static final int JOYSTICK_TRIGGER = 0;
+    public static final int JOYSTICK_THUMB = 1;
     
     //xbox buttons
     public static final int XBOX_A			 = 1;

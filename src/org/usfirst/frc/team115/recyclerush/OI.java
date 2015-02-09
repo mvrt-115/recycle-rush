@@ -29,7 +29,7 @@ public class OI {
 	}
 	
 	private void initJoystick(){
-		JoystickButton trigButton = new JoystickButton(joystick, RobotMap.JOYSTICK_TRIGGER);
+		JoystickButton trigButton = new JoystickButton(joystick, RobotMap.JOYSTICK_THUMB);
 		trigButton.whileHeld(new ArcadePrecisionDrive());
 	}
 	
