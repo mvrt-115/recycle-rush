@@ -6,12 +6,12 @@
 
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
-import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -20,18 +20,36 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * A subsystem representing the drive train for the robot
+ * @author MVRT
+ */
 public class DriveTrain extends Subsystem {
+	
+	public enum DriveMode{
+		UserControl,
+		CommandControl
+	}
 
 	private RobotDrive drive;
-	private final int BACK_LEFT = 0;
-	private final int BACK_RIGHT = 1;
-	private final int FRONT_LEFT = 2;
-	private final int FRONT_RIGHT = 3;
+
+    private final int BACK_LEFT = 0;
+    private final int BACK_RIGHT = 1;
+    private final int FRONT_LEFT = 2;
+    private final int FRONT_RIGHT = 3;
+    private IMUAdvanced navX;
+
+    private AnalogInput ultrasonicFront;
+    private AnalogInput ultrasonicBack;
+    private AnalogInput ultrasonicLeft;
+    private AnalogInput ultrasonicRight;
+    private static final double ANALOG_SCALE_3_3V = 0.00644;
 
 	private CANTalon motors[];
-    private final IMUAdvanced navX;
 
 	private double scaleFactor = 0.25;
+	
+	private DriveMode dm;
 	
 	private double limited_speed = 0.0;
 	private double speed_change_limit = 0.05;
@@ -43,6 +61,12 @@ public class DriveTrain extends Subsystem {
      */
     public DriveTrain() {
         navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
+
+        ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
+        ultrasonicBack = new AnalogInput(RobotMap.ULTRASONIC_BACK);
+        ultrasonicLeft = new AnalogInput(RobotMap.ULTRASONIC_LEFT);
+        ultrasonicRight = new AnalogInput(RobotMap.ULTRASONIC_RIGHT);
+
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
         motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -50,6 +74,7 @@ public class DriveTrain extends Subsystem {
         motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
         drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
                 motors[FRONT_RIGHT], motors[BACK_RIGHT]);
+        dm = DriveMode.UserControl;
     }
     
     public void initialize() {
@@ -87,9 +112,15 @@ public class DriveTrain extends Subsystem {
     	limited_angle += change;
     }
 
+    public DriveMode getControlMode(){
+    	return dm;
+    }
+    
+    public void setControlMode(DriveMode mode){
+    	dm = mode;
+    }
     /**
      * This thing drives the robot!
-     *
      * @param move   the forward speed of the rotation
      * @param rotate the rotation value of the robot
      */
@@ -101,7 +132,6 @@ public class DriveTrain extends Subsystem {
 
     /**
      * Drives the robot
-     *
      * @param joystick The joystick to drive based on
      */
     public void drive(Joystick joystick) {
@@ -122,29 +152,35 @@ public class DriveTrain extends Subsystem {
     protected void initDefaultCommand() {
     	setDefaultCommand(new ArcadeDriveWithJoystick());
     }
+    
+	/**
+	 * This returns the current.
+	 * @return 		the current
+	 */
+	
+	public double getCurrent() {
+		double current = 0;
+		for (CANTalon motor : motors)
+			current += motor.getOutputCurrent();
+		return current;
+	}
 
     /**
-     * Returns the angle of rotational displacement
-     *
-     * @return the current yaw of the gyro
+     * @return the angle of rotational displacement
      */
     public float getYaw() {
         return navX.getYaw();
     }
 
     /**
-     * Returns the angle of tilt along the horizontal plane
-     *
-     * @return the gyro's pitch
+     * @return the angle of tilt along the horizontal plane
      */
     public float getPitch() {
         return navX.getPitch();
     }
 
     /**
-     * Returns the angle of tilt along the vertical plane
-     *
-     * @return the gyro's roll
+     * @return the angle of tilt along the vertical plane
      */
     public float getRoll() {
         return navX.getRoll();
@@ -155,31 +191,25 @@ public class DriveTrain extends Subsystem {
      */
     public void resetAll() {
         navX.zeroYaw();
-        //encoder reset goes here
+        //TODO: encoder reset goes here
     }
 
     /**
-     * Returns the displacement along x axis
-     *
-     * @return the x displacement
+     * @return the displacement along x axis
      */
     public float getX() {
         return navX.getWorldLinearAccelX();
     }
 
     /**
-     * Returns the displacement along x axis
-     *
-     * @return the x displacement
+     * @return the displacement along x axis
      */
     public float getY() {
         return navX.getWorldLinearAccelY();
     }
 
     /**
-     * Returns the displacement along x axis
-     *
-     * @return the x displacement
+     * @return the displacement along x axis
      */
     public float getZ() {
         return navX.getWorldLinearAccelZ();
@@ -215,17 +245,32 @@ public class DriveTrain extends Subsystem {
 		return total / motors.length;
 	}
 	
-	
-	/**
-	 * This returns the current.
-	 * @return 		the current
-	 */
-	
-	public double getCurrent() {
-		double current = 0;
-		for (CANTalon motor : motors)
-			current += motor.getOutputCurrent();
-		return current;
-	}
-	
+	 /**
+     * @return the distance from front
+     */
+    public double getFrontUltrasonicInches(){
+        return ultrasonicFront.getVoltage()/ANALOG_SCALE_3_3V;
+    }
+
+    /**
+     * @return the distance from back 
+     */
+    public double getBackUltrasonicInches(){
+        return ultrasonicBack.getVoltage()/ANALOG_SCALE_3_3V;
+    }
+
+    /**
+     * @return the distance from left
+     */
+    public double getLeftUltrasonicInches(){
+        return ultrasonicLeft.getVoltage()/ANALOG_SCALE_3_3V;
+    }
+
+    /**
+     * @return the distance from right
+     */
+    public double getRightUltrasonicInches(){
+        return ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V;
+    }
+
 }
