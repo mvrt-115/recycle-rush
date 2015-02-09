@@ -42,14 +42,9 @@ public class OI {
 	
 		XboxTrigger lt = new XboxTrigger(xbox, RobotMap.XBOX_LT, 0.8);
 		XboxTrigger rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.8);
-		 
-		//TODO: Finish CloseArm and OpenArm
+		
 		lt.whenActive(new RollerClose());
 		rt.whenActive(new RollerOpen());
-		
-		//TODO: Finish AutoIntake.java
-		JoystickButton ab =  new JoystickButton(xbox, RobotMap.XBOX_A);
-		ab.whenPressed(new AutoIntake()); 
 	}
 	
 	public Joystick getJoystick() {
