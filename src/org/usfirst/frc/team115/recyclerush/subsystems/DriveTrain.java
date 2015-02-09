@@ -52,7 +52,7 @@ public class DriveTrain extends Subsystem {
 	private DriveMode dm;
 	
 	private double limited_speed = 0.0;
-	private double speed_change_limit = 0.05;
+	private double speed_change_limit = 0.0001;
 	private double limited_angle = 0.0;
 	private double angle_change_limit = 0.05;
 	
@@ -90,7 +90,7 @@ public class DriveTrain extends Subsystem {
      * @param output The desired speed to limit
      */
     public void ramping(double output) {  
-    	speed_change_limit = SmartDashboard.getNumber("Speed Change Limit");
+    	//speed_change_limit = SmartDashboard.getNumber("Speed Change Limit");
     	double change = output - limited_speed;
     	if (change > speed_change_limit)
     		change = speed_change_limit;
