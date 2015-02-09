@@ -9,30 +9,30 @@ import org.usfirst.frc.team115.recyclerush.Robot;
  */
 public class CloseClaw extends Command {
 
+	boolean finished = false;
+	
     public CloseClaw() {
         requires(Robot.claw);
     }
 
     @Override
-    protected void initialize() {
-    }
+    protected void initialize() {}
 
     @Override
     protected void execute() {
         Robot.claw.close();
+        finished = true;
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return finished;
     }
 
     @Override
-    protected void end() {
-    }
+    protected void end() {}
 
     @Override
-    protected void interrupted() {
-    }
+    protected void interrupted() {}
 
 }

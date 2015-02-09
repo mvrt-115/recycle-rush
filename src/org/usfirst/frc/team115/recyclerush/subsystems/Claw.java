@@ -41,7 +41,6 @@ public class Claw extends Subsystem {
     }
     
     @Override
-    protected void initDefaultCommand() {
-    }
+    protected void initDefaultCommand() {}
 
 }

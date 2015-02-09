@@ -24,15 +24,14 @@ public class DriveTrain extends Subsystem {
     private final int BACK_RIGHT = 1;
     private final int FRONT_LEFT = 2;
     private final int FRONT_RIGHT = 3;
-    private IMUAdvanced navX;
+    private CANTalon motors[];
 
     private AnalogInput ultrasonicFront;
     private AnalogInput ultrasonicBack;
     private AnalogInput ultrasonicLeft;
     private AnalogInput ultrasonicRight;
     private static final double ANALOG_SCALE_3_3V = 0.00644;
-
-    private CANTalon motors[];
+    private IMUAdvanced navX;
 
     /**
      * Initializes each other motors based on ports set in RobotMap
@@ -173,7 +172,4 @@ public class DriveTrain extends Subsystem {
     public double getRightUltrasonicInches(){
         return ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V;
     }
-
-
-
 }
