@@ -1,8 +1,8 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
-import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorControl;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -16,7 +16,7 @@ public class Elevator extends Subsystem {
 	public static final double MIN_HEIGHT = 0;
 	public static final double MAX_SPEED_FINE = 0.2;
 	private static final double revLength = 3.18;	// in inches
-	public static boolean stateOfSolenoid = false; // false is brakes are off
+	public static boolean isBraking = false; // state of the brakes
 	public int fullRots = 0;	// number of full rotations by elevatorMotor.
 	
 	public Elevator(double p, double i, double d) {		
@@ -66,18 +66,22 @@ public class Elevator extends Subsystem {
 	
 	public void brake() {
 		elevatorSolenoid.set(Value.kForward);
-		stateOfSolenoid = true;
+		isBraking = true;
 	}
 	
-	public void release() {
+	public void releaseBrake() {
 		elevatorSolenoid.set(Value.kReverse);
-		stateOfSolenoid = false;
+		isBraking = false;
 	}
 	
 	public void control(double y_axis) {
 		if(Math.abs(y_axis) - 1 > 0) throw new IllegalArgumentException("Axis must be between -1 and 1");
-		elevatorMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
-		elevatorMotor.set(y_axis * MAX_SPEED_FINE);
+		else if(Math.abs(y_axis) < 0.2)brake();
+		else{
+			if(isBraking)releaseBrake();
+			elevatorMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
+			elevatorMotor.set(y_axis * MAX_SPEED_FINE);
+		}
 	}
 	
 	@Override

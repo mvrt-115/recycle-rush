@@ -1,8 +1,8 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import org.usfirst.frc.team115.recyclerush.OI;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorControl extends Command {
@@ -12,13 +12,14 @@ public class ElevatorControl extends Command {
 	}
 
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+		Robot.elevator.releaseBrake();
+	}
 
 	@Override
 	protected void execute() {
-		Robot.elevator.control(Robot.oi.getElevatorAxis());
+		Robot.elevator.control(Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR));
 	}
-	
 	
 	@Override
 	protected boolean isFinished() {

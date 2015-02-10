@@ -61,11 +61,7 @@ public class OI {
 	public double getXboxAxis(int axis){
 		return xbox.getRawAxis(axis);
 	}
-	
-	public double getElevatorAxis(){
-		return getXboxAxis(AXIS_CONTROL_ELEVATOR);
-	}
-	
+
 	public int getXboxPOV(){
 		return xbox.getPOV();
 	}	
