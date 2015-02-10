@@ -15,8 +15,7 @@ public class ArcadeDriveWithJoystick extends Command {
     }
 
     @Override
-    protected void initialize() {
-    }
+    protected void initialize() {}
 
     @Override
     protected void execute() {

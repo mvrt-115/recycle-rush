@@ -37,7 +37,6 @@ public class Grabber extends Subsystem {
      * Sets the default command for this subsystem
      */
     @Override
-    protected void initDefaultCommand() {
-    }
+    protected void initDefaultCommand() {}
 
 }
