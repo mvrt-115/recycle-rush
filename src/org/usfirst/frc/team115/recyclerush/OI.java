@@ -22,6 +22,9 @@ public class OI {
 	private Joystick joystick;
 	private Joystick xbox;
 	
+	public static final int ROLLERCONTROL_AXIS_X = RobotMap.XBOX_AXIS_RX;
+	public static final int ROLLERCONTROL_AXIS_Y = RobotMap.XBOX_AXIS_RY;
+	
 	public OI() {
 		joystick = new Joystick(RobotMap.JOYSTICK);
 		xbox = new Joystick(RobotMap.XBOX);
@@ -40,8 +43,8 @@ public class OI {
 		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
 		rb.whenPressed(new CloseClaw());
 	
-		XboxTrigger lt = new XboxTrigger(xbox, RobotMap.XBOX_LT, 0.8);
-		XboxTrigger rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.8);
+		XboxTrigger lt = new XboxTrigger(xbox, RobotMap.XBOX_LT, 0.6);
+		XboxTrigger rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.6);
 		
 		lt.whenActive(new RollerClose());
 		rt.whenActive(new RollerOpen());
