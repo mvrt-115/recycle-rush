@@ -1,6 +1,5 @@
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
 import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
 import org.usfirst.frc.team115.recyclerush.commands.OpenClaw;
 import org.usfirst.frc.team115.recyclerush.commands.RollerClose;
