@@ -1,15 +1,5 @@
 package org.usfirst.frc.team115.recyclerush;
 
-<<<<<<< HEAD
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
-import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
-import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
-import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
-import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
-=======
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
@@ -18,7 +8,6 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
->>>>>>> akhil/feature/elevator
 
 /**
  *	This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.

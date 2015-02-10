@@ -82,7 +82,7 @@ public class Elevator extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new ElevatorControl(Robot.oi.getJoystick()));
+		setDefaultCommand(new ElevatorControl());
 	}
 
 }
