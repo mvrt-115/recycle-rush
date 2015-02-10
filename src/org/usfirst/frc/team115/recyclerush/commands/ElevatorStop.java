@@ -7,23 +7,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorStop extends Command{
 	
+	boolean finished = false;
+	
 	public ElevatorStop(){
 		requires(Robot.elevator);
 		SmartDashboard.putString("ElevatorDirection", "Stop");
 	}
 	
 	@Override
-	protected void initialize() {
+	protected void initialize() {}
+
+	@Override
+	protected void execute() {
 		Robot.elevator.stop();
 		Robot.elevator.brake();
+		finished = true;
 	}
 
 	@Override
-	protected void execute() {}
-
-	@Override
 	protected boolean isFinished() {
-		return true;
+		return finished;
 	}
 
 	@Override
