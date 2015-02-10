@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,13 +17,11 @@ public class ArcadeDriveWithJoystick extends Command {
     public ArcadeDriveWithJoystick() {
         requires(Robot.drive);
     }
-    
-    public void ramping(double output) {
-    	
-	}
 
     @Override
     protected void initialize() {
+        Robot.drive.disableControl();
+        Robot.drive.setControlMode(CANTalon.ControlMode.PercentVbus);
     }
 
     @Override

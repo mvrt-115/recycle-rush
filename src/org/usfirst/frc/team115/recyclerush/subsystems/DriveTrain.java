@@ -6,30 +6,18 @@
 
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
-import org.usfirst.frc.team115.recyclerush.RobotMap;
-import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
-
 import com.kauailabs.nav6.frc.IMUAdvanced;
-
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team115.recyclerush.RobotMap;
+import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
 /**
  * A subsystem representing the drive train for the robot
  * @author MVRT
  */
 public class DriveTrain extends Subsystem {
-	
-	public enum DriveMode{
-		UserControl,
-		CommandControl
-	}
 
 	private RobotDrive drive;
 
@@ -43,19 +31,20 @@ public class DriveTrain extends Subsystem {
     private AnalogInput ultrasonicBack;
     private AnalogInput ultrasonicLeft;
     private AnalogInput ultrasonicRight;
+
+    private final double p = 0.05;
+    private final double i = 0.008;
+    private final double d = 0.1;
+
+    public static final double DEFAULT_VBUS = 0.7;
+
     private static final double ANALOG_SCALE_3_3V = 0.00644;
+
+    public static final double DISTANCE_SCALE = 2;
 
 	private CANTalon motors[];
 
-	private double scaleFactor = 0.25;
-	
-	private DriveMode dm;
-	
-	private double limited_speed = 0.0;
-	private double speed_change_limit = 0.0001;
-	private double limited_angle = 0.0;
-	private double angle_change_limit = 0.05;
-	
+
     /**
      * Initializes each other motors based on ports set in RobotMap
      */
@@ -74,50 +63,24 @@ public class DriveTrain extends Subsystem {
         motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
         drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
                 motors[FRONT_RIGHT], motors[BACK_RIGHT]);
-        dm = DriveMode.UserControl;
     }
     
     public void initialize() {
     	for (CANTalon motor : motors) {
-        	motor.enableControl();
-   //     	motor.setVoltageRampRate(24);
+        	motor.disableControl();
+            motor.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+            motor.changeControlMode(CANTalon.ControlMode.PercentVbus);
         } 
     }
     
-    
-    /**
-     * Limit the change in speed
-     * @param output The desired speed to limit
-     */
-    public void ramping(double output) {  
-    	//speed_change_limit = SmartDashboard.getNumber("Speed Change Limit");
-    	double change = output - limited_speed;
-    	if (change > speed_change_limit)
-    		change = speed_change_limit;
-    	else if (change < -speed_change_limit)
-    		change = -speed_change_limit;
-    	limited_speed += change;
-	}
-    
-    /** 
-     * Limits the rotation speed
-     * @param output The desired rotation angle to limit
-     */
-    public void limitRotation(double output) {
-    	double change = output - limited_angle;
-    	if (change > angle_change_limit)
-    		change = angle_change_limit;
-    	else if (change < -angle_change_limit)
-    		change = -angle_change_limit;
-    	limited_angle += change;
+    public void setControlMode(CANTalon.ControlMode mode){
+    	 for(CANTalon motor : motors)
+             motor.changeControlMode(mode);
     }
 
-    public DriveMode getControlMode(){
-    	return dm;
-    }
-    
-    public void setControlMode(DriveMode mode){
-    	dm = mode;
+    public void setFeedbackDevice(CANTalon.FeedbackDevice device) {
+        for(CANTalon motor : motors)
+            motor.setFeedbackDevice(device);
     }
     /**
      * This thing drives the robot!
@@ -125,9 +88,7 @@ public class DriveTrain extends Subsystem {
      * @param rotate the rotation value of the robot
      */
     public void drive(double move, double rotate) {
-    	ramping(move);
-    	limitRotation(rotate);
-        drive.arcadeDrive(limited_speed, rotate);
+        drive.arcadeDrive(move, rotate);
     }
 
     /**
@@ -219,15 +180,11 @@ public class DriveTrain extends Subsystem {
 		for (CANTalon motor : motors)
 			motor.enableControl();
 	}
-	
-	public void setMode(CANTalon.ControlMode mode) {
-		for (CANTalon motor : motors)
-			motor.changeControlMode(mode);		
-	}
-	
-	public CANTalon.ControlMode getMode() {
-		return motors[0].getControlMode();
-	}
+
+    public void disableControl() {
+        for (CANTalon motor : motors)
+            motor.disableControl();
+    }
 	
 	public void setPosition(double position) {
 		for (CANTalon motor : motors)
@@ -235,7 +192,8 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public double getDistance() {
-		return motors[0].getPosition()*scaleFactor;
+		return ((motors[0].getPosition() + motors[1].getPosition()
+                + motors[2].getPosition() + motors[3].getPosition()) / 4 ) * DISTANCE_SCALE;
 	}
 	
 	public double getSpeed() {
@@ -273,4 +231,15 @@ public class DriveTrain extends Subsystem {
         return ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V;
     }
 
+    public double getD() {
+        return d;
+    }
+
+    public double getI() {
+        return i;
+    }
+
+    public double getP() {
+        return p;
+    }
 }
