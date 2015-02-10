@@ -46,19 +46,19 @@ public class Roller extends Subsystem {
 	 * @param y: The joystick y-axis (controls in/out)
 	 */
 	public void control(double x, double y) {
-		//if abs(y value) is greater than x and .4, control in/out instead of rotation
-		//(only controls the rollers with one mode at a time)
-		if (Math.abs(y) >= Math.abs(x) && Math.abs(y) >= 0.4) {
-				leftMotor.set(y);
-				rightMotor.set(y);
-		}
-		else if (x >= 0.4) {
-			leftMotor.set(x);
-			rightMotor.set(-0.5);
-		}
-		else if (x <= -0.4) {
-			rightMotor.set(-x);
-			leftMotor.set(-0.5);
+		
+		//if abs(y) is greater than abs(x), control in/out instead of rotation
+		if(Math.abs(y) > Math.abs(x)){
+			leftMotor.set(y);
+			rightMotor.set(y);
+		} else{
+			double fwdSpeed = Math.abs(x);
+			double revSpeed = -0.4;
+			
+			//if x is positive, left is abs(x) and right is -0.4
+			//else if x is negative, right is abs(x) and left is -0.4
+			leftMotor.set((x > 0) ? fwdSpeed : revSpeed);
+			rightMotor.set((x < 0) ? fwdSpeed : revSpeed);
 		}
 	}
 	
