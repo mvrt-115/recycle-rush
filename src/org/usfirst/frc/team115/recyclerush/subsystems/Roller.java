@@ -23,7 +23,7 @@ public class Roller extends Subsystem {
 	
 	private DigitalInput limitSwitchRight;
 	private DigitalInput limitSwitchLeft;
-	
+	private DigitalInput limitSwitchIntake;
 	
 	/**
 	 * Creates the two motors with the specified ports
@@ -35,6 +35,7 @@ public class Roller extends Subsystem {
 		rollerSolenoid = new DoubleSolenoid(RobotMap.ROLLER_SOLENOID_1, RobotMap.ROLLER_SOLENOID_2);
 		limitSwitchRight = new DigitalInput(RobotMap.ROLLER_LIMIT_R);
 		limitSwitchLeft = new DigitalInput(RobotMap.ROLLER_LIMIT_L);
+		limitSwitchIntake = new DigitalInput(RobotMap.ROLLER_LIMIT_INTAKE);
 	}
 
 	public void initialize() {}
@@ -81,6 +82,10 @@ public class Roller extends Subsystem {
 	
 	public boolean getRightLimitSwitch(){
 		return limitSwitchRight.get();
+	}
+	
+	public boolean getIntakeLimitSwitch(){
+		return limitSwitchIntake.get();
 	}
 	
 	/**

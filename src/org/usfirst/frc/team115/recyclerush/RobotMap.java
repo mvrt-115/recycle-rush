@@ -50,6 +50,7 @@ public class RobotMap {
     public static final int ROLLER_SOLENOID_2		= 6;
     public static final int ROLLER_LIMIT_R = 0;
     public static final int ROLLER_LIMIT_L = 0;
+    public static final int ROLLER_LIMIT_INTAKE = 0;
     
     public static final int BRAKE_SOLENOID_1		= 7;
     public static final int BRAKE_SOLENOID_2		= 8;
