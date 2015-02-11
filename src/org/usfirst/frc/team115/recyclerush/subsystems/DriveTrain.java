@@ -40,7 +40,7 @@ public class DriveTrain extends Subsystem {
 
     private static final double ANALOG_SCALE_3_3V = 0.00644;
 
-    public static final double DISTANCE_SCALE = 2;
+    public static final double DISTANCE_SCALE = 8.0 * Math.PI / 1024.0;
 
 	private CANTalon motors[];
 
@@ -84,7 +84,7 @@ public class DriveTrain extends Subsystem {
     }
     /**
      * This thing drives the robot!
-     * @param move   the forward speed of the rotation
+     * @param move   the forward value of the rotation
      * @param rotate the rotation value of the robot
      */
     public void drive(double move, double rotate) {

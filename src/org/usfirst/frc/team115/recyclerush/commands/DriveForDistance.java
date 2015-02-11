@@ -2,7 +2,6 @@ package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
@@ -12,7 +11,7 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 public class DriveForDistance extends Command {
 
     private double scaledDistance;
-    private final double SCALE = 1.047;
+    private final double SCALE = 1536.0 / Math.PI;	// scaling constant for feet into encoder ticks.
 
     /*
      * Takes distance in terms of feet

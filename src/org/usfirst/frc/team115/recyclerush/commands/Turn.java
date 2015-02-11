@@ -13,12 +13,8 @@ public class Turn extends PIDCommand {
 
     public Turn(double goal) {
         super(0, 0, 0);
-        if(Robot.drive.getControlMode() == DriveTrain.DriveMode.CommandControl){
-        	this.goal = goal;
-        	SmartDashboard.putString("Chassis Desired Angle", goal+"");
-        }else{
-        	end();
-        }
+        this.goal = goal;
+        SmartDashboard.putString("Chassis Desired Angle", goal+"");
     }
 
     /**
@@ -66,10 +62,8 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void end() {
-    	if(Robot.drive.getControlMode() == DriveTrain.DriveMode.CommandControl){
-    		SmartDashboard.putNumber("Chassis Gyro Angle Current", returnPIDInput());
-    		Robot.drive.stop();
-    	}
+    	SmartDashboard.putNumber("Chassis Gyro Angle Current", returnPIDInput());
+    	Robot.drive.stop();
     }
 
     /**
