@@ -47,7 +47,7 @@ public class Roller extends Subsystem {
 	 */
 	public void control(double x, double y) {
 		
-		//if abs(y) is greater than abs(x), control in/out instead of rotation
+		// if abs(y) is greater than abs(x), control in/out instead of rotation
 		if(Math.abs(y) > Math.abs(x)){
 			leftMotor.set(y);
 			rightMotor.set(y);
@@ -55,8 +55,8 @@ public class Roller extends Subsystem {
 			double fwdSpeed = Math.abs(x);
 			double revSpeed = -0.4;
 			
-			//if x is positive, left is abs(x) and right is -0.4
-			//else if x is negative, right is abs(x) and left is -0.4
+			// if x is positive, left is abs(x) and right is -0.4
+			// else if x is negative, right is abs(x) and left is -0.4
 			leftMotor.set((x > 0) ? fwdSpeed : revSpeed);
 			rightMotor.set((x < 0) ? fwdSpeed : revSpeed);
 		}
