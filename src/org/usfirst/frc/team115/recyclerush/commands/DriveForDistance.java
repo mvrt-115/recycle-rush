@@ -12,7 +12,7 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 public class DriveForDistance extends Command {
 
     private double scaledDistance;
-    private final double SCALE = 1.047;
+    private final double SCALE = 1536.0 / Math.PI;
 
     /*
      * Takes distance in terms of feet
