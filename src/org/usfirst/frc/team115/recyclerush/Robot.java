@@ -1,8 +1,10 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
@@ -19,11 +21,21 @@ public class Robot extends IterativeRobot {
     public static Grabber grabber;
     public static OI oi;
 
+    public CANTalon talon1;
+    public CANTalon talon2;
+    public CANTalon talon3;
+    public CANTalon talon4;
+    
     public Robot() {
-        drive = new DriveTrain();
+       // drive = new DriveTrain();
         claw = new Claw();
         grabber = new Grabber();
         oi = new OI();
+    }
+    
+    public void robotInit() {
+    	drive = new DriveTrain();	
+    	drive.ramping();
     }
 
     public void disabledPeriodic() {

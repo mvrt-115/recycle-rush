@@ -2,7 +2,7 @@ package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.commands.CloseGrabber;
 import org.usfirst.frc.team115.recyclerush.commands.OpenGrabber;
-import org.usfirst.frc.team115.recyclerush.commands.ToggleClaw;
+//import org.usfirst.frc.team115.recyclerush.commands.ToggleClaw;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -33,7 +33,7 @@ public class OI {
 		
 		//toggle claw/stabilizer on (y) button press
 		JoystickButton y = new JoystickButton(xbox, RobotMap.XBOX_Y);
-		y.whenPressed(new ToggleClaw());
+		//y.whenPressed(new ToggleClaw());
 	}
 	
 	public Joystick getJoystick() {
