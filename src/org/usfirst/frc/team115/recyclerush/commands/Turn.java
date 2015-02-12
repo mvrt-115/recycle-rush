@@ -22,7 +22,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected double returnPIDInput() {
-        return 180 - (getGyroAngle() + 180 - target)%360;
+        return 180 - (getGyroAngle() + 180 - target) % 360;
     }
 	
 	/**
@@ -76,20 +76,3 @@ public class Turn extends PIDCommand {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
