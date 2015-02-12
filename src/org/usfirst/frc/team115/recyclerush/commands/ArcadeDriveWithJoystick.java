@@ -15,10 +15,12 @@ public class ArcadeDriveWithJoystick extends Command {
     }
 
     @Override
-    protected void initialize() {}
+    protected void initialize() {
+    }
 
     @Override
     protected void execute() {
+    	//Robot.drive.ramping();
         Robot.drive.drive(Robot.oi.getJoystick());
     }
 

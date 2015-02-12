@@ -51,6 +51,19 @@ public class DriveTrain extends Subsystem {
         motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
         drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
                 motors[FRONT_RIGHT], motors[BACK_RIGHT]);
+        
+    }
+    
+    public void ramping() {
+    	for (CANTalon motor : motors) {
+    		motor.setVoltageRampRate(5);
+    	}
+    }
+    
+    public void stopRamping() {
+    	for (CANTalon motor : motors) {
+    		motor.setVoltageRampRate(0);
+    	}
     }
 
     /**
@@ -59,7 +72,8 @@ public class DriveTrain extends Subsystem {
      * @param rotate the rotation value of the robot
      */
     public void drive(double move, double rotate) {
-        drive.arcadeDrive(move, rotate);
+        //ramping();
+    	drive.arcadeDrive(move, rotate);
     }
 
     /**
@@ -67,7 +81,8 @@ public class DriveTrain extends Subsystem {
      * @param joystick The joystick to drive based on
      */
     public void drive(Joystick joystick) {
-        drive.arcadeDrive(joystick);
+        //ramping();
+    	drive.arcadeDrive(joystick);
     }
 
     /**
