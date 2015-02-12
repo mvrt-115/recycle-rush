@@ -6,14 +6,15 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 public class Turn extends PIDCommand {
 
 	private double goal;
-    private double initial;
+	private double target;
+    
+    private static final double P = 0;
+    private static final double I = 0;
+    private static final double D = 0;
 
     public Turn(double goal) {
-        super(0, 0, 0);
-
+        super(P, I, D);
         this.goal = goal;
-
-        initial = Robot.drive.getYaw();
     }
     
     /**
@@ -21,7 +22,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected double returnPIDInput() {
-        return Robot.drive.getYaw() - initial;
+        return 180 - (getGyroAngle() + 180 - target)%360;
     }
 	
 	/**
@@ -34,7 +35,15 @@ public class Turn extends PIDCommand {
 	}
 
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+		double initial = getGyroAngle();
+		target = (initial + goal) % 360;
+	}
+	
+	private double getGyroAngle(){
+		return Robot.drive.getYaw() % 360;
+	}
+	
 	
     @Override
     protected void execute() {}
@@ -44,7 +53,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected boolean isFinished() {
-        if (Math.abs(goal - returnPIDInput()) <= 2) {
+        if (Math.abs(getGyroAngle() - target) <= 2) {
             return true;
         }
         return false;
@@ -67,3 +76,20 @@ public class Turn extends PIDCommand {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
