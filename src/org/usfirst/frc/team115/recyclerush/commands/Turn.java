@@ -56,7 +56,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected boolean isFinished() {
-        if (Math.abs(getGyroAngle() - target) <= 2) {
+        if (Math.abs(180 - (getGyroAngle() + 180 - target) % 360) <= 2) {
             return true;
         }
         return false;
