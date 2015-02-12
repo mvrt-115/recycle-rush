@@ -65,4 +65,7 @@ public class RobotMap {
 	public static final int ULTRASONIC_RIGHT 		= 1;
 	public static final int ULTRASONIC_LEFT 		= 2;
 	public static final int ULTRASONIC_BACK 		= 3;
+
+    // compressor
+    public static final int COMPRESSOR           = 0;
 }
