@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ArcadePrecisionDrive extends Command {
 	
-	private static final double PRECISION_SCALE_MOVE = 0.5;
-	private static final double PRECISION_SCALE_ROTATE = 0.5;
+	private static final double PRECISION_SCALE_MOVE = 0.7;
+	private static final double PRECISION_SCALE_ROTATE = 0.7;
 	
 	private Joystick joystick;
 	
@@ -24,6 +24,7 @@ public class ArcadePrecisionDrive extends Command {
 
 	@Override
 	protected void execute() {
+		System.out.println("test");
 	  	double moveValue = joystick.getAxis(AxisType.kY) * PRECISION_SCALE_MOVE;
     	double rotateValue = joystick.getAxis(AxisType.kX) * PRECISION_SCALE_ROTATE;
     	Robot.drive.drive(moveValue, rotateValue);
