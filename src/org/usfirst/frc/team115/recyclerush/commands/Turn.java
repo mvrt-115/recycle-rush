@@ -15,6 +15,10 @@ public class Turn extends PIDCommand {
     public Turn(double goal) {
         super(P, I, D);
         this.goal = goal;
+        setInputRange(0, 360);
+        // in our scaling method, angle is 
+        // scaled such that 180 is the target
+        setSetpoint(180);
     }
     
     /**
@@ -22,7 +26,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected double returnPIDInput() {
-        return 180 - (getGyroAngle() + 180 - target) % 360;
+        return (getGyroAngle() + 180 - target) % 360;
     }
 	
 	/**
@@ -43,7 +47,6 @@ public class Turn extends PIDCommand {
 	private double getGyroAngle(){
 		return Robot.drive.getYaw() % 360;
 	}
-	
 	
     @Override
     protected void execute() {}
