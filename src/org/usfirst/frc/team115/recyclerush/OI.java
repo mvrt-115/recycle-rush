@@ -1,14 +1,9 @@
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.commands.CloseGrabber;
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorDown;
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorUp;
-import org.usfirst.frc.team115.recyclerush.commands.OpenGrabber;
-import org.usfirst.frc.team115.recyclerush.commands.ToggleClaw;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
+import org.usfirst.frc.team115.recyclerush.commands.*;
 
 /**
  * This class contains all interactions between physical controls and the robot,
@@ -41,9 +36,9 @@ public class OI {
 		
 		//control elevator presets with POV/DPAD
 		POVTrigger povUp = new POVTrigger(xbox, 0);
-		povUp.whenActive(new ElevatorUp(0, 0, 0));
+		povUp.whenActive(new ElevatorUp());
 		POVTrigger povDown = new POVTrigger(xbox, 180);
-		povDown.whenActive(new ElevatorDown(0, 0, 0));
+		povDown.whenActive(new ElevatorDown());
 	}
 	
 	public Joystick getJoystick() {

@@ -5,25 +5,28 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ElevatorStop extends Command{
+public class ElevatorStop extends Command {
+
+    boolean finished = false;
 	
 	public ElevatorStop(){
 		requires(Robot.elevator);
-		SmartDashboard.putString("ElevatorDirection", "Stop");
 	}
 	
 	@Override
 	protected void initialize() {
-		Robot.elevator.stop();
-		Robot.elevator.brake();
 	}
 
 	@Override
-	protected void execute() {}
+	protected void execute() {
+        Robot.elevator.stop();
+        Robot.elevator.brake();
+        finished = true;
+    }
 
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 
 	@Override
