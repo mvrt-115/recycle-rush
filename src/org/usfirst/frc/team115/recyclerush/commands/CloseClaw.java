@@ -5,33 +5,37 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
 
+/**
+ * This command closes the robot's claw
+ * @author MVRT
+ */
 public class CloseClaw extends Command {
 
+	boolean finished = false;
+	
     public CloseClaw() {
         requires(Robot.claw);
         SmartDashboard.putBoolean("ClawClose", false);
     }
 
     @Override
-    protected void initialize() {
-    }
+    protected void initialize() {}
 
     @Override
     protected void execute() {
         Robot.claw.close();
+        finished = true;
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return finished;
     }
 
     @Override
-    protected void end() {
-    }
+    protected void end() {}
 
     @Override
-    protected void interrupted() {
-    }
+    protected void interrupted() {}
 
 }

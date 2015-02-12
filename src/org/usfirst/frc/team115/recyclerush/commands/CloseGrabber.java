@@ -5,8 +5,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
 
+/**
+ * Closes the robot's grabber
+ * @author MVRT
+ */
 public class CloseGrabber extends Command {
 
+	boolean finished = false;
+	
     public CloseGrabber() {
         requires(Robot.grabber);
         SmartDashboard.putBoolean("GrabberOpen", false);
@@ -19,19 +25,18 @@ public class CloseGrabber extends Command {
     @Override
     protected void execute() {
         Robot.grabber.close();
+        finished = true;
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return finished;
     }
 
     @Override
-    protected void end() {
-    }
+    protected void end() {}
 
     @Override
-    protected void interrupted() {
-    }
+    protected void interrupted() {}
 
 }
