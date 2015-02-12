@@ -1,9 +1,11 @@
 package org.usfirst.frc.team115.recyclerush;
 
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
+import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
 
@@ -18,6 +20,7 @@ public class Robot extends IterativeRobot {
     public static Claw claw;
     public static Grabber grabber;
     public static OI oi;
+    public static CompressorSystem compressor;
 
     public Robot() {
         drive = new DriveTrain();
@@ -28,7 +31,9 @@ public class Robot extends IterativeRobot {
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-    }
+
+        compressor = new CompressorSystem(RobotMap.COMPRESSOR);
+	}
 
     public void autonomousInit() {
 

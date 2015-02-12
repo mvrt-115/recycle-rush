@@ -53,10 +53,13 @@ public class RobotMap {
     public static final int XBOX_AXIS_LY	 = 1;
     public static final int XBOX_AXIS_RX	 = 4;
     public static final int XBOX_AXIS_RY 	 = 5;
-    
+
     //ultrasonic analog input ports
 	public static final int ULTRASONIC_FRONT = 0;
 	public static final int ULTRASONIC_RIGHT = 1;
 	public static final int ULTRASONIC_LEFT = 2;
 	public static final int ULTRASONIC_BACK = 3;
+
+    // compressor
+    public static final int COMPRESSOR           = 0;
 }
