@@ -1,10 +1,9 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-import org.usfirst.frc.team115.recyclerush.Robot;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team115.recyclerush.Robot;
 
 public class ArcadePrecisionDrive extends Command {
 	

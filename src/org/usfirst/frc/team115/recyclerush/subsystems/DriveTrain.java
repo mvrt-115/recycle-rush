@@ -1,17 +1,11 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
-import org.usfirst.frc.team115.recyclerush.RobotMap;
-import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
-
 import com.kauailabs.nav6.frc.IMUAdvanced;
-
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.team115.recyclerush.RobotMap;
+import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
 /**
  * A subsystem representing the drive train for the robot

@@ -1,8 +1,7 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-import org.usfirst.frc.team115.recyclerush.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team115.recyclerush.Robot;
 
 public class DisableCompressor extends Command {
 

@@ -1,9 +1,8 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
-import org.usfirst.frc.team115.recyclerush.commands.EnableCompressor;
-
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.team115.recyclerush.commands.EnableCompressor;
 
 public class CompressorSystem extends Subsystem{
 	private Compressor compressor;

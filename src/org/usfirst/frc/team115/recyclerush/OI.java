@@ -1,13 +1,12 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
 import org.usfirst.frc.team115.recyclerush.commands.CloseGrabber;
 import org.usfirst.frc.team115.recyclerush.commands.OpenGrabber;
 import org.usfirst.frc.team115.recyclerush.commands.ToggleClaw;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.Trigger;
 
  /**
  * This class contains all interactions between physical controls and the robot,

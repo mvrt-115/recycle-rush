@@ -1,9 +1,8 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
-
-import edu.wpi.first.wpilibj.command.Command;
 
 public class ToggleClaw extends Command {
 
