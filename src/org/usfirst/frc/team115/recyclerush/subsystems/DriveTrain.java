@@ -3,8 +3,6 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 import org.usfirst.frc.team115.recyclerush.commands.TankDriveWithJoysticks;
-import org.usfirst.frc.team115.recyclerush.commands.UpdateDriveType;
-import org.usfirst.frc.team115.recyclerush.triggers.DriveTrigger;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
 
@@ -14,9 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -30,7 +26,7 @@ public class DriveTrain extends Subsystem {
     private final int BACK_RIGHT = 1;
     private final int FRONT_LEFT = 2;
     private final int FRONT_RIGHT = 3;
-    private IMUAdvanced navX;
+    private CANTalon motors[];
 
     private AnalogInput ultrasonicFront;
     private AnalogInput ultrasonicBack;
@@ -38,10 +34,7 @@ public class DriveTrain extends Subsystem {
     private AnalogInput ultrasonicRight;
     private static final double ANALOG_SCALE_3_3V = 0.00644;
 
-    private SendableChooser chooser;
-
-
-    private CANTalon motors[];
+    private IMUAdvanced navX;
 
     /**
      * Initializes each other motors based on ports set in RobotMap
@@ -49,11 +42,11 @@ public class DriveTrain extends Subsystem {
     public DriveTrain() {
         navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
 
-        ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
+        /*ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
         ultrasonicBack = new AnalogInput(RobotMap.ULTRASONIC_BACK);
         ultrasonicLeft = new AnalogInput(RobotMap.ULTRASONIC_LEFT);
         ultrasonicRight = new AnalogInput(RobotMap.ULTRASONIC_RIGHT);
-
+*/
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
         motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -61,30 +54,10 @@ public class DriveTrain extends Subsystem {
         motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
         drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
                 motors[FRONT_RIGHT], motors[BACK_RIGHT]);
-    	chooser = new SendableChooser();
     }
     
     public void initialize() {
-        chooser.addDefault("Arcade Drive", new ArcadeDriveWithJoystick());
-        chooser.addObject("Tank Drive", new TankDriveWithJoysticks());
-        
-    	SmartDashboard.putData("Drive Selector", chooser);
-        
-        new DriveTrigger().whenActive(new UpdateDriveType());
-    }
-    
-    public void log() {
-    	SmartDashboard.putData("Drive Selector", chooser);
-    }
-
-    public void resetDriveType() {
-        this.getCurrentCommand().cancel();
-        this.setDefaultCommand((Command) chooser.getSelected());
-        this.getDefaultCommand().start();
-    }
-
-    public Command getSelector() {
-        return (Command) chooser.getSelected();
+    	SmartDashboard.putData(new TankDriveWithJoysticks());
     }
 
     /**
@@ -216,7 +189,4 @@ public class DriveTrain extends Subsystem {
     public double getRightUltrasonicInches(){
         return ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V;
     }
-
-
-
 }

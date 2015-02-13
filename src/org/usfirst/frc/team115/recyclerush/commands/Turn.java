@@ -10,9 +10,9 @@ public class Turn extends PIDCommand {
 
     public Turn(double goal) {
         super(0, 0, 0);
-
+    	requires(Robot.drive);
+    	
         this.goal = goal;
-
         initial = Robot.drive.getYaw();
     }
 
@@ -26,8 +26,7 @@ public class Turn extends PIDCommand {
 
     /**
      * Drives the robot forward at the joystick's speed, and at the output angle.
-     *
-     * @param output angle to turn
+     * @param output: angle to turn
      */
     @Override
     protected void usePIDOutput(double output) {
@@ -35,13 +34,10 @@ public class Turn extends PIDCommand {
     }
 
     @Override
-    protected void initialize() {
-
-    }
+    protected void initialize() {}
 
     @Override
-    protected void execute() {
-    }
+    protected void execute() {}
 
     /**
      * @returns whether the current angle is within 2 degrees of desired angle

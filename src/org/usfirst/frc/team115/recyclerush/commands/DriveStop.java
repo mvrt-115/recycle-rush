@@ -9,30 +9,30 @@ import org.usfirst.frc.team115.recyclerush.Robot;
  */
 public class DriveStop extends Command {
 
+	boolean finished = false;
+	
     public DriveStop() {
         requires(Robot.drive);
     }
 
     @Override
-    protected void initialize() {
-        Robot.drive.stop();
-    }
+    protected void initialize() {}
 
     @Override
     protected void execute() {
+    	Robot.drive.stop();
+    	finished = true;
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return finished;
     }
 
     @Override
-    protected void end() {
-    }
+    protected void end() {}
 
     @Override
-    protected void interrupted() {
-    }
+    protected void interrupted() {}
 
 }
