@@ -15,7 +15,6 @@ public class OpenClaw extends Command {
 	
     public OpenClaw() {
         requires(Robot.claw);
-        SmartDashboard.putBoolean("ClawOpen", true);
     }
 
     @Override
