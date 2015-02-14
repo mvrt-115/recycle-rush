@@ -1,6 +1,7 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
@@ -16,8 +17,7 @@ public class CloseGrabber extends Command {
     }
 
     @Override
-    protected void initialize() {
-    }
+    protected void initialize() {}
 
     @Override
     protected void execute() {
