@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
-import org.usfirst.frc.team115.recyclerush.commands.CloseGrabber;
-import org.usfirst.frc.team115.recyclerush.commands.OpenGrabber;
-import org.usfirst.frc.team115.recyclerush.commands.ToggleClaw;
+import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
+import org.usfirst.frc.team115.recyclerush.commands.OpenClaw;
+import org.usfirst.frc.team115.recyclerush.commands.ToggleStabilizer;
 
  /**
  * This class contains all interactions between physical controls and the robot,
@@ -33,13 +33,13 @@ public class OI {
 	private void initXboxController(){
 		//open grabber on LB press, close on RB
 		JoystickButton lb = new JoystickButton(xbox, RobotMap.XBOX_LB);
-		lb.whenPressed(new OpenGrabber());
+		lb.whenPressed(new OpenClaw());
 		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
-		rb.whenPressed(new CloseGrabber());
+		rb.whenPressed(new CloseClaw());
 		
 		//toggle claw/stabilizer on (y) button press
 		JoystickButton y = new JoystickButton(xbox, RobotMap.XBOX_Y);
-		y.whenPressed(new ToggleClaw());
+		y.whenPressed(new ToggleStabilizer());
 	}
 	
 	public Joystick getJoystick() {
