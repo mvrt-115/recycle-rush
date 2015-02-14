@@ -4,6 +4,9 @@ package org.usfirst.frc.team115.recyclerush;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
+import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
+import org.usfirst.frc.team115.recyclerush.commands.SurroundingsTrigger;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
@@ -21,12 +24,15 @@ public class Robot extends IterativeRobot {
     public static Grabber grabber;
     public static OI oi;
     public static CompressorSystem compressor;
+    public static SurroundingsTrigger surroundings;
 
     public Robot() {
         drive = new DriveTrain();
         claw = new Claw();
         grabber = new Grabber();
         oi = new OI();
+        surroundings = new SurroundingsTrigger();
+        surroundings.whileActive(new ArcadePrecisionDrive());
     }
 
     public void disabledPeriodic() {
