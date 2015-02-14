@@ -16,6 +16,8 @@ public class RobotMap {
 	
     //Elevator Motors
     public static final int ELEVATOR				= 4;
+    public static final int LIMIT_ELEVATOR_TOP 		= 0;
+    public static final int LIMIT_ELEVATOR_BOTTOM	= 1;
     
     //Roller Motors
     public static final int ROLLER_MOTOR_LEFT		= 5;
