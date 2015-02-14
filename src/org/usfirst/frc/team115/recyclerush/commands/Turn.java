@@ -5,15 +5,18 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 public class Turn extends PIDCommand {
 
-	private double goal;
-    private double initial;
-
     public Turn(double goal) {
         super(0, 0, 0);
-
-        this.goal = goal;
-
-        initial = Robot.drive.getYaw();
+        getPIDController().enable();
+        getPIDController().setContinuous(true);
+        getPIDController().setAbsoluteTolerance(2);
+        setInputRange(0, 360);
+        setGoal(goal);
+    }
+    
+    private void setGoal(double goal){
+    	double target = (Robot.drive.getYaw() + goal + 720)%360;
+    	setSetpoint(target);
     }
     
     /**
@@ -21,7 +24,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected double returnPIDInput() {
-        return Robot.drive.getYaw() - initial;
+        return (Robot.drive.getYaw() + 360) % 360;
     }
 	
 	/**
@@ -34,20 +37,19 @@ public class Turn extends PIDCommand {
 	}
 
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+		
+	}
 	
     @Override
     protected void execute() {}
 	
     /**
-     * @returns whether the current angle is within 2 degrees of desired angle
+     * @returns if our PID algorithm has finished turning
      */
     @Override
     protected boolean isFinished() {
-        if (Math.abs(goal - returnPIDInput()) <= 2) {
-            return true;
-        }
-        return false;
+        return getPIDController().onTarget();
     }
 	
     /**
@@ -56,6 +58,7 @@ public class Turn extends PIDCommand {
     @Override
     protected void end() {
         Robot.drive.stop();
+        getPIDController().disable();
     }
 
     /**
