@@ -2,7 +2,9 @@ package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+
 import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 
 /**
  * Created by Lee Mracek on 2/9/15
@@ -18,7 +20,6 @@ public class DriveStraightForTime extends PIDCommand {
 
     @Override
     protected void initialize() {
-        Robot.drive.disableControl();
         this.setSetpointRelative(0);
     }
 
@@ -48,6 +49,6 @@ public class DriveStraightForTime extends PIDCommand {
 
     @Override
     protected void usePIDOutput(double output) {
-        Robot.drive.drive(Robot.drive.DEFAULT_VBUS, output);
+        Robot.drive.drive(DriveTrain.DEFAULT_VBUS, output);
     }
 }

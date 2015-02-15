@@ -20,7 +20,6 @@ public class ArcadeDriveWithJoystick extends Command {
 
     @Override
     protected void initialize() {
-        Robot.drive.disableControl();
         Robot.drive.setControlMode(CANTalon.ControlMode.PercentVbus);
     }
 
@@ -28,7 +27,7 @@ public class ArcadeDriveWithJoystick extends Command {
     protected void execute() {
         Robot.drive.drive(Robot.oi.getJoystick());
     }
-
+    
     @Override
     protected boolean isFinished() {
         return false;
@@ -36,7 +35,7 @@ public class ArcadeDriveWithJoystick extends Command {
 
     @Override
     protected void end() {
-    	//stop the robot when this command ends
+    	// stop the robot when this command ends
         Robot.drive.drive(0, 0);
     }
 

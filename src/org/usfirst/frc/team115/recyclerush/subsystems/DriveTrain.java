@@ -7,11 +7,15 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
+
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
+import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
+import org.usfirst.frc.team115.recyclerush.commands.DriveStraightWithJoystick;
 
 /**
  * A subsystem representing the drive train for the robot
@@ -32,9 +36,9 @@ public class DriveTrain extends Subsystem {
     private AnalogInput ultrasonicLeft;
     private AnalogInput ultrasonicRight;
 
-    private final double p = 0.05;
-    private final double i = 0.008;
-    private final double d = 0.1;
+    private final double p = 0.045;
+    private final double i = 0.007;
+    private final double d = 0.07;
 
     public static final double DEFAULT_VBUS = 0.7;
 
@@ -67,7 +71,6 @@ public class DriveTrain extends Subsystem {
     
     public void initialize() {
     	for (CANTalon motor : motors) {
-        	motor.disableControl();
             motor.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
             motor.changeControlMode(CANTalon.ControlMode.PercentVbus);
         } 

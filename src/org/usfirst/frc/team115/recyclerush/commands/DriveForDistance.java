@@ -23,8 +23,7 @@ public class DriveForDistance extends Command {
     @Override
     protected void initialize() {
         Robot.drive.setControlMode(CANTalon.ControlMode.Position);
-        Robot.drive.enableControl();
-        Robot.drive.drive(scaledDistance, 0);
+        Robot.drive.setPosition(10);
     }
 
     @Override

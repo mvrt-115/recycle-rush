@@ -2,6 +2,8 @@ package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
@@ -21,7 +23,6 @@ public class DriveStraightWithJoystick extends PIDCommand {
     @Override
     protected void initialize() {
         this.setSetpointRelative(0);
-        Robot.drive.disableControl();
     }
 
     @Override
@@ -45,6 +46,7 @@ public class DriveStraightWithJoystick extends PIDCommand {
 
     @Override
     protected double returnPIDInput() {
+    	SmartDashboard.putNumber("Yaw", Robot.drive.getYaw());
         return Robot.drive.getYaw();
     }
 

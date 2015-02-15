@@ -17,7 +17,6 @@ public class DriveStop extends Command {
 
     @Override
     protected void initialize() {
-    	SmartDashboard.putString("Chassis Drive", "Off");
         Robot.drive.stop();
     }
 

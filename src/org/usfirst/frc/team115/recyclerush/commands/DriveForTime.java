@@ -15,7 +15,6 @@ public class DriveForTime extends Command {
 
     @Override
     protected void initialize() {
-        Robot.drive.disableControl();
     }
 
     @Override
