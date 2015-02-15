@@ -1,6 +1,8 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
@@ -8,13 +10,15 @@ import org.usfirst.frc.team115.recyclerush.Robot;
  * Drives for time (without DriveStraight functionality)
  */
 public class DriveForTime extends Command {
+	double seconds;
     public DriveForTime(double seconds) {
-        this.setTimeout(seconds);
-        requires(Robot.drive);
+    	requires(Robot.drive);
+    	this.seconds = seconds;
     }
 
     @Override
     protected void initialize() {
+        this.setTimeout(seconds);
     }
 
     @Override

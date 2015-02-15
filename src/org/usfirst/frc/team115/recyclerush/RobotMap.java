@@ -25,6 +25,7 @@ public class RobotMap {
     public static final int JOYSTICK 			 	= 0;
     public static final int DRIVE_STRAIGHT_BURRONT	= 0;
     
+    
     // Drive Straight Encoder
     public static final int DRIVE_STRAIGHT_ENCODER_A = 0;
     public static final int DRIVE_STRAIGHT_ENCODER_B = 0;

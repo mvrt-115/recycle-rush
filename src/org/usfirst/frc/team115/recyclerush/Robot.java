@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
+import org.usfirst.frc.team115.recyclerush.commands.DriveForDistance;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
@@ -48,6 +49,7 @@ public class Robot extends IterativeRobot {
 
     public void teleopInit() {
     	Robot.drive.resetAll();
+    	SmartDashboard.putData(new DriveForDistance(2));
     }
 
     public void disabledInit() {
@@ -56,7 +58,6 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("NavX", Robot.drive.getYaw());
     }
 
     public void testPeriodic() {

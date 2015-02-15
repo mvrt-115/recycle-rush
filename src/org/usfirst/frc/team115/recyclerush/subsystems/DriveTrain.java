@@ -11,6 +11,7 @@ import com.kauailabs.nav6.frc.IMUAdvanced;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
@@ -73,6 +74,9 @@ public class DriveTrain extends Subsystem {
     	for (CANTalon motor : motors) {
             motor.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
             motor.changeControlMode(CANTalon.ControlMode.PercentVbus);
+            
+        motors[1].reverseSensor(true);
+        motors[3].reverseSensor(true);
         } 
     }
     
@@ -91,7 +95,7 @@ public class DriveTrain extends Subsystem {
      * @param rotate the rotation value of the robot
      */
     public void drive(double move, double rotate) {
-        drive.arcadeDrive(move, rotate);
+        drive.arcadeDrive(-1*move, rotate);
     }
 
     /**
@@ -155,7 +159,9 @@ public class DriveTrain extends Subsystem {
      */
     public void resetAll() {
         navX.zeroYaw();
-        //TODO: encoder reset goes here
+        for(CANTalon motor : motors) {
+        	motor.setPosition(0);
+        }
     }
 
     /**

@@ -1,14 +1,19 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team115.recyclerush.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Created by Lee Mracek on 2/9/15.
  * Gives distance functionality without DriveStraight
  */
 public class DriveForDistance extends Command {
+	
+	private double currentDistance; 
 
     private double scaledDistance;
     private final double SCALE = 1536.0 / Math.PI;	// scaling constant for feet into encoder ticks.
@@ -22,23 +27,23 @@ public class DriveForDistance extends Command {
 
     @Override
     protected void initialize() {
-        Robot.drive.setControlMode(CANTalon.ControlMode.Position);
-        Robot.drive.setPosition(10);
+    	currentDistance = Robot.drive.getDistance();
+        Robot.drive.setControlMode(CANTalon.ControlMode.PercentVbus);
     }
 
     @Override
     protected void execute() {
-
+    	Robot.drive.drive(DriveTrain.DEFAULT_VBUS, 0);
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return Math.abs(Robot.drive.getDistance() - currentDistance) >= scaledDistance;
     }
 
     @Override
     protected void end() {
-
+    	Robot.drive.stop();
     }
 
     @Override

@@ -1,6 +1,9 @@
 package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
+import org.usfirst.frc.team115.recyclerush.commands.DriveForDistance;
+import org.usfirst.frc.team115.recyclerush.commands.DriveForTime;
+import org.usfirst.frc.team115.recyclerush.commands.DriveStraightForTime;
 import org.usfirst.frc.team115.recyclerush.commands.DriveStraightWithJoystick;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -13,10 +16,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
     private Joystick joystick;
-    //private JoystickButton driveStraightButton;
+    private JoystickButton driveDistButton, driveTimeButton, driveStraightTimeButton;
 
     public OI() {
         joystick = new Joystick(RobotMap.JOYSTICK);
+        driveDistButton = new JoystickButton(joystick , 11);
+        driveTimeButton = new JoystickButton(joystick, 12);
     }
 
 

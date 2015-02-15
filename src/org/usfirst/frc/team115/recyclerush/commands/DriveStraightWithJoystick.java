@@ -46,7 +46,6 @@ public class DriveStraightWithJoystick extends PIDCommand {
 
     @Override
     protected double returnPIDInput() {
-    	SmartDashboard.putNumber("Yaw", Robot.drive.getYaw());
         return Robot.drive.getYaw();
     }
 
