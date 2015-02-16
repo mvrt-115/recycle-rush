@@ -1,14 +1,13 @@
 package org.usfirst.frc.team115.recyclerush;
 
 
-import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
-import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
-import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
-import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
+import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
 /**
  *	This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
@@ -18,15 +17,15 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 
     public static DriveTrain drive;
+    public static Stabilizer stabilizer;
     public static Claw claw;
-    public static Grabber grabber;
     public static OI oi;
     public static CompressorSystem compressor;
 
     public Robot() {
         drive = new DriveTrain();
+        stabilizer = new Stabilizer();
         claw = new Claw();
-        grabber = new Grabber();
         oi = new OI();
         compressor = new CompressorSystem();
     }

@@ -4,15 +4,15 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
- * Opens the robot's grabber
+ * This command opens the robot's claw
  * @author MVRT
  */
-public class OpenGrabber extends Command {
+public class OpenStabilizer extends Command {
 
 	boolean finished = false;
 	
-    public OpenGrabber() {
-        requires(Robot.grabber);
+    public OpenStabilizer() {
+        requires(Robot.stabilizer);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class OpenGrabber extends Command {
 
     @Override
     protected void execute() {
-        Robot.grabber.open();
+        Robot.stabilizer.open();
         finished = true;
     }
 

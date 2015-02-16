@@ -5,15 +5,15 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
- * Closes the robot's grabber
+ * This command closes the robot's claw
  * @author MVRT
  */
-public class CloseGrabber extends Command {
+public class CloseStablizer extends Command {
 
 	boolean finished = false;
 	
-    public CloseGrabber() {
-        requires(Robot.grabber);
+    public CloseStablizer() {
+        requires(Robot.stabilizer);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class CloseGrabber extends Command {
 
     @Override
     protected void execute() {
-        Robot.grabber.close();
+        Robot.stabilizer.close();
         finished = true;
     }
 
