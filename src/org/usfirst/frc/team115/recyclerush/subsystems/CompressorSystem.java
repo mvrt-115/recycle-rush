@@ -21,7 +21,5 @@ public class CompressorSystem extends Subsystem{
 	}
 
 	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new EnableCompressor());
-	}
+	protected void initDefaultCommand() {}
 }
