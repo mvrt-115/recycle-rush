@@ -34,11 +34,11 @@ public class Robot extends IterativeRobot {
     
     public void robotInit() {
     	drive.initialize();
+    	SmartDashboard.putData(new DriveForDistance(5));
     }
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-
         compressor = new CompressorSystem(RobotMap.COMPRESSOR);
 	}
 
@@ -52,7 +52,6 @@ public class Robot extends IterativeRobot {
 
     public void teleopInit() {
     	Robot.drive.resetAll();
-    	SmartDashboard.putData(new DriveForDistance(2));
     }
 
     public void disabledInit() {
@@ -61,6 +60,7 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Distance", Robot.drive.getDistance());
     }
 
     public void testPeriodic() {

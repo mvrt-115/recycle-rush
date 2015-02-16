@@ -94,7 +94,7 @@ public class DriveTrain extends Subsystem {
      * @param rotate the rotation value of the robot
      */
     public void drive(double move, double rotate) {
-        drive.arcadeDrive(-1*move, rotate);
+        drive.arcadeDrive(move, rotate);
     }
 
     /**
@@ -201,7 +201,7 @@ public class DriveTrain extends Subsystem {
 	
 	public double getDistance() {
 		return ((motors[0].getPosition() + motors[1].getPosition()
-                + motors[2].getPosition() + motors[3].getPosition()) / 4 ) * DISTANCE_SCALE;
+                + motors[2].getPosition() + motors[3].getPosition()) / 4 );
 	}
 	
 	public double getSpeed() {
