@@ -58,7 +58,7 @@ public class DriveTrain extends Subsystem {
      * @param rotate the rotation value of the robot
      */
     public void drive(double move, double rotate) {
-        drive.arcadeDrive(move, rotate);
+        drive.arcadeDrive(-1 * move, rotate);
     }
 
     /**
