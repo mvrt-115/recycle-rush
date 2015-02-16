@@ -1,15 +1,17 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.recyclerush.RobotMap;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.usfirst.frc.team115.recyclerush.commands.EnableCompressor;
 
 public class CompressorSystem extends Subsystem{
 	private Compressor compressor;
 	
-	public CompressorSystem(int pcmID) {
-		compressor = new Compressor(pcmID);
+	public CompressorSystem() {
+		compressor = new Compressor(RobotMap.COMPRESSOR);
 		compressor.setClosedLoopControl(true);
+		compressor.start();
 	}
 	
 	public void disable() {

@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 
 /**
- * A subsystem representing the robot's claw, which stabilizes the bins
+ * A subsystem representing the robot's grabber, which opens/closes
+ * to hold totes and bins
  * @author MVRT
  */
 public class Claw extends Subsystem {
@@ -19,27 +20,22 @@ public class Claw extends Subsystem {
     }
 
     /**
-     * Closes the claw
+     * Closes the grabber
      */
     public void close() {
         clawSolenoid.set(Value.kReverse);
     }
 
     /**
-     * Opens the claw
+     * Opens the grabber
      */
     public void open() {
         clawSolenoid.set(Value.kForward);
     }
 
-    public boolean isOpen(){
-    	return clawSolenoid.get() == Value.kForward;
-    }
-    
-    public boolean isClosed(){
-    	return clawSolenoid.get() == Value.kReverse;
-    }
-    
+    /**
+     * Sets the default command for this subsystem
+     */
     @Override
     protected void initDefaultCommand() {}
 

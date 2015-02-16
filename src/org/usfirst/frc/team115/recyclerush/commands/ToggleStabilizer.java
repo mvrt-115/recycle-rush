@@ -2,16 +2,16 @@ package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
-import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
+import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
-public class ToggleClaw extends Command {
+public class ToggleStabilizer extends Command {
 
-	Claw claw;
+	Stabilizer claw;
 	boolean finished = false;
 	
-	public ToggleClaw(){
-		requires(Robot.claw);
-		claw = Robot.claw;
+	public ToggleStabilizer(){
+		requires(Robot.stabilizer);
+		claw = Robot.stabilizer;
 	}
 
 	@Override

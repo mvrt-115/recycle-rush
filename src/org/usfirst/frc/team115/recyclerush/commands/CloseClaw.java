@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
- * This command closes the robot's claw
+ * Closes the robot's grabber
  * @author MVRT
  */
 public class CloseClaw extends Command {
@@ -16,7 +16,8 @@ public class CloseClaw extends Command {
     }
 
     @Override
-    protected void initialize() {}
+    protected void initialize() {
+    }
 
     @Override
     protected void execute() {

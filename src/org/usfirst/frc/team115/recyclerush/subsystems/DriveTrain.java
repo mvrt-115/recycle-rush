@@ -68,9 +68,13 @@ public class DriveTrain extends Subsystem {
     	for (CANTalon motor : motors) {
             motor.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
             motor.changeControlMode(CANTalon.ControlMode.PercentVbus);
+    	}
             
         motors[1].reverseSensor(true);
         motors[3].reverseSensor(true);
+        
+        for(CANTalon motor : motors) {
+    		motor.setVoltageRampRate(24);
         } 
     }
     

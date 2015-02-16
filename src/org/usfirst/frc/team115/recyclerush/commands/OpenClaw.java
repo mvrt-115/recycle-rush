@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
- * This command opens the robot's claw
+ * Opens the robot's grabber
  * @author MVRT
  */
 public class OpenClaw extends Command {
@@ -16,7 +16,8 @@ public class OpenClaw extends Command {
     }
 
     @Override
-    protected void initialize() {}
+    protected void initialize() {
+    }
 
     @Override
     protected void execute() {
