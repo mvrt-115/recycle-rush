@@ -1,7 +1,11 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.RobotMap;
 
 /**
  * Drives the robot using the Arcade Drive control scheme
@@ -15,13 +19,15 @@ public class ArcadeDriveWithJoystick extends Command {
     }
 
     @Override
-    protected void initialize() {}
+    protected void initialize() {
+        Robot.drive.setControlMode(CANTalon.ControlMode.PercentVbus);
+    }
 
     @Override
     protected void execute() {
-        Robot.drive.drive(Robot.oi.getJoystick());
+        Robot.drive.drive(Robot.oi.getJoystick().getY() * -1, Robot.oi.getJoystick().getX());
     }
-
+    
     @Override
     protected boolean isFinished() {
         return false;
@@ -29,7 +35,7 @@ public class ArcadeDriveWithJoystick extends Command {
 
     @Override
     protected void end() {
-    	//stop the robot when this command ends
+    	// stop the robot when this command ends
         Robot.drive.drive(0, 0);
     }
 

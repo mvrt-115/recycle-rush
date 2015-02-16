@@ -1,7 +1,14 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
+import org.usfirst.frc.team115.recyclerush.commands.DriveForDistance;
+import org.usfirst.frc.team115.recyclerush.commands.DriveForTime;
+import org.usfirst.frc.team115.recyclerush.commands.DriveStraightForTime;
+import org.usfirst.frc.team115.recyclerush.commands.DriveStraightWithJoystick;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
 import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
@@ -20,6 +27,7 @@ public class OI {
 	
 	public OI() {
 		joystick = new Joystick(RobotMap.JOYSTICK);
+		
 		xbox = new Joystick(RobotMap.XBOX);
 		initXboxController();
 		initJoystick();
@@ -34,6 +42,7 @@ public class OI {
 		//open grabber on LB press, close on RB
 		JoystickButton lb = new JoystickButton(xbox, RobotMap.XBOX_LB);
 		lb.whenPressed(new OpenClaw());
+
 		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
 		rb.whenPressed(new CloseClaw());
 		
@@ -44,6 +53,10 @@ public class OI {
 	
 	public Joystick getJoystick() {
 		return joystick;
+	}
+	
+	public double returnJoystick() {
+		return joystick.getY();
 	}
 	
 	public Joystick getXbox() {

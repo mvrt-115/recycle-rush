@@ -1,9 +1,14 @@
 package org.usfirst.frc.team115.recyclerush;
 
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
+import org.usfirst.frc.team115.recyclerush.commands.DriveForDistance;
+import org.usfirst.frc.team115.recyclerush.commands.DriveForTime;
+import org.usfirst.frc.team115.recyclerush.commands.DriveStraightForTime;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
@@ -32,6 +37,9 @@ public class Robot extends IterativeRobot {
     
     public void robotInit() {
     	drive.initialize();
+    	SmartDashboard.putData(new DriveForDistance(5));
+    	SmartDashboard.putData(new DriveForTime(2));
+    	SmartDashboard.putData(new DriveStraightForTime(2));
     }
 
     public void disabledPeriodic() {
@@ -46,7 +54,9 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
     }
 
-    public void teleopInit() {}
+    public void teleopInit() {
+    	Robot.drive.resetAll();
+    }
 
     public void disabledInit() {
 
@@ -54,6 +64,9 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Distance", Robot.drive.getDistance());
+        SmartDashboard.putNumber("joystick", Robot.oi.returnJoystick());
+        Robot.drive.log();
     }
 
     public void testPeriodic() {

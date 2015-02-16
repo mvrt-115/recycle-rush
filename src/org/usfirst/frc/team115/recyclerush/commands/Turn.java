@@ -1,7 +1,10 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+
+import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Turn extends PIDCommand {
 
@@ -30,10 +33,11 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void usePIDOutput(double output) {
-        Robot.drive.drive(Robot.oi.getJoystick().getY(), output);
+        Robot.drive.drive(-1 * Robot.oi.getJoystick().getY(), output);
     }
 
     @Override
+
     protected void initialize() {}
 
     @Override
@@ -55,7 +59,8 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void end() {
-        Robot.drive.stop();
+    	SmartDashboard.putNumber("Chassis Gyro Angle Current", returnPIDInput());
+    	Robot.drive.stop();
     }
 
     /**

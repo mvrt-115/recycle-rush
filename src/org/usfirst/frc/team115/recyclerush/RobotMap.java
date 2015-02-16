@@ -21,6 +21,26 @@ public class RobotMap {
     public static final int ROLLER_MOTOR_LEFT		= 5;
     public static final int ROLLER_MOTOR_RIGHT		= 6;
 
+    //joystick
+    public static final int DRIVE_STRAIGHT_BURRONT	= 0;
+    
+    
+    // Drive Straight Encoder
+    public static final int DRIVE_STRAIGHT_ENCODER_A = 0;
+    public static final int DRIVE_STRAIGHT_ENCODER_B = 0;
+    //joystick for arcade drive
+    
+    //joysticks for tank drive
+    //public static final int JOYSTICK_LEFT			= 0;
+    //public static final int JOYSTICK_RIGHT		= 1;
+    
+    //joystick for mecanum
+    //public static final int JOYSTICK				  = 0;
+    //public static final int JOYSTICK_TWIST_CONSTANT = 0.5;
+    
+    //joystick buttons
+    public static final int DRIVE_STRAIGHT_BUTTON	= 1;
+    
     // Solenoids
     public static final int STABILIZER_SOLENOID_1 	= 0;
     public static final int STABILIZER_SOLENOID_2	= 1;
