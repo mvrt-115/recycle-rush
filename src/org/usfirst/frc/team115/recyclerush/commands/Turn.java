@@ -33,8 +33,7 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void usePIDOutput(double output) {
-        SmartDashboard.putString("Chassis Current Angle", returnPIDInput()+"");
-        Robot.drive.drive(Robot.oi.getJoystick().getY(), output);
+        Robot.drive.drive(-1 * Robot.oi.getJoystick().getY(), output);
     }
 
     @Override

@@ -55,11 +55,6 @@ public class DriveTrain extends Subsystem {
     public DriveTrain() {
         navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
 
-        /*ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
-        ultrasonicBack = new AnalogInput(RobotMap.ULTRASONIC_BACK);
-        ultrasonicLeft = new AnalogInput(RobotMap.ULTRASONIC_LEFT);
-        ultrasonicRight = new AnalogInput(RobotMap.ULTRASONIC_RIGHT);
-*/
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
         motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -94,7 +89,7 @@ public class DriveTrain extends Subsystem {
      * @param rotate the rotation value of the robot
      */
     public void drive(double move, double rotate) {
-        drive.arcadeDrive(move, rotate);
+        drive.arcadeDrive(move * -1, rotate);
     }
 
     /**
@@ -249,6 +244,12 @@ public class DriveTrain extends Subsystem {
 
     public double getP() {
         return p;
+    }
+    
+    public void log() {
+    	for( int i = 0; i < motors.length; i++) {
+    		SmartDashboard.putNumber(i + " motor", motors[i].getPosition());
+    	}
     }
 
 }

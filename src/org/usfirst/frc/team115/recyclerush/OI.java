@@ -42,6 +42,7 @@ public class OI {
 		//open grabber on LB press, close on RB
 		JoystickButton lb = new JoystickButton(xbox, RobotMap.XBOX_LB);
 		lb.whenPressed(new OpenGrabber());
+		
 		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
 		rb.whenPressed(new CloseGrabber());
 		
@@ -52,6 +53,10 @@ public class OI {
 	
 	public Joystick getJoystick() {
 		return joystick;
+	}
+	
+	public double returnJoystick() {
+		return joystick.getY();
 	}
 	
 	public Joystick getXbox() {
