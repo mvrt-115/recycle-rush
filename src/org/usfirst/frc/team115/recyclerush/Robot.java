@@ -28,6 +28,10 @@ public class Robot extends IterativeRobot {
         grabber = new Grabber();
         oi = new OI();
     }
+    
+    public void robotInit() {
+    	drive.initialize();
+    }
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();

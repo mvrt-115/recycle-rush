@@ -46,6 +46,11 @@ public class DriveTrain extends Subsystem {
         drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
                 motors[FRONT_RIGHT], motors[BACK_RIGHT]);
     }
+    
+    public void initialize() {
+    	for(CANTalon motor : motors)
+    		motor.setVoltageRampRate(24);
+    }
 
     /**
      * This thing drives the robot!
