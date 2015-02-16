@@ -1,13 +1,14 @@
 package org.usfirst.frc.team115.recyclerush;
 
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
+
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  *	This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
@@ -27,6 +28,7 @@ public class Robot extends IterativeRobot {
         claw = new Claw();
         grabber = new Grabber();
         oi = new OI();
+        compressor = new CompressorSystem();
     }
     
     public void robotInit() {
@@ -35,8 +37,6 @@ public class Robot extends IterativeRobot {
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-
-        compressor = new CompressorSystem(RobotMap.COMPRESSOR);
 	}
 
     public void autonomousInit() {
@@ -47,9 +47,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
     }
 
-    public void teleopInit() {
-
-    }
+    public void teleopInit() {}
 
     public void disabledInit() {
 

@@ -67,5 +67,6 @@ public class RobotMap {
 	public static final int ULTRASONIC_BACK 		= 3;
 
     // compressor
-    public static final int COMPRESSOR           = 0;
+    public static final int PCM           		= 1;
+    public static final int COMPRESSOR     		= 1;
 }

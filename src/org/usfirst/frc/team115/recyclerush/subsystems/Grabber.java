@@ -16,7 +16,7 @@ public class Grabber extends Subsystem {
 
     public Grabber() {
         super();
-        grabberSolenoid = new DoubleSolenoid(RobotMap.GRABBER_SOLENOID_1, RobotMap.GRABBER_SOLENOID_2);
+        grabberSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.GRABBER_SOLENOID_1, RobotMap.GRABBER_SOLENOID_2);
     }
 
     /**
