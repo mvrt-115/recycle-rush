@@ -9,24 +9,89 @@ import org.usfirst.frc.team115.recyclerush.commands.DriveStraightWithJoystick;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-/**
+import edu.wpi.first.wpilibj.buttons.Trigger;
+import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
+import org.usfirst.frc.team115.recyclerush.commands.CloseGrabber;
+import org.usfirst.frc.team115.recyclerush.commands.OpenGrabber;
+import org.usfirst.frc.team115.recyclerush.commands.ToggleClaw;
+
+ /**
  * This class contains all interactions between physical controls and the robot,
- * including Joystick, Triggers, etc.
+ * including Xbox, Joystick, Triggers, etc.
  * @author MVRT
- */
+ **/
 public class OI {
-    private Joystick joystick;
-    private JoystickButton driveDistButton, driveTimeButton, driveStraightTimeButton;
+	
+	private Joystick joystick;
+	private Joystick xbox;
+	
+	public OI() {
+		joystick = new Joystick(RobotMap.JOYSTICK);
+		
+		xbox = new Joystick(RobotMap.XBOX);
+		initXboxController();
+		initJoystick();
+	}
+	
+	private void initJoystick(){
+		JoystickButton trigButton = new JoystickButton(joystick, RobotMap.JOYSTICK_THUMB);
+		trigButton.whileHeld(new ArcadePrecisionDrive());
+	}
+	
+	private void initXboxController(){
+		//open grabber on LB press, close on RB
+		JoystickButton lb = new JoystickButton(xbox, RobotMap.XBOX_LB);
+		lb.whenPressed(new OpenGrabber());
+		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
+		rb.whenPressed(new CloseGrabber());
+		
+		//toggle claw/stabilizer on (y) button press
+		JoystickButton y = new JoystickButton(xbox, RobotMap.XBOX_Y);
+		y.whenPressed(new ToggleClaw());
+	}
+	
+	public Joystick getJoystick() {
+		return joystick;
+	}
+	
+	public Joystick getXbox() {
+		return xbox;
+	}
+	
+	public boolean getXboxButton(int btn){
+		return xbox.getRawButton(btn);
+	}
+	
+	public boolean getJoystickButton(int btn){
+		return joystick.getRawButton(btn);
+	}
+	
+	public double getXboxAxis(int axis){
+		return xbox.getRawAxis(axis);
+	}
+	
+	public double getJoystickAxis(int axis){
+		return joystick.getRawAxis(axis);
+	}
+	
+	public int getXboxPOV(){
+		return xbox.getPOV();
+	}
+}
 
-    public OI() {
-        joystick = new Joystick(RobotMap.JOYSTICK);
-        driveDistButton = new JoystickButton(joystick , 11);
-        driveTimeButton = new JoystickButton(joystick, 12);
-    }
+class XboxTrigger extends Trigger{
 
-
-    public Joystick getJoystick() {
-        return joystick;
-    }
+	Joystick xbox;
+	int channel;
+	double threshold;
+	
+	public XboxTrigger(Joystick xbox, int channel, double threshold) {
+		this.xbox = xbox;
+		this.channel = channel;
+	}
+	
+	public boolean get() {
+		return xbox.getRawAxis(channel) >= threshold;
+	}
 }
 

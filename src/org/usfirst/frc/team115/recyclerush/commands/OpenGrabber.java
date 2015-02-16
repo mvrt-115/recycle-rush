@@ -9,6 +9,8 @@ import org.usfirst.frc.team115.recyclerush.Robot;
  */
 public class OpenGrabber extends Command {
 
+	boolean finished = false;
+	
     public OpenGrabber() {
         requires(Robot.grabber);
     }
@@ -20,19 +22,18 @@ public class OpenGrabber extends Command {
     @Override
     protected void execute() {
         Robot.grabber.open();
+        finished = true;
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return finished;
     }
 
     @Override
-    protected void end() {
-    }
+    protected void end() {}
 
     @Override
-    protected void interrupted() {
-    }
+    protected void interrupted() {}
 
 }

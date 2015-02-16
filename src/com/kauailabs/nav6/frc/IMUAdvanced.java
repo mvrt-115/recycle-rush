@@ -9,11 +9,11 @@
 /*----------------------------------------------------------------------------*/
 
 package com.kauailabs.nav6.frc;
-import java.util.Arrays;
 
 import com.kauailabs.nav6.IMUProtocol;
-
 import edu.wpi.first.wpilibj.SerialPort;
+
+import java.util.Arrays;
 
 /**
  * The IMUAdvanced class provides a simplified interface to advanced capabilities

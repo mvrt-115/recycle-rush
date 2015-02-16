@@ -30,7 +30,7 @@ public class DriveTrain extends Subsystem {
     private final int BACK_RIGHT = 1;
     private final int FRONT_LEFT = 2;
     private final int FRONT_RIGHT = 3;
-    private IMUAdvanced navX;
+    private CANTalon motors[];
 
     private AnalogInput ultrasonicFront;
     private AnalogInput ultrasonicBack;
@@ -46,9 +46,8 @@ public class DriveTrain extends Subsystem {
     private static final double ANALOG_SCALE_3_3V = 0.00644;
 
     public static final double DISTANCE_SCALE = 8.0 * Math.PI / 1024.0;
-
-	private CANTalon motors[];
-
+    
+    private IMUAdvanced navX;
 
     /**
      * Initializes each other motors based on ports set in RobotMap
@@ -56,11 +55,11 @@ public class DriveTrain extends Subsystem {
     public DriveTrain() {
         navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
 
-        ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
+        /*ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
         ultrasonicBack = new AnalogInput(RobotMap.ULTRASONIC_BACK);
         ultrasonicLeft = new AnalogInput(RobotMap.ULTRASONIC_LEFT);
         ultrasonicRight = new AnalogInput(RobotMap.ULTRASONIC_RIGHT);
-
+*/
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
         motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -251,4 +250,5 @@ public class DriveTrain extends Subsystem {
     public double getP() {
         return p;
     }
+
 }
