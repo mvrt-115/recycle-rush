@@ -36,11 +36,11 @@ public class Elevator extends PIDSubsystem {
 	public Elevator() {
 		super("Elevator", P, I, D);
 		getPIDController().setContinuous(false);
-		getPIDController().disable();
 		setAbsoluteTolerance(PID_TOLERANCE);
 		setInputRange(MIN_HEIGHT, MAX_HEIGHT);
 		brakeSolenoid = new DoubleSolenoid(RobotMap.BRAKE_SOLENOID_1, RobotMap.BRAKE_SOLENOID_2);
         elevatorMotor = new CANTalon(RobotMap.ELEVATOR);
+        getPIDController().disable();
 	}
 	
 	@Override
