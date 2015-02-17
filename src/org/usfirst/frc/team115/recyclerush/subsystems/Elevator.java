@@ -84,7 +84,11 @@ public class Elevator extends PIDSubsystem {
 	
 	public void control(double y_axis) {
 		if(Math.abs(y_axis) - 1 > 0) throw new IllegalArgumentException("Axis must be between -1 and 1");
-		elevatorMotor.set(y_axis * MAX_SPEED_FINE);
+		if((getHeight() >= MAX_HEIGHT && y_axis >= 0 ) || (getHeight() <= MIN_HEIGHT && y_axis <= 0)){
+			elevatorMotor.set(0);
+		}else{
+			elevatorMotor.set(y_axis * MAX_SPEED_FINE);
+		}
 	}
 	
 	@Override
