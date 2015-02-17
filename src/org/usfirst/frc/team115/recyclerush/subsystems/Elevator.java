@@ -4,8 +4,6 @@ import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorControl;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -20,8 +18,7 @@ public class Elevator extends PIDSubsystem {
 	private CANTalon elevatorMotor;
 	private DoubleSolenoid brakeSolenoid;
 	
-	private DigitalInput upperLimitSwitch;
-	private DigitalInput lowerLimitSwitch;
+	private boolean past = false; 
 	
 	// the following measurements are in inches:
 	public static final double MAX_HEIGHT = 70.36;
@@ -44,8 +41,6 @@ public class Elevator extends PIDSubsystem {
 		setInputRange(MIN_HEIGHT, MAX_HEIGHT);
 		brakeSolenoid = new DoubleSolenoid(RobotMap.BRAKE_SOLENOID_1, RobotMap.BRAKE_SOLENOID_2);
         elevatorMotor = new CANTalon(RobotMap.ELEVATOR);
-        upperLimitSwitch = new DigitalInput(RobotMap.LIMIT_ELEVATOR_TOP);
-        lowerLimitSwitch = new DigitalInput(RobotMap.LIMIT_ELEVATOR_BOTTOM);
 	}
 	
 	@Override
@@ -67,10 +62,6 @@ public class Elevator extends PIDSubsystem {
 		elevatorMotor.set(output);
 	}
 	
-	public void setMotorControlMode(ControlMode mode){
-		elevatorMotor.changeControlMode(mode);
-	}
-	
 	public double getHeight() {
 		return revLength * (elevatorMotor.getPosition() / 1023);
 	}
@@ -87,20 +78,20 @@ public class Elevator extends PIDSubsystem {
 		}
 	}
 	
-	public boolean getUpperLimit(){
-		return upperLimitSwitch.get();
-	}
-	
-	public boolean getLowerLimit(){
-		return lowerLimitSwitch.get();
+	public boolean isBraking(){
+		return brakeSolenoid.get().equals(Value.kForward);
 	}
 	
 	public void control(double y_axis) {
 		if(Math.abs(y_axis) - 1 > 0) throw new IllegalArgumentException("Axis must be between -1 and 1");
-		if(!getLowerLimit() && !getUpperLimit()){
-			elevatorMotor.set(y_axis * MAX_SPEED_FINE);
-		}else{
-			elevatorMotor.set(0);
-		}
-	}	
+		elevatorMotor.set(y_axis * MAX_SPEED_FINE);
+	}
+	
+	@Override
+	public boolean onTarget(){
+		if(past && super.onTarget())return true;
+		past = super.onTarget();
+		return false;
+	}
+	
 }

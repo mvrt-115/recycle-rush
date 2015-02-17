@@ -1,26 +1,20 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
+import edu.wpi.first.wpilibj.command.Command;
+
 /**
- * Created by Lee Mracek on 2/10/15.
+ * Moves the elevator down to the next preset
+ * @author Akhil Palla (creds to Lee for being Lee)
  */
 public class ElevatorDown extends Command {
     
-	private final int indices;
     Elevator elev;
 
-    public ElevatorDown(int indices) {
-    	requires(Robot.elevator);
-    	this.indices = indices;
-    }
-
     public ElevatorDown() {
-        this(1);
+        requires(Robot.elevator);
     }
 
     @Override
@@ -28,7 +22,6 @@ public class ElevatorDown extends Command {
     	//enable PID
     	elev = Robot.elevator;
     	elev.enable();
-		elev.setMotorControlMode(ControlMode.Position);
 		elev.release();
 		setPosition();
     }
@@ -43,7 +36,7 @@ public class ElevatorDown extends Command {
     			break;
     		}
     	}
-    	Robot.elevator.setSetpoint(presets[destPreset]);
+    	elev.setSetpoint(presets[destPreset]);
     }
     
     @Override
@@ -52,14 +45,14 @@ public class ElevatorDown extends Command {
 
     @Override
     protected boolean isFinished() {
-    	return Robot.elevator.onTarget();
+    	return elev.onTarget();
     }
 
     @Override
     protected void end() {
     	// disable PWM
-    	Robot.elevator.disable();
-    	Robot.elevator.brake();
+    	elev.disable();
+    	elev.brake();
     }
 
     @Override

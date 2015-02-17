@@ -2,10 +2,12 @@ package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
 
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * Stops the elevator
+ * @author MVRT
+ */
 public class ElevatorStop extends Command {
 
     boolean finished = false;
@@ -18,7 +20,6 @@ public class ElevatorStop extends Command {
 	protected void initialize() {
 		// disable PID
 		Robot.elevator.disable();
-		Robot.elevator.setMotorControlMode(ControlMode.PercentVbus);
 	}
 
 	@Override
