@@ -56,7 +56,7 @@ public class ElevatorUp extends Command {
 
     @Override
     protected void interrupted() {
-
+        end();
     }
     
 }
