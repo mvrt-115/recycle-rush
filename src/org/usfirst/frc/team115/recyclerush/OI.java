@@ -1,8 +1,10 @@
 package org.usfirst.frc.team115.recyclerush;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
+
 import org.usfirst.frc.team115.recyclerush.commands.*;
 
 /**
@@ -46,6 +48,7 @@ public class OI {
 	}
 	
 	public Joystick getXbox() {
+		xbox.setRumble(RumbleType.kLeftRumble, 0.7f);
 		return xbox;
 	}
 	
@@ -64,6 +67,20 @@ public class OI {
 	public int getXboxPOV(){
 		return xbox.getPOV();
 	}	
+	
+	public void rumbleXbox(RumbleType type, double strength, long millis){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				xbox.setRumble(type, (float)strength);
+				try {
+					Thread.sleep(millis);
+				} catch (InterruptedException e) {}
+				xbox.setRumble(type, 0);
+			}
+		}).start();
+	}
+	
 }
 
 class POVTrigger extends Trigger{

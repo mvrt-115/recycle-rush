@@ -3,6 +3,7 @@ package org.usfirst.frc.team115.recyclerush.commands;
 import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
+import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -53,6 +54,8 @@ public class ElevatorDown extends Command {
     	// disable PWM
     	elev.disable();
     	elev.brake();
+    	Robot.oi.rumbleXbox(RumbleType.kLeftRumble, 0.2, 300);
+    	Robot.oi.rumbleXbox(RumbleType.kRightRumble, 0.2, 300);
     }
 
     @Override
