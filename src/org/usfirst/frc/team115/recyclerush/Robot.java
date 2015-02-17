@@ -1,7 +1,8 @@
-
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
 import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -9,29 +10,32 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
- * @author Lee Mracek
+ * @author MVRT
  * This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
  * Note: If you change the class name or package, the manifest must be updated.
  */
 public class Robot extends IterativeRobot {
-	
-	public static DriveTrain drive;
-    public static OI oi;
-    public static Roller leftRoller, rightRoller;
 
-	public Robot() {
-		drive = new DriveTrain();
+    public static DriveTrain drive;
+    public static Claw claw;
+    public static Grabber grabber;
+    public static OI oi;
+    public static Roller roller;
+
+    public Robot() {
+        drive = new DriveTrain();
+        claw = new Claw();
+        grabber = new Grabber();
         oi = new OI();
-        leftRoller  = new Roller(RobotMap.ROLLER_MOTOR_LEFT,  RobotMap.ROLLER_SOLENOID_1,  RobotMap.ROLLER_SOLENOID_2);
-        rightRoller = new Roller(RobotMap.ROLLER_MOTOR_RIGHT, RobotMap.ROLLER_SOLENOID_1, RobotMap.ROLLER_SOLENOID_2);
-	}
-    
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-	}
+        roller  = new Roller();
+    }
+
+    public void disabledPeriodic() {
+        Scheduler.getInstance().run();
+    }
 
     public void autonomousInit() {
-    	
+
     }
 
     public void autonomousPeriodic() {
@@ -42,14 +46,14 @@ public class Robot extends IterativeRobot {
 
     }
 
-    public void disabledInit(){
+    public void disabledInit() {
 
     }
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
-    
+
     public void testPeriodic() {
         LiveWindow.run();
     }

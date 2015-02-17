@@ -4,25 +4,30 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Stops the motors of the Robot's roller
+ * @author MVRT
+ */
 public class RollerStop extends Command {
 
+	boolean finished = false;
+	
 	public RollerStop() {
-		requires(Robot.leftRoller);
-		requires(Robot.rightRoller);
+		requires(Robot.roller);
 	}
 	
 	@Override
-	protected void initialize() {
-		Robot.leftRoller.stop(); 
-		Robot.rightRoller.stop();
+	protected void initialize() {}
+	
+	@Override
+	protected void execute() {
+		Robot.roller.stop();
+		finished = true;
 	}
 
 	@Override
-	protected void execute() {}
-
-	@Override
 	protected boolean isFinished() {
-		return true;
+		return finished;
 	}
 
 	@Override
@@ -30,5 +35,5 @@ public class RollerStop extends Command {
 
 	@Override
 	protected void interrupted() {}
-
+	
 }

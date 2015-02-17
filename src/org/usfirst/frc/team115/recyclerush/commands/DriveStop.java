@@ -1,12 +1,11 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+public class DriveStop extends Command {
 
-public class DriveStop extends Command{
-
-	public DriveStop(){
+	public DriveStop() {
 		requires(Robot.drive);
 	}
 
@@ -20,7 +19,7 @@ public class DriveStop extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		return true;
+	    return true;
 	}
 
 	@Override

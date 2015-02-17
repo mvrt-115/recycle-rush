@@ -2,58 +2,85 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 
+import org.usfirst.frc.team115.recyclerush.commands.RollerControl;
+
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Contains the two motors that make up the Robot's roller mechanism
+<<<<<<< HEAD
  * @author Alex Erf
+=======
+ * @author MVRT
+>>>>>>> 741dd2cc2d3642ea91e119035ecc112bf88cca74
  *
  */
 public class Roller extends Subsystem {
 	
-	private CANTalon rollerMotor;
+	private CANTalon leftMotor;
+	private CANTalon rightMotor;
+	
 	private DoubleSolenoid rollerSolenoid;
 	
+	private DigitalInput limitSwitchRight;
+	private DigitalInput limitSwitchLeft;
 	
 	/**
-	 * Creates the two motors with the specified ports
-	 * @param m_port	Port for the CANTalon motor
+	 * Initializes the roller
 	 */
-	public Roller(int m_port, int solenoid1, int solenoid2) {
-		rollerMotor = new CANTalon(m_port);		
-		rollerSolenoid = new DoubleSolenoid(solenoid1, solenoid2);
+	public Roller() {
+		leftMotor = new CANTalon(RobotMap.ROLLER_MOTOR_LEFT);
+		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
+		rollerSolenoid = new DoubleSolenoid(RobotMap.ROLLER_SOLENOID_1, RobotMap.ROLLER_SOLENOID_2);
+		limitSwitchRight = new DigitalInput(RobotMap.ROLLER_LIMIT_R);
+		limitSwitchLeft = new DigitalInput(RobotMap.ROLLER_LIMIT_L);
 	}
-
-	public void initialize() {}
 	
 	@Override
-	protected void initDefaultCommand() {}
-	
-	public CANTalon getMotor() {
-		return rollerMotor;
+	protected void initDefaultCommand() {
+		setDefaultCommand(new RollerControl());
 	}
-	
+
 	/**
-	 * Turns the roller's motor
-	 * @param val	The speed to turn the motor at (corrected to be between -1.0 and 1.0)
+	 * Controls the rollers, using 2 joystick axes
+	 * @param x: The joystick x-axis (controls rotation)
+	 * @param y: The joystick y-axis (controls in/out)
 	 */
-	public void set(double val) {
-		if (Math.abs(val) <= 1.0)
-			rollerMotor.set(val);
-		else if (val > 1.0)
-			rollerMotor.set(1.0);
-		else
-			rollerMotor.set(-1.0);
+	public void control(double x, double y) {
+		
+		// if abs(y) is greater than abs(x), control in/out instead of rotation
+		if(Math.abs(y) > Math.abs(x)){
+			leftMotor.set(y);
+			rightMotor.set(y);
+		} else{
+			double fwdSpeed = Math.abs(x);
+			double revSpeed = -0.4;
+			
+			// if x is positive, left is abs(x) and right is -0.4
+			// else if x is negative, right is abs(x) and left is -0.4
+			leftMotor.set((x > 0) ? fwdSpeed : revSpeed);
+			rightMotor.set((x < 0) ? fwdSpeed : revSpeed);
+		}
 	}
 	
 	/**
-	 * Stops the roller's motor
+	 * Stops the roller motors
 	 */
 	public void stop() {
-		set(0.0);
+		leftMotor.set(0.0);
+		rightMotor.set(0.0);
+	}
+	
+	public boolean getLeftLimitSwitch(){
+		return limitSwitchLeft.get();
+	}
+	
+	public boolean getRightLimitSwitch(){
+		return limitSwitchRight.get();
 	}
 	
 	/**

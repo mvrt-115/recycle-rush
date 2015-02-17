@@ -4,25 +4,30 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Closes the arm/roller
+ * @author MVRT
+ */
 public class RollerClose extends Command {
 
 	public RollerClose() {
-		requires(Robot.leftRoller);
-		requires(Robot.rightRoller);
+		requires(Robot.roller);
 	}
 	
+	boolean finished = false;
+	
 	@Override
-	protected void initialize() {
-		Robot.leftRoller.close();
-		Robot.rightRoller.close();
-	}
+	protected void initialize() {}
 
 	@Override
-	protected void execute() {}
+	protected void execute() {
+		Robot.roller.close();
+		finished = false;
+	}
 
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return finished;
 	}
 
 	@Override

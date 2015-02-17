@@ -1,19 +1,17 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-import org.usfirst.frc.team115.recyclerush.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
  * Arcade Drive with joystick.
- * 
  * @author Lee Mracek
  */
 
 public class ArcadeDriveWithJoystick extends Command {
-	
+
 	public ArcadeDriveWithJoystick() {
-		requires(Robot.drive);
+	    requires(Robot.drive);
 	}
 
 	@Override
@@ -21,19 +19,21 @@ public class ArcadeDriveWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.drive.drive(Robot.oi.getJoystick());
+	    Robot.drive.drive(Robot.oi.getJoystick());
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+	    return false;
 	}
 
 	@Override
 	protected void end() {
-		Robot.drive.drive(0, 0);
+	    Robot.drive.drive(0, 0);
 	}
 
 	@Override
-	protected void interrupted() { end(); }
+	protected void interrupted() {
+	    end();
+	}
 }

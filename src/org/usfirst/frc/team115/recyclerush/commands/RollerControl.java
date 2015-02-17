@@ -1,18 +1,17 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import org.usfirst.frc.team115.recyclerush.OI;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Opens the roller/intake arm
+ * Controls the rollers using joystick axis values
  * @author MVRT
  */
-public class RollerOpen extends Command {
+public class RollerControl extends Command {
 
-	boolean finished = false;
-	
-	public RollerOpen() {
+	public RollerControl() {
 		requires(Robot.roller);
 	}
 	
@@ -21,13 +20,13 @@ public class RollerOpen extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.roller.open();
-		finished = true;
+		Robot.roller.control(Robot.oi.getXboxAxis(OI.ROLLERCONTROL_AXIS_X), 
+			Robot.oi.getXboxAxis(OI.ROLLERCONTROL_AXIS_Y));
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return finished;
+		return false;
 	}
 
 	@Override
