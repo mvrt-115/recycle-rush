@@ -16,8 +16,6 @@ public class RobotMap {
 	
     //Elevator Motors
     public static final int ELEVATOR				= 4;
-    public static final int LIMIT_ELEVATOR_TOP 		= 0;
-    public static final int LIMIT_ELEVATOR_BOTTOM	= 1;
     
     //Roller Motors
     public static final int ROLLER_MOTOR_LEFT		= 5;
@@ -30,11 +28,11 @@ public class RobotMap {
     public static final int COMPRESSOR				= 0;
     
     //solenoids
-    public static final int ROLLER_SOLENOID_1		= 5;
-    public static final int ROLLER_SOLENOID_2		= 6;
+    public static final int ROLLER_SOLENOID_1		= 4;
+    public static final int ROLLER_SOLENOID_2		= 5;
     
-    public static final int BRAKE_SOLENOID_1		= 7;
-    public static final int BRAKE_SOLENOID_2		= 8;
+    public static final int BRAKE_SOLENOID_1		= 6;
+    public static final int BRAKE_SOLENOID_2		= 7;
 
     public static final int CLAW_SOLENOID_1 = 0;
     public static final int CLAW_SOLENOID_2 = 1;

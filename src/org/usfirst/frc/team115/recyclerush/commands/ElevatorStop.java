@@ -38,6 +38,8 @@ public class ElevatorStop extends Command {
 	protected void end() {}
 
 	@Override
-	protected void interrupted() {}
+	protected void interrupted() {
+	    end();
+	}
 
 }

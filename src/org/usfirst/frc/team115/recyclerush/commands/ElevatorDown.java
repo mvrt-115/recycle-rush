@@ -60,6 +60,6 @@ public class ElevatorDown extends Command {
 
     @Override
     protected void interrupted() {
-
+        end();
     }
 }

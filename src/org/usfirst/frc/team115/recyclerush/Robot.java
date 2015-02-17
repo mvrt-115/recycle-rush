@@ -26,9 +26,13 @@ public class Robot extends IterativeRobot {
         drive = new DriveTrain();
         claw = new Claw();
         grabber = new Grabber();
-        oi = new OI();
         elevator = new Elevator();
+        oi = new OI();
 	}
+    
+    public void robotInit() {
+        elevator.initialize();
+    }
     
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();

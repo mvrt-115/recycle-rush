@@ -29,7 +29,7 @@ public class ElevatorControl extends Command {
 
 	@Override
 	protected void execute() {
-		int axis = OI.AXIS_CONTROL_ELEVATOR;
+		double axis = Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR);
 		if(Math.abs(axis) <= 0.05){
 			if(!elev.isBraking())elev.brake();
 		}else{
@@ -51,6 +51,8 @@ public class ElevatorControl extends Command {
 	}
 
 	@Override
-	protected void interrupted() {}
+	protected void interrupted() {
+	    end();
+	}
 
 }
