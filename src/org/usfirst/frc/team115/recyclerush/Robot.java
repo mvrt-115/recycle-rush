@@ -3,13 +3,13 @@ package org.usfirst.frc.team115.recyclerush;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
+import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
 
 /**
  * @author MVRT
@@ -23,6 +23,7 @@ public class Robot extends IterativeRobot {
     public static Claw claw;
     public static OI oi;
     public static Roller roller;
+    public static Elevator elevator;
     public static CompressorSystem compressor;
 
     public Robot() {
@@ -31,11 +32,13 @@ public class Robot extends IterativeRobot {
         claw = new Claw();
         roller  = new Roller();
         compressor = new CompressorSystem();
+        elevator = new Elevator();
         oi = new OI();
     }
     
     public void robotInit() {
     	drive.initialize();
+    	elevator.initialize();
     }
 
     public void disabledPeriodic() {
@@ -50,7 +53,9 @@ public class Robot extends IterativeRobot {
 
     public void teleopInit() {}
 
-    public void disabledInit() {}
+    public void disabledInit() {
+    	Robot.elevator.brake();
+    }
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();

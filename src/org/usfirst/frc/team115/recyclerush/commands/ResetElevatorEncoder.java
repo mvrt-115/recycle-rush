@@ -4,24 +4,20 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- * Closes the arm/roller
- * @author MVRT
- */
-public class RollerClose extends Command {
+public class ResetElevatorEncoder extends Command{
 
-	public RollerClose() {
-		requires(Robot.roller);
-	}
-	
 	boolean finished = false;
+	
+	public ResetElevatorEncoder() {
+		requires(Robot.elevator);
+	}
 	
 	@Override
 	protected void initialize() {}
 
 	@Override
 	protected void execute() {
-		Robot.roller.close();
+		Robot.elevator.resetEncoder();
 		finished = true;
 	}
 

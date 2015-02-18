@@ -2,29 +2,33 @@ package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
 import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorDown;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorUp;
 import org.usfirst.frc.team115.recyclerush.commands.OpenClaw;
 import org.usfirst.frc.team115.recyclerush.commands.RollerClose;
 import org.usfirst.frc.team115.recyclerush.commands.RollerOpen;
 import org.usfirst.frc.team115.recyclerush.commands.ToggleStabilizer;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Joystick.AxisType;
+import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
  /**
  * This class contains all interactions between physical controls and the robot,
  * including Xbox, Joystick, Triggers, etc.
  * @author MVRT
  **/
+
 public class OI {
 	
 	private Joystick joystick;
 	private Joystick xbox;
-	
+
 	public static final int ROLLERCONTROL_AXIS_X = RobotMap.XBOX_AXIS_RX;
 	public static final int ROLLERCONTROL_AXIS_Y = RobotMap.XBOX_AXIS_RY;
+
+	public static final int AXIS_CONTROL_ELEVATOR = RobotMap.XBOX_AXIS_LY;
 	
 	public OI() {
 		joystick = new Joystick(RobotMap.JOYSTICK);
@@ -58,7 +62,14 @@ public class OI {
 		
 		// toggle claw/stabilizer on (y) button press
 		JoystickButton y = new JoystickButton(xbox, RobotMap.XBOX_Y);
+
 		y.toggleWhenPressed(new ToggleStabilizer());
+		
+		//control elevator presets with POV/DPAD
+		POVTrigger povUp = new POVTrigger(xbox, 0);
+		povUp.whenActive(new ElevatorUp());
+		POVTrigger povDown = new POVTrigger(xbox, 180);
+		povDown.whenActive(new ElevatorDown());
 	}
 	
 	public Joystick getJoystick() {
@@ -66,6 +77,7 @@ public class OI {
 	}
 	
 	public Joystick getXbox() {
+		xbox.setRumble(RumbleType.kLeftRumble, 0.7f);
 		return xbox;
 	}
 	
@@ -85,14 +97,47 @@ public class OI {
 		return joystick.getRawAxis(axis);
 	}
 	
+	public double getElevatorAxis(){
+		return getXboxAxis(AXIS_CONTROL_ELEVATOR);
+	}
+	
 	public int getXboxPOV(){
 		return xbox.getPOV();
+	}	
+	
+	public void rumbleXbox(RumbleType type, double strength, long millis){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				xbox.setRumble(type, (float)strength);
+				try {
+					Thread.sleep(millis);
+				} catch (InterruptedException e) {}
+				xbox.setRumble(type, 0);
+			}
+		}).start();
 	}
 	
 	public double getElevAxis(){
 		return getXboxAxis(RobotMap.XBOX_AXIS_LY);
 	}
 	
+}
+
+class POVTrigger extends Trigger{
+	
+	Joystick xbox;
+	int angle;
+	
+	public POVTrigger(Joystick xbox, int angle){
+		this.xbox = xbox;
+		this.angle = angle;
+	}
+
+	@Override
+	public boolean get() {
+		return xbox.getPOV() == angle;
+	}
 }
 
 class XboxTrigger extends Trigger{
@@ -127,3 +172,4 @@ class DpadTrigger extends Trigger {
 	}
 	
 }
+

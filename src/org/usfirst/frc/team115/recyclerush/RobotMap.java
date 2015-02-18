@@ -14,20 +14,18 @@ public class RobotMap {
 	public static final int FRONT_LEFT_DRIVE = 2;
 	public static final int FRONT_RIGHT_DRIVE = 9;
 	
-	// joystick stuff
-	public static final int JOYSTICK 			 = 0;
-	public static final int XBOX                 = 1;
-	
-	// limit switches
-	public static final int INTAKE_ROLLER_SWITCH_LEFT = 0;
-	public static final int INTAKE_ROLLER_SWITCH_RIGHT = 1;
-	
-    // Elevator Motors
+	// Elevator Motors
     public static final int ELEVATOR				= 8;
     
     // Roller Motors
     public static final int ROLLER_MOTOR_LEFT		= 4;
     public static final int ROLLER_MOTOR_RIGHT		= 7;
+	
+	// limit switches
+	public static final int INTAKE_ROLLER_SWITCH_LEFT = 0;
+	public static final int INTAKE_ROLLER_SWITCH_RIGHT = 1;
+	
+    public static final int LIMIT_ELEVATOR_RESET	= 1;
 
     // Solenoids
     public static final int STABILIZER_PORT_A 	= 7;
@@ -41,6 +39,10 @@ public class RobotMap {
     
     public static final int ROLLER_PORT_A 		= 0;
     public static final int ROLLER_PORT_B 		= 1;
+    
+    // Joystick stuff
+ 	public static final int JOYSTICK 			 = 0;
+ 	public static final int XBOX                 = 1;
     
     // Joystick buttons
     public static final int JOYSTICK_TRIGGER		= 1;
@@ -73,4 +75,5 @@ public class RobotMap {
     // Compressor
     public static final int PCM           		    = 1;
     public static final int COMPRESSOR     		    = 1;
+
 }
