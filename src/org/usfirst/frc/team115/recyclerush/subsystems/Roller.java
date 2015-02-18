@@ -12,12 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Contains the two motors that make up the Robot's roller mechanism
-<<<<<<< HEAD
- * @author Alex Erf
-=======
  * @author MVRT
->>>>>>> 741dd2cc2d3642ea91e119035ecc112bf88cca74
- *
  */
 public class Roller extends Subsystem {
 	
@@ -26,8 +21,8 @@ public class Roller extends Subsystem {
 	
 	private DoubleSolenoid rollerSolenoid;
 	
-	private DigitalInput limitSwitchRight;
-	private DigitalInput limitSwitchLeft;
+	private DigitalInput intakeLimitSwitchRight;
+	private DigitalInput intakeLimitSwitchLeft;
 	
 	/**
 	 * Initializes the roller
@@ -36,8 +31,8 @@ public class Roller extends Subsystem {
 		leftMotor = new CANTalon(RobotMap.ROLLER_MOTOR_LEFT);
 		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
 		rollerSolenoid = new DoubleSolenoid(RobotMap.ROLLER_SOLENOID_1, RobotMap.ROLLER_SOLENOID_2);
-		limitSwitchRight = new DigitalInput(RobotMap.ROLLER_LIMIT_R);
-		limitSwitchLeft = new DigitalInput(RobotMap.ROLLER_LIMIT_L);
+		intakeLimitSwitchRight = new DigitalInput(RobotMap.INTAKE_ROLLER_SWITCH_RIGHT);
+		intakeLimitSwitchLeft = new DigitalInput(RobotMap.INTAKE_ROLLER_SWITCH_LEFT);
 	}
 	
 	@Override
@@ -75,12 +70,12 @@ public class Roller extends Subsystem {
 		rightMotor.set(0.0);
 	}
 	
-	public boolean getLeftLimitSwitch(){
-		return limitSwitchLeft.get();
+	public boolean getIntakeLimitSwitchLeft() {
+		return intakeLimitSwitchLeft.get();
 	}
 	
-	public boolean getRightLimitSwitch(){
-		return limitSwitchRight.get();
+	public boolean getIntakeLimitSwitchRight() {
+		return intakeLimitSwitchRight.get();
 	}
 	
 	/**
