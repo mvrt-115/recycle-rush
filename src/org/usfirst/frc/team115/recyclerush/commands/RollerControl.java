@@ -20,8 +20,7 @@ public class RollerControl extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.roller.control(Robot.oi.getXboxAxis(OI.ROLLERCONTROL_AXIS_X), 
-			Robot.oi.getXboxAxis(OI.ROLLERCONTROL_AXIS_Y));
+		Robot.roller.control(Robot.oi.getXboxAxis(OI.ROLLERCONTROL_AXIS_X), Robot.oi.getXboxAxis(OI.ROLLERCONTROL_AXIS_Y));
 	}
 
 	@Override

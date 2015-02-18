@@ -17,7 +17,9 @@ public class RollerOpen extends Command {
 	}
 	
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+    	System.out.println("Opening roller");
+	}
 
 	@Override
 	protected void execute() {
@@ -29,11 +31,10 @@ public class RollerOpen extends Command {
 	protected boolean isFinished() {
 		return finished;
 	}
-
+	
 	@Override
 	protected void end() {}
 
 	@Override
 	protected void interrupted() {}
-
 }

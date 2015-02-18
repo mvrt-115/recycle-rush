@@ -10,16 +10,15 @@
 
 package com.kauailabs.nav6.frc;
 
-import java.util.Arrays;
-
 import com.kauailabs.nav6.IMUProtocol;
-
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
 import edu.wpi.first.wpilibj.tables.ITable;
+
+import java.util.Arrays;
 
 /**
  * The IMU class provides a simplified interface to the KauaiLabs nav6 IMU.

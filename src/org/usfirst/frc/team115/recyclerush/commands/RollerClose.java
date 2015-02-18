@@ -17,7 +17,9 @@ public class RollerClose extends Command {
 	boolean finished = false;
 	
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+		System.out.println("Roller close");
+	}
 
 	@Override
 	protected void execute() {

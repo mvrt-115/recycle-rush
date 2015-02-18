@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class RotateToteClockwise extends Command {
 
+	boolean finished = false;
+	
 	public RotateToteClockwise() {
 		requires(Robot.roller);
 	}
@@ -21,11 +23,13 @@ public class RotateToteClockwise extends Command {
 	@Override
 	protected void execute() {
 		Robot.roller.control(1.0, 0.0);
+		finished = true;
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.roller.getIntakeLimitSwitchLeft() && Robot.roller.getIntakeLimitSwitchRight();
+		return finished;
+		//return Robot.roller.getIntakeLimitSwitchLeft() && Robot.roller.getIntakeLimitSwitchRight();
 	}
 
 	@Override

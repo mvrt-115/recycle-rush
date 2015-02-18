@@ -1,21 +1,23 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
 import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
 import org.usfirst.frc.team115.recyclerush.commands.OpenClaw;
 import org.usfirst.frc.team115.recyclerush.commands.RollerClose;
 import org.usfirst.frc.team115.recyclerush.commands.RollerOpen;
+import org.usfirst.frc.team115.recyclerush.commands.ToggleStabilizer;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
- /* @author MVRT
- * This class should contain all interactions between physical controls and the robot,
- * including Cypress, Joystick, Triggers, etc.
- * Added XboxTrigger class, to use the triggers/other axes as triggers, to run a command when the trigger passes a certain threshold
- */
-
+ /**
+ * This class contains all interactions between physical controls and the robot,
+ * including Xbox, Joystick, Triggers, etc.
+ * @author MVRT
+ **/
 public class OI {
 	
 	private Joystick joystick;
@@ -28,6 +30,12 @@ public class OI {
 		joystick = new Joystick(RobotMap.JOYSTICK);
 		xbox = new Joystick(RobotMap.XBOX);
 		initXboxController();
+		initJoystick();
+	}
+	
+	private void initJoystick(){
+		JoystickButton trigButton = new JoystickButton(joystick, RobotMap.JOYSTICK_THUMB);
+		trigButton.whileHeld(new ArcadePrecisionDrive());
 	}
 	
 	/**
@@ -36,7 +44,7 @@ public class OI {
 	 * 
 	 */
 	private void initXboxController(){
-		
+		// open grabber on LB press, close on RB
 		JoystickButton lb = new JoystickButton(xbox, RobotMap.XBOX_LB);
 		lb.whenPressed(new OpenClaw());
 		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
@@ -45,8 +53,12 @@ public class OI {
 		XboxTrigger lt = new XboxTrigger(xbox, RobotMap.XBOX_LT, 0.6);
 		XboxTrigger rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.6);
 		
-		lt.whenActive(new RollerClose());
-		rt.whenActive(new RollerOpen());
+		lt.whenActive(new RollerOpen());
+		rt.whenActive(new RollerClose());
+		
+		// toggle claw/stabilizer on (y) button press
+		JoystickButton y = new JoystickButton(xbox, RobotMap.XBOX_Y);
+		y.toggleWhenPressed(new ToggleStabilizer());
 	}
 	
 	public Joystick getJoystick() {
@@ -61,8 +73,16 @@ public class OI {
 		return xbox.getRawButton(btn);
 	}
 	
+	public boolean getJoystickButton(int btn){
+		return joystick.getRawButton(btn);
+	}
+	
 	public double getXboxAxis(int axis){
 		return xbox.getRawAxis(axis);
+	}
+	
+	public double getJoystickAxis(int axis){
+		return joystick.getRawAxis(axis);
 	}
 	
 	public int getXboxPOV(){
@@ -70,7 +90,6 @@ public class OI {
 	}
 	
 	public double getElevAxis(){
-		//elev.getAxis();
 		return getXboxAxis(RobotMap.XBOX_AXIS_LY);
 	}
 	
@@ -85,6 +104,7 @@ class XboxTrigger extends Trigger{
 	public XboxTrigger(Joystick xbox, int channel, double threshold) {
 		this.xbox = xbox;
 		this.channel = channel;
+		this.threshold = threshold;
 	}
 	
 	public boolean get() {
@@ -92,7 +112,7 @@ class XboxTrigger extends Trigger{
 	}
 }
 
-class DpadTrigger extends Trigger{
+class DpadTrigger extends Trigger {
 	
 	Joystick xbox;
 	int angle;

@@ -1,13 +1,16 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
-
 import org.usfirst.frc.team115.recyclerush.commands.RollerControl;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -24,15 +27,20 @@ public class Roller extends Subsystem {
 	private DigitalInput intakeLimitSwitchRight;
 	private DigitalInput intakeLimitSwitchLeft;
 	
+	private RobotDrive drive;
+	
 	/**
 	 * Initializes the roller
 	 */
 	public Roller() {
 		leftMotor = new CANTalon(RobotMap.ROLLER_MOTOR_LEFT);
 		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
-		rollerSolenoid = new DoubleSolenoid(RobotMap.ROLLER_SOLENOID_1, RobotMap.ROLLER_SOLENOID_2);
+		rollerSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.ROLLER_PORT_A, RobotMap.ROLLER_PORT_B);
 		intakeLimitSwitchRight = new DigitalInput(RobotMap.INTAKE_ROLLER_SWITCH_RIGHT);
 		intakeLimitSwitchLeft = new DigitalInput(RobotMap.INTAKE_ROLLER_SWITCH_LEFT);
+		drive = new RobotDrive(leftMotor, rightMotor);
+		drive.setInvertedMotor(MotorType.kFrontLeft, true);
+		drive.setInvertedMotor(MotorType.kFrontRight, true);
 	}
 	
 	@Override
@@ -45,21 +53,13 @@ public class Roller extends Subsystem {
 	 * @param x: The joystick x-axis (controls rotation)
 	 * @param y: The joystick y-axis (controls in/out)
 	 */
+	
 	public void control(double x, double y) {
-		
-		// if abs(y) is greater than abs(x), control in/out instead of rotation
-		if(Math.abs(y) > Math.abs(x)){
-			leftMotor.set(y);
-			rightMotor.set(y);
-		} else{
-			double fwdSpeed = Math.abs(x);
-			double revSpeed = -0.4;
-			
-			// if x is positive, left is abs(x) and right is -0.4
-			// else if x is negative, right is abs(x) and left is -0.4
-			leftMotor.set((x > 0) ? fwdSpeed : revSpeed);
-			rightMotor.set((x < 0) ? fwdSpeed : revSpeed);
-		}
+		drive.arcadeDrive(y * -1, x * -1);
+	}
+	
+	public void control() {
+		drive.arcadeDrive(Robot.oi.getXbox(), 5, Robot.oi.getXbox(), 4);
 	}
 	
 	/**

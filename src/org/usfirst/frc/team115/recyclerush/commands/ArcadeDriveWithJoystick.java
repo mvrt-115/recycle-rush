@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 /**
- * Arcade Drive with joystick.
- * @author Lee Mracek
+ * Drives the robot using the Arcade Drive control scheme
+ * @author MVRT
  */
 
 public class ArcadeDriveWithJoystick extends Command {
