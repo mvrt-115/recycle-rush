@@ -2,10 +2,13 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorControl;
+import org.usfirst.frc.team115.recyclerush.commands.ResetElevatorEncoder;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -18,14 +21,20 @@ public class Elevator extends PIDSubsystem {
 	private CANTalon elevatorMotor;
 	private DoubleSolenoid brakeSolenoid;
 	
+	private DigitalInput resetLimitSwitch;
+	
 	private boolean past = false; 
 	
 	// the following measurements are in inches:
 	public static final double MAX_HEIGHT = 70.36;
 	public static final double MIN_HEIGHT = 0;
 	public static final double MAX_SPEED_FINE = 0.2;
-	private static final double revLength = 3.22;
-    public static final double PID_TOLERANCE = 1.0;
+	public static final double PID_TOLERANCE = 1.0;
+	
+	//scaling values
+	private static final double INCHES_PER_ROTATION = 3.22;
+	private static final int TICKS_PER_ROTATION = 1024;
+	private static final double TICKS_PER_INCH = TICKS_PER_ROTATION/INCHES_PER_ROTATION;
 
 	public static final double P = 0.0;
     public static final double I = 0.0;
@@ -49,9 +58,16 @@ public class Elevator extends PIDSubsystem {
 	}
 	
     public void initialize() {
+    	elevatorMotor.setPosition(MIN_HEIGHT);
+    	elevatorMotor.setReverseSoftLimit((int)(TICKS_PER_INCH * MIN_HEIGHT));
+    	elevatorMotor.setForwardSoftLimit((int)(TICKS_PER_INCH * MAX_HEIGHT));
+    	elevatorMotor.enableForwardSoftLimit(true);
+    	elevatorMotor.enableReverseSoftLimit(true);
+    	elevatorMotor.enableLimitSwitch(false, true);
         elevatorMotor.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogEncoder);
+        new ElevResetTrigger().whenActive(new ResetElevatorEncoder());
     }
-
+    
 	@Override
 	protected double returnPIDInput() {
 		return getHeight();
@@ -63,8 +79,12 @@ public class Elevator extends PIDSubsystem {
 	}
 	
 	public double getHeight() {
-		return revLength * (elevatorMotor.getPosition() / 1023);
+		return INCHES_PER_ROTATION * (elevatorMotor.getPosition() / 1023);
 	}
+	
+    public void resetEncoder(){
+    	elevatorMotor.setPosition(MIN_HEIGHT);
+    }
 	
 	public void brake() {
 		if(!brakeSolenoid.get().equals(Value.kForward)){
@@ -96,6 +116,15 @@ public class Elevator extends PIDSubsystem {
 		if(past && super.onTarget())return true;
 		past = super.onTarget();
 		return false;
+	}
+	
+	class ElevResetTrigger extends Trigger{
+
+		@Override
+		public boolean get() {
+			return elevatorMotor.isRevLimitSwitchClosed();
+		}
+		
 	}
 	
 }
