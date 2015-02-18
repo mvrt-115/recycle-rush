@@ -1,13 +1,13 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+
 import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
 public class ToggleStabilizer extends Command {
 
 	Stabilizer claw;
-	boolean finished = false;
 	
 	public ToggleStabilizer(){
 		requires(Robot.stabilizer);
@@ -15,24 +15,29 @@ public class ToggleStabilizer extends Command {
 	}
 
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+		System.out.println("toggle init");
+    	claw.open();
+	}
 
 	@Override
 	protected void execute() {
-		if(claw.isOpen())claw.close();
-		else claw.open();
-		finished = true;
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return finished;
+		return false;
 	}
 
 	@Override
-	protected void end() {}
+	protected void end() {
+		System.out.println("finished");
+		claw.close();
+	}
 
 	@Override
-	protected void interrupted() {}
+	protected void interrupted() {
+		end();
+	}
 	
 }

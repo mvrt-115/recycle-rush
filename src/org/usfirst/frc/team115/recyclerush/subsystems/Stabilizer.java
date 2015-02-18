@@ -15,7 +15,7 @@ public class Stabilizer extends Subsystem {
 
     public Stabilizer() {
         super();
-        stabSolenoid = new DoubleSolenoid(RobotMap.STABILIZER_SOLENOID_1, RobotMap.STABILIZER_SOLENOID_2);
+        stabSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.STABILIZER_PORT_A, RobotMap.STABILIZER_PORT_B);
     }
 
     /**
@@ -33,11 +33,12 @@ public class Stabilizer extends Subsystem {
     }
 
     public boolean isOpen(){
-    	return stabSolenoid.get() == Value.kForward;
+    	System.out.println(stabSolenoid.get());
+    	return stabSolenoid.get().equals(Value.kForward);
     }
     
     public boolean isClosed(){
-    	return stabSolenoid.get() == Value.kReverse;
+    	return stabSolenoid.get().equals(Value.kReverse);
     }
     
     @Override

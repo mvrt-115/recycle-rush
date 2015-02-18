@@ -16,7 +16,7 @@ public class Claw extends Subsystem {
 
     public Claw() {
         super();
-        clawSolenoid = new DoubleSolenoid(RobotMap.CLAW_SOLENOID_1, RobotMap.CLAW_SOLENOID_2);
+        clawSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.CLAW_PORT_A, RobotMap.CLAW_PORT_B);
     }
 
     /**

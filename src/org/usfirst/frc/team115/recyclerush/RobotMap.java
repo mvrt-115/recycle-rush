@@ -1,42 +1,46 @@
 package org.usfirst.frc.team115.recyclerush;
 
 /**
- * This class contains final static variables
+ * @author MVRT
+ * This class should contain final static variables
  * corresponding to each physical device on the robot. Naming scheme can
  * be found in the Electrical 2015 Excel Doc
- *  @author MVRT
  */
 public class RobotMap {
-
-	// Drive Motors
-    public static final int BACK_LEFT_DRIVE			= 1;
-	public static final int BACK_RIGHT_DRIVE		= 10;
-	public static final int FRONT_LEFT_DRIVE		= 2;
-	public static final int FRONT_RIGHT_DRIVE		= 9;
+	
+	// motors
+	public static final int BACK_LEFT_DRIVE = 1;
+	public static final int BACK_RIGHT_DRIVE = 10;
+	public static final int FRONT_LEFT_DRIVE = 2;
+	public static final int FRONT_RIGHT_DRIVE = 9;
+	
+	//joystick stuff
+	public static final int JOYSTICK 			 = 0;
+	public static final int XBOX                 = 1;
+	
+	// limit switches
+	public static final int INTAKE_ROLLER_SWITCH_LEFT = 0;
+	public static final int INTAKE_ROLLER_SWITCH_RIGHT = 1;
 	
     // Elevator Motors
-    public static final int ELEVATOR				= 4;
+    public static final int ELEVATOR				= 8;
     
     // Roller Motors
-    public static final int ROLLER_MOTOR_LEFT		= 5;
-    public static final int ROLLER_MOTOR_RIGHT		= 6;
+    public static final int ROLLER_MOTOR_LEFT		= 4;
+    public static final int ROLLER_MOTOR_RIGHT		= 7;
 
     // Solenoids
-    public static final int STABILIZER_SOLENOID_1 	= 0;
-    public static final int STABILIZER_SOLENOID_2	= 1;
+    public static final int STABILIZER_PORT_A 	= 7;
+    public static final int STABILIZER_PORT_B	= 6;
     
-    public static final int CLAW_SOLENOID_1 		= 2;
-    public static final int CLAW_SOLENOID_2 		= 3;
+    public static final int CLAW_PORT_A 		= 5;
+    public static final int CLAW_PORT_B 		= 4;
     
-    public static final int BRAKE_SOLENOID_1 		= 4;
-    public static final int BRAKE_SOLENOID_2 		= 5;
+    public static final int BRAKE_PORT_A 		= 2;
+    public static final int BRAKE_PORT_B 		= 3;
     
-    public static final int ROLLER_SOLENOID_1 		= 6;
-    public static final int ROLLER_SOLENOID_2 		= 7;
-
-    // Joystick
-    public static final int JOYSTICK 			 	= 0;
-    public static final int XBOX                 	= 1;
+    public static final int ROLLER_PORT_A 		= 0;
+    public static final int ROLLER_PORT_B 		= 1;
     
     // Joystick buttons
     public static final int JOYSTICK_TRIGGER		= 1;

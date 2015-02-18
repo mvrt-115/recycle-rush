@@ -23,7 +23,7 @@ public class DriveStop extends Command {
     	Robot.drive.stop();
     	finished = true;
     }
-
+    
     @Override
     protected boolean isFinished() {
         return finished;
@@ -34,5 +34,4 @@ public class DriveStop extends Command {
 
     @Override
     protected void interrupted() {}
-
 }
