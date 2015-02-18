@@ -42,9 +42,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
     }
 
-    public void autonomousInit() {
-
-    }
+    public void autonomousInit() {}
 
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
@@ -52,9 +50,7 @@ public class Robot extends IterativeRobot {
 
     public void teleopInit() {}
 
-    public void disabledInit() {
-
-    }
+    public void disabledInit() {}
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();

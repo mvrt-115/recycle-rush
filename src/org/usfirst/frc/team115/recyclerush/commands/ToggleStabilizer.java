@@ -16,13 +16,11 @@ public class ToggleStabilizer extends Command {
 
 	@Override
 	protected void initialize() {
-		System.out.println("toggle init");
     	claw.open();
 	}
 
 	@Override
-	protected void execute() {
-	}
+	protected void execute() {}
 
 	@Override
 	protected boolean isFinished() {
@@ -31,7 +29,6 @@ public class ToggleStabilizer extends Command {
 
 	@Override
 	protected void end() {
-		System.out.println("finished");
 		claw.close();
 	}
 

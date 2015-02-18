@@ -14,7 +14,7 @@ public class RobotMap {
 	public static final int FRONT_LEFT_DRIVE = 2;
 	public static final int FRONT_RIGHT_DRIVE = 9;
 	
-	//joystick stuff
+	// joystick stuff
 	public static final int JOYSTICK 			 = 0;
 	public static final int XBOX                 = 1;
 	
@@ -70,7 +70,7 @@ public class RobotMap {
 	public static final int ULTRASONIC_LEFT 		= 2;
 	public static final int ULTRASONIC_BACK 		= 3;
 
-    // compressor
+    // Compressor
     public static final int PCM           		    = 1;
     public static final int COMPRESSOR     		    = 1;
 }

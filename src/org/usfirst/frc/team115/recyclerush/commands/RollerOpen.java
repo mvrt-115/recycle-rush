@@ -17,9 +17,7 @@ public class RollerOpen extends Command {
 	}
 	
 	@Override
-	protected void initialize() {
-    	System.out.println("Opening roller");
-	}
+	protected void initialize() {}
 
 	@Override
 	protected void execute() {
