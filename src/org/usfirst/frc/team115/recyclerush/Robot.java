@@ -1,12 +1,16 @@
 package org.usfirst.frc.team115.recyclerush;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorBreakOff;
+import org.usfirst.frc.team115.recyclerush.commands.ResetElevatorEncoder;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
+
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -32,6 +36,8 @@ public class Robot extends IterativeRobot {
     
     public void robotInit() {
         elevator.initialize();
+        SmartDashboard.putData(new ElevatorBreakOff());
+        SmartDashboard.putData(new ResetElevatorEncoder());
     }
     
 	public void disabledPeriodic() {
@@ -51,7 +57,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void disabledInit() {
-
+    	Robot.elevator.brake();
     }
 
     public void teleopPeriodic() {

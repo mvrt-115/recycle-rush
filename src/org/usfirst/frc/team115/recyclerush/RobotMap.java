@@ -15,7 +15,7 @@ public class RobotMap {
 	public static final int FRONT_RIGHT_DRIVE		= 9;
 	
     //Elevator Motors
-    public static final int ELEVATOR				= 4;
+    public static final int ELEVATOR				= 8;
     public static final int LIMIT_ELEVATOR_RESET	= 1;
     
     //Roller Motors
@@ -32,14 +32,14 @@ public class RobotMap {
     public static final int ROLLER_SOLENOID_1		= 4;
     public static final int ROLLER_SOLENOID_2		= 5;
     
-    public static final int BRAKE_SOLENOID_1		= 6;
-    public static final int BRAKE_SOLENOID_2		= 7;
+    public static final int BRAKE_SOLENOID_1		= 2;
+    public static final int BRAKE_SOLENOID_2		= 3;
 
     public static final int CLAW_SOLENOID_1 = 0;
     public static final int CLAW_SOLENOID_2 = 1;
 
-    public static final int GRABBER_SOLENOID_1 = 2;
-    public static final int GRABBER_SOLENOID_2 = 3;
+    public static final int GRABBER_SOLENOID_1 = 6;
+    public static final int GRABBER_SOLENOID_2 = 7;
 
     
     //gyro on drivetrain
@@ -78,4 +78,6 @@ public class RobotMap {
     public static final int XBOX_AXIS_LY	 = 1;
     public static final int XBOX_AXIS_RX	 = 4;
     public static final int XBOX_AXIS_RY 	 = 5;
+    
+    public static final int PCM 			 = 1;
 }

@@ -30,10 +30,11 @@ public class ElevatorControl extends Command {
 	@Override
 	protected void execute() {
 		double axis = Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR);
-		if(Math.abs(axis) <= 0.05){
-			if(!elev.isBraking())elev.brake();
-		}else{
-			if(elev.isBraking())elev.release();
+		if(Math.abs(axis) <= 0.2){
+			elev.control(0);
+			elev.brake();
+		} else {
+			elev.release();
 			elev.control(Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR));
 		}
 	}
