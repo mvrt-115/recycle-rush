@@ -31,5 +31,4 @@ public class ResetElevatorEncoder extends Command{
 
 	@Override
 	protected void interrupted() {}
-
 }

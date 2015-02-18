@@ -26,5 +26,7 @@ public class DisableCompressor extends Command {
 	protected void end() {}
 
 	@Override
-	protected void interrupted() {}
+	protected void interrupted() {
+		end();
+	}
 }
