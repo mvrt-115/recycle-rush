@@ -53,7 +53,6 @@ public class Roller extends Subsystem {
 	 * @param x: The joystick x-axis (controls rotation)
 	 * @param y: The joystick y-axis (controls in/out)
 	 */
-	
 	public void control(double x, double y) {
 		drive.arcadeDrive(y * -1, x * -1);
 	}
