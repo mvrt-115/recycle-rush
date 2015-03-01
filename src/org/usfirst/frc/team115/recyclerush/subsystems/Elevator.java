@@ -19,7 +19,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Elevator extends PIDSubsystem {
 	
-	private CANTalon elevatorMotor;
+	private CANTalon elevatorMotor1;
+	private CANTalon elevatorMotor2;
+
 	private DoubleSolenoid brakeSolenoid;
 	
 	private DigitalInput resetLimitSwitch;
@@ -50,7 +52,8 @@ public class Elevator extends PIDSubsystem {
 		setInputRange(MIN_HEIGHT, MAX_HEIGHT);
 		setOutputRange(-0.5, 0.5);
 		brakeSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.BRAKE_PORT_A, RobotMap.BRAKE_PORT_B);
-        elevatorMotor = new CANTalon(RobotMap.ELEVATOR);
+        elevatorMotor1 = new CANTalon(RobotMap.ELEV_MOTOR_1);
+        elevatorMotor2 = new CANTalon(RobotMap.ELEV_MOTOR_2);
         getPIDController().disable();
 	}
 	
@@ -60,14 +63,16 @@ public class Elevator extends PIDSubsystem {
 	}
 	
     public void initialize() {
-    	elevatorMotor.setPosition(MIN_HEIGHT);
-    	elevatorMotor.setReverseSoftLimit((int)(TICKS_PER_INCH * MIN_HEIGHT));
-    	elevatorMotor.setForwardSoftLimit((int)(TICKS_PER_INCH * MAX_HEIGHT));
-    	elevatorMotor.enableForwardSoftLimit(false);
-    	elevatorMotor.enableReverseSoftLimit(false);
-    	elevatorMotor.enableLimitSwitch(false, true);
-    	elevatorMotor.reverseSensor(true);
-        elevatorMotor.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogEncoder);
+        elevatorMotor1.setPosition(MIN_HEIGHT);
+        elevatorMotor1.setReverseSoftLimit((int)(TICKS_PER_INCH * MIN_HEIGHT));
+        elevatorMotor1.setForwardSoftLimit((int)(TICKS_PER_INCH * MAX_HEIGHT));
+        elevatorMotor1.enableForwardSoftLimit(true);
+        elevatorMotor1.enableReverseSoftLimit(true);
+        elevatorMotor1.enableLimitSwitch(false, true);
+        elevatorMotor1.reverseSensor(true);
+        elevatorMotor1.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogEncoder);
+        elevatorMotor2.changeControlMode(CANTalon.ControlMode.Follower);
+        elevatorMotor2.set(elevatorMotor1.getDeviceID());
         new ElevResetTrigger().whenActive(new ResetElevatorEncoder());
     }
     
@@ -78,16 +83,16 @@ public class Elevator extends PIDSubsystem {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		elevatorMotor.set(output * -1);
+		elevatorMotor1.set(output * -1);
 	}
 	
 	public double getHeight() {
-		return elevatorMotor.getPosition() / TICKS_PER_INCH;
+		return elevatorMotor1.getPosition() / TICKS_PER_INCH;
 	}
 	
     public void resetEncoder() {
     	System.out.println("reset");
-    	elevatorMotor.setPosition(MIN_HEIGHT);
+    	elevatorMotor1.setPosition(MIN_HEIGHT);
     }
 	
 	public void brake() {
@@ -100,9 +105,9 @@ public class Elevator extends PIDSubsystem {
 	
 	public void control(double y_axis) {
 		if(Math.abs(y_axis) - 1 > 0) throw new IllegalArgumentException("Axis must be between -1 and 1");
-		elevatorMotor.set(y_axis * MAX_SPEED_FINE * -1);
+		elevatorMotor1.set(y_axis * MAX_SPEED_FINE * -1);
 		SmartDashboard.putNumber("Position", getHeight());
-		SmartDashboard.putBoolean("Limit", elevatorMotor.isRevLimitSwitchClosed());
+		SmartDashboard.putBoolean("Limit", elevatorMotor1.isRevLimitSwitchClosed());
 	}
 	
 	@Override
@@ -116,7 +121,7 @@ public class Elevator extends PIDSubsystem {
 
 		@Override
 		public boolean get() {
-			return elevatorMotor.isRevLimitSwitchClosed();
+			return elevatorMotor1.isRevLimitSwitchClosed();
 		}
 		
 	}
