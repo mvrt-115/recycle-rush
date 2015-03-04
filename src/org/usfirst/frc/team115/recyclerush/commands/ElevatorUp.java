@@ -5,6 +5,7 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Moves the elevator up a preset
@@ -34,7 +35,10 @@ public class ElevatorUp extends Command {
     	for(int i = 0; i < presets.length; i++) {
     		if(presets[i] > height + 1) { // if the preset is above current height
     			destPreset = i; // set that preset to our destination
+    			SmartDashboard.putNumber("Current Elevator Preset", presets[i]);
+    			SmartDashboard.putNumber("Current Elevator Height", height);
     			break;
+    			
     		}
     	}
     	elev.setSetpoint(presets[destPreset]);

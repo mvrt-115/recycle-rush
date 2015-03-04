@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Contains the two motors that make up the Robot's roller mechanism
@@ -83,6 +84,7 @@ public class Roller extends Subsystem {
 	 */
 	public void close() {
 		rollerSolenoid.set(Value.kReverse);
+		SmartDashboard.putString("Arm Open?", "YES");
 	}
 	
 	/**
@@ -90,6 +92,7 @@ public class Roller extends Subsystem {
 	 */
 	public void open() {
 		rollerSolenoid.set(Value.kForward);
+		SmartDashboard.putString("Arm Open?", "NO");
 	}
 
 }

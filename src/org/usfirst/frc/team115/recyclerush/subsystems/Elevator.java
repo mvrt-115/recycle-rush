@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * A subsystem representing the elevator, which  
  * lifts/lowers totes and bins
- * @author Akhil Palla and Lee Mracek
+ * @author Akhil Palla, Siddharth Gollapudi and Lee Mracek
  */
 public class Elevator extends PIDSubsystem {
 	
@@ -101,7 +101,7 @@ public class Elevator extends PIDSubsystem {
 	public void control(double y_axis) {
 		if(Math.abs(y_axis) - 1 > 0) throw new IllegalArgumentException("Axis must be between -1 and 1");
 		elevatorMotor.set(y_axis * MAX_SPEED_FINE * -1);
-		SmartDashboard.putNumber("Position", getHeight());
+		SmartDashboard.putNumber("Current Elevator Position", getHeight());
 		SmartDashboard.putBoolean("Limit", elevatorMotor.isRevLimitSwitchClosed());
 	}
 	
