@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.subsystems.BinGrabber;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
@@ -21,10 +22,11 @@ public class Robot extends IterativeRobot {
     public static DriveTrain drive;
     public static Stabilizer stabilizer;
     public static Claw claw;
-    public static OI oi;
     public static Roller roller;
     public static Elevator elevator;
     public static CompressorSystem compressor;
+    public static BinGrabber binGrabber;
+    public static OI oi;
 
     public Robot() {
         drive = new DriveTrain();
@@ -33,6 +35,7 @@ public class Robot extends IterativeRobot {
         roller  = new Roller();
         compressor = new CompressorSystem();
         elevator = new Elevator();
+        binGrabber = new BinGrabber();
         oi = new OI();
     }
     
