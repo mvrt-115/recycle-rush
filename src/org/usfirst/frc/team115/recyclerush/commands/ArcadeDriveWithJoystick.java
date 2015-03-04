@@ -1,47 +1,39 @@
-/**
- * Arcade Drive with joystick.
- * 
- * @author Lee Mracek
- */
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+/**
+ * Drives the robot using the Arcade Drive control scheme
+ * @author MVRT
+ */
 
 public class ArcadeDriveWithJoystick extends Command {
-	
+
 	public ArcadeDriveWithJoystick() {
-		requires(Robot.getRobot().getDrive());
+	    requires(Robot.drive);
 	}
 
 	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initialize() {}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		
+	    Robot.drive.drive(Robot.oi.getJoystick());
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
+	    return false;
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-		
+	    Robot.drive.drive(0, 0);
 	}
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-		
+	    end();
 	}
 }
