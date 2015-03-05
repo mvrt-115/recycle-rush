@@ -15,15 +15,16 @@ public class RobotMap {
 	public static final int FRONT_RIGHT_DRIVE = 9;
 	
 	// Elevator Motors
-    public static final int ELEVATOR				= 8;
+    public static final int ELEV_MOTOR_1				= 8;
+    public static final int ELEV_MOTOR_2				= 3;
     
     // Roller Motors
     public static final int ROLLER_MOTOR_LEFT		= 4;
     public static final int ROLLER_MOTOR_RIGHT		= 7;
 	
 	// limit switches
-	public static final int INTAKE_ROLLER_SWITCH_LEFT = 0;
-	public static final int INTAKE_ROLLER_SWITCH_RIGHT = 1;
+	public static final int ROLLER_SWITCH_LEFT = 4;
+	public static final int ROLLER_SWITCH_RIGHT = 7;
 	
     public static final int LIMIT_ELEVATOR_RESET	= 1;
 

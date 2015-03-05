@@ -4,11 +4,11 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorBreakOff extends Command {
+public class ElevatorBrakeOff extends Command {
 	
 	private boolean finished = false;
 	
-	public ElevatorBreakOff() {
+	public ElevatorBrakeOff() {
 		requires(Robot.elevator);
 	}
 
