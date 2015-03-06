@@ -16,6 +16,7 @@ public class ElevatorUp extends Command {
 
     public ElevatorUp() {
         requires(Robot.elevator);
+        requires(Robot.roller);
     }
 
     @Override
@@ -24,6 +25,11 @@ public class ElevatorUp extends Command {
     	elev = Robot.elevator;
     	elev.enable();
 		elev.release();
+		
+		if (elev.getHeight() <= 5) {
+			Robot.roller.open();
+		}
+		
 		setPosition();
     }
 

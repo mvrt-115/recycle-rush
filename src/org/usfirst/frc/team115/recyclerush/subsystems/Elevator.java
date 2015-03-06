@@ -111,12 +111,12 @@ public class Elevator extends PIDSubsystem {
 	
 	@Override
 	public boolean onTarget(){
-		if(past && super.onTarget())return true;
+		if(past && super.onTarget()) return true;
 		past = super.onTarget();
 		return false;
 	}
 	
-	class ElevResetTrigger extends Trigger{
+	class ElevResetTrigger extends Trigger {
 
 		@Override
 		public boolean get() {
