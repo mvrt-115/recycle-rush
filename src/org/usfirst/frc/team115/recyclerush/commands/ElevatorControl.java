@@ -21,8 +21,6 @@ public class ElevatorControl extends Command {
 	@Override
 	protected void initialize() {
 		elev = Robot.elevator;
-		// disable PID
-		elev.disable();
 		// release the brake
 		elev.release();
 	}
@@ -31,8 +29,7 @@ public class ElevatorControl extends Command {
 	protected void execute() {
 		double axis = Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR);
 		if(Math.abs(axis) <= 0.15){
-			elev.control(0);
-			elev.brake();
+			elev.stop(); //hammertime!
 		} else {
 			elev.release();
 			elev.control(Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR));
@@ -46,9 +43,7 @@ public class ElevatorControl extends Command {
 
 	@Override
 	protected void end() {
-		// stop and brake
-		elev.control(0);
-		elev.brake();
+		elev.stop();
 	}
 
 	@Override

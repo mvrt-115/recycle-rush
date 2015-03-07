@@ -17,15 +17,11 @@ public class ElevatorStop extends Command {
 	}
 	
 	@Override
-	protected void initialize() {
-		// disable PID
-		Robot.elevator.disable();
-	}
+	protected void initialize() {}
 
 	@Override
 	protected void execute() {
-        Robot.elevator.control(0);
-        Robot.elevator.brake();
+        Robot.elevator.stop();
         finished = true;
     }
 
