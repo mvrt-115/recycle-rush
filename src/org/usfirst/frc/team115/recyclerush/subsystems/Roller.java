@@ -86,6 +86,7 @@ public class Roller extends Subsystem {
 	 */
 	public void close() {
 		rollerSolenoid.set(Value.kReverse);
+		SmartDashboard.putString("Arm Open?", "YES");
 	}
 	
 	/**
@@ -93,6 +94,7 @@ public class Roller extends Subsystem {
 	 */
 	public void open() {
 		rollerSolenoid.set(Value.kForward);
+		SmartDashboard.putString("Arm Open?", "NO");
 	}
 	
 	public void log() {
