@@ -9,11 +9,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Moves the elevator up a preset
- * @author Akhil Palla (creds to Lee for being Lee)
+ * @author Akhil Palla
  */
 public class ElevatorUp extends Command {
 	
+    private static final double SPEED_UP = 0.5; //for testing purposes. After testing, slowly increase
+    private static final double FINISHED_THRESHOLD = 1; //command finishes when the elev height is greater than (destHeight - FINISHED_THRESHOLD) inches
+    
     Elevator elev;
+    double destHeight;
 
     public ElevatorUp() {
         requires(Robot.elevator);
@@ -24,30 +28,23 @@ public class ElevatorUp extends Command {
     protected void initialize() {
     	// enable PID
     	elev = Robot.elevator;
-    	elev.enable();
 		elev.release();
-		
-		if (elev.getHeight() <= 5) {
-			Robot.roller.open();
-		}
-		
 		setPosition();
     }
 
     private void setPosition(){
     	int[] presets = elev.presets;
     	double height = elev.getHeight();
-    	int destPreset = presets.length - 1;
-    	for(int i = 0; i < presets.length; i++) {
-    		if(presets[i] > height + 1) { // if the preset is above current height
-    			destPreset = i; // set that preset to our destination
-    			SmartDashboard.putNumber("Current Elevator Preset", presets[i]);
-    			SmartDashboard.putNumber("Current Elevator Height", height);
+    	destHeight = presets[presets.length - 1];
+    	for(int preset:presets) {
+    		if(preset > height + 1) { // if the preset is above current height
+    		    SmartDashboard.putNumber("Elev dest height", preset);
+                destHeight = height; // set that preset to our destination
     			break;
     			
     		}
     	}
-    	elev.setSetpoint(presets[destPreset]);
+    	elev.goUp(SPEED_UP);
     }
     
     @Override
@@ -55,14 +52,12 @@ public class ElevatorUp extends Command {
 
     @Override
     protected boolean isFinished() {
-    	return elev.onTarget();
+    	return elev.getHeight() >= destHeight - FINISHED_THRESHOLD;
     }
 
     @Override
     protected void end() {
-    	// disable PWM
-    	elev.disable();
-    	elev.brake();
+    	elev.stop();
     	Robot.oi.rumbleXbox(RumbleType.kLeftRumble, 0.2, 300);
     	Robot.oi.rumbleXbox(RumbleType.kRightRumble, 0.2, 300);
     }

@@ -4,52 +4,44 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
- * Moves the elevator down to the next preset
+ * Moves the elevator to a specified height
  * @author Akhil Palla
  */
-public class ElevatorDown extends Command {
+public class ElevatorToHeight extends PIDCommand {
     
-    private static final double SPEED_DOWN = 0.5; //for testing purposes. After testing, slowly increase
+    private static final double MAX_SPEED = 0.5; //for testing purposes. After testing, slowly increase
     private static final double FINISHED_THRESHOLD = 1; //command finishes when the elev height is less than (destHeight + FINISHED_THRESHOLD) inches
     
     Elevator elev;
     double destHeight;
+    
+    private static double P = 0, I = 0, D = 0;
 
-    public ElevatorDown() {
+    public ElevatorToHeight(double destHeight) {
+        super(P, I, D);
         requires(Robot.elevator);
+        this.destHeight = destHeight;
     }
 
     @Override
     protected void initialize() {
-    	//enable PID
     	elev = Robot.elevator;
 		elev.release();
-		setPosition();
+		getPIDController().setOutputRange(-1 * MAX_SPEED, MAX_SPEED);
+		setInputRange(Elevator.TOP_HEIGHT, Elevator.BOTTOM_HEIGHT);
+		getPIDController().setAbsoluteTolerance(FINISHED_THRESHOLD);
+		getPIDController().setSetpoint(destHeight);
     }
 
-    private void setPosition(){
-    	int[] presets = elev.presets;
-    	double currHeight = elev.getHeight();
-    	destHeight = presets[0];
-    	for(int height:presets){
-    		if(height < currHeight - 1){ // if the preset is below current height
-    			SmartDashboard.putNumber("Elev dest height", height);
-    			destHeight = height; // set that preset to our destination
-    		}
-    	}
-    	elev.goDown(SPEED_DOWN);
-    }
-    
     @Override
     protected void execute() {}
 
     @Override
     protected boolean isFinished() {
-    	return elev.getHeight() <= destHeight + FINISHED_THRESHOLD; //lower than (1 inch above dest)
+    	return getPIDController().onTarget();
     }
 
     @Override
@@ -62,5 +54,15 @@ public class ElevatorDown extends Command {
     @Override
     protected void interrupted() {
         end();
+    }
+
+    @Override
+    protected double returnPIDInput() {
+        return elev.getHeight();
+    }
+
+    @Override
+    protected void usePIDOutput(double output) {
+        elev.control(output);
     }
 }
