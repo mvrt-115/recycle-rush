@@ -54,7 +54,8 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
     }
 
-    public void teleopInit() {}
+    public void teleopInit() {
+    }
 
     public void disabledInit() {
     	Robot.elevator.brake();
@@ -62,6 +63,8 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+    	roller.log();
+    	elevator.log();
     }
 
     public void testPeriodic() {
