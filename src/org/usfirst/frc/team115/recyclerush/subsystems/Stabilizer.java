@@ -3,6 +3,8 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 
 /**
@@ -23,6 +25,7 @@ public class Stabilizer extends Subsystem {
      */
     public void close() {
         stabSolenoid.set(Value.kReverse);
+        SmartDashboard.putString("Stabilizer Open?", "No");
     }
 
     /**
@@ -30,6 +33,7 @@ public class Stabilizer extends Subsystem {
      */
     public void open() {
         stabSolenoid.set(Value.kForward);
+        SmartDashboard.putString("Stabilizer Open?", "No");
     }
 
     public boolean isOpen(){

@@ -3,6 +3,8 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 
 /**
@@ -24,6 +26,7 @@ public class Claw extends Subsystem {
      */
     public void close() {
         clawSolenoid.set(Value.kReverse);
+        SmartDashboard.putString("Claw Open?", "NO");
     }
 
     /**
@@ -31,6 +34,7 @@ public class Claw extends Subsystem {
      */
     public void open() {
         clawSolenoid.set(Value.kForward);
+        SmartDashboard.putString("Claw Open?", "NO");
     }
 
     /**
