@@ -37,7 +37,6 @@ public class Stabilizer extends Subsystem {
     }
 
     public boolean isOpen(){
-    	System.out.println(stabSolenoid.get());
     	return stabSolenoid.get().equals(Value.kForward);
     }
     

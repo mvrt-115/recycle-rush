@@ -29,7 +29,6 @@ public class RotateToteCounterClockwise extends Command {
 	@Override
 	protected boolean isFinished() {
 		return finished;
-		//return Robot.roller.getIntakeLimitSwitchLeft() && Robot.roller.getIntakeLimitSwitchRight();
 	}
 
 	@Override
