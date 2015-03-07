@@ -13,56 +13,47 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ElevatorUp extends Command {
 	
-    Elevator elev;
+	private double destHeight;
 
     public ElevatorUp() {
         requires(Robot.elevator);
-        requires(Robot.roller);
     }
 
     @Override
     protected void initialize() {
     	// enable PID
-    	elev = Robot.elevator;
-    	elev.enable();
-		elev.release();
+		Robot.elevator.release();
 		
-		if (elev.getHeight() <= 5) {
-			Robot.roller.open();
-		}
-		
-		setPosition();
+		setGoal();
     }
 
-    private void setPosition(){
-    	int[] presets = elev.presets;
-    	double height = elev.getHeight();
+    private void setGoal() {
+    	int[] presets = Robot.elevator.presets;
+    	double height = Robot.elevator.getHeight();
     	int destPreset = presets.length - 1;
     	for(int i = 0; i < presets.length; i++) {
     		if(presets[i] > height + 1) { // if the preset is above current height
     			destPreset = i; // set that preset to our destination
-    			SmartDashboard.putNumber("Current Elevator Preset", presets[i]);
-    			SmartDashboard.putNumber("Current Elevator Height", height);
-    			break;
-    			
+    			break;		
     		}
     	}
-    	elev.setSetpoint(presets[destPreset]);
+    	destHeight = presets[destPreset];
+    	SmartDashboard.putNumber("Elev dest height", destHeight);
     }
     
     @Override
-    protected void execute() {}
+    protected void execute() {
+    	Robot.elevator.control(-1 * Elevator.PRESET_SPEED);
+    }
 
     @Override
     protected boolean isFinished() {
-    	return elev.onTarget();
+    	return Math.abs(Robot.elevator.getHeight() - destHeight) <= Elevator.THRESHOLD;
     }
 
     @Override
     protected void end() {
-    	// disable PWM
-    	elev.disable();
-    	elev.brake();
+    	Robot.elevator.brake();
     	Robot.oi.rumbleXbox(RumbleType.kLeftRumble, 0.2, 300);
     	Robot.oi.rumbleXbox(RumbleType.kRightRumble, 0.2, 300);
     }
@@ -71,5 +62,4 @@ public class ElevatorUp extends Command {
     protected void interrupted() {
         end();
     }
-    
 }

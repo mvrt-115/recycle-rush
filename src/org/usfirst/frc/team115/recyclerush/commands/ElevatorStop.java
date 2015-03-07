@@ -18,8 +18,6 @@ public class ElevatorStop extends Command {
 	
 	@Override
 	protected void initialize() {
-		// disable PID
-		Robot.elevator.disable();
 	}
 
 	@Override

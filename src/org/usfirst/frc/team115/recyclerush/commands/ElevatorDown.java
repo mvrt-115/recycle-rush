@@ -13,50 +13,44 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ElevatorDown extends Command {
     
-    Elevator elev;
-
+	private double destHeight;
+	
     public ElevatorDown() {
         requires(Robot.elevator);
     }
 
     @Override
     protected void initialize() {
-    	//enable PID
-    	elev = Robot.elevator;
-    	elev.enable();
-		elev.release();
+		Robot.elevator.release();
 		setPosition();
     }
 
     private void setPosition(){
-    	int[] presets = elev.presets;
-    	double height = elev.getHeight();
+    	int[] presets = Robot.elevator.presets;
+    	double height = Robot.elevator.getHeight();
     	int destPreset = 0;
     	for(int i = presets.length - 1; i >= 0; i--){
     		if(presets[i] < height - 1){ // if the preset is below current height
-    			SmartDashboard.putNumber("Current Elevator Preset", presets[i]);
-    			SmartDashboard.putNumber("Current Elevator Height", height);
     			destPreset = i; // set that preset to our destination
     			break;
     		}
     	}
-    	elev.setSetpoint(presets[destPreset]);
+    	destHeight = presets[destPreset];
     }
     
     @Override
     protected void execute() {
+    	Robot.elevator.control(Elevator.PRESET_SPEED);
     }
 
     @Override
     protected boolean isFinished() {
-    	return elev.onTarget();
+    	return Math.abs(Robot.elevator.getHeight() - destHeight) <= Elevator.THRESHOLD;
     }
 
     @Override
     protected void end() {
-    	// disable PWM
-    	elev.disable();
-    	elev.brake();
+    	Robot.elevator.brake();
     	Robot.oi.rumbleXbox(RumbleType.kLeftRumble, 0.2, 300);
     	Robot.oi.rumbleXbox(RumbleType.kRightRumble, 0.2, 300);
     }

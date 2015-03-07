@@ -12,30 +12,25 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ElevatorControl extends Command {
 	
-	Elevator elev;
-	
 	public ElevatorControl() {
 		requires(Robot.elevator);
 	}
 
 	@Override
 	protected void initialize() {
-		elev = Robot.elevator;
-		// disable PID
-		elev.disable();
 		// release the brake
-		elev.release();
+		Robot.elevator.release();
 	}
 
 	@Override
 	protected void execute() {
 		double axis = Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR);
 		if(Math.abs(axis) <= 0.15){
-			elev.control(0);
-			elev.brake();
+			Robot.elevator.control(0);
+			Robot.elevator.brake();
 		} else {
-			elev.release();
-			elev.control(Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR));
+			Robot.elevator.release();
+			Robot.elevator.control(Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR));
 		}
 	}
 	
@@ -47,8 +42,8 @@ public class ElevatorControl extends Command {
 	@Override
 	protected void end() {
 		// stop and brake
-		elev.control(0);
-		elev.brake();
+		Robot.elevator.control(0);
+		Robot.elevator.brake();
 	}
 
 	@Override
