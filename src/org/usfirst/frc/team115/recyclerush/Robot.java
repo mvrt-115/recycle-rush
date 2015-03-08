@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
  * Note: If you change the class name or package, the manifest must be updated.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends 	IterativeRobot {
 
     public static DriveTrain drive;
     public static Stabilizer stabilizer;
@@ -66,6 +66,7 @@ public class Robot extends IterativeRobot {
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
         cameraServerDisplay();
+        log();
     }
 
     public void autonomousInit() {
@@ -76,6 +77,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         cameraServerDisplay();
         Scheduler.getInstance().run();
+        log();
     }
 
     public void teleopInit() {
@@ -90,13 +92,21 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         cameraServerDisplay();
         Scheduler.getInstance().run();
-    	roller.log();
-    	elevator.log();
+    	log();
     }
 
     public void testPeriodic() {
         cameraServerDisplay();
         LiveWindow.run();
-       
+        log();
+    }
+    
+    public void log() {
+    	roller.log();
+    	elevator.log();
+    	stabilizer.log();
+    	compressor.log();
+    	drive.log();
+    	claw.log();
     }
 }

@@ -99,6 +99,8 @@ public class Roller extends Subsystem {
 	
 	public void log() {
 		SmartDashboard.putBoolean("Solenoid", rollerSolenoid.get() == Value.kForward);
+		SmartDashboard.putBoolean("Rooler Left LS", leftMotor.isFwdLimitSwitchClosed());
+		SmartDashboard.putBoolean("Rooler Right LS", rightMotor.isFwdLimitSwitchClosed());
 	}
 
 }
