@@ -36,6 +36,7 @@ public class Roller extends Subsystem {
 	public Roller() {
 		leftMotor = new CANTalon(RobotMap.ROLLER_MOTOR_LEFT);
 		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
+
 		rollerSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.ROLLER_PORT_A, RobotMap.ROLLER_PORT_B);
 		intakeLimitSwitchRight = new DigitalInput(RobotMap.ROLLER_SWITCH_RIGHT);
 		intakeLimitSwitchLeft = new DigitalInput(RobotMap.ROLLER_SWITCH_LEFT);
@@ -79,6 +80,10 @@ public class Roller extends Subsystem {
 	
 	public boolean getIntakeLimitSwitchRight() {
 		return rightMotor.isFwdLimitSwitchClosed();
+	}
+	
+	public boolean getIntakeLimitSwitch(){
+		return limitSwitchIntake.get();
 	}
 	
 	/**

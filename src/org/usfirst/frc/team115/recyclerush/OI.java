@@ -1,3 +1,9 @@
+/**
+ * This class contains all interactions between physical controls and the robot,
+ * including Joystick, Triggers, etc.
+ * @author MVRT
+ */
+
 package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
@@ -123,6 +129,8 @@ public class OI {
 	}
 	
 }
+<<<<<<< HEAD
+=======
 
 class POVTrigger extends Trigger{
 	
@@ -139,6 +147,7 @@ class POVTrigger extends Trigger{
 		return xbox.getPOV() == angle;
 	}
 }
+>>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
 
 class XboxTrigger extends Trigger{
 

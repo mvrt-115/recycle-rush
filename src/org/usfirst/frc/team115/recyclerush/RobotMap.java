@@ -2,11 +2,24 @@ package org.usfirst.frc.team115.recyclerush;
 
 /**
  * @author MVRT
+<<<<<<< HEAD
+ * This class contains final static variables
+=======
  * This class should contain final static variables
+>>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
  * corresponding to each physical device on the robot. Naming scheme can
  * be found in the Electrical 2015 Excel Doc
  */
 public class RobotMap {
+<<<<<<< HEAD
+
+	//Drive Motors
+    public static final int BACK_LEFT_DRIVE			= 1;
+	public static final int BACK_RIGHT_DRIVE		= 10;
+	public static final int FRONT_LEFT_DRIVE		= 2;
+	public static final int FRONT_RIGHT_DRIVE		= 9;
+=======
+>>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
 	
 	// motors
 	public static final int BACK_LEFT_DRIVE = 1;
@@ -28,6 +41,11 @@ public class RobotMap {
 	
     public static final int LIMIT_ELEVATOR_RESET	= 1;
 
+<<<<<<< HEAD
+    //joystick for arcade drive
+    public static final int JOYSTICK				= 0;
+    public static final int XBOX                 = 1;
+=======
     // Solenoids
     public static final int STABILIZER_PORT_A 	= 7;
     public static final int STABILIZER_PORT_B	= 6;
@@ -37,6 +55,7 @@ public class RobotMap {
     
     public static final int BRAKE_PORT_A 		= 2;
     public static final int BRAKE_PORT_B 		= 3;
+>>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
     
     public static final int ROLLER_PORT_A 		= 0;
     public static final int ROLLER_PORT_B 		= 1;
@@ -73,8 +92,56 @@ public class RobotMap {
 	public static final int ULTRASONIC_LEFT 		= 2;
 	public static final int ULTRASONIC_BACK 		= 3;
 
+<<<<<<< HEAD
+    public static final int GRABBER_SOLENOID_1		= 2;
+    public static final int GRABBER_SOLENOID_2		= 3;
+    
+    public static final int ROLLER_SOLENOID_1		= 5;
+    public static final int ROLLER_SOLENOID_2		= 6;
+    public static final int ROLLER_LIMIT_R = 0;
+    public static final int ROLLER_LIMIT_L = 0;
+    public static final int ROLLER_LIMIT_INTAKE = 0;
+    
+    public static final int BRAKE_SOLENOID_1		= 7;
+    public static final int BRAKE_SOLENOID_2		= 8;
+    
+    //gyro on drivetrain
+    public static final int GYRO					= 0;
+    public static final int GYRO_TEMP				= 0;
+    
+    //LEDS
+    public static final int PWM_LED1_RED			= 11;
+    public static final int PWM_LED1_GREEN			= 10;
+    public static final int PWM_LED1_BLUE			= 12;
+
+    //ultrasonic
+    public static final int ULTRASONIC_FRONT 		= 4;
+    public static final int ULTRASONIC_BACK 		= 5;
+    public static final int ULTRASONIC_LEFT 		= 6;
+    public static final int ULTRASONIC_RIGHT		= 7;
+	
+	//xbox buttons
+    public static final int XBOX_A			 = 1;
+    public static final int XBOX_B			 = 2;
+    public static final int XBOX_Y			 = 4;
+    public static final int XBOX_X           = 3;
+    public static final int XBOX_LB			 = 5;
+    public static final int XBOX_RB			 = 6;
+    public static final int XBOX_BACK		 = 7;
+    public static final int XBOX_START 		 = 8;
+    public static final int XBOX_LAXIS_PRESS = 9;
+    public static final int XBOX_RAXIS_PRESS = 10;
+    public static final int XBOX_RT		 	 = 3;
+    public static final int XBOX_LT			 = 2;
+    public static final int XBOX_AXIS_LX 	 = 0;
+    public static final int XBOX_AXIS_LY	 = 1;
+    public static final int XBOX_AXIS_RX	 = 4;
+    public static final int XBOX_AXIS_RY 	 = 5;
+	    
+=======
     // Compressor
     public static final int PCM           		    = 1;
     public static final int COMPRESSOR     		    = 1;
 
+>>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
 }
