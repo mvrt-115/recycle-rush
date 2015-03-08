@@ -1,4 +1,12 @@
-package org.usfirst.frc.team115.recyclerush.commands;
+package org.usfirst.frc.team115.recyclerush.commands.auton;
+
+import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
+import org.usfirst.frc.team115.recyclerush.commands.DriveForDistance;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorDown;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorUp;
+import org.usfirst.frc.team115.recyclerush.commands.OpenClaw;
+import org.usfirst.frc.team115.recyclerush.commands.RollerOpen;
+import org.usfirst.frc.team115.recyclerush.commands.Turn;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -11,7 +19,7 @@ public class HulkSmashAutonA extends CommandGroup{
 			addSequential(new ElevatorUp(0.0, 0.0, 0.0));
 			addSequential(new ElevatorUp(0.0, 0.0, 0.0));
 			addSequential(new ElevatorUp(0.0, 0.0, 0.0));
-			addSequential(new DriveforDistance(2));
+			addSequential(new DriveForDistance(2));
 			addSequential(new Turn(-90.0));
 			addSequential(new ElevatorDown(0.0, 0.0, 0.0));
 			addSequential(new ElevatorDown(0.0, 0.0, 0.0));
@@ -22,10 +30,10 @@ public class HulkSmashAutonA extends CommandGroup{
 		addSequential(new AutoIntake());
 		addSequential(new ElevatorUp(0.0, 0.0, 0.0));
 		addSequential(new Turn(90.0));
-		addSequential(new DriveForDistance(10.0));
-		addParallel(new RollerOpen());
-		addSequential(new ElevatorDown(0.0, 0.0, 0.0));
-		addParallel(new OpenClaw());	
+		addParallel(new DriveForDistance(10.0));
+		addSequential(new RollerOpen());
+		addParallel(new ElevatorDown(0.0, 0.0, 0.0));
+		addSequential(new OpenClaw());	
 		addSequential(new DriveForDistance(-1.0));
 	}
 

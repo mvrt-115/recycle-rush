@@ -5,10 +5,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoIntake extends CommandGroup{
     
     public AutoIntake(){
+    	addParallel(new RollerOpen());
+		addSequential(new OpenClaw());
+    	addSequential(new ElevatorDown(0.0, 0.0, 0.0));
+    	addSequential(new RollerClose());
         addSequential(new IntakeTote());
-        addParallel(new ElevatorDown(0.0, 0.0, 0.0));
-        addSequential(new OpenClaw());
-//        addSequential(new ElevatorDown(0.0, 0.0, 0.0));
         addSequential(new CloseClaw());
     }
 }
