@@ -29,11 +29,10 @@ public class RollerOpen extends Command {
 	protected boolean isFinished() {
 		return finished;
 	}
-
+	
 	@Override
 	protected void end() {}
 
 	@Override
 	protected void interrupted() {}
-
 }

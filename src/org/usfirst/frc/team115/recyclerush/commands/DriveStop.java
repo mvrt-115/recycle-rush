@@ -9,27 +9,31 @@ import org.usfirst.frc.team115.recyclerush.Robot;
  */
 public class DriveStop extends Command {
 
-	public DriveStop() {
-		requires(Robot.drive);
-	}
+	boolean finished = false;
+	
+    public DriveStop() {
+        requires(Robot.drive);
+    }
 
-	@Override
-	protected void initialize() {
-		Robot.drive.stop();
-	}
+    @Override
+    protected void initialize() {}
 
-	@Override
-	protected void execute() {}
+    @Override
+    protected void execute() {
+    	Robot.drive.stop();
+    	finished = true;
+    }
+    
+    @Override
+    protected boolean isFinished() {
+        return finished;
+    }
 
-	@Override
-	protected boolean isFinished() {
-	    return true;
-	}
+    @Override
+    protected void end() {}
 
-	@Override
-	protected void end() {}
-
-	@Override
-	protected void interrupted() {}
-
+    @Override
+    protected void interrupted() {
+    	end();
+    }
 }

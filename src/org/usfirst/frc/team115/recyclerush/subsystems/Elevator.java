@@ -1,82 +1,106 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
-import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorControl;
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorStop;
+import org.usfirst.frc.team115.recyclerush.commands.ResetElevatorEncoder;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * A subsystem representing the elevator, which  
+ * lifts/lowers totes and bins
+ * @author Akhil Palla, Siddharth Gollapudi and Lee Mracek
+ */
 public class Elevator extends Subsystem {
-	private CANTalon elevatorMotor;
-	private DoubleSolenoid elevatorSolenoid;
-	public static final double MAX_HEIGHT = 10.0;
-	public static final double MIN_HEIGHT = 0;
-	public static final double MAX_SPEED_FINE = 0.2;
-	public static boolean stateOfSolenoid = false; // false is brakes are off
 	
-	public Elevator(double p, double i, double d) {		
-		elevatorMotor = new CANTalon(RobotMap.ELEVATOR);
-		elevatorMotor.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogEncoder);
-		elevatorMotor.changeControlMode(ControlMode.Position);
-		elevatorMotor.setPID(p, i, d);
-		
-		elevatorSolenoid = new DoubleSolenoid(RobotMap.BRAKE_SOLENOID_1, RobotMap.BRAKE_SOLENOID_2);
-	}
+	private CANTalon elevatorMotor1;
+	private CANTalon elevatorMotor2;
+	private DoubleSolenoid brakeSolenoid;
 	
-	public double getHeight() {
-		return elevatorMotor.getPosition();
-	}
+	private boolean past = false; 
 	
-	public void goToHeight(double height) {
-		elevatorMotor.changeControlMode(CANTalon.ControlMode.Position);
-		elevatorMotor.enableControl();
-		
-		if(height<MIN_HEIGHT){
-			height = MIN_HEIGHT;
-		}else if(height<MAX_HEIGHT){
-			height = MAX_HEIGHT;
-		}
-		elevatorMotor.set(height);
-	}
+	// the following measurements are in inches:
+	public static final double BOTTOM_HEIGHT = 54;
+	public static final double TOP_HEIGHT = 0;
+	public static final double MAX_SPEED_FINE = 1.0;
+	public static final double PID_TOLERANCE = 1.0;
 	
-	public void goIncremental(double increment) {
-		elevatorMotor.changeControlMode(CANTalon.ControlMode.Position);
-		elevatorMotor.enableControl();
-		if (elevatorMotor.getPosition() + increment <= MAX_HEIGHT) {
-			elevatorMotor.set(elevatorMotor.getPosition() + increment);
-		}
-	}
-	
-	public void stop() {
-		elevatorMotor.disableControl();
-		elevatorMotor.set(0);
-	}
-	
-	public void brake() {
-		elevatorSolenoid.set(Value.kForward);
-		stateOfSolenoid = true;
-	}
-	
-	public void release() {
-		elevatorSolenoid.set(Value.kReverse);
-		stateOfSolenoid = false;
-	}
-	
-	public void control(double y_axis) {
-		if(Math.abs(y_axis) - 1 > 0) throw new IllegalArgumentException("Axis must be between -1 and 1");
-		elevatorMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
-		elevatorMotor.set(y_axis * MAX_SPEED_FINE);
+	//scaling values
+	private static final double INCHES_PER_ROTATION = 3.53559055;
+	private static final int TICKS_PER_ROTATION = 1024;
+	private static final double TICKS_PER_INCH = TICKS_PER_ROTATION/INCHES_PER_ROTATION;
+
+	public static final double THRESHOLD = 2;
+	public static final double PRESET_SPEED = 0.5;
+    
+    public final int[] presets = {0, 12, 24, 36, 48};
+
+	public Elevator() {
+		brakeSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.BRAKE_PORT_A, RobotMap.BRAKE_PORT_B);
+        elevatorMotor1 = new CANTalon(RobotMap.ELEV_MOTOR_1);
+        elevatorMotor2 = new CANTalon(RobotMap.ELEV_MOTOR_2);
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new ElevatorControl(Robot.oi.getJoystick()));
+		setDefaultCommand(new ElevatorControl());
 	}
+	
+    public void initialize() {
+    	elevatorMotor1.setReverseSoftLimit((int)(0.25 * TICKS_PER_INCH));//set limit to (1 inch from top)
+    	elevatorMotor1.enableForwardSoftLimit(false);
+    	elevatorMotor1.enableReverseSoftLimit(true);
+    	elevatorMotor1.enableLimitSwitch(true, false);
+        elevatorMotor1.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogEncoder);
+        new ElevResetTrigger().whenActive(new ResetElevatorEncoder());
+        
+        elevatorMotor2.changeControlMode(CANTalon.ControlMode.Follower);
+        elevatorMotor2.set(elevatorMotor1.getDeviceID());        
+        
+    }
+	
+	public double getHeight() {
+		return BOTTOM_HEIGHT - elevatorMotor1.getPosition() / TICKS_PER_INCH;
+	}
+	
+    public void resetEncoder() {
+    	elevatorMotor1.setPosition(BOTTOM_HEIGHT * TICKS_PER_INCH);
+    }
+	
+	public void brake() {
+		brakeSolenoid.set(Value.kForward);	
+	}
+	
+	public void release() {
+		brakeSolenoid.set(Value.kReverse);
+	}
+	
+	public void control(double y_axis) {
+		if(Math.abs(y_axis) - 1 > 0) throw new IllegalArgumentException("Axis must be between -1 and 1");
+		elevatorMotor1.set(y_axis * MAX_SPEED_FINE);
+		SmartDashboard.putNumber("Height-ticks", elevatorMotor1.getPosition());
+		SmartDashboard.putNumber("Position", getHeight());
+		SmartDashboard.putBoolean("Limit", elevatorMotor1.isFwdLimitSwitchClosed());
+	}
+	
+	public void log() {
+		SmartDashboard.putBoolean("limit switch", elevatorMotor1.isFwdLimitSwitchClosed());
+		SmartDashboard.putNumber("Height", getHeight());
+	}
+	
+	class ElevResetTrigger extends Trigger {
 
+		@Override
+		public boolean get() {
+			return elevatorMotor1.isFwdLimitSwitchClosed();
+		}
+		
+	}
 }
-

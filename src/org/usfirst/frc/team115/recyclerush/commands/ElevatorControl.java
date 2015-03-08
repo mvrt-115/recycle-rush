@@ -1,47 +1,54 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import org.usfirst.frc.team115.recyclerush.OI;
 import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Controls the elevator using joystick input
+ * @author MVRT
+ */
 public class ElevatorControl extends Command {
-
-	private Joystick joystick;
 	
-	public ElevatorControl (Joystick joystick) {
+	public ElevatorControl() {
 		requires(Robot.elevator);
-		this.joystick = joystick;
 	}
 
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub		
+		// release the brake
+		Robot.elevator.release();
 	}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		Robot.elevator.control(joystick.getY());
+		double axis = Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR);
+		if(Math.abs(axis) <= 0.15){
+			Robot.elevator.control(0);
+			Robot.elevator.brake();
+		} else {
+			Robot.elevator.release();
+			Robot.elevator.control(Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR));
+		}
 	}
-	
 	
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-		
+		// stop and brake
+		Robot.elevator.control(0);
+		Robot.elevator.brake();
 	}
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-		
+	    end();
 	}
 
 }

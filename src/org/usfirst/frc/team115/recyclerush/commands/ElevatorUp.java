@@ -1,71 +1,65 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
-import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.Joystick.RumbleType;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ElevatorUp extends PIDCommand {
-	private double preset1, preset2, preset3;
-	private double currentHeight;
+/**
+ * Moves the elevator up a preset
+ * @author Akhil Palla (creds to Lee for being Lee)
+ */
+public class ElevatorUp extends Command {
+	
+	private double destHeight;
 
-	public ElevatorUp(double p, double i, double d) {
-		super(p, i, d);
-		requires(Robot.elevator);
-		SmartDashboard.putString("ElevatorDirection", "Up");
-		currentHeight = Robot.elevator.getHeight();
-		preset1 = 0;
-		preset2 = 1;
-		preset3 = 2;
-	}
+    public ElevatorUp() {
+        requires(Robot.elevator);
+    }
 
-	@Override
-	protected double returnPIDInput() {
-		return 0;
-	}
-
-	@Override
-	protected void usePIDOutput(double output) {}
-
-	@Override
-	protected void initialize() {
+    @Override
+    protected void initialize() {
+    	// enable PID
 		Robot.elevator.release();
-	}
-
-	@Override
-	protected void execute() {
-
-		currentHeight = Robot.elevator.getHeight(); // Fix this later need to scale
-
-		if (currentHeight < preset1) {
-			Robot.elevator.goToHeight(preset1);
-		}
-		else if (currentHeight < preset2) {
-			Robot.elevator.goToHeight(preset2);
-		} 
-		else if (currentHeight < preset3) {
-			Robot.elevator.goToHeight(preset3);
-		}
 		
-		end();
-	}
-	
-	
-	
+		setGoal();
+    }
 
-	@Override
-	protected boolean isFinished() {
-		return false;
-	}
+    private void setGoal() {
+    	int[] presets = Robot.elevator.presets;
+    	double height = Robot.elevator.getHeight();
+    	int destPreset = presets.length - 1;
+    	for(int i = 0; i < presets.length; i++) {
+    		if(presets[i] > height + 1) { // if the preset is above current height
+    			destPreset = i; // set that preset to our destination
+    			break;		
+    		}
+    	}
+    	destHeight = presets[destPreset];
+    	SmartDashboard.putNumber("Elev dest height", destHeight);
+    }
+    
+    @Override
+    protected void execute() {
+    	Robot.elevator.control(-1 * Elevator.PRESET_SPEED);
+    }
 
-	@Override
-	protected void end() {
-		Robot.elevator.stop();
-	}
+    @Override
+    protected boolean isFinished() {
+    	return Math.abs(Robot.elevator.getHeight() - destHeight) <= Elevator.THRESHOLD;
+    }
 
-	@Override
-	protected void interrupted() {
-		end();
-	}
+    @Override
+    protected void end() {
+    	Robot.elevator.brake();
+    	Robot.oi.rumbleXbox(RumbleType.kLeftRumble, 0.2, 300);
+    	Robot.oi.rumbleXbox(RumbleType.kRightRumble, 0.2, 300);
+    }
 
+    @Override
+    protected void interrupted() {
+        end();
+    }
 }

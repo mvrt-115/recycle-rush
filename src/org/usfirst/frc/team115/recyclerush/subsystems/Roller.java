@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.RollerControl;
 
@@ -7,12 +8,15 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Contains the two motors that make up the Robot's roller mechanism
  * @author MVRT
- *
  */
 public class Roller extends Subsystem {
 	
@@ -21,67 +25,61 @@ public class Roller extends Subsystem {
 	
 	private DoubleSolenoid rollerSolenoid;
 	
-	private DigitalInput limitSwitchRight;
-	private DigitalInput limitSwitchLeft;
-	private DigitalInput limitSwitchIntake;
+	private DigitalInput intakeLimitSwitchRight;
+	private DigitalInput intakeLimitSwitchLeft;
+	
+	private RobotDrive drive;
 	
 	/**
-	 * Creates the two motors with the specified ports
-	 * 
+	 * Initializes the roller
 	 */
 	public Roller() {
 		leftMotor = new CANTalon(RobotMap.ROLLER_MOTOR_LEFT);
 		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
-		rollerSolenoid = new DoubleSolenoid(RobotMap.ROLLER_SOLENOID_1, RobotMap.ROLLER_SOLENOID_2);
-		limitSwitchRight = new DigitalInput(RobotMap.ROLLER_LIMIT_R);
-		limitSwitchLeft = new DigitalInput(RobotMap.ROLLER_LIMIT_L);
-		limitSwitchIntake = new DigitalInput(RobotMap.ROLLER_LIMIT_INTAKE);
-	}
 
-	public void initialize() {}
+		rollerSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.ROLLER_PORT_A, RobotMap.ROLLER_PORT_B);
+		intakeLimitSwitchRight = new DigitalInput(RobotMap.ROLLER_SWITCH_RIGHT);
+		intakeLimitSwitchLeft = new DigitalInput(RobotMap.ROLLER_SWITCH_LEFT);
+		leftMotor.enableLimitSwitch(true, false);
+		rightMotor.enableLimitSwitch(true, false);
+		drive = new RobotDrive(leftMotor, rightMotor);
+		drive.setInvertedMotor(MotorType.kFrontLeft, true);
+		drive.setInvertedMotor(MotorType.kFrontRight, true);
+	}
 	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new RollerControl());
 	}
 
+	/**
+	 * Controls the rollers, using 2 joystick axes
+	 * @param x: The joystick x-axis (controls rotation)
+	 * @param y: The joystick y-axis (controls in/out)
+	 */
+	
 	public void control(double x, double y) {
-		if (Math.abs(y) >= Math.abs(x)) {
-			if (y >= 0.6) {
-				leftMotor.set(Math.min(1.0, y));
-				rightMotor.set(Math.min(1.0, y));
-			}
-			else if (y <= -0.6) {
-				leftMotor.set(Math.max(-1.0, y));
-				rightMotor.set(Math.max(-1.0, y));
-			}
-		}
-		else {
-			if (x >= 0.6) {
-				leftMotor.set(Math.min(1.0, x));
-				rightMotor.set(0.5);
-			}
-			else if (x <= -0.6) {
-				rightMotor.set(Math.min(1.0, -x));
-				leftMotor.set(0.5);
-			}
-		}
+		drive.arcadeDrive(y * -1, x * -1);
+	}
+	
+	public void control() {
+		drive.arcadeDrive(Robot.oi.getXbox(), 5, Robot.oi.getXbox(), 4);
 	}
 	
 	/**
-	 * Stops the roller's motor
+	 * Stops the roller motors
 	 */
 	public void stop() {
 		leftMotor.set(0.0);
 		rightMotor.set(0.0);
 	}
 	
-	public boolean getLeftLimitSwitch(){
-		return limitSwitchLeft.get();
+	public boolean getIntakeLimitSwitchLeft() {
+		return leftMotor.isFwdLimitSwitchClosed();
 	}
 	
-	public boolean getRightLimitSwitch(){
-		return limitSwitchRight.get();
+	public boolean getIntakeLimitSwitchRight() {
+		return rightMotor.isFwdLimitSwitchClosed();
 	}
 	
 	public boolean getIntakeLimitSwitch(){
@@ -93,6 +91,7 @@ public class Roller extends Subsystem {
 	 */
 	public void close() {
 		rollerSolenoid.set(Value.kReverse);
+		SmartDashboard.putString("Arm Open?", "YES");
 	}
 	
 	/**
@@ -100,6 +99,11 @@ public class Roller extends Subsystem {
 	 */
 	public void open() {
 		rollerSolenoid.set(Value.kForward);
+		SmartDashboard.putString("Arm Open?", "NO");
+	}
+	
+	public void log() {
+		SmartDashboard.putBoolean("Solenoid", rollerSolenoid.get() == Value.kForward);
 	}
 
 }
