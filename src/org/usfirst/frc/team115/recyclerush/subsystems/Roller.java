@@ -25,9 +25,6 @@ public class Roller extends Subsystem {
 	
 	private DoubleSolenoid rollerSolenoid;
 	
-	private DigitalInput intakeLimitSwitchRight;
-	private DigitalInput intakeLimitSwitchLeft;
-	
 	private RobotDrive drive;
 	
 	/**
@@ -36,9 +33,8 @@ public class Roller extends Subsystem {
 	public Roller() {
 		leftMotor = new CANTalon(RobotMap.ROLLER_MOTOR_LEFT);
 		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
+
 		rollerSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.ROLLER_PORT_A, RobotMap.ROLLER_PORT_B);
-		intakeLimitSwitchRight = new DigitalInput(RobotMap.ROLLER_SWITCH_RIGHT);
-		intakeLimitSwitchLeft = new DigitalInput(RobotMap.ROLLER_SWITCH_LEFT);
 		leftMotor.enableLimitSwitch(true, false);
 		rightMotor.enableLimitSwitch(true, false);
 		drive = new RobotDrive(leftMotor, rightMotor);
@@ -73,11 +69,11 @@ public class Roller extends Subsystem {
 		rightMotor.set(0.0);
 	}
 	
-	public boolean getIntakeLimitSwitchLeft() {
+	public boolean getLeftLimitSwitch() {
 		return leftMotor.isFwdLimitSwitchClosed();
 	}
 	
-	public boolean getIntakeLimitSwitchRight() {
+	public boolean getRightLimitSwitch() {
 		return rightMotor.isFwdLimitSwitchClosed();
 	}
 	
@@ -99,6 +95,8 @@ public class Roller extends Subsystem {
 	
 	public void log() {
 		SmartDashboard.putBoolean("Solenoid", rollerSolenoid.get() == Value.kForward);
+		SmartDashboard.putBoolean("Roller_limit_Left", getLeftLimitSwitch());
+		SmartDashboard.putBoolean("Roller_limit_right", getRightLimitSwitch());
 	}
 
 }

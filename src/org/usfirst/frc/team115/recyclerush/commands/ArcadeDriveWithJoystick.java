@@ -9,7 +9,6 @@ import org.usfirst.frc.team115.recyclerush.Robot;
  */
 
 public class ArcadeDriveWithJoystick extends Command {
-
 	public ArcadeDriveWithJoystick() {
 	    requires(Robot.drive);
 	}

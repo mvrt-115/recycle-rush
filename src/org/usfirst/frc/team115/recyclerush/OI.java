@@ -1,3 +1,9 @@
+/**
+ * This class contains all interactions between physical controls and the robot,
+ * including Joystick, Triggers, etc.
+ * @author MVRT
+ */
+
 package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
