@@ -18,7 +18,7 @@ public class ElevatorBrakeOff extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.elevator.release();
+		Robot.elevator.unBrake();
 		finished = true;
 	}
 
