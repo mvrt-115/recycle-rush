@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
     }
     
     public void robotInit() {
-        SmartDashboard.putData("autoIntake", new AutoIntake());
+        SmartDashboard.putData("autoIntake", new AutoIntake(14));
         SmartDashboard.putData("ToteIntake", new IntakeTote());
     	drive.initialize();
     	elevator.initialize();

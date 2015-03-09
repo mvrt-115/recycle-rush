@@ -6,13 +6,20 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakeTote extends Command{
 
+    double timeout;
+    
 	public IntakeTote(){
-		requires(Robot.roller);
+		super(1.5);
+	}
+	
+	public IntakeTote(double timeout){
+	    requires(Robot.roller);
+	    this.timeout = timeout;
 	}
 
 	@Override
 	protected void initialize() {
-	       setTimeout(1.5);
+	       setTimeout(timeout);
 	}
 
 	@Override
