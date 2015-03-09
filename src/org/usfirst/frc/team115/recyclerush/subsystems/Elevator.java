@@ -23,8 +23,6 @@ public class Elevator extends Subsystem {
 	private CANTalon elevatorMotor2;
 	private DoubleSolenoid brakeSolenoid;
 	
-	private boolean past = false; 
-	
 	// the following measurements are in inches:
 	public static final double BOTTOM_HEIGHT = 54;
 	public static final double TOP_HEIGHT = 0;
@@ -45,7 +43,7 @@ public class Elevator extends Subsystem {
 	public static final double PRESET_TOTE_INTAKETHREETOTES = 41;
 	public static final double PRESET_TOP = 52;
 	
-	public final double[] presets = {PRESET_BOTTOM, PRESET_TOTE_INTAKETOTE, PRESET_BIN_INTAKETOTE,
+	public static final double[] presets = {PRESET_BOTTOM, PRESET_TOTE_INTAKETOTE, PRESET_BIN_INTAKETOTE,
 	        PRESET_TOTE_INTAKETHREETOTES, PRESET_TOP};
 	
 	public Elevator() {

@@ -14,14 +14,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ElevatorUp extends CommandGroup {
 	
-
+    private ElevatorToHeight elevToHeight;
+    
     public ElevatorUp() {
-        double destHeight = getGoal();
-        addSequential(new ElevatorToHeight(destHeight));
+        elevToHeight = new ElevatorToHeight(0);
+        addSequential(elevToHeight);
     }
 
+    @Override
+    public void initialize(){
+        double destHeight = getGoal();
+        elevToHeight.setDest(destHeight);
+    }
+    
     private double getGoal() {
-    	double[] presets = Robot.elevator.presets;
+    	double[] presets = Elevator.presets;
     	double height = Robot.elevator.getHeight();
     	int destPreset = presets.length - 1;
     	double destHeight = 0;
@@ -32,7 +39,7 @@ public class ElevatorUp extends CommandGroup {
     		}
     	}
     	destHeight = presets[destPreset];
-    	SmartDashboard.putNumber("Elev dest height", destHeight);
+    	System.out.println("Destination: preset[" + destPreset + "] = " + destHeight);
     	return destHeight;
     }
     

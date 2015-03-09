@@ -19,6 +19,10 @@ public class ElevatorToHeight extends Command {
         requires(Robot.elevator);
         this.destHeight = destHeight;
     }
+    
+    public void setDest(double dest){
+        destHeight = dest;
+    }
 
     @Override
     protected void initialize() {
