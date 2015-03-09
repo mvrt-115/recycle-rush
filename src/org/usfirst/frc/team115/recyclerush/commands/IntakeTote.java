@@ -11,17 +11,19 @@ public class IntakeTote extends Command{
 	}
 
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+	       setTimeout(1.5);
+	}
 
 	@Override
 	protected void execute() {
-		Robot.roller.control(0, -1);
+	    Robot.roller.close();
+		Robot.roller.control(0, 1);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		//run rollers until tote is in all the way
-		return Robot.roller.getLeftLimitSwitch();
+		return isTimedOut();
 	}
 
 	@Override

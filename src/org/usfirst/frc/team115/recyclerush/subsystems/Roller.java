@@ -35,8 +35,8 @@ public class Roller extends Subsystem {
 		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
 
 		rollerSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.ROLLER_PORT_A, RobotMap.ROLLER_PORT_B);
-		leftMotor.enableLimitSwitch(true, false);
-		rightMotor.enableLimitSwitch(true, false);
+		leftMotor.enableLimitSwitch(false, false);
+		rightMotor.enableLimitSwitch(false, false);
 		drive = new RobotDrive(leftMotor, rightMotor);
 		drive.setInvertedMotor(MotorType.kFrontLeft, true);
 		drive.setInvertedMotor(MotorType.kFrontRight, true);

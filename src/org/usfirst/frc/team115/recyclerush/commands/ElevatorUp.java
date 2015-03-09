@@ -53,7 +53,7 @@ public class ElevatorUp extends Command {
 
     @Override
     protected void end() {
-    	Robot.elevator.brake();
+    	Robot.elevator.stop();
     	Robot.oi.rumbleXbox(RumbleType.kLeftRumble, 0.2, 300);
     	Robot.oi.rumbleXbox(RumbleType.kRightRumble, 0.2, 300);
     }
