@@ -5,6 +5,8 @@ import org.usfirst.frc.team115.recyclerush.commands.auton.HulkSmashAutonB;
 import org.usfirst.frc.team115.recyclerush.commands.auton.JuggernautA;
 import org.usfirst.frc.team115.recyclerush.commands.auton.JuggernautB;
 import org.usfirst.frc.team115.recyclerush.commands.auton.MobilityAuton;
+import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
+import org.usfirst.frc.team115.recyclerush.commands.IntakeTote;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
@@ -47,6 +49,8 @@ public class Robot extends IterativeRobot {
     }
     
     public void robotInit() {
+        SmartDashboard.putData("autoIntake", new AutoIntake());
+        SmartDashboard.putData("ToteIntake", new IntakeTote());
     	drive.initialize();
     	elevator.initialize();
     	autonChooser = new SendableChooser();
@@ -56,6 +60,7 @@ public class Robot extends IterativeRobot {
     	autonChooser.addObject("Juggernaut start left", new JuggernautA());
     	autonChooser.addObject("Juggernaut start right", new JuggernautB());
     	SmartDashboard.putData("Auton Mode Chooser", autonChooser);
+
     }
 
     public void disabledPeriodic() {

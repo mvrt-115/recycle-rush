@@ -1,15 +1,14 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import org.usfirst.frc.team115.recyclerush.RobotMap;
+import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorControl;
 import org.usfirst.frc.team115.recyclerush.commands.ResetElevatorEncoder;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.buttons.Trigger;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -37,10 +36,10 @@ public class Elevator extends Subsystem {
 	private static final int TICKS_PER_ROTATION = 1024;
 	private static final double TICKS_PER_INCH = TICKS_PER_ROTATION/INCHES_PER_ROTATION;
 
-	public static final double THRESHOLD = 2;
+	public static final double THRESHOLD = 0.5;
 	public static final double PRESET_SPEED = 0.5;
     
-    public final int[] presets = {0, 12, 24, 36, 48};
+    public final int[] presets = {0, 14, 24, 41, 52};
 
 	public Elevator() {
 		brakeSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.BRAKE_PORT_A, RobotMap.BRAKE_PORT_B);
@@ -76,6 +75,11 @@ public class Elevator extends Subsystem {
 	
 	public void brake() {
 		brakeSolenoid.set(Value.kForward);	
+	}
+	
+	public void stop(){
+	    control(0);
+	    brake();
 	}
 	
 	public void release() {
