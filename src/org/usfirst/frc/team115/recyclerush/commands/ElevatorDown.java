@@ -21,7 +21,7 @@ public class ElevatorDown extends Command {
 
     @Override
     protected void initialize() {
-		Robot.elevator.release();
+		Robot.elevator.unBrake();
 		setPosition();
     }
 

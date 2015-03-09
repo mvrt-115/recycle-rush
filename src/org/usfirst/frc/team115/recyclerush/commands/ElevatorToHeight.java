@@ -22,7 +22,7 @@ public class ElevatorToHeight extends Command {
 
     @Override
     protected void initialize() {
-        Robot.elevator.release();
+        Robot.elevator.unBrake();
     }
 
     @Override

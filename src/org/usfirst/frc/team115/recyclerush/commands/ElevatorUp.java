@@ -22,7 +22,7 @@ public class ElevatorUp extends Command {
     @Override
     protected void initialize() {
     	// enable PID
-		Robot.elevator.release();
+		Robot.elevator.unBrake();
 		
 		setGoal();
     }

@@ -64,6 +64,10 @@ public class Elevator extends Subsystem {
         elevatorMotor2.set(elevatorMotor1.getDeviceID());        
         
     }
+    
+    public boolean isLimitPressed(){
+        return elevatorMotor1.isFwdLimitSwitchClosed();
+    }
 	
 	public double getHeight() {
 		return BOTTOM_HEIGHT - elevatorMotor1.getPosition() / TICKS_PER_INCH;
@@ -82,7 +86,7 @@ public class Elevator extends Subsystem {
 	    brake();
 	}
 	
-	public void release() {
+	public void unBrake() {
 		brakeSolenoid.set(Value.kReverse);
 	}
 	
