@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Moves the elevator down to the next preset
- * @author Akhil Palla (creds to Lee for being Lee)
+ * Moves the elevator to a certain preset
+ * @author Akhil Palla
  */
 public class ElevatorToHeight extends Command {
     

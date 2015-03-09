@@ -39,8 +39,15 @@ public class Elevator extends Subsystem {
 	public static final double THRESHOLD = 0.5;
 	public static final double PRESET_SPEED = 0.5;
     
-    public final int[] presets = {0, 14, 24, 41, 52};
-
+	public static final double PRESET_BOTTOM = 0;
+	public static final double PRESET_TOTE_INTAKETOTE = 14;
+	public static final double PRESET_BIN_INTAKETOTE = 24;
+	public static final double PRESET_TOTE_INTAKETHREETOTES = 41;
+	public static final double PRESET_TOP = 52;
+	
+	public final double[] presets = {PRESET_BOTTOM, PRESET_TOTE_INTAKETOTE, PRESET_BIN_INTAKETOTE,
+	        PRESET_TOTE_INTAKETHREETOTES, PRESET_TOP};
+	
 	public Elevator() {
 		brakeSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.BRAKE_PORT_A, RobotMap.BRAKE_PORT_B);
         elevatorMotor1 = new CANTalon(RobotMap.ELEV_MOTOR_1);

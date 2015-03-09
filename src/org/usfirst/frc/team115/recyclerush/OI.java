@@ -7,6 +7,7 @@
 package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.commands.ArcadePrecisionDrive;
+import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
 import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorDown;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorUp;
@@ -14,6 +15,7 @@ import org.usfirst.frc.team115.recyclerush.commands.OpenClaw;
 import org.usfirst.frc.team115.recyclerush.commands.RollerClose;
 import org.usfirst.frc.team115.recyclerush.commands.RollerOpen;
 import org.usfirst.frc.team115.recyclerush.commands.ToggleStabilizer;
+import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
@@ -59,6 +61,8 @@ public class OI {
 		lb.whenPressed(new OpenClaw());
 		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
 		rb.whenPressed(new CloseClaw());
+		JoystickButton a = new JoystickButton(xbox, RobotMap.XBOX_A);
+		a.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE));
 	
 		XboxTrigger lt = new XboxTrigger(xbox, RobotMap.XBOX_LT, 0.6);
 		XboxTrigger rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.6);

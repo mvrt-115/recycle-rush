@@ -5,32 +5,26 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Moves the elevator up a preset
- * @author Akhil Palla (creds to Lee for being Lee)
+ * @author Akhil Palla
  */
-public class ElevatorUp extends Command {
+public class ElevatorUp extends CommandGroup {
 	
-	private double destHeight;
 
     public ElevatorUp() {
-        requires(Robot.elevator);
+        double destHeight = getGoal();
+        addSequential(new ElevatorToHeight(destHeight));
     }
 
-    @Override
-    protected void initialize() {
-    	// enable PID
-		Robot.elevator.release();
-		
-		setGoal();
-    }
-
-    private void setGoal() {
-    	int[] presets = Robot.elevator.presets;
+    private double getGoal() {
+    	double[] presets = Robot.elevator.presets;
     	double height = Robot.elevator.getHeight();
     	int destPreset = presets.length - 1;
+    	double destHeight = 0;
     	for(int i = 0; i < presets.length; i++) {
     		if(presets[i] > height + 1) { // if the preset is above current height
     			destPreset = i; // set that preset to our destination
@@ -39,27 +33,7 @@ public class ElevatorUp extends Command {
     	}
     	destHeight = presets[destPreset];
     	SmartDashboard.putNumber("Elev dest height", destHeight);
+    	return destHeight;
     }
     
-    @Override
-    protected void execute() {
-    	Robot.elevator.control(-1 * Elevator.PRESET_SPEED);
-    }
-
-    @Override
-    protected boolean isFinished() {
-    	return Math.abs(Robot.elevator.getHeight() - destHeight) <= Elevator.THRESHOLD;
-    }
-
-    @Override
-    protected void end() {
-    	Robot.elevator.stop();
-    	Robot.oi.rumbleXbox(RumbleType.kLeftRumble, 0.2, 300);
-    	Robot.oi.rumbleXbox(RumbleType.kRightRumble, 0.2, 300);
-    }
-
-    @Override
-    protected void interrupted() {
-        end();
-    }
 }
