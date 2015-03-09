@@ -42,7 +42,6 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	drive.initialize();
     	elevator.initialize();
-    	SmartDashboard.putData(new ElevatorToHeight(14));
     }
 
     public void disabledPeriodic() {
