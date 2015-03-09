@@ -1,30 +1,22 @@
 package org.usfirst.frc.team115.recyclerush;
 
-<<<<<<< HEAD
-=======
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorBrakeOff;
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorStop;
->>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
+import org.usfirst.frc.team115.recyclerush.commands.auton.HulkSmashAutonA;
+import org.usfirst.frc.team115.recyclerush.commands.auton.HulkSmashAutonB;
+import org.usfirst.frc.team115.recyclerush.commands.auton.JuggernautA;
+import org.usfirst.frc.team115.recyclerush.commands.auton.JuggernautB;
+import org.usfirst.frc.team115.recyclerush.commands.auton.MobilityAuton;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
-<<<<<<< HEAD
-import org.usfirst.frc.team115.recyclerush.subsystems.Grabber;
-=======
->>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
 import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-<<<<<<< HEAD
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-=======
->>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -33,19 +25,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Note: If you change the class name or package, the manifest must be updated.
  */
 public class Robot extends IterativeRobot {
-
+	Command autonCommand;
+	SendableChooser autonChooser;
+	
     public static DriveTrain drive;
     public static Stabilizer stabilizer;
     public static Claw claw;
     public static OI oi;
-<<<<<<< HEAD
-    public static Elevator elevator;
-    public static Roller roller;
-=======
     public static Roller roller;
     public static Elevator elevator;
     public static CompressorSystem compressor;
->>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
 
     public Robot() {
         drive = new DriveTrain();
@@ -55,28 +44,28 @@ public class Robot extends IterativeRobot {
         compressor = new CompressorSystem();
         elevator = new Elevator();
         oi = new OI();
-<<<<<<< HEAD
-        elevator = new Elevator(0, 0, 0);
-        roller  = new Roller();
-=======
     }
     
     public void robotInit() {
     	drive.initialize();
     	elevator.initialize();
->>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
+    	autonChooser = new SendableChooser();
+    	autonChooser.addDefault("Mobility", new MobilityAuton());
+    	autonChooser.addObject("Hulk Smash start left", new HulkSmashAutonA());
+    	autonChooser.addObject("Hulk Smash start right", new HulkSmashAutonB());
+    	autonChooser.addObject("Juggernaut start left", new JuggernautA());
+    	autonChooser.addObject("Juggernaut start right", new JuggernautB());
+    	SmartDashboard.putData("Auton Mode Chooser", autonChooser);
     }
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
     }
-<<<<<<< HEAD
 
     public void autonomousInit() {
-=======
->>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
-
-    public void autonomousInit() {}
+    	autonCommand = (Command) autonChooser.getSelected();
+    	autonCommand.start();
+    }
 
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();

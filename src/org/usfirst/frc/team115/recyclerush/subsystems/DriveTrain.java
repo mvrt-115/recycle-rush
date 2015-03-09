@@ -1,9 +1,12 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
+
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
@@ -93,7 +96,12 @@ public class DriveTrain extends Subsystem {
             current += motor.getOutputCurrent();
         return current;
     }
-
+    
+    public void setControlMode(CANTalon.ControlMode mode){
+   	 for(CANTalon motor : motors)
+            motor.changeControlMode(mode);
+    }
+    
     /**
      * @return the angle of rotational displacement
      */
@@ -143,6 +151,29 @@ public class DriveTrain extends Subsystem {
     public float getZ() {
         return navX.getWorldLinearAccelZ();
     }
+    
+    
+    public void disableControl() {
+        for (CANTalon motor : motors)
+            motor.disableControl();
+    }
+	
+	public void setPosition(double position) {
+		for (CANTalon motor : motors)
+			motor.set(position);
+	}
+	
+	public double getDistance() {
+		return ((motors[0].getPosition() + motors[1].getPosition()
+                + motors[2].getPosition() + motors[3].getPosition()) / 4 );
+	}
+	
+	public double getSpeed() {
+		double total = 0.0;
+		for (CANTalon motor : motors)
+			total += motor.get();
+		return total / motors.length;
+	}
 
     /**
      * @return the distance from front

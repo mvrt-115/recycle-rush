@@ -129,8 +129,6 @@ public class OI {
 	}
 	
 }
-<<<<<<< HEAD
-=======
 
 class POVTrigger extends Trigger{
 	
@@ -147,7 +145,6 @@ class POVTrigger extends Trigger{
 		return xbox.getPOV() == angle;
 	}
 }
->>>>>>> 25632b4fc81f76866cc61f68d4769dd00e85c93d
 
 class XboxTrigger extends Trigger{
 

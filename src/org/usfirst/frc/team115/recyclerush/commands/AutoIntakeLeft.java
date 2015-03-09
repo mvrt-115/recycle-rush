@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoIntakeLeft extends CommandGroup{
     public AutoIntakeLeft(){
-    	addSequential(new ElevatorUp(0.0,0.0,0.0));
+    	addSequential(new ElevatorUp());
         addSequential(new RotateToteCounterClockwise());
         addSequential(new AutoIntake());
     }

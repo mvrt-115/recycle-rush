@@ -20,14 +20,14 @@ public class HulkSmashAutonB extends CommandGroup{
 		addParallel(new RollerClose());
 		addSequential(new DriveForDistance(4.9));
 		for(int i=0; i<2; i++){
-			addParallel(new ElevatorUp(0.0, 0.0, 0.0));
-			addSequential(new ElevatorUp(0.0, 0.0, 0.0));
-			addSequential(new ElevatorUp(0.0, 0.0, 0.0));
-			addSequential(new ElevatorUp(0.0, 0.0, 0.0));
+			addParallel(new ElevatorUp());
+			addSequential(new ElevatorUp());
+			addSequential(new ElevatorUp());
+			addSequential(new ElevatorUp());
 			addSequential(new Turn(-90.0));
-			addSequential(new ElevatorDown(0.0, 0.0, 0.0));
-			addSequential(new ElevatorDown(0.0, 0.0, 0.0));
-			addSequential(new ElevatorDown(0.0, 0.0, 0.0));
+			addSequential(new ElevatorDown());
+			addSequential(new ElevatorDown());
+			addSequential(new ElevatorDown());
 			addSequential(new Turn(90.0));
 			addSequential(new DriveForDistance(4.7));
 		}
