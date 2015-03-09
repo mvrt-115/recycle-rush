@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorToHeight;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
@@ -10,6 +11,7 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -40,6 +42,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	drive.initialize();
     	elevator.initialize();
+    	SmartDashboard.putData(new ElevatorToHeight(14));
     }
 
     public void disabledPeriodic() {

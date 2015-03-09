@@ -4,12 +4,12 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeTote extends Command{
+public class IntakeTote extends Command {
 
     double timeout;
     
 	public IntakeTote(){
-		super(1.5);
+		this(1.3);
 	}
 	
 	public IntakeTote(double timeout){
