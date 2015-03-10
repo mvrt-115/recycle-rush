@@ -39,7 +39,6 @@ public class ElevatorDown extends CommandGroup {
             }
         }
         destHeight = presets[destPreset];
-        System.out.println("Destination: preset[" + destPreset + "] = " + destHeight);
         return destHeight;
     }
 }
