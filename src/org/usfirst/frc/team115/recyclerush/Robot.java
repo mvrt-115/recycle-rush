@@ -1,7 +1,7 @@
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorBrakeOff;
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorStop;
+import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
+import org.usfirst.frc.team115.recyclerush.commands.IntakeTote;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * @author MVRT
@@ -59,6 +60,9 @@ public class Robot extends 	IterativeRobot {
                 NIVision.IMAQdxCameraControlMode.CameraControlModeController);
         NIVision.IMAQdxConfigureGrab(session);
         NIVision.IMAQdxStartAcquisition(session);
+
+        SmartDashboard.putData("autoIntake", new AutoIntake());
+        SmartDashboard.putData("ToteIntake", new IntakeTote());
     	drive.initialize();
     	elevator.initialize();
     }

@@ -19,7 +19,7 @@ public class ElevatorControl extends Command {
 	@Override
 	protected void initialize() {
 		// release the brake
-		Robot.elevator.release();
+		Robot.elevator.unBrake();
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class ElevatorControl extends Command {
 			Robot.elevator.control(0);
 			Robot.elevator.brake();
 		} else {
-			Robot.elevator.release();
+			Robot.elevator.unBrake();
 			Robot.elevator.control(Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR));
 		}
 	}

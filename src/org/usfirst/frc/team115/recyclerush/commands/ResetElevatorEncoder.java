@@ -13,9 +13,7 @@ public class ResetElevatorEncoder extends Command{
 	}
 	
 	@Override
-	protected void initialize() {
-		System.out.println("reset elevator encoder");
-	}
+	protected void initialize() {}
 
 	@Override
 	protected void execute() {
