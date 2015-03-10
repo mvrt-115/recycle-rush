@@ -37,11 +37,11 @@ public class DriveTrain extends Subsystem {
     public DriveTrain() {
         navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
 
-        /*ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
+        ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
         ultrasonicBack = new AnalogInput(RobotMap.ULTRASONIC_BACK);
         ultrasonicLeft = new AnalogInput(RobotMap.ULTRASONIC_LEFT);
         ultrasonicRight = new AnalogInput(RobotMap.ULTRASONIC_RIGHT);
-*/
+
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
         motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -96,8 +96,7 @@ public class DriveTrain extends Subsystem {
     public void log()
     {
     	
-    	for(int it = 0; it < motors.length; it++)
-    	{
+    	for(int it = 0; it < motors.length; it++) {
     		CANTalon motor = motors[it];
     		SmartDashboard.putNumber("Drivetrain Motor " + it + " Current", motor.getOutputCurrent());
     	}
@@ -111,6 +110,7 @@ public class DriveTrain extends Subsystem {
     	SmartDashboard.putNumber("Ultrasonic Right Inches", ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V);
     	SmartDashboard.putNumber("Ultrasonic Back Inches", ultrasonicBack.getVoltage()/ANALOG_SCALE_3_3V);
     }
+    
     public double getCurrent()
     {
         double current = 0;
