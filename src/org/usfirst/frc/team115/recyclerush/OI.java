@@ -62,7 +62,7 @@ public class OI {
 		JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
 		rb.whenPressed(new CloseClaw());
 		JoystickButton a = new JoystickButton(xbox, RobotMap.XBOX_A);
-		a.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE));
+		a.whenPressed(new AutoIntake(true, Elevator.PRESET_TOTE_INTAKETOTE));
 	
 		XboxTrigger lt = new XboxTrigger(xbox, RobotMap.XBOX_LT, 0.6);
 		XboxTrigger rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.6);

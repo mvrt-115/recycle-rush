@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoIntake extends CommandGroup{
     
-    public AutoIntake(double upHeightAfterwards){
-        addSequential(new IntakeTote());
+    public AutoIntake(boolean intakeTote, double upHeightAfterwards){
+        if(intakeTote)addSequential(new IntakeTote());
         addParallel(new OpenClawDelay(0.2));
         addSequential(new ElevatorToHeight(0));
         addParallel(new RollerOpen());
