@@ -1,9 +1,12 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
+
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
@@ -13,18 +16,21 @@ import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
  */
 public class DriveTrain extends Subsystem {
 
-	private RobotDrive drive;
-    private final int BACK_LEFT = 0;
-    private final int BACK_RIGHT = 1;
-    private final int FRONT_LEFT = 2;
-    private final int FRONT_RIGHT = 3;
-    private CANTalon motors[];
+    private static final int BACK_LEFT = 0;
+    private static final int BACK_RIGHT = 1;
+    private static final int FRONT_LEFT = 2;
+    private static final int FRONT_RIGHT = 3;
+    private static final int RATE_VOLTAGE_RAMP = 24;
+    private static final double ANALOG_SCALE_3_3V = 0.00644;
 
+    private RobotDrive drive;    
+    private CANTalon motors[];
+    
+    
     private AnalogInput ultrasonicFront;
     private AnalogInput ultrasonicBack;
     private AnalogInput ultrasonicLeft;
     private AnalogInput ultrasonicRight;
-    private static final double ANALOG_SCALE_3_3V = 0.00644;
     private IMUAdvanced navX;
 
     /**
@@ -36,8 +42,8 @@ public class DriveTrain extends Subsystem {
         /*ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
         ultrasonicBack = new AnalogInput(RobotMap.ULTRASONIC_BACK);
         ultrasonicLeft = new AnalogInput(RobotMap.ULTRASONIC_LEFT);
-        ultrasonicRight = new AnalogInput(RobotMap.ULTRASONIC_RIGHT);
-*/
+        ultrasonicRight = new AnalogInput(RobotMap.ULTRASONIC_RIGHT);*/
+        
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
         motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -48,10 +54,37 @@ public class DriveTrain extends Subsystem {
     }
     
     public void initialize() {
-    	for(CANTalon motor : motors)
-    		motor.setVoltageRampRate(24);
+    	for(CANTalon motor : motors){
+    		motor.setVoltageRampRate(RATE_VOLTAGE_RAMP);
+    	}
+    	zeroEncoders();
     }
 
+    /**
+     * Initializes the default command of the subsystem.
+     */
+    @Override
+    protected void initDefaultCommand() {
+        setDefaultCommand(new ArcadeDriveWithJoystick());
+    }
+    
+    /**
+     * Resets the navx and any encoders
+     */
+    public void resetAll() {
+        navX.zeroYaw();
+        zeroEncoders();
+    }
+    
+    
+    /**
+     * Drives the robot
+     * @param joystick The joystick to drive based on
+     */
+    public void drive(Joystick joystick) {
+        drive.arcadeDrive(joystick);
+    }
+    
     /**
      * This thing drives the robot!
      * @param move   the forward speed of the rotation
@@ -62,28 +95,25 @@ public class DriveTrain extends Subsystem {
     }
 
     /**
-     * Drives the robot
-     * @param joystick The joystick to drive based on
-     */
-    public void drive(Joystick joystick) {
-        drive.arcadeDrive(joystick);
-    }
-
-    /**
      * Stops the drivetrain
      */
     public void stop() {
         drive(0, 0);
     }
-
+    
     /**
-     * Initializes the default command of the subsystem.
+     * Zeroes the robot's encoders
      */
-    @Override
-    protected void initDefaultCommand() {
-        setDefaultCommand(new ArcadeDriveWithJoystick());
+    public void zeroEncoders(){
+        for(CANTalon motor: motors){
+            motor.setPosition(0); //zero the encoders
+        }
     }
-
+    
+    public double getDistance(){
+        return (motors[FRONT_LEFT].getPosition() + motors[FRONT_RIGHT].getPosition())/2;
+    }
+    
     /**
      * @return the total current being sent to motors
      */
@@ -98,7 +128,7 @@ public class DriveTrain extends Subsystem {
      * @return the angle of rotational displacement
      */
     public float getYaw() {
-        return navX.getYaw();
+        return (navX.getYaw() + 360)%360;
     }
 
     /**
@@ -113,14 +143,6 @@ public class DriveTrain extends Subsystem {
      */
     public float getRoll() {
         return navX.getRoll();
-    }
-
-    /**
-     * Resets the navx and any encoders
-     */
-    public void resetAll() {
-        navX.zeroYaw();
-        //TODO: encoder reset goes here
     }
 
     /**
