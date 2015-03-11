@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveStraight extends PIDCommand {
 
     //TODO Set actual PID Values
-    private static final double P = 0.1;
-    private static final double I = 0.1;
-    private static final double D = 0.1;
+    public static final double P = 0.1;
+    public static final double I = 0.1;
+    public static final double D = 0.1;
     
     private static final double MAX_SPIN = 0.3;
     
@@ -34,6 +34,17 @@ public class DriveStraight extends PIDCommand {
         requires(Robot.drive);
         setInputRange(0, 360);
         getPIDController().setOutputRange(-1 * MAX_SPIN, MAX_SPIN);
+    }
+    
+    /**
+     * Sets DriveStraight to drive at a specified speed
+     * Also disables the option to set speed using joystick,
+     * if that is currently enabled
+     * @param spd: A speed (between -1 and 1) to drive at
+     */
+    public void setSpeed(double spd){
+        speed = spd;
+        useJoystick = false;
     }
 
     @Override
