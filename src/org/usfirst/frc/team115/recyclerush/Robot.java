@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorBrakeOff;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.commands.auton.*;
 import org.usfirst.frc.team115.recyclerush.subsystems.*;
 
@@ -64,6 +67,13 @@ public class Robot extends IterativeRobot {
         oi.initialize();
 
         initAutonChooser();
+
+        initCommands();
+    }
+
+    public void initCommands() {
+        SmartDashboard.putData(new ElevatorBrakeOff());
+        SmartDashboard.putData(new ElevatorHardReset());
     }
 
     public void initCamera() {
