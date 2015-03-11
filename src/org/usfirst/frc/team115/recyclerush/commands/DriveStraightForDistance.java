@@ -59,7 +59,8 @@ public class DriveStraightForDistance extends DriveStraight implements PIDSource
     @Override
     protected void initialize() {
         super.initialize();
-        distancePID.setSetpoint(drive.getDistance() + distance);
+        drive.zeroEncoders();
+        distancePID.setSetpoint(distance);
         distancePID.enable();
     }
     

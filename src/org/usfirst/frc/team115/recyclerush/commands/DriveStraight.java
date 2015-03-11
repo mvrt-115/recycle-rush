@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveStraight extends PIDCommand {
 
     //TODO Set actual PID Values
-    public static final double P = 0.1;
-    public static final double I = 0.1;
-    public static final double D = 0.1;
+    public static final double P = 0.045;
+    public static final double I = 0.007;
+    public static final double D = 0.07;
     
     private static final double MAX_SPIN = 0.3;
     
