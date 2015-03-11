@@ -26,7 +26,7 @@ public class DriveStraight extends PIDCommand {
     public DriveStraight(double speed, boolean joystick){
         super(P, I, D);
         
-        if(speed < 0 || speed > 1)  
+        if(speed < -1 || speed > 1)  
             throw new IllegalArgumentException();
         this.speed = speed;
         useJoystick = joystick;
