@@ -15,7 +15,10 @@ import org.usfirst.frc.team115.recyclerush.RobotMap;
 public class Claw extends Subsystem {
 
     DoubleSolenoid clawSolenoid;
-
+    public void log()
+    {
+    	SmartDashboard.putBoolean("Claw Open?", clawSolenoid.get().equals(Value.kForward));
+    }
     public Claw() {
         super();
         clawSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.CLAW_PORT_A, RobotMap.CLAW_PORT_B);
@@ -26,15 +29,16 @@ public class Claw extends Subsystem {
      */
     public void close() {
         clawSolenoid.set(Value.kReverse);
-        SmartDashboard.putString("Claw Open?", "NO");
+        System.out.println("Claw Closing");
     }
 
     /**
      * Opens the grabber
      */
-    public void open() {
+    public void open()
+    {
         clawSolenoid.set(Value.kForward);
-        SmartDashboard.putString("Claw Open?", "NO");
+        System.out.println("Claw Opening");
     }
 
     /**

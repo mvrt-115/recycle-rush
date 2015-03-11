@@ -1,9 +1,13 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
+
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
@@ -33,11 +37,11 @@ public class DriveTrain extends Subsystem {
     public DriveTrain() {
         navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
 
-        /*ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
+        ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
         ultrasonicBack = new AnalogInput(RobotMap.ULTRASONIC_BACK);
         ultrasonicLeft = new AnalogInput(RobotMap.ULTRASONIC_LEFT);
         ultrasonicRight = new AnalogInput(RobotMap.ULTRASONIC_RIGHT);
-*/
+
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
         motors[BACK_RIGHT] = new CANTalon(RobotMap.BACK_RIGHT_DRIVE);
@@ -72,7 +76,9 @@ public class DriveTrain extends Subsystem {
     /**
      * Stops the drivetrain
      */
-    public void stop() {
+    public void stop()
+    {
+    	System.out.println("Stopping Drive");
         drive(0, 0);
     }
 
@@ -87,7 +93,26 @@ public class DriveTrain extends Subsystem {
     /**
      * @return the total current being sent to motors
      */
-    public double getCurrent() {
+    public void log()
+    {
+    	
+    	for(int it = 0; it < motors.length; it++) {
+    		CANTalon motor = motors[it];
+    		SmartDashboard.putNumber("Drivetrain Motor " + it + " Current", motor.getOutputCurrent());
+    	}
+    	SmartDashboard.putNumber("Yaw", navX.getYaw());
+    	SmartDashboard.putNumber("Pitch", navX.getPitch());
+    	SmartDashboard.putNumber("Roll", navX.getRoll());
+    	SmartDashboard.putNumber("Position X", navX.getWorldLinearAccelX());
+    	SmartDashboard.putNumber("Position Y", navX.getWorldLinearAccelY());
+    	SmartDashboard.putNumber("Position Z", navX.getWorldLinearAccelZ());
+    	SmartDashboard.putNumber("Ultrasonic Left Inches", ultrasonicLeft.getVoltage()/ANALOG_SCALE_3_3V);
+    	SmartDashboard.putNumber("Ultrasonic Right Inches", ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V);
+    	SmartDashboard.putNumber("Ultrasonic Back Inches", ultrasonicBack.getVoltage()/ANALOG_SCALE_3_3V);
+    }
+    
+    public double getCurrent()
+    {
         double current = 0;
         for (CANTalon motor : motors)
             current += motor.getOutputCurrent();

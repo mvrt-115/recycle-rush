@@ -15,25 +15,31 @@ public class Stabilizer extends Subsystem {
 
     DoubleSolenoid stabSolenoid;
 
-    public Stabilizer() {
+    public Stabilizer()
+    {
         super();
         stabSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.STABILIZER_PORT_A, RobotMap.STABILIZER_PORT_B);
     }
-
+    public void log()
+    {
+    	SmartDashboard.putBoolean("Stabilizer Open?", stabSolenoid.get().equals(Value.kForward));
+    }
     /**
      * Closes the claw
      */
-    public void close() {
+    public void close()
+    {
         stabSolenoid.set(Value.kReverse);
-        SmartDashboard.putString("Stabilizer Open?", "No");
+        System.out.println("Stabilizer Closing");
     }
 
     /**
      * Opens the claw
      */
-    public void open() {
+    public void open()
+    {
         stabSolenoid.set(Value.kForward);
-        SmartDashboard.putString("Stabilizer Open?", "No");
+        System.out.println("Stabilizer Opening");
     }
 
     public boolean isOpen(){

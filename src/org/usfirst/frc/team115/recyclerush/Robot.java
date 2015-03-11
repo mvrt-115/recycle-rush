@@ -8,7 +8,12 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.Image;
+
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,7 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This class is equivalent to RobotMain in LabVIEW and runs when the robot is turned on.
  * Note: If you change the class name or package, the manifest must be updated.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends 	IterativeRobot {
 
     public static DriveTrain drive;
     public static Stabilizer stabilizer;
@@ -29,7 +34,8 @@ public class Robot extends IterativeRobot {
     public static Elevator elevator;
     public static CompressorSystem compressor;
 
-    public Robot() {
+    public Robot()
+    {
         drive = new DriveTrain();
         stabilizer = new Stabilizer();
         claw = new Claw();
@@ -38,23 +44,47 @@ public class Robot extends IterativeRobot {
         elevator = new Elevator();
         oi = new OI();
     }
-    
-    public void robotInit() {
+
+    int session;
+    Image frame;
+    public void cameraServerDisplay()
+    {
+            NIVision.IMAQdxGrab(session, frame, 1);
+            CameraServer.getInstance().setImage(frame);
+            Timer.delay(0.005);
+    }
+    public void robotInit()
+    {
+        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+        session = NIVision.IMAQdxOpenCamera("cam0",
+                NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+        NIVision.IMAQdxConfigureGrab(session);
+        NIVision.IMAQdxStartAcquisition(session);
+
     	drive.initialize();
     	elevator.initialize();
     }
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        cameraServerDisplay();
+        log();
     }
 
-    public void autonomousInit() {}
+    public void autonomousInit() {
+        NIVision.IMAQdxStopAcquisition(session);
+        NIVision.IMAQdxStartAcquisition(session);
+    }
 
     public void autonomousPeriodic() {
+        cameraServerDisplay();
         Scheduler.getInstance().run();
+        log();
     }
 
     public void teleopInit() {
+        NIVision.IMAQdxStopAcquisition(session);
+        NIVision.IMAQdxStartAcquisition(session);
     }
 
     public void disabledInit() {
@@ -62,12 +92,23 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
+        cameraServerDisplay();
         Scheduler.getInstance().run();
-    	roller.log();
-    	elevator.log();
+    	log();
     }
 
     public void testPeriodic() {
+        cameraServerDisplay();
         LiveWindow.run();
+        log();
+    }
+    
+    public void log() {
+    	roller.log();
+    	elevator.log();
+    	stabilizer.log();
+    	compressor.log();
+    	drive.log();
+    	claw.log();
     }
 }
