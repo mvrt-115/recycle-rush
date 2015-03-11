@@ -1,12 +1,17 @@
 package org.usfirst.frc.team115.recyclerush;
 
+
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team115.recyclerush.commands.auton.*;
 import org.usfirst.frc.team115.recyclerush.subsystems.*;
 
 
@@ -16,7 +21,9 @@ import org.usfirst.frc.team115.recyclerush.subsystems.*;
  *         Note: If you change the class name or package, the manifest must be updated.
  */
 public class Robot extends IterativeRobot {
-
+	private Command autonCommand;
+	private SendableChooser autonChooser;
+	
     public static DriveTrain drive;
     public static Stabilizer stabilizer;
     public static Claw claw;
@@ -55,6 +62,8 @@ public class Robot extends IterativeRobot {
         compressor.initialize();
         elevator.initialize();
         oi.initialize();
+
+        initAutonChooser();
     }
 
     public void initCamera() {
@@ -63,6 +72,14 @@ public class Robot extends IterativeRobot {
                 NIVision.IMAQdxCameraControlMode.CameraControlModeController);
         NIVision.IMAQdxConfigureGrab(session);
         NIVision.IMAQdxStartAcquisition(session);
+    }
+
+    public void initAutonChooser() {
+        autonChooser = new SendableChooser();
+        autonChooser.addDefault("Mobility", new MobilityAuton());
+        autonChooser.addObject("Juggernaut start left", new JuggernautA());
+        autonChooser.addObject("Juggernaut start right", new JuggernautB());
+        SmartDashboard.putData("Auton Mode Chooser", autonChooser);
     }
 
     @Override
@@ -76,6 +93,9 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         NIVision.IMAQdxStopAcquisition(session);
         NIVision.IMAQdxStartAcquisition(session);
+
+        autonCommand = (Command) autonChooser.getSelected();
+        autonCommand.start();
     }
 
     @Override

@@ -1,16 +1,14 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
-import org.usfirst.frc.team115.recyclerush.RobotMap;
-import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorControl;
-import org.usfirst.frc.team115.recyclerush.commands.ResetElevatorEncoder;
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team115.recyclerush.RobotMap;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorControl;
+import org.usfirst.frc.team115.recyclerush.commands.ResetElevatorEncoder;
 
 /**
  * A subsystem representing the elevator, which

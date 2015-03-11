@@ -1,13 +1,12 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
-
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
@@ -34,7 +33,7 @@ public class DriveTrain extends Subsystem {
      * Initializes each other motors based on ports set in RobotMap
      */
     public void initialize() {
-        navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
+        navX = new IMUAdvanced(new SerialPort(57600, SerialPort.Port.kMXP));
 
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
@@ -106,7 +105,12 @@ public class DriveTrain extends Subsystem {
             current += motor.getOutputCurrent();
         return current;
     }
-
+    
+    public void setControlMode(CANTalon.ControlMode mode){
+   	 for(CANTalon motor : motors)
+            motor.changeControlMode(mode);
+    }
+    
     /**
      * @return the angle of rotational displacement
      */

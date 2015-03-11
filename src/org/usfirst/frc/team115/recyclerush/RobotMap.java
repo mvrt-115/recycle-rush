@@ -2,9 +2,9 @@ package org.usfirst.frc.team115.recyclerush;
 
 /**
  * @author MVRT
- *         This class should contain final static variables
- *         corresponding to each physical device on the robot. Naming scheme can
- *         be found in the Electrical 2015 Excel Doc
+ * This class should contain final static variables
+ * orresponding to each physical device on the robot. Naming scheme can
+ * be found in the Electrical 2015 Excel Doc
  */
 public class RobotMap {
 
