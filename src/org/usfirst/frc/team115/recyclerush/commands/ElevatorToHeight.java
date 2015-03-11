@@ -33,7 +33,7 @@ public class ElevatorToHeight extends Command {
     protected void execute() {
         if(destHeight < Robot.elevator.getHeight())
             Robot.elevator.control(Elevator.PRESET_SPEED);
-        else 
+        else
             Robot.elevator.control(-1 * Elevator.PRESET_SPEED);
     }
 

@@ -6,10 +6,12 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakeTote extends Command {
 
-    double timeout;
+	private static final double DEFAULT_TIMEOUT = 1.3;
+
+    private double timeout;
     
 	public IntakeTote(){
-		this(1.3);
+		this(DEFAULT_TIMEOUT);
 	}
 	
 	public IntakeTote(double timeout){
@@ -39,6 +41,8 @@ public class IntakeTote extends Command {
 	}
 
 	@Override
-	protected void interrupted() {}
+	protected void interrupted() {
+		end();
+	}
 	
 }

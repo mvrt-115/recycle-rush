@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DelayCommand extends Command{
 
-    double time;
+    private double time;
     
     public DelayCommand(double seconds){
         time = seconds;
@@ -30,8 +30,7 @@ public class DelayCommand extends Command{
 
     @Override
     protected void interrupted() {
-        // TODO Auto-generated method stub
-        
+        end();
     }
     
 }

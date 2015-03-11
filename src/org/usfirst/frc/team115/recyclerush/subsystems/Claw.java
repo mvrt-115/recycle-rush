@@ -10,17 +10,14 @@ import org.usfirst.frc.team115.recyclerush.RobotMap;
 /**
  * A subsystem representing the robot's grabber, which opens/closes
  * to hold totes and bins
+ *
  * @author MVRT
  */
 public class Claw extends Subsystem {
 
     DoubleSolenoid clawSolenoid;
-    public void log()
-    {
-    	SmartDashboard.putBoolean("Claw Open?", clawSolenoid.get().equals(Value.kForward));
-    }
-    public Claw() {
-        super();
+
+    public void initialize() {
         clawSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.CLAW_PORT_A, RobotMap.CLAW_PORT_B);
     }
 
@@ -35,8 +32,7 @@ public class Claw extends Subsystem {
     /**
      * Opens the grabber
      */
-    public void open()
-    {
+    public void open() {
         clawSolenoid.set(Value.kForward);
         System.out.println("Claw Opening");
     }
@@ -45,14 +41,20 @@ public class Claw extends Subsystem {
      * Sets the default command for this subsystem
      */
     @Override
-    protected void initDefaultCommand() {}
-
-    public boolean isOpen(){
-    	return clawSolenoid.get() == Value.kForward;
+    protected void initDefaultCommand() {
+        // no default command
     }
-    
-    public boolean isClosed(){
-    	return clawSolenoid.get() == Value.kReverse;
+
+    public boolean isOpen() {
+        return clawSolenoid.get() == Value.kForward;
+    }
+
+    public boolean isClosed() {
+        return clawSolenoid.get() == Value.kReverse;
+    }
+
+    public void log() {
+        SmartDashboard.putBoolean("Claw Open?", clawSolenoid.get().equals(Value.kForward));
     }
 
 }

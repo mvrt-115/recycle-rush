@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author MVRT
  */
 public class ElevatorControl extends Command {
+
+	private static final double THRESHOLD = 0.15;
 	
 	public ElevatorControl() {
 		requires(Robot.elevator);
@@ -25,7 +27,7 @@ public class ElevatorControl extends Command {
 	@Override
 	protected void execute() {
 		double axis = Robot.oi.getXboxAxis(OI.AXIS_CONTROL_ELEVATOR);
-		if(Math.abs(axis) <= 0.15){
+		if(Math.abs(axis) <= THRESHOLD){
 			Robot.elevator.control(0);
 			Robot.elevator.brake();
 		} else {

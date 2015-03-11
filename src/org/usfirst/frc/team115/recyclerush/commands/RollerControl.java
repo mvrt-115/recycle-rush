@@ -29,9 +29,13 @@ public class RollerControl extends Command {
 	}
 
 	@Override
-	protected void end() {}
+	protected void end() {
+		Robot.roller.control(0, 0);
+	}
 
 	@Override
-	protected void interrupted() {}
+	protected void interrupted() {
+		end();
+	}
 
 }

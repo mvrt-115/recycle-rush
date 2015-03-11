@@ -9,7 +9,7 @@ import org.usfirst.frc.team115.recyclerush.Robot;
  */
 public class OpenClaw extends Command {
 
-	boolean finished = false;
+	private boolean finished = false;
 	
     public OpenClaw() {
         requires(Robot.claw);

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class RollerStop extends Command {
 
-	boolean finished = false;
+	private boolean finished = false;
 	
 	public RollerStop() {
 		requires(Robot.roller);

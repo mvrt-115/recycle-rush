@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ResetElevatorEncoder extends Command{
 
-	boolean finished = false;
+	private boolean finished = false;
 	
 	public ResetElevatorEncoder() {
 	}

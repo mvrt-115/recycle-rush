@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class RollerClose extends Command {
 
+	private boolean finished = false;
+
 	public RollerClose() {
 		requires(Robot.roller);
 	}
-	
-	boolean finished = false;
 	
 	@Override
 	protected void initialize() {}

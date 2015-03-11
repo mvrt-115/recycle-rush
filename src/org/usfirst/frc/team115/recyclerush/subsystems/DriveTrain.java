@@ -13,34 +13,28 @@ import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
 
 /**
  * A subsystem representing the drive train for the robot
+ *
  * @author MVRT
  */
 public class DriveTrain extends Subsystem {
 
-	private RobotDrive drive;
+    private static final double ANALOG_SCALE_3_3V = 0.00644;
+
     private final int BACK_LEFT = 0;
     private final int BACK_RIGHT = 1;
     private final int FRONT_LEFT = 2;
     private final int FRONT_RIGHT = 3;
+
     private CANTalon motors[];
 
-    private AnalogInput ultrasonicFront;
-    private AnalogInput ultrasonicBack;
-    private AnalogInput ultrasonicLeft;
-    private AnalogInput ultrasonicRight;
-    private static final double ANALOG_SCALE_3_3V = 0.00644;
     private IMUAdvanced navX;
+    private RobotDrive drive;
 
     /**
      * Initializes each other motors based on ports set in RobotMap
      */
-    public DriveTrain() {
+    public void initialize() {
         navX = new IMUAdvanced(new SerialPort(57600, Port.kMXP));
-
-        ultrasonicFront = new AnalogInput(RobotMap.ULTRASONIC_FRONT);
-        ultrasonicBack = new AnalogInput(RobotMap.ULTRASONIC_BACK);
-        ultrasonicLeft = new AnalogInput(RobotMap.ULTRASONIC_LEFT);
-        ultrasonicRight = new AnalogInput(RobotMap.ULTRASONIC_RIGHT);
 
         motors = new CANTalon[4];
         motors[BACK_LEFT] = new CANTalon(RobotMap.BACK_LEFT_DRIVE);
@@ -49,24 +43,24 @@ public class DriveTrain extends Subsystem {
         motors[FRONT_RIGHT] = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
         drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
                 motors[FRONT_RIGHT], motors[BACK_RIGHT]);
-    }
-    
-    public void initialize() {
-    	for(CANTalon motor : motors)
-    		motor.setVoltageRampRate(24);
+
+        for (CANTalon motor : motors)
+            motor.setVoltageRampRate(24);
     }
 
     /**
      * This thing drives the robot!
+     *
      * @param move   the forward speed of the rotation
      * @param rotate the rotation value of the robot
      */
     public void drive(double move, double rotate) {
-        drive.arcadeDrive(-1 * move, rotate);
+        drive.arcadeDrive(-1 * move, rotate); // invert drive direction
     }
 
     /**
      * Drives the robot
+     *
      * @param joystick The joystick to drive based on
      */
     public void drive(Joystick joystick) {
@@ -76,9 +70,8 @@ public class DriveTrain extends Subsystem {
     /**
      * Stops the drivetrain
      */
-    public void stop()
-    {
-    	System.out.println("Stopping Drive");
+    public void stop() {
+        System.out.println("Stopping Drive");
         drive(0, 0);
     }
 
@@ -93,26 +86,21 @@ public class DriveTrain extends Subsystem {
     /**
      * @return the total current being sent to motors
      */
-    public void log()
-    {
-    	
-    	for(int it = 0; it < motors.length; it++) {
-    		CANTalon motor = motors[it];
-    		SmartDashboard.putNumber("Drivetrain Motor " + it + " Current", motor.getOutputCurrent());
-    	}
-    	SmartDashboard.putNumber("Yaw", navX.getYaw());
-    	SmartDashboard.putNumber("Pitch", navX.getPitch());
-    	SmartDashboard.putNumber("Roll", navX.getRoll());
-    	SmartDashboard.putNumber("Position X", navX.getWorldLinearAccelX());
-    	SmartDashboard.putNumber("Position Y", navX.getWorldLinearAccelY());
-    	SmartDashboard.putNumber("Position Z", navX.getWorldLinearAccelZ());
-    	SmartDashboard.putNumber("Ultrasonic Left Inches", ultrasonicLeft.getVoltage()/ANALOG_SCALE_3_3V);
-    	SmartDashboard.putNumber("Ultrasonic Right Inches", ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V);
-    	SmartDashboard.putNumber("Ultrasonic Back Inches", ultrasonicBack.getVoltage()/ANALOG_SCALE_3_3V);
+    public void log() {
+        for (int it = 0; it < motors.length; it++) {
+            CANTalon motor = motors[it];
+            SmartDashboard.putNumber("Drivetrain Motor " + it + " Current", motor.getOutputCurrent());
+        }
+
+        SmartDashboard.putNumber("Yaw", navX.getYaw());
+        SmartDashboard.putNumber("Pitch", navX.getPitch());
+        SmartDashboard.putNumber("Roll", navX.getRoll());
+        SmartDashboard.putNumber("Position X", navX.getWorldLinearAccelX());
+        SmartDashboard.putNumber("Position Y", navX.getWorldLinearAccelY());
+        SmartDashboard.putNumber("Position Z", navX.getWorldLinearAccelZ());
     }
-    
-    public double getCurrent()
-    {
+
+    public double getCurrent() {
         double current = 0;
         for (CANTalon motor : motors)
             current += motor.getOutputCurrent();
@@ -145,7 +133,12 @@ public class DriveTrain extends Subsystem {
      */
     public void resetAll() {
         navX.zeroYaw();
-        //TODO: encoder reset goes here
+        resetEncoders();
+    }
+
+    public void resetEncoders() {
+        for(CANTalon motor : motors)
+            motor.setPosition(0);
     }
 
     /**
@@ -167,33 +160,5 @@ public class DriveTrain extends Subsystem {
      */
     public float getZ() {
         return navX.getWorldLinearAccelZ();
-    }
-
-    /**
-     * @return the distance from front
-     */
-    public double getFrontUltrasonicInches(){
-        return ultrasonicFront.getVoltage()/ANALOG_SCALE_3_3V;
-    }
-
-    /**
-     * @return the distance from back 
-     */
-    public double getBackUltrasonicInches(){
-        return ultrasonicBack.getVoltage()/ANALOG_SCALE_3_3V;
-    }
-
-    /**
-     * @return the distance from left
-     */
-    public double getLeftUltrasonicInches(){
-        return ultrasonicLeft.getVoltage()/ANALOG_SCALE_3_3V;
-    }
-
-    /**
-     * @return the distance from right
-     */
-    public double getRightUltrasonicInches(){
-        return ultrasonicRight.getVoltage()/ANALOG_SCALE_3_3V;
     }
 }

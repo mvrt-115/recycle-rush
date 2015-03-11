@@ -26,20 +26,19 @@ public class Roller extends Subsystem {
 	private DoubleSolenoid rollerSolenoid;
 	
 	private RobotDrive drive;
-	
-	/**
-	 * Initializes the roller
-	 */
-	public Roller() {
+
+	public void initialize() {
 		leftMotor = new CANTalon(RobotMap.ROLLER_MOTOR_LEFT);
 		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
 
 		rollerSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.ROLLER_PORT_A, RobotMap.ROLLER_PORT_B);
-		leftMotor.enableLimitSwitch(false, false);
-		rightMotor.enableLimitSwitch(false, false);
 		drive = new RobotDrive(leftMotor, rightMotor);
+
 		drive.setInvertedMotor(MotorType.kFrontLeft, true);
 		drive.setInvertedMotor(MotorType.kFrontRight, true);
+
+		leftMotor.enableLimitSwitch(false, false);
+		rightMotor.enableLimitSwitch(false, false);
 	}
 	
 	@Override
@@ -82,7 +81,7 @@ public class Roller extends Subsystem {
 	 */
 	public void close() {
 		rollerSolenoid.set(Value.kReverse);
-		SmartDashboard.putString("Arm Open?", "YES");
+		System.out.println("Roller closing");
 	}
 	
 	/**
@@ -90,11 +89,11 @@ public class Roller extends Subsystem {
 	 */
 	public void open() {
 		rollerSolenoid.set(Value.kForward);
-		SmartDashboard.putString("Arm Open?", "NO");
+		System.out.println("Roller opening");
 	}
 	
 	public void log() {
-		SmartDashboard.putBoolean("Solenoid", rollerSolenoid.get() == Value.kForward);
+		SmartDashboard.putBoolean("Arm Open?", rollerSolenoid.get() == Value.kForward);
 		SmartDashboard.putBoolean("Roller Left LS", getLeftLimitSwitch());
 		SmartDashboard.putBoolean("Roller Right LS", getRightLimitSwitch());
 	}

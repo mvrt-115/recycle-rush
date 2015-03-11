@@ -6,17 +6,14 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
 public class ToggleStabilizer extends Command {
-
-	Stabilizer claw;
 	
 	public ToggleStabilizer(){
 		requires(Robot.stabilizer);
-		claw = Robot.stabilizer;
 	}
 
 	@Override
 	protected void initialize() {
-    	claw.open();
+    	Robot.stabilizer.open();
 	}
 
 	@Override
@@ -29,7 +26,7 @@ public class ToggleStabilizer extends Command {
 
 	@Override
 	protected void end() {
-		claw.close();
+		Robot.stabilizer.close();
 	}
 
 	@Override
