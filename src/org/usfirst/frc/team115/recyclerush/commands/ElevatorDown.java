@@ -5,58 +5,40 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Moves the elevator down to the next preset
- * @author Akhil Palla (creds to Lee for being Lee)
+ * @author Akhil Palla
  */
-public class ElevatorDown extends Command {
-    
-	private double destHeight;
+public class ElevatorDown extends CommandGroup {
 	
+    ElevatorToHeight elevToHeight;
+    
     public ElevatorDown() {
-        requires(Robot.elevator);
+        elevToHeight = new ElevatorToHeight(0);
+        addSequential(elevToHeight);
     }
 
     @Override
-    protected void initialize() {
-		Robot.elevator.unBrake();
-		setPosition();
-    }
-
-    private void setPosition(){
-    	int[] presets = Robot.elevator.presets;
-    	double height = Robot.elevator.getHeight();
-    	int destPreset = 0;
-    	for(int i = presets.length - 1; i >= 0; i--){
-    		if(presets[i] < height - 1){ // if the preset is below current height
-    			destPreset = i; // set that preset to our destination
-    			break;
-    		}
-    	}
-    	destHeight = presets[destPreset];
+    public void initialize(){
+        double destHeight = getGoal();
+        elevToHeight.setDest(destHeight);
     }
     
-    @Override
-    protected void execute() {
-    	Robot.elevator.control(Elevator.PRESET_SPEED);
-    }
-
-    @Override
-    protected boolean isFinished() {
-    	return Math.abs(Robot.elevator.getHeight() - destHeight) <= Elevator.THRESHOLD;
-    }
-
-    @Override
-    protected void end() {
-    	Robot.elevator.stop();
-    	Robot.oi.rumbleXbox(RumbleType.kLeftRumble, 0.2, 300);
-    	Robot.oi.rumbleXbox(RumbleType.kRightRumble, 0.2, 300);
-    }
-
-    @Override
-    protected void interrupted() {
-        end();
+    private double getGoal() {
+        double[] presets = Elevator.presets;
+        double height = Robot.elevator.getHeight();
+        double destHeight = presets[0];
+        int destPreset = 0;
+        for(int i = presets.length - 1; i >= 0; i--){
+            if(presets[i] < height - 1){ // if the preset is below current height
+                destPreset = i; // set that preset to our destination
+                break;
+            }
+        }
+        destHeight = presets[destPreset];
+        return destHeight;
     }
 }

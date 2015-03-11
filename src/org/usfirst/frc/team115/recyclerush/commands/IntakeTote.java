@@ -4,15 +4,22 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeTote extends Command{
+public class IntakeTote extends Command {
 
+    double timeout;
+    
 	public IntakeTote(){
-		requires(Robot.roller);
+		this(1.3);
+	}
+	
+	public IntakeTote(double timeout){
+	    requires(Robot.roller);
+	    this.timeout = timeout;
 	}
 
 	@Override
 	protected void initialize() {
-	       setTimeout(1.5);
+	       setTimeout(timeout);
 	}
 
 	@Override

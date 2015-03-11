@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Moves the elevator down to the next preset
- * @author Akhil Palla (creds to Lee for being Lee)
+ * Moves the elevator to a certain preset
+ * @author Akhil Palla
  */
 public class ElevatorToHeight extends Command {
     
@@ -18,6 +18,10 @@ public class ElevatorToHeight extends Command {
     public ElevatorToHeight(double destHeight) {
         requires(Robot.elevator);
         this.destHeight = destHeight;
+    }
+    
+    public void setDest(double dest){
+        destHeight = dest;
     }
 
     @Override
@@ -41,7 +45,6 @@ public class ElevatorToHeight extends Command {
     @Override
     protected void end() {
         Robot.elevator.stop();
-        System.out.println("Elev height ended. Target: " + destHeight + ", actual: " + Robot.elevator.getHeight());
         Robot.oi.rumbleXbox(RumbleType.kLeftRumble, 0.2, 300);
         Robot.oi.rumbleXbox(RumbleType.kRightRumble, 0.2, 300);
     }

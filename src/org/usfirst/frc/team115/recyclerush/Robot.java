@@ -1,7 +1,6 @@
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
-import org.usfirst.frc.team115.recyclerush.commands.IntakeTote;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorToHeight;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
@@ -41,8 +40,6 @@ public class Robot extends IterativeRobot {
     }
     
     public void robotInit() {
-        SmartDashboard.putData("autoIntake", new AutoIntake());
-        SmartDashboard.putData("ToteIntake", new IntakeTote());
     	drive.initialize();
     	elevator.initialize();
     }
