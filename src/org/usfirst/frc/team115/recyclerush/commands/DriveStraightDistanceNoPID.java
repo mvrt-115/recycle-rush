@@ -28,7 +28,7 @@ public class DriveStraightDistanceNoPID extends DriveStraight{
     /**
      * Initializes a DriveForDistance command, to drive a certain number of feet
      * @param dist: Distance, in feet
-     * @param maxSpeed: The maximum speed to drive at
+     * @param speed: The maximum speed to drive at
      */
     public DriveStraightDistanceNoPID(double dist, double speed){
         super(0, false);
