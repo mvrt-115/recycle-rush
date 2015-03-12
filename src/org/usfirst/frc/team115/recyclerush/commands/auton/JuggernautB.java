@@ -22,7 +22,7 @@ public class JuggernautB extends CommandGroup{
 		addSequential(new JuggernautRotate());
 		addSequential(new DriveStraightDistanceNoPID(BIN_TO_TOTE));
 		addSequential(new AutoIntake(true, Elevator.PRESET_BOTTOM));
-		addSequential(new Turn(90.0));
+		addSequential(new Turn(-90.0));
 		addParallel(new DriveStraightDistanceNoPID(11.0));
 		addSequential(new RollerOpen());
 		addSequential(new OpenClaw());	
