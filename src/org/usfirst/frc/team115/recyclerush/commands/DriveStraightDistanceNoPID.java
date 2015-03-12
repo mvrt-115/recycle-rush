@@ -10,6 +10,7 @@ package org.usfirst.frc.team115.recyclerush.commands;
 public class DriveStraightDistanceNoPID extends DriveStraight{
 
     private static final double SPEED_DEFAULT = 0.5;
+    private static final double THRESHOLD = 0.0;
     
     /**  scaling constant for feet into encoder ticks. */
     private final double SCALE = 12 * (1 / (Math.PI * 8)) * 3 * 1024;
@@ -33,7 +34,7 @@ public class DriveStraightDistanceNoPID extends DriveStraight{
     public DriveStraightDistanceNoPID(double dist, double speed){
         super(0, false);
         distance = dist * SCALE;
-        setSpeed(speed);
+        setSpeed(distance > 0 ? speed : -1 * speed);
     }
 
     @Override
@@ -45,8 +46,8 @@ public class DriveStraightDistanceNoPID extends DriveStraight{
     @Override
     protected boolean isFinished(){
         if(distance > 0)
-        	return drive.getDistance() >= distance;
-    	return drive.getDistance() <= distance;
+        	return drive.getDistance() >= (distance - THRESHOLD);
+    	return drive.getDistance() <= distance + THRESHOLD;
     }
 
     @Override
