@@ -24,7 +24,7 @@ public class JuggernautA extends CommandGroup {
 		}
 
 		addSequential(new AutoIntake(true, Elevator.PRESET_BOTTOM));
-		addSequential(new Turn(-90.0));
+		addSequential(new Turn(90.0));
 		addParallel(new DriveStraightDistanceNoPID(10.0));
 		addSequential(new RollerOpen());
 		addSequential(new OpenClaw());	
