@@ -3,6 +3,7 @@ package org.usfirst.frc.team115.recyclerush;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -11,9 +12,13 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team115.recyclerush.commands.CloseClaw;
+import org.usfirst.frc.team115.recyclerush.commands.DriveStraight;
+import org.usfirst.frc.team115.recyclerush.commands.DriveStraightDistanceNoPID;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorBrakeOff;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
+import org.usfirst.frc.team115.recyclerush.commands.Turn;
 import org.usfirst.frc.team115.recyclerush.commands.auton.*;
 import org.usfirst.frc.team115.recyclerush.subsystems.*;
 
@@ -38,6 +43,14 @@ public class Robot extends IterativeRobot {
     private Image frame;
     private int session;
 
+    //TESTING PID VARIABLES
+    private static double PTurn = 0;
+    private static double ITurn = 0;
+    private static double DTurn = 0;
+    private static double PDrive = 0;
+    private static double IDrive = 0;
+    private static double DDrive = 0;
+    
     public Robot() {
         drive = new DriveTrain();
         // stabilizer = new Stabilizer();
@@ -57,7 +70,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         initCamera();
-
+        System.out.println("Robot On");
         drive.initialize();
         // stabilizer.initialize();
         claw.initialize();
@@ -65,7 +78,6 @@ public class Robot extends IterativeRobot {
         compressor.initialize();
         elevator.initialize();
         oi.initialize();
-
         initAutonChooser();
 
         initCommands();
@@ -74,6 +86,7 @@ public class Robot extends IterativeRobot {
     public void initCommands() {
         SmartDashboard.putData(new ElevatorBrakeOff());
         SmartDashboard.putData(new ElevatorHardReset());
+        SmartDashboard.putData(new Turn(90));
     }
 
     public void initCamera() {
@@ -86,9 +99,14 @@ public class Robot extends IterativeRobot {
 
     public void initAutonChooser() {
         autonChooser = new SendableChooser();
-        autonChooser.addDefault("Mobility", new MobilityAuton());
+        autonChooser.addDefault("Turn 90", new Turn(90.0)); //Testing
+        autonChooser.addObject("Drive 2 Feet", new DriveStraightDistanceNoPID(2, PDrive, IDrive, DDrive)); //Testing
+        autonChooser.addObject("Drive 7 Feet", new DriveStraightDistanceNoPID(7, PDrive, IDrive, DDrive)); //Testing
+        autonChooser.addObject("Mobility", new MobilityAuton());
         autonChooser.addObject("Juggernaut start left", new JuggernautA());
         autonChooser.addObject("Juggernaut start right", new JuggernautB());
+
+       
         SmartDashboard.putData("Auton Mode Chooser", autonChooser);
     }
 
@@ -103,13 +121,26 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         NIVision.IMAQdxStopAcquisition(session);
         NIVision.IMAQdxStartAcquisition(session);
-
+        
+        PTurn = SmartDashboard.getNumber("Turn P", Turn.CompP);
+        ITurn = SmartDashboard.getNumber("Turn I", Turn.CompI);
+        DTurn = SmartDashboard.getNumber("Turn D", Turn.CompD);
+        PDrive = SmartDashboard.getNumber("Drive P", DriveStraight.CompP);
+        IDrive = SmartDashboard.getNumber("Drive I", DriveStraight.CompI);
+        DDrive = SmartDashboard.getNumber("Drive D", DriveStraight.CompD);
+        
         autonCommand = (Command) autonChooser.getSelected();
         autonCommand.start();
     }
 
     @Override
     public void autonomousPeriodic() {
+    	PTurn = SmartDashboard.getNumber("Turn P", Turn.CompP);
+        ITurn = SmartDashboard.getNumber("Turn I", Turn.CompI);
+        DTurn = SmartDashboard.getNumber("Turn D", Turn.CompD);
+        PDrive = SmartDashboard.getNumber("Drive P", DriveStraight.CompP);
+        IDrive = SmartDashboard.getNumber("Drive I", DriveStraight.CompI);
+        DDrive = SmartDashboard.getNumber("Drive D", DriveStraight.CompD);
         Scheduler.getInstance().run();
         cameraServerDisplay();
         log();

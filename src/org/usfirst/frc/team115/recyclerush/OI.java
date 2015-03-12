@@ -73,7 +73,7 @@ public class OI {
         // toggle claw/stabilizer on (y) button press
         JoystickButton y = new JoystickButton(xbox, RobotMap.XBOX_Y);
 
-        y.toggleWhenPressed(new ToggleStabilizer());
+        //y.toggleWhenPressed(new ToggleStabilizer());
 
         //control elevator presets with POV/DPAD
         POVTrigger povUp = new POVTrigger(xbox, 0);

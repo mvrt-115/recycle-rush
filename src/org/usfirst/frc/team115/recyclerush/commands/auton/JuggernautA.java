@@ -21,10 +21,11 @@ public class JuggernautA extends CommandGroup {
 			addParallel(new DriveStraightDistanceNoPID(BIN_CLOSING_DISTANCE));
 			addSequential(new JuggernautRotate());
 			addSequential(new DriveStraightDistanceNoPID(6.9));
+			addParallel(new OpenClaw());
 		}
 
 		addSequential(new AutoIntake(true, Elevator.PRESET_BOTTOM));
-		addSequential(new Turn(90.0));
+		addSequential(new Turn(90.0, Turn.CompP, Turn.CompI, Turn.CompD));
 		addParallel(new DriveStraightDistanceNoPID(10.0));
 		addSequential(new RollerOpen());
 		addSequential(new OpenClaw());	

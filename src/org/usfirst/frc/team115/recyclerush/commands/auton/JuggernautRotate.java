@@ -8,6 +8,10 @@ public class JuggernautRotate extends Command{
 
 	private final int BIN_ROTATE = 3;
 	
+	public JuggernautRotate()
+	{
+		requires(Robot.roller);
+	}
 	@Override
 	protected void initialize() {
 		setTimeout(BIN_ROTATE);

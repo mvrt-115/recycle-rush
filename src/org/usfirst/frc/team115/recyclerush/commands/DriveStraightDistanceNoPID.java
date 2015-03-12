@@ -36,6 +36,14 @@ public class DriveStraightDistanceNoPID extends DriveStraight{
         distance = dist * SCALE;
         setSpeed(distance > 0 ? speed : -1 * speed);
     }
+    public DriveStraightDistanceNoPID(double dist, double speed, double P, double I, double D){
+        super(0, false, P, I, D);
+        distance = dist * SCALE;
+        setSpeed(distance > 0 ? speed : -1 * speed);
+    }
+    public DriveStraightDistanceNoPID(double dist, double P, double I, double D){
+        this(dist, SPEED_DEFAULT, P, I, D);
+    }
 
     @Override
     protected void initialize() {
