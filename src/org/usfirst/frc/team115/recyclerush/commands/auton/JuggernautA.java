@@ -12,6 +12,10 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 public class JuggernautA extends CommandGroup {
 
+	/**
+	 * For Marcus:
+	 */
+
 	private static final double BIN_CLOSING_DISTANCE = 0.1;
 
 	public JuggernautA(){

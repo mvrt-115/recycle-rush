@@ -17,12 +17,13 @@ import org.usfirst.frc.team115.recyclerush.commands.ArcadeDriveWithJoystick;
  */
 public class DriveTrain extends Subsystem {
 
-    private static final double ANALOG_SCALE_3_3V = 0.00644;
 
-    private final int BACK_LEFT = 0;
-    private final int BACK_RIGHT = 1;
-    private final int FRONT_LEFT = 2;
-    private final int FRONT_RIGHT = 3;
+    private static final int BACK_LEFT = 0;
+    private static final int BACK_RIGHT = 1;
+    private static final int FRONT_LEFT = 2;
+    private static final int FRONT_RIGHT = 3;
+    private static final int RATE_VOLTAGE_RAMP = 24;
+    private static final double ANALOG_SCALE_3_3V = 0.00644;
 
     private CANTalon motors[];
 
@@ -45,18 +46,28 @@ public class DriveTrain extends Subsystem {
 
         for (CANTalon motor : motors)
             motor.setVoltageRampRate(24);
+
+        zeroEncoders();
     }
+
 
     /**
-     * This thing drives the robot!
-     *
-     * @param move   the forward speed of the rotation
-     * @param rotate the rotation value of the robot
+     * Initializes the default command of the subsystem.
      */
-    public void drive(double move, double rotate) {
-        drive.arcadeDrive(-1 * move, rotate); // invert drive direction
+    @Override
+    protected void initDefaultCommand() {
+        setDefaultCommand(new ArcadeDriveWithJoystick());
     }
-
+    
+    /**
+     * Resets the navx and any encoders
+     */
+    public void resetAll() {
+        navX.zeroYaw();
+        zeroEncoders();
+    }
+    
+    
     /**
      * Drives the robot
      *
@@ -64,6 +75,15 @@ public class DriveTrain extends Subsystem {
      */
     public void drive(Joystick joystick) {
         drive.arcadeDrive(joystick);
+    }
+    
+    /**
+     * This thing drives the robot!
+     * @param move   the forward speed of the rotation
+     * @param rotate the rotation value of the robot
+     */
+    public void drive(double move, double rotate) {
+        drive.arcadeDrive(-1 * move, rotate);
     }
 
     /**
@@ -73,15 +93,20 @@ public class DriveTrain extends Subsystem {
         System.out.println("Stopping Drive");
         drive(0, 0);
     }
-
+    
     /**
-     * Initializes the default command of the subsystem.
+     * Zeroes the robot's encoders
      */
-    @Override
-    protected void initDefaultCommand() {
-        setDefaultCommand(new ArcadeDriveWithJoystick());
+    public void zeroEncoders(){
+        for(CANTalon motor: motors){
+            motor.setPosition(0); //zero the encoders
+        }
     }
-
+    
+    public double getDistance(){
+        return (motors[FRONT_LEFT].getPosition() + motors[FRONT_RIGHT].getPosition())/2;
+    }
+    
     /**
      * @return the total current being sent to motors
      */
@@ -115,7 +140,7 @@ public class DriveTrain extends Subsystem {
      * @return the angle of rotational displacement
      */
     public float getYaw() {
-        return navX.getYaw();
+        return (navX.getYaw() + 360)%360;
     }
 
     /**
@@ -130,19 +155,6 @@ public class DriveTrain extends Subsystem {
      */
     public float getRoll() {
         return navX.getRoll();
-    }
-
-    /**
-     * Resets the navx and any encoders
-     */
-    public void resetAll() {
-        navX.zeroYaw();
-        resetEncoders();
-    }
-
-    public void resetEncoders() {
-        for(CANTalon motor : motors)
-            motor.setPosition(0);
     }
 
     /**
