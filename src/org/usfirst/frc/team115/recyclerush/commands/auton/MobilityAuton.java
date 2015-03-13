@@ -7,7 +7,7 @@ import org.usfirst.frc.team115.recyclerush.commands.Turn;
 
 public class MobilityAuton extends CommandGroup{
 	
-	private final double DISTANCE_TO_LANDMARK = 9.0;
+	public final static double DISTANCE_TO_LANDMARK = 9.0;
 	
 	public MobilityAuton(){
 		addSequential(new Turn(90));

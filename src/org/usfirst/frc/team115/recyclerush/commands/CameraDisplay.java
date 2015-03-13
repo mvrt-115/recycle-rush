@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CameraDisplay extends Command {
 
     public CameraDisplay() {
+    	requires(Robot.camera);
         this.setRunWhenDisabled(true);
     }
 

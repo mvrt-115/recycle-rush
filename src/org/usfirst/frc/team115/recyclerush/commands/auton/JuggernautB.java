@@ -14,9 +14,10 @@ public class JuggernautB extends CommandGroup{
 	private static final double TOTE_TO_BIN= 6.9;
 	public JuggernautB() {
 
-		addSequential(new OpenClaw());
+		//addSequential(new CloseClaw()); Automatically done in autointake
 		addSequential(new AutoIntake(true, Elevator.PRESET_BIN_INTAKETOTE));
 		addSequential(new RollerOpen());
+		addSequential(new DelayCommand(0.2));
 		addSequential(new DriveStraightDistanceNoPID(BIN_TO_TOTE));
 		addSequential(new AutoIntake(true, Elevator.PRESET_TOTE_INTAKETOTE));
 
@@ -24,6 +25,7 @@ public class JuggernautB extends CommandGroup{
 
 		addSequential(new JuggernautRotate());
 		addSequential(new RollerOpen());
+		addSequential(new DelayCommand(0.2));
 		addSequential(new DriveStraightDistanceNoPID(BIN_TO_TOTE));
 		addSequential(new AutoIntake(true, Elevator.PRESET_TOTE_INTAKETOTE));
 
@@ -31,6 +33,7 @@ public class JuggernautB extends CommandGroup{
 
 		addSequential(new JuggernautRotate());
 		addSequential(new RollerOpen());
+		addSequential(new DelayCommand(0.2));
 		addSequential(new DriveStraightDistanceNoPID(BIN_TO_TOTE));
 		addSequential(new AutoIntake(true, Elevator.PRESET_BOTTOM));
 

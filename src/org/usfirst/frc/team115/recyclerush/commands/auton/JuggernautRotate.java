@@ -1,12 +1,14 @@
 package org.usfirst.frc.team115.recyclerush.commands.auton;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.commands.DelayCommand;
+import org.usfirst.frc.team115.recyclerush.commands.RollerOpen;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class JuggernautRotate extends Command{
 
-	private final int BIN_ROTATE = 3;
+	private final double BIN_ROTATE = 1.2;
 	
 	public JuggernautRotate()
 	{
@@ -15,6 +17,7 @@ public class JuggernautRotate extends Command{
 	@Override
 	protected void initialize() {
 		setTimeout(BIN_ROTATE);
+		Robot.roller.close();
 	}
 
 	@Override
