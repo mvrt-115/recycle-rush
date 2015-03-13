@@ -94,8 +94,6 @@ public class Roller extends Subsystem {
 	
 	public void log() {
 		SmartDashboard.putBoolean("Arm Open?", rollerSolenoid.get() == Value.kForward);
-		SmartDashboard.putBoolean("Roller Left LS", getLeftLimitSwitch());
-		SmartDashboard.putBoolean("Roller Right LS", getRightLimitSwitch());
 	}
 
 }

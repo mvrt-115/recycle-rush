@@ -13,7 +13,7 @@ public class DriveStraightDistanceNoPID extends DriveStraight{
     private static final double THRESHOLD = 0.0;
     
     /**  scaling constant for feet into encoder ticks. */
-    private final double SCALE = 12 * (1 / (Math.PI * 8)) * 3 * 1024;
+    private final double SCALE = 12 * (1 / (Math.PI * 8)) * 2 * 1024;
     
     /** The distance to travel, in encoder ticks */
     private double distance;

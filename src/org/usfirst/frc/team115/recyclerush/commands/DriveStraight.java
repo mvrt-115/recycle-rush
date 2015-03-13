@@ -1,4 +1,4 @@
-package org.usfirst.frc.team115.  ++recyclerush.commands;
+package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;

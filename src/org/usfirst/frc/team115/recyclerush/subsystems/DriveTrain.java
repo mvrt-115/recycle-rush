@@ -104,7 +104,7 @@ public class DriveTrain extends Subsystem {
     }
     
     public double getDistance(){
-        return (motors[FRONT_LEFT].getPosition() + motors[FRONT_RIGHT].getPosition())/2;
+        return (motors[FRONT_LEFT].getPosition() + -1 * motors[FRONT_RIGHT].getPosition())/2;
     }
     
     /**
@@ -122,6 +122,8 @@ public class DriveTrain extends Subsystem {
         SmartDashboard.putNumber("Position X", navX.getWorldLinearAccelX());
         SmartDashboard.putNumber("Position Y", navX.getWorldLinearAccelY());
         SmartDashboard.putNumber("Position Z", navX.getWorldLinearAccelZ());
+        
+        SmartDashboard.putNumber("Drive Distance", getDistance());
     }
 
     public double getCurrent() {
