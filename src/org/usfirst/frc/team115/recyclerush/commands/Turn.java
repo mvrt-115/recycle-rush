@@ -11,11 +11,10 @@ public class Turn extends PIDCommand {
     public final static double CompP = 0.045; //Tested PID values for use in competition running
     public final static double CompI = 0.005;
     public final static double CompD = 0;
-    
+
     boolean past = false;
-    
-    public Turn(double goal, final double P, final double I, final double D) //Custom access to PID values
-    { 
+
+    public Turn(double goal, final double P, final double I, final double D) { // Custom access to PID values
         super(P, I, D);
     	requires(Robot.drive);
         this.goal = goal;
@@ -24,8 +23,8 @@ public class Turn extends PIDCommand {
         getPIDController().setOutputRange(-0.4, 0.4);
         getPIDController().setAbsoluteTolerance(5); //set 5 degree tolerance
     }
-    public Turn(double goal) //Pre-PID accessibility case for backwards compatibility and easy usage of function; just uses the hardcoded PID values we'll have tested
-    {
+
+    public Turn(double goal) { // Pre-PID accessibility case for backwards compatibility and easy usage of function; just uses the hardcoded PID values we'll have tested
     	this(goal, CompP, CompI, CompD);
     }
 
@@ -43,7 +42,6 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void usePIDOutput(double output) {
-        //Robot.drive.drive(Robot.oi.getJoystick().getY(), output);
     	Robot.drive.drive(0, output);
     }
 
@@ -52,7 +50,7 @@ public class Turn extends PIDCommand {
     	initial = Robot.drive.getYaw();
     	setSetpoint(initial);
     	setSetpointRelative(goal);
-    	System.out.println("goal: " + goal + ", initial: " + initial);
+    	System.out.println("goal: " + goal + ", initial: " + initial); //TODO remove debug
     }
 
     @Override
@@ -63,9 +61,9 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected boolean isFinished() {
-        if(past && getPIDController().onTarget()){
+        if(past && getPIDController().onTarget()) {
         	return true;
-        }else{
+        } else {
         	past = getPIDController().onTarget();
         	return false;
         }
@@ -76,7 +74,6 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void end() {
-    	System.out.println("Ended");
         Robot.drive.stop();
     }
 
@@ -85,7 +82,6 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void interrupted() {
-    	System.out.println("Interrupted");
         end();
     }
 

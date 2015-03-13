@@ -63,6 +63,8 @@ public class OI {
         rb.whenPressed(new CloseClaw());
         JoystickButton a = new JoystickButton(xbox, RobotMap.XBOX_A);
         a.whenPressed(new AutoIntake(true, Elevator.PRESET_TOTE_INTAKETOTE));
+        JoystickButton b = new JoystickButton(xbox, RobotMap.XBOX_B);
+        b.whenPressed(new AutoIntake(false, Elevator.PRESET_TOTE_INTAKETOTE));
 
         XboxTrigger lt = new XboxTrigger(xbox, RobotMap.XBOX_LT, 0.6);
         XboxTrigger rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.6);
@@ -75,7 +77,6 @@ public class OI {
 
         //y.toggleWhenPressed(new ToggleStabilizer());
 
-        //control elevator presets with POV/DPAD
         POVTrigger povUp = new POVTrigger(xbox, 0);
         povUp.whenActive(new ElevatorUp());
         POVTrigger povDown = new POVTrigger(xbox, 180);

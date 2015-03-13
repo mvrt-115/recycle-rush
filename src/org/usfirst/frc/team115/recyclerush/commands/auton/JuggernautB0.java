@@ -20,26 +20,26 @@ public class JuggernautB0 extends CommandGroup{
 		addSequential(new RollerOpen());//?
 		addSequential(new DriveDistance(BIN_TO_TOTE));
 		addSequential(new AutoIntake(true, Elevator.PRESET_TOTE_INTAKETOTE));
-		
+
 		addSequential(new DriveStraightDistanceNoPID(TOTE_TO_BIN));
-		
+
 		addSequential(new JuggernautRotate());
 		addSequential(new RollerOpen());//?
 		addSequential(new DriveDistance(BIN_TO_TOTE));
 		addSequential(new AutoIntake(true, Elevator.PRESET_TOTE_INTAKETOTE));
-		
+
 		addSequential(new DriveStraightDistanceNoPID(TOTE_TO_BIN));
-		
+
 		addSequential(new JuggernautRotate());
 		addSequential(new RollerOpen());//?
 		addSequential(new DriveDistance(BIN_TO_TOTE));
 		addSequential(new AutoIntake(true, Elevator.PRESET_BOTTOM));
-		
+
 		addSequential(new Turn(-90.0));
 		addParallel(new DriveDistance(11.0));
-		
+
 		addSequential(new RollerOpen());
-		addSequential(new OpenClaw());	
+		addSequential(new OpenClaw());
 		addSequential(new DriveDistance(-1.0));
 	}
 }

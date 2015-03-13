@@ -38,13 +38,14 @@ public class DriveStraight extends PIDCommand {
     
     public DriveStraight(double speed, boolean joystick, double P, double I, double D){
         super(P, I, D);
+        requires(Robot.drive);
         
         if(speed < -1 || speed > 1)  
             throw new IllegalArgumentException();
         this.speed = speed;
         useJoystick = joystick;
         
-        requires(Robot.drive);
+        
         setInputRange(0, 360);
         getPIDController().setOutputRange(-1 * MAX_SPIN, MAX_SPIN);
     }

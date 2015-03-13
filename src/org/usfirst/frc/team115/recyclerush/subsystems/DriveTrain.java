@@ -122,7 +122,7 @@ public class DriveTrain extends Subsystem {
         SmartDashboard.putNumber("Position X", navX.getWorldLinearAccelX());
         SmartDashboard.putNumber("Position Y", navX.getWorldLinearAccelY());
         SmartDashboard.putNumber("Position Z", navX.getWorldLinearAccelZ());
-        
+
         SmartDashboard.putNumber("Drive Distance", getDistance());
     }
 

@@ -12,10 +12,10 @@ public class DriveDistance extends Command {
 
 	private final double SCALE = 12 * (1 / (Math.PI * 8)) * 2 * 1024;
 	private final double SPEED_DEFAULT = 0.7;
-	
+
 	/** The desired distance, in encoder ticks */
 	private double goal = 0;
-	
+
 	/**
 	 * Drives for a certain distance
 	 * @param target: The distance, in inches

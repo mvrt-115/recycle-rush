@@ -8,6 +8,7 @@ import org.usfirst.frc.team115.recyclerush.commands.auton.JuggernautB;
 import org.usfirst.frc.team115.recyclerush.commands.auton.JuggernautB0;
 import org.usfirst.frc.team115.recyclerush.commands.auton.MobilityAuton;
 import org.usfirst.frc.team115.recyclerush.commands.auton.SingleToteAuton;
+import org.usfirst.frc.team115.recyclerush.subsystems.CameraSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.DriveTrain;
@@ -15,12 +16,7 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.Image;
-
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -44,6 +40,7 @@ public class Robot extends IterativeRobot {
     public static Roller roller;
     public static Elevator elevator;
     public static CompressorSystem compressor;
+    public static CameraSystem camera;
 
     public Robot() {
         drive = new DriveTrain();
@@ -52,20 +49,21 @@ public class Robot extends IterativeRobot {
         roller = new Roller();
         compressor = new CompressorSystem();
         elevator = new Elevator();
+        camera = new CameraSystem();
         oi = new OI();
     }
 
     @Override
     public void robotInit() {
         drive.initialize();
-        // stabilizer.initialize();
+        stabilizer.initialize();
         claw.initialize();
         roller.initialize();
         compressor.initialize();
         elevator.initialize();
+        camera.initialize();
         oi.initialize();
         initAutonChooser();
-
         initCommands();
     }
 
@@ -82,7 +80,7 @@ public class Robot extends IterativeRobot {
         autonChooser.addObject("Juggernaut start left", new JuggernautA());
         autonChooser.addObject("Juggernaut start right", new JuggernautB());
         autonChooser.addObject("Juggernaut start right w/o PID", new JuggernautB0());
-       
+
         SmartDashboard.putData("Auton Mode Chooser", autonChooser);
     }
 
@@ -130,9 +128,10 @@ public class Robot extends IterativeRobot {
     public void log() {
         roller.log();
         elevator.log();
-        // stabilizer.log();
+//        stabilizer.log();
         compressor.log();
         drive.log();
         claw.log();
+        camera.log();
     }
 }
