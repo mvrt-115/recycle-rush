@@ -82,11 +82,6 @@ public class DriveStraight extends PIDCommand {
     
     @Override
     protected void execute() {
-        //DEBUG CODE, REMOVE AFTER TESTING
-        SmartDashboard.putNumber("DriveStraight Setpoint", getSetpoint());
-        SmartDashboard.putNumber("DriveStraight Speed", speed);
-        SmartDashboard.putBoolean("DriveStraight with joystick?", useJoystick);
-        SmartDashboard.putNumber("DriveStraight Current Angle", drive.getYaw());
     }
 
     

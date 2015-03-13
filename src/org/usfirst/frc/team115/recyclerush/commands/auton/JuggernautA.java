@@ -1,6 +1,7 @@
 package org.usfirst.frc.team115.recyclerush.commands.auton;
 
 import org.usfirst.frc.team115.recyclerush.commands.AutoIntake;
+import org.usfirst.frc.team115.recyclerush.commands.DelayCommand;
 import org.usfirst.frc.team115.recyclerush.commands.DriveStraightDistanceNoPID;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorUp;
 import org.usfirst.frc.team115.recyclerush.commands.OpenClaw;
@@ -23,6 +24,8 @@ public class JuggernautA extends CommandGroup {
 			addSequential(new AutoIntake(true, Elevator.PRESET_TOTE_INTAKETOTE));
 			addParallel(new DriveStraightDistanceNoPID(BIN_CLOSING_DISTANCE));
 			addSequential(new JuggernautRotate());
+			addSequential(new RollerOpen());
+			addSequential(new DelayCommand(0.2));
 			addSequential(new DriveStraightDistanceNoPID(6.9));
 			addParallel(new OpenClaw());
 		}
