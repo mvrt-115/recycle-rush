@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoIntake extends CommandGroup{
@@ -9,19 +10,19 @@ public class AutoIntake extends CommandGroup{
             addSequential(new IntakeTote());
         }
 
-        addParallel(new OpenClawDelay(0.2));
+        addParallel(new CommandDelay(new OpenClaw(), 0.2));
         addSequential(new ElevatorToHeight(0));
-        addParallel(new RollerOpen());
         addSequential(new CloseClaw());
         addSequential(new DelayCommand(0.2)); // delay for claw to close
+        addSequential(new CommandDelay(new RollerOpen(), 0.2));
         addSequential(new ElevatorToHeight(upHeightAfterwards));
     }
     
-    class OpenClawDelay extends CommandGroup{
+    class CommandDelay extends CommandGroup{
 
-        public OpenClawDelay(double seconds){
+        public CommandDelay(Command c, double seconds){
             addSequential(new DelayCommand(seconds));
-            addSequential(new OpenClaw());
+            addSequential(c);
         }
     }
 }

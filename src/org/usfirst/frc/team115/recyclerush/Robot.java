@@ -34,9 +34,7 @@ public class Robot extends IterativeRobot {
     public static Roller roller;
     public static Elevator elevator;
     public static CompressorSystem compressor;
-
-    private Image frame;
-    private int session;
+    public static CameraSystem camera;
 
     public Robot() {
         drive = new DriveTrain();
@@ -45,43 +43,28 @@ public class Robot extends IterativeRobot {
         roller = new Roller();
         compressor = new CompressorSystem();
         elevator = new Elevator();
+        camera = new CameraSystem();
         oi = new OI();
-    }
-
-    public void cameraServerDisplay() {
-        NIVision.IMAQdxGrab(session, frame, 1);
-        CameraServer.getInstance().setImage(frame);
-        Timer.delay(0.005);
     }
 
     @Override
     public void robotInit() {
-        initCamera();
-
         drive.initialize();
-        // stabilizer.initialize();
+        stabilizer.initialize();
         claw.initialize();
         roller.initialize();
         compressor.initialize();
         elevator.initialize();
+        camera.initialize();
         oi.initialize();
 
         initAutonChooser();
-
         initCommands();
     }
 
     public void initCommands() {
         SmartDashboard.putData(new ElevatorBrakeOff());
         SmartDashboard.putData(new ElevatorHardReset());
-    }
-
-    public void initCamera() {
-        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-        session = NIVision.IMAQdxOpenCamera("cam0",
-                NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        NIVision.IMAQdxConfigureGrab(session);
-        NIVision.IMAQdxStartAcquisition(session);
     }
 
     public void initAutonChooser() {
@@ -95,15 +78,11 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-        cameraServerDisplay();
         log();
     }
 
     @Override
     public void autonomousInit() {
-        NIVision.IMAQdxStopAcquisition(session);
-        NIVision.IMAQdxStartAcquisition(session);
-
         autonCommand = (Command) autonChooser.getSelected();
         autonCommand.start();
     }
@@ -111,14 +90,11 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        cameraServerDisplay();
         log();
     }
 
     @Override
-    public void teleopInit() {
-        NIVision.IMAQdxStopAcquisition(session);
-        NIVision.IMAQdxStartAcquisition(session);
+    public void teleopInit() {       
     }
 
     @Override
@@ -129,23 +105,22 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        cameraServerDisplay();
         log();
     }
 
     @Override
     public void testPeriodic() {
         LiveWindow.run();
-        cameraServerDisplay();
         log();
     }
 
     public void log() {
         roller.log();
         elevator.log();
-        // stabilizer.log();
+        stabilizer.log();
         compressor.log();
         drive.log();
         claw.log();
+        camera.log();
     }
 }
