@@ -19,6 +19,10 @@ public class Turn extends PIDCommand {
         super(P, I, D);
     	requires(Robot.drive);
         this.goal = goal;
+        
+        getPIDController().setContinuous(true);
+        setInputRange(0, 360);
+        getPIDController().setOutputRange(-0.4, 0.4);
     }
 
     public Turn(double goal) { // Pre-PID accessibility case for backwards compatibility and easy usage of function; just uses the hardcoded PID values we'll have tested
@@ -30,7 +34,6 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected double returnPIDInput() {
-        SmartDashboard.putNumber("Yaw", Robot.drive.getYaw());
         return Robot.drive.getYaw();
     }
 
@@ -45,14 +48,13 @@ public class Turn extends PIDCommand {
 
     @Override
     protected void initialize() {
-    	getPIDController().setContinuous(true);
-        setInputRange(0, 360);
-        getPIDController().setOutputRange(-0.4, 0.4);
-        getPIDController().setAbsoluteTolerance(10); //set 5 degree tolerance
+    	
+        getPIDController().setAbsoluteTolerance(5); //set 5 degree tolerance
     	initial = Robot.drive.getYaw();
-    	setSetpoint(initial);
-    	setSetpointRelative(goal);
-    	System.out.println("goal: " + goal + ", initial: " + initial); //TODO remove debug
+    	setSetpoint((initial + goal)%360);
+    	SmartDashboard.putNumber("Turn Setpoint", getSetpoint());
+    	System.out.println("goal: " + goal + ", initial: " + initial + ", setpoint: " + getSetpoint()); //TODO remove debug
+    	
     }
 
     @Override
@@ -64,7 +66,6 @@ public class Turn extends PIDCommand {
     @Override
     protected boolean isFinished() {
         if(past && getPIDController().onTarget()) {
-        	SmartDashboard.putBoolean("Is Finished", true);
         	return true;
         } else {
         	past = getPIDController().onTarget();

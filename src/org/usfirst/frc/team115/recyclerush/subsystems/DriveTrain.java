@@ -116,9 +116,9 @@ public class DriveTrain extends Subsystem {
             SmartDashboard.putNumber("Drivetrain Motor " + it + " Current", motor.getOutputCurrent());
         }
 
-        SmartDashboard.putNumber("Yaw", navX.getYaw());
-        SmartDashboard.putNumber("Pitch", navX.getPitch());
-        SmartDashboard.putNumber("Roll", navX.getRoll());
+        SmartDashboard.putNumber("Yaw", getYaw());
+        SmartDashboard.putNumber("Pitch", getPitch());
+        SmartDashboard.putNumber("Roll", getRoll());
         SmartDashboard.putNumber("Position X", navX.getWorldLinearAccelX());
         SmartDashboard.putNumber("Position Y", navX.getWorldLinearAccelY());
         SmartDashboard.putNumber("Position Z", navX.getWorldLinearAccelZ());

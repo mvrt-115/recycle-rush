@@ -28,6 +28,7 @@ public class ElevatorHardReset extends Command{
 
     @Override
     protected void end() {
+    	Robot.elevator.resetEncoder();
         Robot.elevator.stop();
     }
 

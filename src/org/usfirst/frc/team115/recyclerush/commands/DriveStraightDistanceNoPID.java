@@ -1,5 +1,7 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * Drives the robot straight for a given distance
@@ -49,12 +51,15 @@ public class DriveStraightDistanceNoPID extends DriveStraight{
     protected void initialize() {
         super.initialize();
         drive.zeroEncoders();
+        SmartDashboard.putNumber("DistanceTarget", distance);
     }
-    
     @Override
     protected boolean isFinished(){
+    	SmartDashboard.putNumber("DistanceTargetFinished", distance);
         if(distance > 0)
+        {
         	return drive.getDistance() >= (distance - THRESHOLD);
+        }
     	return drive.getDistance() <= distance + THRESHOLD;
     }
 

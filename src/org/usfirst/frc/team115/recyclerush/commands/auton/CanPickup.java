@@ -13,6 +13,6 @@ public class CanPickup extends CommandGroup {
 	public CanPickup(){
 		addSequential(new RollerOpen());
 		addParallel(new OpenClaw());
-		addSequential(new AutoIntake(true, Elevator.PRESET_TOTE_INTAKETOTE));
+		addSequential(new AutoIntake(true, Elevator.PRESET_BIN_INTAKETOTE));
 	}
 }

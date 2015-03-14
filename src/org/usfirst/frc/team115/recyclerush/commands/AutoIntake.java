@@ -5,16 +5,20 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoIntake extends CommandGroup{
     
-    public AutoIntake(boolean intakeTote, double upHeightAfterwards){
+	 public AutoIntake(boolean intakeTote, double upHeightAfterwards){
+	      this(intakeTote, upHeightAfterwards, true);
+	    }
+	
+    public AutoIntake(boolean intakeTote, double upHeightAfterwards, boolean openArm){
         if (intakeTote) {
             addSequential(new IntakeTote());
         }
 
-        addParallel(new CommandDelay(new OpenClaw(), 0.2));
-        addSequential(new ElevatorToHeight(0));
+        addParallel(new CommandDelay(new OpenClaw(), 0.1));
+        addSequential(new ElevatorHardReset());
         addSequential(new CloseClaw());
-        addSequential(new DelayCommand(0.2)); // delay for claw to close
-        addSequential(new CommandDelay(new RollerOpen(), 0.2));
+        addSequential(new DelayCommand(0.4)); // delay for claw to close
+        if(openArm)addSequential(new CommandDelay(new RollerOpen(), 0.1));
         addSequential(new ElevatorToHeight(upHeightAfterwards));
     }
     

@@ -36,13 +36,14 @@ public class DriveDistance extends Command {
 			Robot.drive.drive(SPEED_DEFAULT, 0);
 		else if(goal < 0) //we want to go backwards
 			Robot.drive.drive(-SPEED_DEFAULT, 0);
+		SmartDashboard.putNumber("Goal", goal);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		if(goal < 0){
+		if(goal < 0) {
 			return Robot.drive.getDistance() <= goal;
-		}else{
+		} else {
 			return Robot.drive.getDistance() >= goal;
 		}
 	}

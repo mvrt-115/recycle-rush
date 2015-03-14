@@ -64,6 +64,7 @@ public class DriveStraight extends PIDCommand {
     @Override
     protected void initialize() {
         drive = Robot.drive;
+        drive.zeroEncoders();
         setSetpoint(drive.getYaw());
     }
 
