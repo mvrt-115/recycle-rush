@@ -1,17 +1,17 @@
 package org.usfirst.frc.team115.recyclerush;
 
-
-import org.usfirst.frc.team115.recyclerush.commands.DeadTurn;
 import org.usfirst.frc.team115.recyclerush.commands.DriveDistance;
 import org.usfirst.frc.team115.recyclerush.commands.DriveStraightDistanceNoPID;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorBrakeOff;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.commands.ResetElevatorEncoder;
 import org.usfirst.frc.team115.recyclerush.commands.Turn;
+import org.usfirst.frc.team115.recyclerush.commands.auton.Alliance;
 import org.usfirst.frc.team115.recyclerush.commands.auton.AutonGroup;
 import org.usfirst.frc.team115.recyclerush.commands.auton.CanDriveDrive;
 import org.usfirst.frc.team115.recyclerush.commands.auton.CanPickup;
 import org.usfirst.frc.team115.recyclerush.commands.auton.DeadCanMove;
+import org.usfirst.frc.team115.recyclerush.commands.auton.DriveDrive;
 import org.usfirst.frc.team115.recyclerush.commands.auton.JuggernautA;
 import org.usfirst.frc.team115.recyclerush.commands.auton.JuggernautB;
 import org.usfirst.frc.team115.recyclerush.commands.auton.JuggernautB0;
@@ -81,17 +81,18 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(new ElevatorBrakeOff());
         SmartDashboard.putData(new ElevatorHardReset());
         SmartDashboard.putData(new DriveStraightDistanceNoPID(3));
-        SmartDashboard.putData(new DeadTurn());
         SmartDashboard.putData(new CanDriveDrive());
+        SmartDashboard.putData(new DriveDrive());
     }
 
     public void initAutonChooser() {
         autonChooser = new SendableChooser();
         autonChooser.addDefault("Nothing", null);
         autonChooser.addObject("Can Drive Drop Drive", new CanDriveDrive());
+        autonChooser.addObject("Drive.Drive", new DriveDrive());
         autonChooser.addObject("Single Tote", new SingleToteAuton());
         autonChooser.addObject("Drive Distance", new DriveDistance(7));
-        autonChooser.addObject("Blank Dead Turn", new DeadTurn());
+        
         autonChooser.addObject("Mobility", new MobilityAuton());
         autonChooser.addObject("DRIVESTEP", new DriveStraightDistanceNoPID(8));
         autonChooser.addObject("Can Hold", new CanPickup());
@@ -99,6 +100,7 @@ public class Robot extends IterativeRobot {
         autonChooser.addObject("Juggernaut start right", new JuggernautB());
         autonChooser.addObject("Juggernaut start right w/o PID", new JuggernautB0());
         autonChooser.addObject("Can Dead Move", new DeadCanMove());
+        autonChooser.addObject("Alliance", new Alliance());
         SmartDashboard.putData("Auton Mode Chooser", autonChooser);
     }
 
@@ -124,6 +126,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopInit() {
     	Robot.drive.zeroEncoders();
+    	SmartDashboard.putNumber("Drive Distance", Robot.drive.getDistance());
     }
 
     @Override

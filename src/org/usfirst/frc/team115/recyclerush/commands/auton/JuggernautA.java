@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 /*
  * Drives down the line of totes, starting from the left, picking up 3 totes, before going to the auto zone and dropping them off
- * @author Marcus Plutowski
+ * @author Marcus Plutowski, Ishan Mitra
  */
 public class JuggernautA extends CommandGroup {
 

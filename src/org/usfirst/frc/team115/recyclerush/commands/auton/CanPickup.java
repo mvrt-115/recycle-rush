@@ -8,7 +8,10 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-
+/*
+ * @author Marcus Plutowski
+ * Picks up a can
+ */
 public class CanPickup extends CommandGroup {
 	public CanPickup(){
 		addSequential(new RollerOpen());

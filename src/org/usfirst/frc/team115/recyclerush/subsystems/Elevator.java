@@ -23,7 +23,7 @@ public class Elevator extends Subsystem {
     private DoubleSolenoid brakeSolenoid;
 
     // the following measurements are in inches:
-    public static final double BOTTOM_HEIGHT = 54;
+    public static final double BOTTOM_HEIGHT = 55;
     public static final double TOP_HEIGHT = 0;
     public static final double MAX_SPEED_FINE = 1.0;
 

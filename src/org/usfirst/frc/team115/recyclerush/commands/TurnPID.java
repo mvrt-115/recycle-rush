@@ -7,27 +7,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /*
  * @author Marcus Plutowski, Lee Mracek
  */
-public class Turn extends PIDCommand {
+public class TurnPID extends PIDCommand {
 
     private double goal;
     private double initial;
-    public final static double CompP = 0.225; //Tested PID values for use in competition running
-    public final static double CompI = 0.005;
-    public final static double CompD = 0;
+    public final static double CompP = 0.205; //Tested PID values for use in competition running
+    public final static double CompI = 0.006;
+    public final static double CompD = 0.002;
 
     boolean past = false;
 
-    public Turn(double goal, final double P, final double I, final double D) { // Custom access to PID values
+    public TurnPID(double goal, final double P, final double I, final double D) { // Custom access to PID values
         super(P, I, D);
     	requires(Robot.drive);
         this.goal = goal;
         
         getPIDController().setContinuous(true);
         setInputRange(0, 360);
-        getPIDController().setOutputRange(-0.75, 0.75);
+        getPIDController().setOutputRange(-0.65, 0.65);
     }
 
-    public Turn(double goal) { // Pre-PID accessibility case for backwards compatibility and easy usage of function; just uses the hardcoded PID values we'll have tested
+    public TurnPID(double goal) { // Pre-PID accessibility case for backwards compatibility and easy usage of function; just uses the hardcoded PID values we'll have tested
     	this(goal, CompP, CompI, CompD);
     }
 
@@ -45,14 +45,14 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected void usePIDOutput(double output) {
-    	Robot.drive.drive(0, 0.60);
+    	Robot.drive.drive(0, output);
     	SmartDashboard.putNumber("Turn Output", output);
     }
 
     @Override
     protected void initialize() {
     	
-        getPIDController().setAbsoluteTolerance(10); //set 10 degree tolerance
+        getPIDController().setAbsoluteTolerance(7); //set 5 degree tolerance
     	initial = Robot.drive.getYaw();
     	setSetpoint((initial + goal)%360);
     	SmartDashboard.putNumber("Turn Setpoint", getSetpoint());
@@ -68,16 +68,12 @@ public class Turn extends PIDCommand {
      */
     @Override
     protected boolean isFinished() {
-        /*if(past && getPIDController().onTarget()) {
+        if(past && getPIDController().onTarget()) {
         	return true;
         } else {
         	past = getPIDController().onTarget();
         	return false;
-        }*/
-    	if(getPIDController().onTarget()) {
-        	return true;
         }
-    	return false;
     	/*if(Robot.drive.getYaw() > goal)
     	{
     		return true;
