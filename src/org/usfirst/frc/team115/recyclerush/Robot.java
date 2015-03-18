@@ -2,6 +2,8 @@
 package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.subsystems.Drive;
+import org.usfirst.frc.team115.recyclerush.subsystems.Intake;
+import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -17,8 +19,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot {
 
-	public static Drive drive;
 	public static OI oi;
+	public static Drive drive;
+	public static Roller roller;
+	public static Intake intake;
 
 	private Command autonomousCommand;
 
@@ -30,6 +34,8 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		drive = new Drive(oi.getDriveJoystick());
+		roller = new Roller(oi.getXboxJoystick(), oi.ROLLER_MOVE_AXIS, oi.ROLLER_ROTATE_AXIS);
+		intake = new Intake();
 	}
 
 	@Override

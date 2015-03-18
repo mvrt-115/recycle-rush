@@ -32,6 +32,10 @@ public class Drive extends Subsystem {
 
 		drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
 				motors[FRONT_RIGHT], motors[BACK_RIGHT]);
+
+		for(CANTalon motor : motors) {
+			motor.enableLimitSwitch(false, false);
+		}
 	}
 
 	public void control(Joystick joystick) {

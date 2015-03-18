@@ -33,8 +33,8 @@ public class RobotMap {
 	public static final int ELEV_SOL_BRAKEA = 2;
 	public static final int ELEV_SOL_BREAKB = 3;
 
-	public static final int ROLLER_SOL_A = 0;
-	public static final int ROLLER_SOL_B = 1;
+	public static final int INTAKE_SOL_A = 0;
+	public static final int INTAKE_SOL_B = 1;
 
 	// Joysticks
 	public static final int JOYSTICK_DRIVE = 0;

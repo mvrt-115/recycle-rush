@@ -8,14 +8,23 @@ import edu.wpi.first.wpilibj.Joystick;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	private Joystick driveJoystick;
+
+	public static final int ROLLER_MOVE_AXIS = 5;
+	public static final int ROLLER_ROTATE_AXIS = 4;
+
+	private Joystick driveJoystick, xboxJoystick;
 
 	public OI() {
 		driveJoystick = new Joystick(RobotMap.JOYSTICK_DRIVE);
+		xboxJoystick = new Joystick(RobotMap.JOYSTICK_XBOX);
 	}
 
 	public Joystick getDriveJoystick() {
 		return driveJoystick;
+	}
+
+	public Joystick getXboxJoystick() {
+		return xboxJoystick;
 	}
 }
 
