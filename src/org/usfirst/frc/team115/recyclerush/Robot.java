@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.Drive;
 import org.usfirst.frc.team115.recyclerush.subsystems.Intake;
 import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot {
 	public static Drive drive;
 	public static Roller roller;
 	public static Intake intake;
+	public static CompressorSystem compressor;
 
 	private Command autonomousCommand;
 
@@ -36,8 +38,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		drive = new Drive(oi.getDriveJoystick());
-		roller = new Roller(oi.getXboxJoystick(), oi.ROLLER_MOVE_AXIS, oi.ROLLER_ROTATE_AXIS);
+		roller = new Roller(oi.getXboxJoystick(), OI.ROLLER_MOVE_AXIS, OI.ROLLER_ROTATE_AXIS);
 		intake = new Intake();
+		compressor = new CompressorSystem();
 	}
 
 	@Override

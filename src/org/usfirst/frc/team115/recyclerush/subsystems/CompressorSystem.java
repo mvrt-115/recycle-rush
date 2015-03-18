@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class CompressorSystem extends Subsystem {
 	private Compressor compressor;
 
-	public void initialize() {
+	public CompressorSystem() {
 		compressor = new Compressor(RobotMap.PCM);
 		compressor.setClosedLoopControl(true);
 		compressor.start();

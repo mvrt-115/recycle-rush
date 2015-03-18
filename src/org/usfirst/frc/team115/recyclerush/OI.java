@@ -16,7 +16,7 @@ public class OI {
 
 	private Joystick driveJoystick, xboxJoystick;
 
-	public OI() {
+	public void OI() {
 		driveJoystick = new Joystick(RobotMap.JOYSTICK_DRIVE);
 		xboxJoystick = new Joystick(RobotMap.JOYSTICK_XBOX);
 	}

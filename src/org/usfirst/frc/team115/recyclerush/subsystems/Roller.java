@@ -24,9 +24,7 @@ public class Roller extends Subsystem {
 		this.joystick = joystick;
 		this.moveAxis = moveAxis;
 		this.rotateAxis = rotateAxis;
-	}
 
-	public void initialize() {
 		leftMotor = new CANTalon(RobotMap.ROLLER_MOTOR_LEFT);
 		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
 

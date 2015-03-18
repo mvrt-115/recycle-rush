@@ -27,9 +27,7 @@ public class Drive extends Subsystem {
 
 	public Drive(Joystick joystick) {
 		this.joystick = joystick;
-	}
 
-	public void initialize() {
 		motors[BACK_LEFT] = new CANTalon(RobotMap.DRIVE_MOTOR_BACKLEFT);
 		motors[BACK_RIGHT] = new CANTalon(RobotMap.DRIVE_MOTOR_BACKRIGHT);
 		motors[FRONT_LEFT] = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTLEFT);
