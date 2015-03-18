@@ -1,6 +1,5 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-import org.usfirst.frc.team115.recyclerush.OI;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,13 +24,13 @@ public class ElevatorDriveWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		double axis = joystick.getRawAxis(OI.AXIS_CONTROL_ELEVATOR);
-		if(Math.abs(axis) <= THRESHOLD) {
+		double axisValue = joystick.getRawAxis(this.axis);
+		if(Math.abs(axisValue) <= THRESHOLD) {
 			Robot.elevator.control(0);
 		} else {
-			Robot.elevator.control(axis);
+			Robot.elevator.control(axisValue);
 		}
-		Robot.elevator.control(axis);
+		Robot.elevator.control(axisValue);
 	}
 
 	@Override

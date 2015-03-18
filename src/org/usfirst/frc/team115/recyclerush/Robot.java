@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.Drive;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static CompressorSystem compressor;
 	public static Elevator elevator;
+	public static Claw claw;
 
 	public static AHRS navx;
 
@@ -54,10 +56,13 @@ public class Robot extends IterativeRobot {
 		intake = new Intake();
 		compressor = new CompressorSystem();
 		elevator = new Elevator(oi.getXboxJoystick(), OI.AXIS_CONTROL_ELEVATOR);
+		claw = new Claw();
 
 		navx = new AHRS(new SerialPort(57600, Port.kMXP));
-
 		firstIteration = true;
+
+		oi.initXbox();
+		oi.initDrive();
 	}
 
 	@Override

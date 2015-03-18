@@ -55,6 +55,10 @@ public class Drive extends Subsystem {
 		drive.arcadeDrive(move, rotate);
 	}
 
+	public void control(Joystick joystick, double speed) {
+		drive.arcadeDrive(joystick.getY() * speed, joystick.getX() * speed);
+	}
+
 	public void stop() {
 		this.control(0, 0);
 	}

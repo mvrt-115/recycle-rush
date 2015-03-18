@@ -14,10 +14,17 @@ public class DriveArcadeWithJoystick extends Command {
 
 	private Joystick joystick;
 
+	private double speed = 1.0;
+
 	public DriveArcadeWithJoystick(Joystick joystick) {
 		requires(Robot.drive);
 
 		this.joystick = joystick;
+	}
+
+	public DriveArcadeWithJoystick(Joystick joystick, double precisionSpeed) {
+		this(joystick);
+		speed = precisionSpeed;
 	}
 
 	@Override
@@ -27,7 +34,7 @@ public class DriveArcadeWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.drive.control(joystick);
+		Robot.drive.control(joystick, speed);
 	}
 
 	@Override
