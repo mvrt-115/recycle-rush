@@ -3,6 +3,7 @@ package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.Drive;
+import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 import org.usfirst.frc.team115.recyclerush.subsystems.Intake;
 import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 
@@ -33,6 +34,7 @@ public class Robot extends IterativeRobot {
 	public static Roller roller;
 	public static Intake intake;
 	public static CompressorSystem compressor;
+	public static Elevator elevator;
 
 	public static AHRS navx;
 
@@ -51,6 +53,7 @@ public class Robot extends IterativeRobot {
 		roller = new Roller(oi.getXboxJoystick(), OI.ROLLER_MOVE_AXIS, OI.ROLLER_ROTATE_AXIS);
 		intake = new Intake();
 		compressor = new CompressorSystem();
+		elevator = new Elevator(oi.getXboxJoystick(), OI.AXIS_CONTROL_ELEVATOR);
 
 		navx = new AHRS(new SerialPort(57600, Port.kMXP));
 

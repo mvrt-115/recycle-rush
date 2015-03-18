@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
 
+	public static final int AXIS_CONTROL_ELEVATOR = RobotMap.XBOX_AXIS_LY;
 	public static final int ROLLER_MOVE_AXIS = 5;
 	public static final int ROLLER_ROTATE_AXIS = 4;
 
