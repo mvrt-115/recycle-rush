@@ -49,6 +49,10 @@ public class Roller extends Subsystem {
 		twoMotorDrive.arcadeDrive(0, 0);
 	}
 
+	public void log() {
+		// TODO find something to log
+	}
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new RollerArcadeWithJoystick(joystick, moveAxis, rotateAxis));

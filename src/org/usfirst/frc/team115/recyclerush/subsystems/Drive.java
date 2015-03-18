@@ -4,9 +4,11 @@ import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.DriveArcadeWithJoystick;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Class defining the subsystem which encapsulates our DriveTrain
@@ -33,11 +35,15 @@ public class Drive extends Subsystem {
 		motors[FRONT_LEFT] = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTLEFT);
 		motors[FRONT_RIGHT] = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTRIGHT);
 
+		motors[FRONT_RIGHT].reverseSensor(true);
+		motors[BACK_RIGHT].reverseSensor(true);
+
 		drive = new RobotDrive(motors[FRONT_LEFT], motors[BACK_LEFT],
 				motors[FRONT_RIGHT], motors[BACK_RIGHT]);
 
 		for(CANTalon motor : motors) {
 			motor.enableLimitSwitch(false, false);
+			motor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		}
 	}
 
@@ -51,6 +57,19 @@ public class Drive extends Subsystem {
 
 	public void stop() {
 		this.control(0, 0);
+	}
+
+	public double getDistance(){
+		return (motors[FRONT_LEFT].getPosition() + motors[FRONT_RIGHT].getPosition())/2;
+	}
+
+	public void log() {
+		for (int it = 0; it < motors.length; it++) {
+			CANTalon motor = motors[it];
+			SmartDashboard.putNumber("Drivetrain Motor " + it + " Current", motor.getOutputCurrent());
+		}
+
+		SmartDashboard.putNumber("Drive Distance", getDistance());
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import org.usfirst.frc.team115.recyclerush.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Subsystem containing solenoid actuator for intake
@@ -48,6 +49,10 @@ public class Intake extends Subsystem {
 
 	public DoubleSolenoid.Value getState() {
 		return intakeSolenoid.get();
+	}
+
+	public void log() {
+		SmartDashboard.putBoolean("Intake Open?", getState() == DoubleSolenoid.Value.kForward);
 	}
 
 	@Override

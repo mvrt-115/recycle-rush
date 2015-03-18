@@ -6,10 +6,16 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Drive;
 import org.usfirst.frc.team115.recyclerush.subsystems.Intake;
 import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 
+import com.kauailabs.navx_mxp.AHRS;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,7 +34,11 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static CompressorSystem compressor;
 
+	public static AHRS navx;
+
 	private Command autonomousCommand;
+
+	private boolean firstIteration;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -41,11 +51,24 @@ public class Robot extends IterativeRobot {
 		roller = new Roller(oi.getXboxJoystick(), OI.ROLLER_MOVE_AXIS, OI.ROLLER_ROTATE_AXIS);
 		intake = new Intake();
 		compressor = new CompressorSystem();
+
+		navx = new AHRS(new SerialPort(57600, Port.kMXP));
+
+		firstIteration = true;
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+
+		// Resets the navx yaw after it is done calibrating (theoretically)
+		if(firstIteration && !navx.isCalibrating()) {
+			Timer.delay(0.3);
+			navx.zeroYaw();
+			firstIteration = false;
+		}
+
+		log();
 	}
 
 	@Override
@@ -62,6 +85,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		log();
 	}
 
 	@Override
@@ -81,7 +105,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit(){
-
 	}
 
 	/**
@@ -90,6 +113,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		log();
 	}
 
 	/**
@@ -98,5 +122,38 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+		log();
+	}
+
+	public void log() {
+		compressor.log();
+		drive.log();
+		intake.log();
+		roller.log();
+
+		logNavX();
+	}
+
+	public void logNavX() {
+		SmartDashboard.putBoolean("NavX Connected", navx.isConnected());
+		SmartDashboard.putBoolean("NavX IsCalibrating", navx.isCalibrating());
+		SmartDashboard.putBoolean("NavX IsMoving", navx.isMoving());
+		SmartDashboard.putBoolean("NavX IsRotating", navx.isRotating());
+		SmartDashboard.putNumber("NavX Yaw", navx.getYaw());
+		SmartDashboard.putNumber("NavX Pitch", navx.getPitch());
+		SmartDashboard.putNumber("NavX Roll", navx.getRoll());
+		SmartDashboard.putNumber("NavX CompassHeading",
+				navx.getCompassHeading());
+
+		SmartDashboard.putNumber("NavX Accel_X", navx.getWorldLinearAccelX());
+		SmartDashboard.putNumber("NavX Accel_Y", navx.getWorldLinearAccelY());
+		SmartDashboard.putBoolean("NavX IsMoving", navx.isMoving());
+		SmartDashboard.putNumber("NavX Temp_C", navx.getTempC());
+
+		SmartDashboard.putNumber("Velocity_X", navx.getVelocityX());
+		SmartDashboard.putNumber("Velocity_Y", navx.getVelocityY());
+		SmartDashboard.putNumber("Displacement_X", navx.getDisplacementX());
+		SmartDashboard.putNumber("Displacement_Y", navx.getDisplacementY());
+
 	}
 }
