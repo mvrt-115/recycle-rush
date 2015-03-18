@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Subsystem containing roller motors
+ * @author Lee Mracek
+ */
 public class Roller extends Subsystem {
 	private Joystick joystick;
 

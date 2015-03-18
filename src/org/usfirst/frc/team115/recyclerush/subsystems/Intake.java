@@ -5,6 +5,10 @@ import org.usfirst.frc.team115.recyclerush.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Subsystem containing solenoid actuator for intake
+ * @author Lee Mracek
+ */
 public class Intake extends Subsystem {
 
 	private DoubleSolenoid intakeSolenoid;

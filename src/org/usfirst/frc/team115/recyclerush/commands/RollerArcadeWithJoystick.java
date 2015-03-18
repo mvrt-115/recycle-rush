@@ -5,6 +5,11 @@ import org.usfirst.frc.team115.recyclerush.Robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Drives the roller using a joystick and specified axis
+ *
+ * @author Lee Mracek
+ */
 public class RollerArcadeWithJoystick extends Command {
 
 	private Joystick joystick;

@@ -8,6 +8,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Class defining the subsystem which encapsulates our DriveTrain
+ *
+ * @author Lee Mracek
+ */
 public class Drive extends Subsystem {
 
 	private final int BACK_LEFT = 0;

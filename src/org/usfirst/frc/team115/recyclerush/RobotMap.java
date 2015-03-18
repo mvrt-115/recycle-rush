@@ -4,6 +4,8 @@ package org.usfirst.frc.team115.recyclerush;
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
+ *
+ * @author Lee Mracek
  */
 public class RobotMap {
 	// Drive Motors
