@@ -66,6 +66,5 @@ public class RobotMap {
 
 	// Compressor
 	public static final int PCM = 1;
-	public static final int COMPRESSOR = 1;
 
 }
