@@ -1,11 +1,9 @@
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.commands.DriveArcadeWithJoystick;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeClose;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeOpen;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
 
@@ -13,15 +11,14 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  *
- * @author Lee Mracek
+ * @author Lee Mracek, Akhil Palla
  */
 public class OI {
 
 	public static final int AXIS_CONTROL_ELEVATOR = RobotMap.XBOX_AXIS_LY;
-	public static final int ROLLER_MOVE_AXIS = 5;
-	public static final int ROLLER_ROTATE_AXIS = 4;
-
-	public static final double PRECISION_SPEED = 0.7;
+	public static final int BUTTON_PRECISION = RobotMap.JOYSTICK_BUTTON_TRIGGER;
+	public static final int ROLLER_MOVE_AXIS = RobotMap.XBOX_AXIS_RY;
+	public static final int ROLLER_ROTATE_AXIS = RobotMap.XBOX_AXIS_RX;
 
 	private Joystick driveJoystick, xboxJoystick;
 
@@ -37,12 +34,6 @@ public class OI {
 		.whenActive(new IntakeClose());
 	}
 
-	public void initDrive() {
-		new JoystickButton(driveJoystick, RobotMap.BUTTON_DRIVE_PRECISION)
-		.whileHeld(new DriveArcadeWithJoystick(driveJoystick,
-				OI.PRECISION_SPEED));
-	}
-
 	public Joystick getDriveJoystick() {
 		return driveJoystick;
 	}
@@ -50,6 +41,11 @@ public class OI {
 	public Joystick getXboxJoystick() {
 		return xboxJoystick;
 	}
+
+	public boolean getJoystickButton(int button){
+		return driveJoystick.getRawButton(button);
+	}
+
 }
 
 class XboxTrigger extends Trigger {

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import org.usfirst.frc.team115.recyclerush.OI;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -12,19 +13,27 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveArcadeWithJoystick extends Command {
 
+	private static final double SPEED_PRECISION_DEFAULT = 0.5;
+
 	private Joystick joystick;
 
-	private double speed = 1.0;
+	private boolean precision;
+	private double precisionSpeed;
 
 	public DriveArcadeWithJoystick(Joystick joystick) {
-		requires(Robot.drive);
-
-		this.joystick = joystick;
+		this(joystick, false);
 	}
 
-	public DriveArcadeWithJoystick(Joystick joystick, double precisionSpeed) {
-		this(joystick);
-		speed = precisionSpeed;
+	public DriveArcadeWithJoystick(Joystick joystick, boolean precision){
+		this(joystick, precision, SPEED_PRECISION_DEFAULT);
+	}
+
+
+	public DriveArcadeWithJoystick(Joystick joystick, boolean precision, double precisionSpeed) {
+		requires(Robot.drive);
+		this.joystick = joystick;
+		this.precision = precision;
+		this.precisionSpeed = precisionSpeed;
 	}
 
 	@Override
@@ -34,7 +43,11 @@ public class DriveArcadeWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.drive.control(joystick, speed);
+		if(precision && Robot.oi.getJoystickButton(OI.BUTTON_PRECISION)) {
+			Robot.drive.control(joystick, precisionSpeed);
+		}else{
+			Robot.drive.control(joystick);
+		}
 	}
 
 	@Override

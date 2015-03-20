@@ -13,40 +13,33 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Lee Mracek
  */
 public class Roller extends Subsystem {
-	private Joystick joystick;
 
 	private CANTalon leftMotor, rightMotor;
-	private RobotDrive twoMotorDrive;
+	private RobotDrive rollerDrive;
 
-	private int moveAxis, rotateAxis;
-
-	public Roller(Joystick joystick, int moveAxis, int rotateAxis) {
-		this.joystick = joystick;
-		this.moveAxis = moveAxis;
-		this.rotateAxis = rotateAxis;
-
+	public Roller() {
 		leftMotor = new CANTalon(RobotMap.ROLLER_MOTOR_LEFT);
 		rightMotor = new CANTalon(RobotMap.ROLLER_MOTOR_RIGHT);
 
-		twoMotorDrive = new RobotDrive(leftMotor, rightMotor);
+		rollerDrive = new RobotDrive(leftMotor, rightMotor);
 
-		twoMotorDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-		twoMotorDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+		rollerDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+		rollerDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
 
 		leftMotor.enableLimitSwitch(false, false);
 		rightMotor.enableLimitSwitch(false, false);
 	}
 
 	public void control(double move, double rotate) {
-		twoMotorDrive.arcadeDrive(move, rotate);
+		rollerDrive.arcadeDrive(move, rotate);
 	}
 
 	public void control(Joystick joystick, int moveAxis, int rotateAxis) {
-		twoMotorDrive.arcadeDrive(joystick, moveAxis, joystick, rotateAxis);
+		rollerDrive.arcadeDrive(joystick, moveAxis, joystick, rotateAxis);
 	}
 
 	public void stop() {
-		twoMotorDrive.arcadeDrive(0, 0);
+		rollerDrive.arcadeDrive(0, 0);
 	}
 
 	public void log() {
@@ -55,6 +48,6 @@ public class Roller extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RollerArcadeWithJoystick(joystick, moveAxis, rotateAxis));
+		setDefaultCommand(new RollerArcadeWithJoystick());
 	}
 }

@@ -54,10 +54,10 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		drive = new Drive(oi.getDriveJoystick());
-		roller = new Roller(oi.getXboxJoystick(), OI.ROLLER_MOVE_AXIS, OI.ROLLER_ROTATE_AXIS);
+		roller = new Roller();
 		intake = new Intake();
 		compressor = new CompressorSystem();
-		elevator = new Elevator(oi.getXboxJoystick(), OI.AXIS_CONTROL_ELEVATOR);
+		elevator = new Elevator();
 		claw = new Claw();
 		ledStripPrimary = new LEDStrip(5803, "10.1.15.20");
 
@@ -65,7 +65,6 @@ public class Robot extends IterativeRobot {
 		firstIteration = true;
 
 		oi.initXbox();
-		oi.initDrive();
 	}
 
 	@Override
