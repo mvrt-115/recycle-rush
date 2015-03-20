@@ -1,12 +1,11 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ClawClose extends Command {
-
-	private boolean finished = false;
 
 	public ClawClose() {
 		requires(Robot.claw);
@@ -14,18 +13,17 @@ public class ClawClose extends Command {
 
 	@Override
 	protected void initialize() {
-
+		setTimeout(Claw.TIME_TO_ACTUATE);
 	}
 
 	@Override
 	protected void execute() {
 		Robot.claw.close();
-		finished = true;
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return finished;
+		return isTimedOut();
 	}
 
 	@Override
