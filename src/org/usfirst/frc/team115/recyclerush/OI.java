@@ -1,9 +1,13 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.commands.ClawClose;
+import org.usfirst.frc.team115.recyclerush.commands.ClawOpen;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeClose;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeOpen;
+import org.usfirst.frc.team115.recyclerush.commands.StabilizerToggle;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
 
@@ -32,6 +36,12 @@ public class OI {
 		.whenActive(new IntakeOpen());
 		new XboxTrigger(xboxJoystick, RobotMap.XBOX_RT, 0.6)
 		.whenActive(new IntakeClose());
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_LB)
+		.whenPressed(new ClawOpen());
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_RB)
+		.whenPressed(new ClawClose());
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_Y)
+		.whenPressed(new StabilizerToggle());
 	}
 
 	public Joystick getDriveJoystick() {

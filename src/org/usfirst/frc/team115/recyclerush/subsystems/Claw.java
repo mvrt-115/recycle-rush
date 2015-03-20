@@ -3,6 +3,7 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,9 +28,13 @@ public class Claw extends Subsystem {
 		System.out.println("Claw: Closing");
 	}
 
+	public boolean isOpen(){
+		return clawSolenoid.get().equals(Value.kForward);
+	}
+
 	public void log() {
 		SmartDashboard.putBoolean("Is Claw Open?",
-				clawSolenoid.get() == DoubleSolenoid.Value.kForward);
+				clawSolenoid.get().equals(DoubleSolenoid.Value.kForward));
 	}
 
 	@Override
