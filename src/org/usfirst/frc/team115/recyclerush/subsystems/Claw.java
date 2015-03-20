@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Claw extends Subsystem {
 
+	public static final double TIME_TO_ACTUATE = 0.15;
+
 	private DoubleSolenoid clawSolenoid;
 
 	public Claw() {
