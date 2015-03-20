@@ -5,11 +5,12 @@ import org.usfirst.frc.team115.recyclerush.commands.ElevatorDriveWithJoystick;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator extends Subsystem {
+
+	public static final double MAX_SPEED_FINE = 1.0;
 
 	//scaling values
 	private static final int TICKS_PER_ROTATION = 1024;
@@ -23,18 +24,11 @@ public class Elevator extends Subsystem {
 	private static final double PRESET_TOP = 52;
 	private static final double PRESET_BOTTOM = 0;
 
-	private static final double MAX_SPEED_FINE = 1.0;
-
-	private Joystick joystick;
-	private int axis;
-
 	private CANTalon elevatorMotor1, elevatorMotor2;
 
 	private DoubleSolenoid brakeSolenoid;
 
-	public Elevator(Joystick joystick, int axis) {
-		this.joystick = joystick;
-		this.axis = axis;
+	public Elevator() {
 
 		brakeSolenoid = new DoubleSolenoid(RobotMap.PCM,
 				RobotMap.ELEV_SOL_BRAKEA, RobotMap.ELEV_SOL_BREAKB);
@@ -53,7 +47,7 @@ public class Elevator extends Subsystem {
 	}
 
 	public void control(double axis) {
-		elevatorMotor1.set(axis * MAX_SPEED_FINE);
+		elevatorMotor1.set(axis);
 	}
 
 	public void setBrake(boolean brake) {
@@ -76,7 +70,7 @@ public class Elevator extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new ElevatorDriveWithJoystick(joystick, axis));
+		setDefaultCommand(new ElevatorDriveWithJoystick());
 	}
 
 }

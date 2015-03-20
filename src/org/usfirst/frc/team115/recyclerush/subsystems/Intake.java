@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Intake extends Subsystem {
 
-	public static final double TIME_TO_ACTUATE = 0.3;
+	public static final double TIME_TO_ACTUATE = 0.15;
 
 	private DoubleSolenoid intakeSolenoid;
 

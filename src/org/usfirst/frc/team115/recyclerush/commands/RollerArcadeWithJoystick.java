@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import org.usfirst.frc.team115.recyclerush.OI;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -15,6 +16,10 @@ public class RollerArcadeWithJoystick extends Command {
 	private Joystick joystick;
 
 	private int moveAxis, rotateAxis;
+
+	public RollerArcadeWithJoystick(){
+		this(Robot.oi.getXboxJoystick(), OI.ROLLER_MOVE_AXIS, OI.ROLLER_ROTATE_AXIS);
+	}
 
 	public RollerArcadeWithJoystick(Joystick joystick, int moveAxis, int rotateAxis) {
 		requires(Robot.roller);
