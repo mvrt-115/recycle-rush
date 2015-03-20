@@ -6,6 +6,7 @@ import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.Drive;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 import org.usfirst.frc.team115.recyclerush.subsystems.Intake;
+import org.usfirst.frc.team115.recyclerush.subsystems.LEDStrip;
 import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 
 import com.kauailabs.navx_mxp.AHRS;
@@ -37,6 +38,7 @@ public class Robot extends IterativeRobot {
 	public static CompressorSystem compressor;
 	public static Elevator elevator;
 	public static Claw claw;
+	public static LEDStrip ledStripPrimary;
 
 	public static AHRS navx;
 
@@ -57,6 +59,7 @@ public class Robot extends IterativeRobot {
 		compressor = new CompressorSystem();
 		elevator = new Elevator(oi.getXboxJoystick(), OI.AXIS_CONTROL_ELEVATOR);
 		claw = new Claw();
+		ledStripPrimary = new LEDStrip(5803, "10.1.15.20");
 
 		navx = new AHRS(new SerialPort(57600, Port.kMXP));
 		firstIteration = true;

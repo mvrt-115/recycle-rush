@@ -52,7 +52,7 @@ public class Intake extends Subsystem {
 	}
 
 	public void log() {
-		SmartDashboard.putBoolean("Intake Open?", getState() == DoubleSolenoid.Value.kForward);
+		SmartDashboard.putBoolean("Intake Open?", getState().equals(DoubleSolenoid.Value.kForward));
 	}
 
 	@Override
