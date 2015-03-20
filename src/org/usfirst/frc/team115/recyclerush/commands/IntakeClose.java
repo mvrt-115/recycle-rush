@@ -1,6 +1,7 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
+import org.usfirst.frc.team115.recyclerush.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -10,25 +11,23 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class IntakeClose extends Command {
 
-	private boolean finished = false;
-
 	public IntakeClose() {
 		requires(Robot.intake);
 	}
 
 	@Override
 	protected void initialize() {
+		setTimeout(Intake.TIME_TO_ACTUATE);
 	}
 
 	@Override
 	protected void execute() {
 		Robot.intake.close();
-		finished = true;
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return finished;
+		return isTimedOut();
 	}
 
 	@Override
