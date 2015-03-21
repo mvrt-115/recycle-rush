@@ -2,9 +2,12 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorDriveWithJoystick;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorResetEncoder;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -17,12 +20,7 @@ public class Elevator extends Subsystem {
 	private static final double INCHES_PER_ROTATION = 3.53559055;
 	private static final double TICKS_PER_INCH = TICKS_PER_ROTATION / INCHES_PER_ROTATION;
 
-	private static final double BOTTOM_HEIGHT = 54;
-	private static final double TOP_HEIGHT = 0;
-
-	private static final int TOP_LIMIT = (int) (0.25 * TICKS_PER_INCH);
-	private static final double PRESET_TOP = 52;
-	private static final double PRESET_BOTTOM = 0;
+	private static final int TOP_LIMIT = (int) (52 * TICKS_PER_INCH);
 
 	private CANTalon elevatorMotor1, elevatorMotor2;
 
@@ -30,8 +28,7 @@ public class Elevator extends Subsystem {
 
 	public Elevator() {
 
-		brakeSolenoid = new DoubleSolenoid(RobotMap.PCM,
-				RobotMap.ELEV_SOL_BRAKEA, RobotMap.ELEV_SOL_BREAKB);
+		brakeSolenoid = new DoubleSolenoid(RobotMap.PCM, RobotMap.ELEV_SOL_BRAKEA, RobotMap.ELEV_SOL_BREAKB);
 
 		elevatorMotor1 = new CANTalon(RobotMap.ELEV_MOTOR_1);
 		elevatorMotor2 = new CANTalon(RobotMap.ELEV_MOTOR_2);
@@ -44,10 +41,20 @@ public class Elevator extends Subsystem {
 
 		elevatorMotor2.changeControlMode(CANTalon.ControlMode.Follower);
 		elevatorMotor2.set(elevatorMotor1.getDeviceID());
+
+		elevatorMotor1.reverseOutput(true); //motor forward now = go up
+		elevatorMotor1.reverseSensor(true); //encoder value increases as elevator goes up
+
+		new ElevResetTrigger(elevatorMotor1, true).whenActive(new ElevatorResetEncoder());
 	}
 
 	public void control(double axis) {
 		elevatorMotor1.set(axis);
+	}
+
+	public void stop(){
+		elevatorMotor1.set(0);
+		setBrake(true);
 	}
 
 	public void setBrake(boolean brake) {
@@ -58,19 +65,45 @@ public class Elevator extends Subsystem {
 		}
 	}
 
+	public boolean isBraking(){
+		return brakeSolenoid.get().equals(Value.kForward);
+	}
+
+	public double getHeight() {
+		return elevatorMotor1.getPosition() / TICKS_PER_INCH;
+	}
+
+	public void resetEncoder(){
+		elevatorMotor1.setPosition(0);
+	}
+
 	public void log() {
 		SmartDashboard.putBoolean("Elevator Limit", elevatorMotor1.isFwdLimitSwitchClosed());
 		SmartDashboard.putNumber("Elevator Height", getHeight());
 		SmartDashboard.putNumber("Elevator Height-ticks", elevatorMotor1.getPosition());
 	}
 
-	public double getHeight() {
-		return BOTTOM_HEIGHT - elevatorMotor1.getPosition() / TICKS_PER_INCH;
-	}
-
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new ElevatorDriveWithJoystick());
+	}
+
+	private class ElevResetTrigger extends Trigger{
+
+		CANTalon talon;
+		boolean forward;
+
+		public ElevResetTrigger(CANTalon talon, boolean forward){
+			this.talon = talon;
+			this.forward = forward;
+		}
+
+		@Override
+		public boolean get(){
+			return (forward)?talon.isFwdLimitSwitchClosed():
+				talon.isRevLimitSwitchClosed();
+		}
+
 	}
 
 }
