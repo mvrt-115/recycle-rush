@@ -32,9 +32,15 @@ public class ElevatorToHeight extends Command {
     @Override
     protected void execute() {
         if(destHeight < Robot.elevator.getHeight())
-            Robot.elevator.control(Elevator.PRESET_SPEED);
+        {
+        	double SlopeSpeed = Math.min(0.8*Elevator.PRESET_SPEED*Robot.elevator.getHeight()/destHeight+0.2, 1);
+            Robot.elevator.control(SlopeSpeed);
+        }
         else
-            Robot.elevator.control(-1 * Elevator.PRESET_SPEED);
+        {
+        	double SlopeSpeed = Math.min(0.8*Elevator.PRESET_SPEED*Robot.elevator.getHeight()/destHeight+0.2, 1);
+            Robot.elevator.control(SlopeSpeed);
+        }
     }
 
     @Override

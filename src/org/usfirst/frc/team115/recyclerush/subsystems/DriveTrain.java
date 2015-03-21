@@ -45,7 +45,7 @@ public class DriveTrain extends Subsystem {
                 motors[FRONT_RIGHT], motors[BACK_RIGHT]);
 
         for (CANTalon motor : motors)
-            motor.setVoltageRampRate(24);
+            //motor.setVoltageRampRate(24);
 
         zeroEncoders();
     }

@@ -1,10 +1,11 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import javafx.scene.Camera;
+
 import org.usfirst.frc.team115.recyclerush.commands.DriveDistance;
 import org.usfirst.frc.team115.recyclerush.commands.DriveStraightDistanceNoPID;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorBrakeOff;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
-import org.usfirst.frc.team115.recyclerush.commands.ResetElevatorEncoder;
 import org.usfirst.frc.team115.recyclerush.commands.Turn;
 import org.usfirst.frc.team115.recyclerush.commands.auton.Alliance;
 import org.usfirst.frc.team115.recyclerush.commands.auton.AutonGroup;
@@ -53,7 +54,7 @@ public class Robot extends IterativeRobot {
 
     public Robot() {
         drive = new DriveTrain();
-        // stabilizer = new Stabilizer();
+        stabilizer = new Stabilizer();
         claw = new Claw();
         roller = new Roller();
         compressor = new CompressorSystem();
@@ -65,7 +66,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         drive.initialize();
-        //stabilizer.initialize();
+        stabilizer.initialize();
         claw.initialize();
         roller.initialize();
         compressor.initialize();
