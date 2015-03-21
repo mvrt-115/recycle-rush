@@ -45,18 +45,53 @@ public class Drive extends Subsystem {
 			motor.enableLimitSwitch(false, false);
 			motor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		}
+		resetEncoders();
 	}
 
+	/**
+	 * Drives the robot with a joystick
+	 * @param joystick: The joystick to use
+	 */
 	public void control(Joystick joystick) {
 		drive.arcadeDrive(joystick);
 	}
 
-	public void control(double move, double rotate) {
-		drive.arcadeDrive(move, rotate);
+	/**
+	 * Controls the robot drive with speed
+	 * @param move: The forward speed
+	 * @param rotate: The turn speed
+	 */
+	public void control(double move, double rotate){
+		drive.arcadeDrive(move * -1, rotate);
 	}
 
+	/**
+	 * Controls the robot drive, using joystick values
+	 * for move and a speed value for rotate
+	 * @param joystick: The joystick to use for fwd/back speed
+	 * @param rotate: The double to use for rotate speed
+	 */
+	public void controlJoystickMove(Joystick joystick, double rotate) {
+		drive.arcadeDrive(joystick.getY(), rotate);
+	}
+
+	/**
+	 * Controls the drivetrain with a joystick, with scaled values
+	 * @param joystick: The joystick to use
+	 * @param speed: The scaler to multiply joystick values by
+	 */
 	public void control(Joystick joystick, double speed) {
 		drive.arcadeDrive(joystick.getY() * speed, joystick.getX() * speed);
+	}
+
+	/**
+	 * Controls the drivetrain, with joystick and scalers
+	 * @param joystick: The joystick to use
+	 * @param moveSpeed: The amount to scale the move value
+	 * @param rotateSpeed: The amount to scale the rotate value
+	 */
+	public void control(Joystick joystick, double moveSpeed, double rotateSpeed) {
+		drive.arcadeDrive(joystick.getY() * moveSpeed, joystick.getX() * rotateSpeed);
 	}
 
 	public void stop() {
@@ -65,6 +100,12 @@ public class Drive extends Subsystem {
 
 	public double getDistance(){
 		return (motors[FRONT_LEFT].getPosition() + motors[FRONT_RIGHT].getPosition())/2;
+	}
+
+	public void resetEncoders(){
+		for(CANTalon t:motors){
+			t.setPosition(0);
+		}
 	}
 
 	public void log() {
