@@ -119,6 +119,6 @@ public class Drive extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		this.setDefaultCommand(new DriveArcadeWithJoystick(joystick));
+		this.setDefaultCommand(new DriveArcadeWithJoystick(joystick, true));
 	}
 }
