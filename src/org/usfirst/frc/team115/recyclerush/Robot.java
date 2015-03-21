@@ -60,6 +60,7 @@ public class Robot extends IterativeRobot {
 		intake = new Intake();
 		compressor = new CompressorSystem();
 		elevator = new Elevator();
+		elevator.initialize();
 		claw = new Claw();
 		stabilizer = new Stabilizer();
 		ledStripPrimary = new LEDStrip(5803, "10.1.15.20");
