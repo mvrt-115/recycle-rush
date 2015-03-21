@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class DriveStraight extends PIDCommand {
 
-	public static final double SPEED_DEFAULT = 0.5;
+	public static final double SPEED_DEFAULT = 0.4;
 	public static final double P = 0.008;
 	public static final double I = 0;
 	public static final double D = 0;
@@ -19,11 +19,11 @@ public class DriveStraight extends PIDCommand {
 	private double speed;
 	private boolean joystick;
 
-	public DriveStraight(boolean joystick){
+	public DriveStraight(boolean joystick) {
 		this(SPEED_DEFAULT, joystick);
 	}
 
-	public DriveStraight(double speed, boolean joystick){
+	public DriveStraight(double speed, boolean joystick) {
 		super(P, I, D);
 		requires(Robot.drive);
 		this.speed = speed;
@@ -34,7 +34,7 @@ public class DriveStraight extends PIDCommand {
 	protected void initialize() {
 		Robot.drive.stop();
 		setInputRange(-180, 180);
-		getPIDController().setOutputRange(-0.4, 0.4);
+		getPIDController().setOutputRange(-0.6, 0.6);
 		getPIDController().setContinuous(true);
 		setSetpoint(Robot.navx.getYaw());
 	}
