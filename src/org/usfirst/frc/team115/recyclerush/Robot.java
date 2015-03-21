@@ -53,7 +53,7 @@ public class Robot extends IterativeRobot {
 
     public Robot() {
         drive = new DriveTrain();
-        // stabilizer = new Stabilizer();
+        stabilizer = new Stabilizer();
         claw = new Claw();
         roller = new Roller();
         compressor = new CompressorSystem();
@@ -65,7 +65,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         drive.initialize();
-        //stabilizer.initialize();
+        stabilizer.initialize();
         claw.initialize();
         roller.initialize();
         compressor.initialize();
