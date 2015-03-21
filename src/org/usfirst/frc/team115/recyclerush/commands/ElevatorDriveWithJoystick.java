@@ -4,14 +4,12 @@ import org.usfirst.frc.team115.recyclerush.OI;
 import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorDriveWithJoystick extends Command {
 
 	private static final double THRESHOLD = 0.15;
 
-	private Joystick joystick;
 	private int axis;
 
 	public ElevatorDriveWithJoystick(){
@@ -19,13 +17,10 @@ public class ElevatorDriveWithJoystick extends Command {
 	}
 
 	public ElevatorDriveWithJoystick(int axis){
-		this(Robot.oi.getDriveJoystick(), axis);
-	}
-
-	public ElevatorDriveWithJoystick(Joystick joystick, int axis) {
-		this.joystick = joystick;
+		requires(Robot.elevator);
 		this.axis = axis;
 	}
+
 
 	@Override
 	protected void initialize() {
@@ -34,10 +29,11 @@ public class ElevatorDriveWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		double axisValue = joystick.getRawAxis(this.axis);
+		double axisValue = Robot.oi.getXboxAxis(axis, true); //invert axis, so forward = positive
 		if(Math.abs(axisValue) <= THRESHOLD) {
-			Robot.elevator.control(0);
+			Robot.elevator.stop();
 		} else {
+			Robot.elevator.setBrake(false);
 			Robot.elevator.control(axisValue * Elevator.MAX_SPEED_FINE);
 		}
 	}
@@ -49,10 +45,12 @@ public class ElevatorDriveWithJoystick extends Command {
 
 	@Override
 	protected void end() {
+		Robot.elevator.stop();
 	}
 
 	@Override
 	protected void interrupted() {
+		end();
 	}
 
 }

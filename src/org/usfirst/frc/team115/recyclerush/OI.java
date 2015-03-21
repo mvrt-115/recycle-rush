@@ -56,6 +56,18 @@ public class OI {
 		return driveJoystick.getRawButton(button);
 	}
 
+	/**
+	 * Gets the axis values of the joystick
+	 * @param axis: The value of the current axis
+	 * @param invert: Whether or not to invert the axis
+	 * if invert is false, joystick forward = negative
+	 * if it's true, joystick forward = positive
+	 */
+	public double getXboxAxis(int axis, boolean invert){
+		int inv = invert?-1:1;
+		return inv * xboxJoystick.getRawAxis(axis);
+	}
+
 }
 
 class XboxTrigger extends Trigger {
