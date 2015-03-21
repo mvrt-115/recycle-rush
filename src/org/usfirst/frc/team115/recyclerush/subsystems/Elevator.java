@@ -2,7 +2,7 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorDriveWithJoystick;
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorResetEncoder;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Elevator extends Subsystem {
+public class Elevator extends Subsystem{
 
 	public static final double MAX_SPEED_FINE = 1.0;
 
@@ -45,7 +45,7 @@ public class Elevator extends Subsystem {
 		elevatorMotor1.reverseOutput(true); //motor forward now = go up
 		elevatorMotor1.reverseSensor(true); //encoder value increases as elevator goes up
 
-		new ElevResetTrigger(elevatorMotor1, true).whenActive(new ElevatorResetEncoder());
+		new ElevResetTrigger(this).listen();
 	}
 
 	public void control(double axis) {
@@ -73,6 +73,10 @@ public class Elevator extends Subsystem {
 		return elevatorMotor1.getPosition() / TICKS_PER_INCH;
 	}
 
+	public boolean isLimitPressed() {
+		return elevatorMotor1.isFwdLimitSwitchClosed();
+	}
+
 	public void resetEncoder(){
 		elevatorMotor1.setPosition(0);
 	}
@@ -88,22 +92,26 @@ public class Elevator extends Subsystem {
 		setDefaultCommand(new ElevatorDriveWithJoystick());
 	}
 
+
 	private class ElevResetTrigger extends Trigger{
 
-		CANTalon talon;
-		boolean forward;
+		Elevator elev;
 
-		public ElevResetTrigger(CANTalon talon, boolean forward){
-			this.talon = talon;
-			this.forward = forward;
+		public ElevResetTrigger(Elevator elev){
+			this.elev = elev;
 		}
 
 		@Override
 		public boolean get(){
-			return (forward)?talon.isFwdLimitSwitchClosed():
-				talon.isRevLimitSwitchClosed();
+			return elev.isLimitPressed();
+		}
+
+		public void listen(){
+			whenActive(new ElevatorHardReset());
 		}
 
 	}
 
 }
+
+
