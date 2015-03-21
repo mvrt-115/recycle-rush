@@ -142,6 +142,7 @@ public class Robot extends IterativeRobot {
 	public void log() {
 		compressor.log();
 		drive.log();
+		elevator.log();
 		intake.log();
 		roller.log();
 
