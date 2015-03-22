@@ -45,6 +45,9 @@ public class Elevator extends Subsystem{
 		elevatorMotor1.reverseOutput(true); //motor forward now = go up
 		elevatorMotor1.reverseSensor(true); //encoder value increases as elevator goes up
 
+	}
+
+	public void initialize() {
 		new ElevResetTrigger(this).listen();
 	}
 

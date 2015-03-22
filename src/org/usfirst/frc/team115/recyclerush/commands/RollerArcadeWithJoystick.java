@@ -36,7 +36,9 @@ public class RollerArcadeWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.roller.control(joystick, moveAxis, rotateAxis);
+		double move = Robot.oi.getXboxAxis(moveAxis, true);
+		double rotate = Robot.oi.getXboxAxis(rotateAxis, true);
+		Robot.roller.control(move, rotate);
 	}
 
 	@Override
