@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * A subsystem representing the elevator, which
  * lifts/lowers totes and bins
  *
- * @author Akhil Palla, Siddharth Gollapudi and Lee Mracek
+ * @author Akhil Palla and Lee Mracek
  */
 public class Elevator extends Subsystem {
 
