@@ -17,7 +17,7 @@ public class ElevatorHardReset extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.elevator.control(SPEED_DOWN);
+		Robot.elevator.setSpeed(SPEED_DOWN);
 	}
 
 	@Override

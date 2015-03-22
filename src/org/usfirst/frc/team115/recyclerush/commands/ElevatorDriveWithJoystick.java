@@ -2,7 +2,6 @@ package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.recyclerush.OI;
 import org.usfirst.frc.team115.recyclerush.Robot;
-import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -34,7 +33,7 @@ public class ElevatorDriveWithJoystick extends Command {
 			Robot.elevator.stop();
 		} else {
 			Robot.elevator.setBrake(false);
-			Robot.elevator.control(axisValue * Elevator.MAX_SPEED_FINE);
+			Robot.elevator.controlJoystick(Robot.oi.getXboxAxis(axis, false));
 		}
 	}
 
