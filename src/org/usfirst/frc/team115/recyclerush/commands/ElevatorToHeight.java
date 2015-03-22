@@ -9,15 +9,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Moves the elevator to a certain preset
- * @author Akhil Palla
+ * @author Akhil Palla, Marcus Plutowski
  */
 public class ElevatorToHeight extends Command {
     
+	private double Speed = 1;
     private double destHeight;
     
     public ElevatorToHeight(double destHeight) {
         requires(Robot.elevator);
         this.destHeight = destHeight;
+        Speed = 1;
+    }
+    public ElevatorToHeight(double destHeight, double BaseSpeed) {
+        requires(Robot.elevator);
+        this.destHeight = destHeight;
+        Speed = BaseSpeed;
     }
     
     public void setDest(double dest){
@@ -31,15 +38,14 @@ public class ElevatorToHeight extends Command {
 
     @Override
     protected void execute() {
+    	double SlopeSpeed = Elevator.PRESET_SPEED * Speed*Math.min(0.8*(Math.abs(destHeight-Robot.elevator.getHeight())/5)+0.2, 1);
         if(destHeight < Robot.elevator.getHeight())
         {
-        	double SlopeSpeed = Math.min(0.8*Elevator.PRESET_SPEED*Robot.elevator.getHeight()/destHeight+0.2, 1);
             Robot.elevator.control(SlopeSpeed);
         }
         else
         {
-        	double SlopeSpeed = Math.min(0.8*Elevator.PRESET_SPEED*Robot.elevator.getHeight()/destHeight+0.2, 1);
-            Robot.elevator.control(SlopeSpeed);
+            Robot.elevator.control(-SlopeSpeed);
         }
     }
 
