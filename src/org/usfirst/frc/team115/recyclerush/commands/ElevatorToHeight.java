@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ElevatorToHeight extends Command {
     
     private double destHeight;
+    private boolean upwards = false;
+    public double Threshold = 0;
+    double SlopeSpeed = 0.6;
     
     public ElevatorToHeight(double destHeight) {
         requires(Robot.elevator);
@@ -22,6 +25,14 @@ public class ElevatorToHeight extends Command {
     
     public void setDest(double dest){
         destHeight = dest;
+        Threshold = 0.05*Math.abs(Robot.elevator.getHeight() - destHeight);
+        if(dest < Robot.elevator.getHeight())
+        {
+        	upwards = true;
+        	return;
+        }
+        upwards = false;
+        return;
     }
 
     @Override
@@ -31,10 +42,20 @@ public class ElevatorToHeight extends Command {
 
     @Override
     protected void execute() {
-        if(destHeight < Robot.elevator.getHeight())
-            Robot.elevator.control(Elevator.PRESET_SPEED);
+    	if(Math.abs(Robot.elevator.getHeight() - destHeight) < Math.abs(3*Threshold - destHeight)) {
+    		SlopeSpeed = 0.6*Math.abs(Robot.elevator.getHeight() - destHeight)/Math.abs(3*Threshold-destHeight);
+    	}
+    	else{
+    		SlopeSpeed = 0.6;
+    	}
+        if(upwards)
+        {
+            Robot.elevator.control(-1 * SlopeSpeed);
+        }
         else
-            Robot.elevator.control(-1 * Elevator.PRESET_SPEED);
+        {
+            Robot.elevator.control(SlopeSpeed);
+        }
     }
 
     @Override
