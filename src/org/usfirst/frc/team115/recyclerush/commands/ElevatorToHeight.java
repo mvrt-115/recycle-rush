@@ -15,17 +15,18 @@ public class ElevatorToHeight extends Command {
     
     private double destHeight;
     private boolean upwards = false;
-    public double Threshold = 0;
-    double SlopeSpeed = 0.6;
+    public static final double STOP_THRESHOLD = 1;
+    public static final double RAMP_THRESHOLD = 3;
+    public static final double EQUALIZATION_MULTIPLE = 0.6;
+    double SlopeSpeed = -0.6;
     
     public ElevatorToHeight(double destHeight) {
         requires(Robot.elevator);
-        this.destHeight = destHeight;
+        setDest(destHeight);
     }
     
     public void setDest(double dest){
         destHeight = dest;
-        Threshold = 0.05*Math.abs(Robot.elevator.getHeight() - destHeight);
         if(dest < Robot.elevator.getHeight())
         {
         	upwards = true;
@@ -42,25 +43,29 @@ public class ElevatorToHeight extends Command {
 
     @Override
     protected void execute() {
-    	if(Math.abs(Robot.elevator.getHeight() - destHeight) < Math.abs(3*Threshold - destHeight)) {
-    		SlopeSpeed = 0.6*Math.abs(Robot.elevator.getHeight() - destHeight)/Math.abs(3*Threshold-destHeight);
+    	if(Math.abs(Robot.elevator.getHeight() - destHeight) < RAMP_THRESHOLD) {
+    		SlopeSpeed = -0.6*
+    				(Math.abs(Robot.elevator.getHeight() - destHeight) /
+    				RAMP_THRESHOLD * EQUALIZATION_MULTIPLE + (1-EQUALIZATION_MULTIPLE));
     	}
     	else{
-    		SlopeSpeed = 0.6;
+    		SlopeSpeed = -0.6;
     	}
-        if(upwards)
-        {
-            Robot.elevator.control(-1 * SlopeSpeed);
-        }
-        else
-        {
-            Robot.elevator.control(SlopeSpeed);
-        }
+        	if(Robot.elevator.getHeight() < destHeight){
+        		Robot.elevator.control(SlopeSpeed);
+        		SmartDashboard.putString("Driving", "Up");
+        	}
+        	else{SmartDashboard.putString("Driving", "Not");}
+            if(Robot.elevator.getHeight() > destHeight){
+        		Robot.elevator.control(-1 * SlopeSpeed);
+        		SmartDashboard.putString("Driving", "Down");
+        	}
+            else{SmartDashboard.putString("Driving", "Not");}
     }
 
     @Override
     protected boolean isFinished() {
-        return Math.abs(Robot.elevator.getHeight() - destHeight) <= Elevator.THRESHOLD;
+        return Math.abs(Robot.elevator.getHeight() - destHeight) <= STOP_THRESHOLD;
     }
 
     @Override
