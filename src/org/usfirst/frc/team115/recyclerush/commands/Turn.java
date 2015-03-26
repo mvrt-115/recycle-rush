@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class Turn extends PIDCommand {
 
-	public static final double SPEED_DEFAULT = 0.4;
 	public static final double P = 0.008;
 	public static final double I = 0;
 	public static final double D = 0;
