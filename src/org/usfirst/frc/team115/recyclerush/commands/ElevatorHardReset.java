@@ -7,13 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ElevatorHardReset extends Command {
 
 	private static final double SPEED_DOWN = -0.8;
+	private static final double SAFETY_TIMEOUT = 3;
 
 	public ElevatorHardReset(){
 		requires(Robot.elevator);
 	}
 
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+		setTimeout(SAFETY_TIMEOUT);
+	}
 
 	@Override
 	protected void execute() {
@@ -22,7 +25,7 @@ public class ElevatorHardReset extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.elevator.isLimitPressed();
+		return Robot.elevator.isLimitPressed() || isTimedOut();
 	}
 
 	@Override
