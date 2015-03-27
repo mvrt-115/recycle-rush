@@ -62,9 +62,9 @@ public class OI {
         JoystickButton rb = new JoystickButton(xbox, RobotMap.XBOX_RB);
         rb.whenPressed(new CloseClaw());
         JoystickButton a = new JoystickButton(xbox, RobotMap.XBOX_A);
-        a.whenPressed(new AutoIntake(true, Elevator.PRESET_TOTE_INTAKETOTE));
+        a.whenPressed(new AutoIntake(true, Elevator.PRESET_TOTE_INTAKETOTE, false));
         JoystickButton b = new JoystickButton(xbox, RobotMap.XBOX_B);
-        b.whenPressed(new AutoIntake(false, Elevator.PRESET_TOTE_INTAKETOTE));
+        b.whenPressed(new AutoIntake(false, Elevator.PRESET_TOTE_INTAKETOTE, false));
 
         XboxTrigger lt = new XboxTrigger(xbox, RobotMap.XBOX_LT, 0.6);
         XboxTrigger rt = new XboxTrigger(xbox, RobotMap.XBOX_RT, 0.6);
@@ -75,7 +75,7 @@ public class OI {
         // toggle claw/stabilizer on (y) button press
         JoystickButton y = new JoystickButton(xbox, RobotMap.XBOX_Y);
 
-        //y.toggleWhenPressed(new ToggleStabilizer());
+        y.toggleWhenPressed(new ToggleStabilizer());
 
         POVTrigger povUp = new POVTrigger(xbox, 0);
         povUp.whenActive(new ElevatorUp());

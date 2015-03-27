@@ -14,14 +14,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ElevatorToHeight extends Command {
     
     private double destHeight;
+    private boolean upwards = false;
+    public static final double STOP_THRESHOLD = 1;
+    public static final double RAMP_THRESHOLD = 3;
+    public static final double EQUALIZATION_MULTIPLE = 0.6;
+    double SlopeSpeed = -0.6;
     
     public ElevatorToHeight(double destHeight) {
         requires(Robot.elevator);
-        this.destHeight = destHeight;
+        setDest(destHeight);
     }
     
     public void setDest(double dest){
         destHeight = dest;
+        if(dest < Robot.elevator.getHeight())
+        {
+        	upwards = true;
+        	return;
+        }
+        upwards = false;
+        return;
     }
 
     @Override
@@ -31,15 +43,29 @@ public class ElevatorToHeight extends Command {
 
     @Override
     protected void execute() {
-        if(destHeight < Robot.elevator.getHeight())
-            Robot.elevator.control(Elevator.PRESET_SPEED);
-        else
-            Robot.elevator.control(-1 * Elevator.PRESET_SPEED);
+    	if(Math.abs(Robot.elevator.getHeight() - destHeight) < RAMP_THRESHOLD) {
+    		SlopeSpeed = -0.6*
+    				(Math.abs(Robot.elevator.getHeight() - destHeight) /
+    				RAMP_THRESHOLD * EQUALIZATION_MULTIPLE + (1-EQUALIZATION_MULTIPLE));
+    	}
+    	else{
+    		SlopeSpeed = -0.6;
+    	}
+        	if(Robot.elevator.getHeight() < destHeight){
+        		Robot.elevator.control(SlopeSpeed);
+        		SmartDashboard.putString("Driving", "Up");
+        	}
+        	else{SmartDashboard.putString("Driving", "Not");}
+            if(Robot.elevator.getHeight() > destHeight){
+        		Robot.elevator.control(-1 * SlopeSpeed);
+        		SmartDashboard.putString("Driving", "Down");
+        	}
+            else{SmartDashboard.putString("Driving", "Not");}
     }
 
     @Override
     protected boolean isFinished() {
-        return Math.abs(Robot.elevator.getHeight() - destHeight) <= Elevator.THRESHOLD;
+        return Math.abs(Robot.elevator.getHeight() - destHeight) <= STOP_THRESHOLD;
     }
 
     @Override

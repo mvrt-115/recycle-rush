@@ -33,7 +33,7 @@ public class Elevator extends Subsystem {
     private static final double TICKS_PER_INCH = TICKS_PER_ROTATION / INCHES_PER_ROTATION;
 
     public static final double THRESHOLD = 0.5;
-    public static final double PRESET_SPEED = 0.5;
+    public static final double PRESET_SPEED = 0.7;
 
     public static final double PRESET_BOTTOM = 0;
     public static final double PRESET_TOTE_INTAKETOTE = 14;
@@ -94,6 +94,11 @@ public class Elevator extends Subsystem {
     public void control(double y_axis) {
         if (Math.abs(y_axis) - 1 > 0) throw new IllegalArgumentException("Axis must be between -1 and 1");
         elevatorMotor1.set(y_axis * MAX_SPEED_FINE);
+    }
+    
+    public void setRamp(double rate) {
+    	elevatorMotor1.setVoltageRampRate(rate);
+    	elevatorMotor2.setVoltageRampRate(rate);
     }
 
     public void log() {

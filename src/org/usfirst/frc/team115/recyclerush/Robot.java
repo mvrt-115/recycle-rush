@@ -26,6 +26,7 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -41,7 +42,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	private Command autonCommand;
 	private SendableChooser autonChooser;
-
+	
+	public static Preferences prefs;
     public static DriveTrain drive;
     public static Stabilizer stabilizer;
     public static Claw claw;
@@ -51,6 +53,9 @@ public class Robot extends IterativeRobot {
     public static CompressorSystem compressor;
     public static CameraSystem camera;
 
+    private static double TurnP = 0.1;
+    private static double TurnI = 0;
+    private static double TurnD = 0;
     public Robot() {
         drive = new DriveTrain();
         stabilizer = new Stabilizer();
@@ -69,7 +74,7 @@ public class Robot extends IterativeRobot {
         claw.initialize();
         roller.initialize();
         compressor.initialize();
-        elevator.initialize();
+        //elevator.initialize();
         //camera.initialize();
         oi.initialize();
         initAutonChooser();
@@ -77,9 +82,9 @@ public class Robot extends IterativeRobot {
     }
 
     public void initCommands() {
-    	SmartDashboard.putData(new Turn(90));
-        SmartDashboard.putData(new ElevatorBrakeOff());
-        SmartDashboard.putData(new ElevatorHardReset());
+    	SmartDashboard.putData(new Turn(90, TurnP, TurnI, TurnD));
+        //SmartDashboard.putData(new ElevatorBrakeOff());
+        //SmartDashboard.putData(new ElevatorHardReset());
         SmartDashboard.putData(new DriveStraightDistanceNoPID(3));
         SmartDashboard.putData(new CanDriveDrive());
         SmartDashboard.putData(new DriveDrive());
@@ -126,16 +131,22 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopInit() {
     	Robot.drive.zeroEncoders();
+    	TurnP = prefs.getDouble("Turn P", 0.1);
+    	TurnI = prefs.getDouble("Turn I", 0);
+    	TurnD = prefs.getDouble("Turn D", 0);
     	SmartDashboard.putNumber("Drive Distance", Robot.drive.getDistance());
     }
 
     @Override
     public void disabledInit() {
-        Robot.elevator.brake();
+        //Robot.elevator.brake();
     }
 
     @Override
     public void teleopPeriodic() {
+    	TurnP = prefs.getDouble("Turn P", 0.1);
+    	TurnI = prefs.getDouble("Turn I", 0);
+    	TurnD = prefs.getDouble("Turn D", 0);
         Scheduler.getInstance().run();
         log();
     }
