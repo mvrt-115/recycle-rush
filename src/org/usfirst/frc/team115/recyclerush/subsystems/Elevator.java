@@ -23,7 +23,7 @@ public class Elevator extends Subsystem {
     private DoubleSolenoid brakeSolenoid;
 
     // the following measurements are in inches:
-    public static final double BOTTOM_HEIGHT = 55;
+    public static final double BOTTOM_HEIGHT = 57;
     public static final double TOP_HEIGHT = 0;
     public static final double MAX_SPEED_FINE = 1.0;
 
@@ -32,7 +32,7 @@ public class Elevator extends Subsystem {
     private static final double INCHES_PER_ROTATION = 3.53559055;
     private static final double TICKS_PER_INCH = TICKS_PER_ROTATION / INCHES_PER_ROTATION;
 
-    public static final double THRESHOLD = 0.5;
+    public static final double THRESHOLD = 1;
     public static final double PRESET_SPEED = 0.5;
 
     public static final double PRESET_BOTTOM = 0;

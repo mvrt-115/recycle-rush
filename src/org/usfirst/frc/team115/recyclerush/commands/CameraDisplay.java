@@ -2,6 +2,7 @@ package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CameraDisplay extends Command {
@@ -13,12 +14,13 @@ public class CameraDisplay extends Command {
 
     @Override
     protected void initialize() {
-        Robot.camera.predisplay();
+        //Robot.camera.predisplay();
     }
 
     @Override
     protected void execute() {
-        Robot.camera.display();
+        //Robot.camera.display();
+    	Timer.delay(0.005);
     }
 
     @Override

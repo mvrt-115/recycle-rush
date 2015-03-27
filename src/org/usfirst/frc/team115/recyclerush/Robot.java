@@ -1,10 +1,11 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import javafx.scene.Camera;
+
 import org.usfirst.frc.team115.recyclerush.commands.DriveDistance;
 import org.usfirst.frc.team115.recyclerush.commands.DriveStraightDistanceNoPID;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorBrakeOff;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
-import org.usfirst.frc.team115.recyclerush.commands.ResetElevatorEncoder;
 import org.usfirst.frc.team115.recyclerush.commands.Turn;
 import org.usfirst.frc.team115.recyclerush.commands.auton.Alliance;
 import org.usfirst.frc.team115.recyclerush.commands.auton.AutonGroup;
