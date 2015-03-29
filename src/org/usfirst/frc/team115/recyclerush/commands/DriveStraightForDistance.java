@@ -9,18 +9,18 @@ import org.usfirst.frc.team115.recyclerush.Robot;
  */
 public class DriveStraightForDistance extends DriveStraight {
 
-	private static int THRESHOLD = 100; //100 ticks
-	private final double SCALE = (1 / (Math.PI * 8)) * 2 * 1024; //ticks per inch
+	private static int THRESHOLD = 300; //100 ticks
+	private static int RAMP_THRESHOLD = 600; //400 ticks
+	private final double SCALE = (1 / (Math.PI * 8)) * 2 * 1444; //ticks per inch
 
 	private double distance;
 
 	public DriveStraightForDistance(double inches){
-		super(false);
-		this.distance = inches * SCALE;
+		this(DriveStraight.SPEED_DEFAULT, inches);
 	}
 
 	public DriveStraightForDistance(double speed, double inches){
-		super(speed, false);
+		super((inches < 0)?-speed:speed, false);
 		this.distance = inches * SCALE;
 	}
 
@@ -31,12 +31,22 @@ public class DriveStraightForDistance extends DriveStraight {
 	}
 
 	@Override
-	protected boolean isFinished() {
-		if(distance > 0) {
-			return Robot.drive.getDistance() >= (distance - THRESHOLD);
-		}else{
-			return Robot.drive.getDistance() <= (distance + THRESHOLD);
+	public double getSpeed(){
+		double scaler = 1;
+		//if distance remaining is less than the ramping threshold distance
+		if(Math.abs(distanceLeft()) < RAMP_THRESHOLD){
+			scaler = 0.2 + 0.8 * Math.abs(distanceLeft())/RAMP_THRESHOLD;
 		}
+		return super.getSpeed() * scaler;
+	}
+
+	private double distanceLeft(){
+		return distance - Robot.drive.getDistance();
+	}
+
+	@Override
+	protected boolean isFinished() {
+		return Math.abs(distanceLeft()) <= THRESHOLD;
 	}
 
 }
