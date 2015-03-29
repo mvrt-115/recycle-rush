@@ -9,9 +9,10 @@ import org.usfirst.frc.team115.recyclerush.Robot;
  */
 public class DriveStraightForDistance extends DriveStraight {
 
-	private static int THRESHOLD = 300; //100 ticks
-	private static int RAMP_THRESHOLD = 600; //400 ticks
-	private final double SCALE = (1 / (Math.PI * 8)) * 2 * 1444; //ticks per inch
+	private static int THRESHOLD = 200; //100 ticks
+	private static int RAMP_THRESHOLD = 1000; //100 ticks
+	private static int ENCODER_SCALE = 1444;
+	private final double SCALE = (1 / (Math.PI * 8)) * 2 * ENCODER_SCALE; //ticks per inch
 
 	private double distance;
 

@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class Turn extends PIDCommand {
 
-	public static final double P = 0.007;
-	public static final double I = 0.000105;
-	public static final double D = 0.04;
+	public static final double P = 0.0085;
+	public static final double I = 0.0000;
+	public static final double D = 0.0000;
 
 	private double delta;
 	private boolean finished_past = false;
