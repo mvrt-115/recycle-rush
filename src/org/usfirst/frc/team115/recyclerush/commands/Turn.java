@@ -6,13 +6,13 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
  * Turns the robot to a desired angle
- * @author Akhil Palla
+ * @author Akhil Palla, Marcus Plutowski
  */
 public class Turn extends PIDCommand {
 
-	public static final double P = 0.008;
-	public static final double I = 0;
-	public static final double D = 0;
+	public static final double P = 0.0085;
+	public static final double I = 0.0000;
+	public static final double D = 0.0000;
 
 	private double delta;
 	private boolean finished_past = false;
@@ -26,10 +26,11 @@ public class Turn extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.drive.stop();
-		setInputRange(0, 360);
-		getPIDController().setOutputRange(-0.6, 0.6);
+		setInputRange(-180, 180);
+		getPIDController().setAbsoluteTolerance(2);
+		getPIDController().setOutputRange(-0.7, 0.7);
 		getPIDController().setContinuous(true);
-		double dest = (Robot.navx.getYaw() + delta + 360)%360;
+		double dest = Math.abs((Robot.navx.getYaw() + delta + 180) % 360) - 180;
 		setSetpoint(dest);
 	}
 
@@ -40,7 +41,7 @@ public class Turn extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		return (Robot.navx.getYaw() + 360)%360;
+		return Robot.navx.getYaw();
 	}
 
 	@Override

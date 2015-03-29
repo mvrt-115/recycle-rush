@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class DriveStraight extends PIDCommand {
 
-	public static final double SPEED_DEFAULT = 0.4;
-	public static final double P = 0.008;
-	public static final double I = 0;
-	public static final double D = 0;
+	public static final double SPEED_DEFAULT = 0.5;
+	public static final double P = 0.02;
+	public static final double I = 0.0000001;
+	public static final double D = 0.004;
 
 	private double speed;
 	private boolean joystick;
@@ -52,10 +52,14 @@ public class DriveStraight extends PIDCommand {
 	@Override
 	protected void usePIDOutput(double output) {
 		if(joystick){
-			Robot.drive.controlJoystickMove(Robot.oi.getDriveJoystick(), output);
+			Robot.drive.control(-Robot.oi.getDriveJoystick().getY() * getSpeed(), output);
 		}else{
-			Robot.drive.control(speed, output);
+			Robot.drive.control(getSpeed(), output);
 		}
+	}
+
+	public double getSpeed(){
+		return speed;
 	}
 
 	@Override
