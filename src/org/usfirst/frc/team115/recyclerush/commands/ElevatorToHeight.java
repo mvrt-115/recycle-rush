@@ -10,12 +10,16 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ElevatorToHeight extends Command {
 
+	private static final int UP = 1;
+	private static final int DOWN = -1;
+
+	private static double HEATHER_TIMEOUT = 8;
+
 	private double destHeight;
-	private static final double RAMP_THRESHOLD = 4;
-	private static final double STOP_THRESHOLD = 1;
-	private double Speed = 0;
-	//private static double PRESET_SPEED = Math.min(1, Robot.elevator.PRESET_SPEED + 0.15); For later
-	private static double PRESET_SPEED = 0.65; //ElevatorControl makes - up and + down; we want the opposite for this -_-*-
+	private double halfHeight;
+	private static final double STOP_THRESHOLD = 1.5;
+	private static double PRESET_SPEED = 1;
+	private int direction = 0;
 	public ElevatorToHeight(double destHeight) {
 		requires(Robot.elevator);
 		this.destHeight = destHeight;
@@ -28,32 +32,33 @@ public class ElevatorToHeight extends Command {
 	@Override
 	protected void initialize() {
 		Robot.elevator.setBrake(false);
+		halfHeight = (destHeight + Robot.elevator.getHeight()) / 2;
+		direction = destHeight < Robot.elevator.getHeight() ? DOWN : UP;
+		setTimeout(HEATHER_TIMEOUT);
 	}
 
 	@Override
 	protected void execute() {
-		if(Math.abs(Robot.elevator.getHeight()) - RAMP_THRESHOLD < Math.abs(RAMP_THRESHOLD))
-		{
-			Speed = 0.7*Math.abs(Robot.elevator.getHeight() - destHeight)/RAMP_THRESHOLD + 0.3;
-		}
-		else
-		{
-			Speed = PRESET_SPEED;
-		}
-		if(destHeight < Robot.elevator.getHeight()) {
-			Robot.elevator.setSpeed(Speed);
-		} else {
-			Robot.elevator.setSpeed(-1 * Speed);
+		Robot.elevator.setSpeed(direction * PRESET_SPEED);
+		if(direction == DOWN) {
+			if(Robot.elevator.getHeight() < halfHeight && !Robot.elevator.isRamping()) {
+				Robot.elevator.setVoltageRampRate(48);
+			}
+		} else if(direction == UP) {
+			if(Robot.elevator.getHeight() > halfHeight && !Robot.elevator.isRamping()) {
+				Robot.elevator.setVoltageRampRate(48);
+			}
 		}
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(Robot.elevator.getHeight() - destHeight) <= STOP_THRESHOLD;
+		return Math.abs(Robot.elevator.getHeight() - destHeight) <= STOP_THRESHOLD || isTimedOut();
 	}
 
 	@Override
 	protected void end() {
+		Robot.elevator.setVoltageRampRate(0);
 		Robot.elevator.stop();
 	}
 

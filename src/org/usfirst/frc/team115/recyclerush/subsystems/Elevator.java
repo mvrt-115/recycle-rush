@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorDriveWithJoystick;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorResetEncoder;
@@ -23,8 +24,10 @@ public class Elevator extends Subsystem {
 	private CANTalon elevatorMotor2;
 	private DoubleSolenoid brakeSolenoid;
 
+	private boolean ramping = false;
+
 	// the following measurements are in inches:
-	private static final double BOTTOM_HEIGHT = 57;
+	private static final double BOTTOM_HEIGHT = 56;
 	private static final double TOP_HEIGHT = 0;
 	private static final double MAX_SPEED_FINE = 1.0;
 
@@ -32,6 +35,9 @@ public class Elevator extends Subsystem {
 	private static final int TICKS_PER_ROTATION = 1024;
 	private static final double INCHES_PER_ROTATION = 3.53559055;
 	private static final double TICKS_PER_INCH = TICKS_PER_ROTATION / INCHES_PER_ROTATION;
+
+	public static final double PRESET_CLAW_RELEASE = 10;
+	public static final double PRESET_STABILIZE_TOTES = 28;
 
 	public static final double PRESET_BOTTOM = 0;
 	public static final double PRESET_TOTE_INTAKETOTE = 14;
@@ -52,7 +58,7 @@ public class Elevator extends Subsystem {
 		elevatorMotor1 = new CANTalon(RobotMap.ELEV_MOTOR_1);
 		elevatorMotor2 = new CANTalon(RobotMap.ELEV_MOTOR_2);
 
-		elevatorMotor1.setReverseSoftLimit((int) (0.25 * TICKS_PER_INCH));//set limit to (1 inch from top)
+		elevatorMotor1.setReverseSoftLimit((int) (0.25 * TICKS_PER_INCH)); // set limit to (1 inch from top)
 		elevatorMotor1.enableForwardSoftLimit(false);
 		elevatorMotor1.enableReverseSoftLimit(true);
 		elevatorMotor1.enableLimitSwitch(true, false);
@@ -62,8 +68,22 @@ public class Elevator extends Subsystem {
 		elevatorMotor2.set(elevatorMotor1.getDeviceID());
 	}
 
+	public void setVoltageRampRate(double rate) {
+		elevatorMotor1.setVoltageRampRate(rate);
+		elevatorMotor2.setVoltageRampRate(rate);
+		ramping = true;
+	}
+
+	public boolean isRamping() {
+		return ramping;
+	}
+
 	public void initResetTrigger(){
 		new ElevResetTrigger().whenActive(new ElevatorResetEncoder());
+	}
+
+	public double getVelocity() {
+		return (elevatorMotor1.getSpeed() / TICKS_PER_INCH) / 10;
 	}
 
 	public boolean isLimitPressed() {
@@ -98,17 +118,23 @@ public class Elevator extends Subsystem {
 	public void setSpeed(double speed) {
 		//we need to invert the motor, because otherwise
 		//a positive speed makes the elevator go down
+		if(speed < 0 && getHeight() < 8) {
+			speed = speed * 0.3;
+		} else if(speed < 0) {
+			speed = speed * 0.8;
+		}
 		elevatorMotor1.set(speed * -1);
 	}
 
-	public void controlJoystick(double axis) {
-		elevatorMotor1.set(axis * MAX_SPEED_FINE);
+	public void controlJoystick(int axis) {
+		setSpeed(Robot.oi.getXboxAxis(axis, true) * MAX_SPEED_FINE);
 	}
 
 	public void log() {
 		SmartDashboard.putBoolean("Elevator Limit", elevatorMotor1.isFwdLimitSwitchClosed());
 		SmartDashboard.putNumber("Elevator Height", getHeight());
 		SmartDashboard.putNumber("Elevator Height-ticks", elevatorMotor1.getPosition());
+		SmartDashboard.putNumber("Elevator Speed", getVelocity());
 	}
 
 	class ElevResetTrigger extends Trigger {
