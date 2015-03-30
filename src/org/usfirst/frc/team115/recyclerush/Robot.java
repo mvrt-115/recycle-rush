@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorToHeight;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.Drive;
@@ -111,6 +112,8 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
+		SmartDashboard.putData("Elevator7", new ElevatorToHeight(Robot.elevator.getHeight()+7));
+		SmartDashboard.putData("Elevator-7", new ElevatorToHeight(Robot.elevator.getHeight()-7));
 	}
 
 	/**

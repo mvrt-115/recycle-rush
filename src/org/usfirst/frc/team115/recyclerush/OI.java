@@ -4,6 +4,7 @@ import org.usfirst.frc.team115.recyclerush.commands.ClawClose;
 import org.usfirst.frc.team115.recyclerush.commands.ClawOpen;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeClose;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeOpen;
+import org.usfirst.frc.team115.recyclerush.commands.OpenAll;
 import org.usfirst.frc.team115.recyclerush.commands.StabilizerToggle;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -42,6 +43,8 @@ public class OI {
 		.whenPressed(new ClawClose());
 		new JoystickButton(xboxJoystick, RobotMap.XBOX_Y)
 		.whenPressed(new StabilizerToggle());
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_A)
+		.whenPressed(new OpenAll());
 	}
 
 	public Joystick getDriveJoystick() {

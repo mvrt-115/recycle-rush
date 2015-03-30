@@ -29,11 +29,23 @@ public class ElevatorDriveWithJoystick extends Command {
 	@Override
 	protected void execute() {
 		double axisValue = Robot.oi.getXboxAxis(axis, true); //invert axis, so forward = positive
+		double RampScale = 0.8;
+		if(Robot.elevator.getHeight() <= 3) //Scaling to not kill Limit Switch
+		{
+			RampScale = //Math.abs(Robot.elevator.getHeight()/4)*0.9+0.1;
+					0.3;
+		}
 		if(Math.abs(axisValue) <= THRESHOLD) {
 			Robot.elevator.stop();
 		} else {
 			Robot.elevator.setBrake(false);
-			Robot.elevator.controlJoystick(Robot.oi.getXboxAxis(axis, false));
+			if(Math.abs(Robot.oi.getXboxAxis(axis, false))/Robot.oi.getXboxAxis(axis, false) == 1)
+			{
+				Robot.elevator.controlJoystick(RampScale*Robot.oi.getXboxAxis(axis, false));
+			}
+			else{
+				Robot.elevator.controlJoystick(Robot.oi.getXboxAxis(axis, false));
+			}
 		}
 	}
 
