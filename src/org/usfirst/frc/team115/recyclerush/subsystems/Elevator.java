@@ -118,8 +118,8 @@ public class Elevator extends Subsystem {
 	public void setSpeed(double speed) {
 		//we need to invert the motor, because otherwise
 		//a positive speed makes the elevator go down
-		if(speed < 0 && getHeight() < 8) {
-			speed = speed * 0.45;
+		if(speed < 0 && getHeight() < 5) {
+			speed = speed * 0.4;
 		} else if(speed < 0) {
 			speed = speed * 0.8;
 		}
