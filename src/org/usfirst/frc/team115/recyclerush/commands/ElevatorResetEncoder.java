@@ -2,6 +2,7 @@ package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorResetEncoder extends Command {
@@ -13,7 +14,10 @@ public class ElevatorResetEncoder extends Command {
 	}
 
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+		Robot.oi.rumbleXbox(Joystick.RumbleType.kLeftRumble, 1, 500);
+		Robot.oi.rumbleXbox(Joystick.RumbleType.kRightRumble, 1, 500);
+	}
 
 	@Override
 	protected void execute() {

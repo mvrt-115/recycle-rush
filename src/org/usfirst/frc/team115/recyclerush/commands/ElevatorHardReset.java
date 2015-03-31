@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorHardReset extends Command {
 
-	private static final double SPEED_DOWN = -0.8;
+	private static final double SPEED_DOWN = -1;
 	private static final double SAFETY_TIMEOUT = 3;
 
 	public ElevatorHardReset(){

@@ -33,7 +33,7 @@ public class ElevatorDriveWithJoystick extends Command {
 			Robot.elevator.stop();
 		} else {
 			Robot.elevator.setBrake(false);
-			Robot.elevator.controlJoystick(Robot.oi.getXboxAxis(axis, false));
+			Robot.elevator.controlJoystick(axis);
 		}
 	}
 
