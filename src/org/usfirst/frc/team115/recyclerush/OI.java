@@ -3,12 +3,14 @@ package org.usfirst.frc.team115.recyclerush;
 import org.usfirst.frc.team115.recyclerush.commands.ClawClose;
 import org.usfirst.frc.team115.recyclerush.commands.ClawOpen;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorDown;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorUp;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeClose;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeOpen;
 import org.usfirst.frc.team115.recyclerush.commands.OpenAll;
 import org.usfirst.frc.team115.recyclerush.commands.StabilizerToggle;
 import org.usfirst.frc.team115.recyclerush.commands.indep.AutoIntake;
+import org.usfirst.frc.team115.recyclerush.commands.indep.StabilizeTotes;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -54,6 +56,10 @@ public class OI {
 		.whenActive(new ElevatorUp());
 		new POVTrigger(xboxJoystick, 180)
 		.whenActive(new ElevatorDown());
+		new POVTrigger(xboxJoystick, 90)
+		.whenActive(new StabilizeTotes());
+		new POVTrigger(xboxJoystick, 270)
+		.whenActive(new ElevatorHardReset());
 		new JoystickButton(xboxJoystick, RobotMap.XBOX_B)
 		.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE, false));
 	}

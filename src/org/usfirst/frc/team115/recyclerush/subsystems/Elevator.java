@@ -36,8 +36,8 @@ public class Elevator extends Subsystem {
 	private static final double INCHES_PER_ROTATION = 3.53559055;
 	private static final double TICKS_PER_INCH = TICKS_PER_ROTATION / INCHES_PER_ROTATION;
 
-	public static final double PRESET_CLAW_RELEASE = 10;
-	public static final double PRESET_STABILIZE_TOTES = 28;
+	public static final double PRESET_CLAW_RELEASE = 9;
+	public static final double PRESET_STABILIZE_TOTES = 22;
 
 	public static final double PRESET_BOTTOM = 0;
 	public static final double PRESET_TOTE_INTAKETOTE = 14;
@@ -71,7 +71,7 @@ public class Elevator extends Subsystem {
 	public void setVoltageRampRate(double rate) {
 		elevatorMotor1.setVoltageRampRate(rate);
 		elevatorMotor2.setVoltageRampRate(rate);
-		ramping = true;
+		ramping = rate == 0 ? false : true;
 	}
 
 	public boolean isRamping() {
@@ -119,7 +119,7 @@ public class Elevator extends Subsystem {
 		//we need to invert the motor, because otherwise
 		//a positive speed makes the elevator go down
 		if(speed < 0 && getHeight() < 8) {
-			speed = speed * 0.3;
+			speed = speed * 0.45;
 		} else if(speed < 0) {
 			speed = speed * 0.8;
 		}
@@ -135,6 +135,7 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("Elevator Height", getHeight());
 		SmartDashboard.putNumber("Elevator Height-ticks", elevatorMotor1.getPosition());
 		SmartDashboard.putNumber("Elevator Speed", getVelocity());
+		SmartDashboard.putBoolean("Ramping?", isRamping());
 	}
 
 	class ElevResetTrigger extends Trigger {

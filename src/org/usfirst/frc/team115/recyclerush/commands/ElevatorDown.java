@@ -21,6 +21,10 @@ public class ElevatorDown extends CommandGroup {
 	@Override
 	public void initialize(){
 		double destHeight = getGoal();
+		if(destHeight == 0) {
+			elevToHeight.cancel();
+			addSequential(new ElevatorHardReset());
+		}
 		elevToHeight.setDest(destHeight);
 	}
 

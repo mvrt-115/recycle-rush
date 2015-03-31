@@ -16,6 +16,7 @@ public class ElevatorHardReset extends Command {
 	@Override
 	protected void initialize() {
 		setTimeout(SAFETY_TIMEOUT);
+		Robot.elevator.setBrake(false);
 	}
 
 	@Override

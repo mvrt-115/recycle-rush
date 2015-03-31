@@ -15,8 +15,8 @@ public class ElevatorResetEncoder extends Command {
 
 	@Override
 	protected void initialize() {
-		Robot.oi.rumbleXbox(Joystick.RumbleType.kLeftRumble, 1, 500);
-		Robot.oi.rumbleXbox(Joystick.RumbleType.kRightRumble, 1, 500);
+		Robot.oi.rumbleXbox(Joystick.RumbleType.kLeftRumble, .6, 300);
+		Robot.oi.rumbleXbox(Joystick.RumbleType.kRightRumble, .6, 300);
 	}
 
 	@Override
