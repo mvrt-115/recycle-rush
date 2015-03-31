@@ -24,8 +24,6 @@ public class Elevator extends Subsystem {
 	private CANTalon elevatorMotor2;
 	private DoubleSolenoid brakeSolenoid;
 
-	private boolean ramping = false;
-
 	// the following measurements are in inches:
 	private static final double BOTTOM_HEIGHT = 56;
 	private static final double TOP_HEIGHT = 0;
@@ -66,16 +64,6 @@ public class Elevator extends Subsystem {
 
 		elevatorMotor2.changeControlMode(CANTalon.ControlMode.Follower);
 		elevatorMotor2.set(elevatorMotor1.getDeviceID());
-	}
-
-	public void setVoltageRampRate(double rate) {
-		elevatorMotor1.setVoltageRampRate(rate);
-		elevatorMotor2.setVoltageRampRate(rate);
-		ramping = rate == 0 ? false : true;
-	}
-
-	public boolean isRamping() {
-		return ramping;
 	}
 
 	public void initResetTrigger(){
@@ -135,7 +123,6 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("Elevator Height", getHeight());
 		SmartDashboard.putNumber("Elevator Height-ticks", elevatorMotor1.getPosition());
 		SmartDashboard.putNumber("Elevator Speed", getVelocity());
-		SmartDashboard.putBoolean("Ramping?", isRamping());
 	}
 
 	class ElevResetTrigger extends Trigger {

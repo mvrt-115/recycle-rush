@@ -22,6 +22,7 @@ public class ElevatorToHeight extends Command {
 	private static double PRESET_SPEED = 1;
 	private int direction = 0;
 	private boolean shouldRamp = true;
+	private boolean shouldStop = true;
 	public ElevatorToHeight(double destHeight) {
 		requires(Robot.elevator);
 		this.destHeight = destHeight;
@@ -30,6 +31,11 @@ public class ElevatorToHeight extends Command {
 	public ElevatorToHeight(double destHeight, boolean ramp) {
 		this(destHeight);
 		this.shouldRamp = ramp;
+	}
+
+	public ElevatorToHeight(double destHeight, boolean ramp, boolean stop) {
+		this(destHeight, ramp);
+		this.shouldStop = stop;
 	}
 
 	public void setDest(double dest){
@@ -63,8 +69,9 @@ public class ElevatorToHeight extends Command {
 
 	@Override
 	protected void end() {
-		Robot.elevator.setVoltageRampRate(0);
-		Robot.elevator.stop();
+		if(shouldStop) {
+			Robot.elevator.stop();
+		}
 	}
 
 	@Override
