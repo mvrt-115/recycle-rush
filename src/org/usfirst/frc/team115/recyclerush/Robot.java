@@ -1,7 +1,6 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.Drive;
@@ -70,8 +69,6 @@ public class Robot extends IterativeRobot {
 		firstIteration = true;
 
 		oi.initXbox();
-
-		SmartDashboard.putData(new ElevatorHardReset());
 	}
 
 	@Override
