@@ -22,7 +22,7 @@ public class ElevatorToHeight extends Command {
 	private static double PRESET_SPEED = 1;
 	private int direction = 0;
 	private boolean shouldRamp = true;
-	private boolean shouldStop = true;
+	private boolean special = true;
 	public ElevatorToHeight(double destHeight) {
 		requires(Robot.elevator);
 		this.destHeight = destHeight;
@@ -33,9 +33,9 @@ public class ElevatorToHeight extends Command {
 		this.shouldRamp = ramp;
 	}
 
-	public ElevatorToHeight(double destHeight, boolean ramp, boolean stop) {
+	public ElevatorToHeight(double destHeight, boolean ramp, boolean special) {
 		this(destHeight, ramp);
-		this.shouldStop = stop;
+		this.special = special;
 	}
 
 	public void setDest(double dest){
@@ -58,18 +58,19 @@ public class ElevatorToHeight extends Command {
 		Robot.elevator.setSpeed(direction * PRESET_SPEED * ramp);
 	}
 
-	public double getRamp(double percent) {
-		return (-1/(1+40000*Math.exp(-0.11 * percent)) + 1);
+	public double getRamp(double percentToTarget) {
+		return ((1.3*(1-PRESET_SPEED / (1 + 40000*Math.exp(-0.11*percentToTarget)))-0.3));
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(Robot.elevator.getHeight() - destHeight) <= STOP_THRESHOLD || isTimedOut();
+		return (Math.abs(Robot.elevator.getHeight() - destHeight) <= STOP_THRESHOLD || isTimedOut())
+				|| (special && Robot.elevator.getHeight() <= 1);
 	}
 
 	@Override
 	protected void end() {
-		if(shouldStop) {
+		if(special) {
 			Robot.elevator.stop();
 		}
 	}
