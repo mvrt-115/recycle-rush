@@ -8,6 +8,7 @@ import org.usfirst.frc.team115.recyclerush.commands.ElevatorResetEncoder;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -84,6 +85,8 @@ public class Elevator extends Subsystem {
 
 	public void resetEncoder() {
 		elevatorMotor1.setPosition(BOTTOM_HEIGHT * TICKS_PER_INCH);
+		Robot.oi.rumbleXbox(Joystick.RumbleType.kLeftRumble, .6, 300);
+		Robot.oi.rumbleXbox(Joystick.RumbleType.kRightRumble, .6, 300);
 	}
 
 	public void setBrake(boolean brake) {
