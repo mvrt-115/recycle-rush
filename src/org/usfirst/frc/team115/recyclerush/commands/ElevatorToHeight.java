@@ -16,7 +16,6 @@ public class ElevatorToHeight extends Command {
     private static double HEATHER_TIMEOUT = 8;
 
     private double destHeight;
-    private double halfHeight;
     private double distance;
     private static final double STOP_THRESHOLD = 0.5;
     private static double PRESET_SPEED = 1;
@@ -45,7 +44,6 @@ public class ElevatorToHeight extends Command {
     @Override
     protected void initialize() {
         Robot.elevator.setBrake(false);
-        halfHeight = (destHeight + Robot.elevator.getHeight()) / 2;
         distance = Math.abs(Robot.elevator.getHeight() - destHeight);
         direction = destHeight < Robot.elevator.getHeight() ? DOWN : UP;
         setTimeout(HEATHER_TIMEOUT);
@@ -59,7 +57,7 @@ public class ElevatorToHeight extends Command {
     }
 
     public double getRamp(double percentToTarget) {
-        return ((1.3*(1-PRESET_SPEED / (1 + 40000*Math.exp(-0.11*percentToTarget)))-0.3));
+        return ((1 - 1 / (1 + 40000*Math.exp(-0.11 * percentToTarget))));
     }
 
     @Override
