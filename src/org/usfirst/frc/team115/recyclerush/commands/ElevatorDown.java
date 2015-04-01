@@ -11,35 +11,31 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ElevatorDown extends CommandGroup {
 
-	ElevatorToHeight elevToHeight;
+    ElevatorToHeight elevToHeight;
 
-	public ElevatorDown() {
-		elevToHeight = new ElevatorToHeight(0);
-		addSequential(elevToHeight);
-	}
+    public ElevatorDown() {
+        elevToHeight = new ElevatorToHeight(0);
+        addSequential(elevToHeight);
+    }
 
-	@Override
-	public void initialize(){
-		double destHeight = getGoal();
-		if(destHeight == 0) {
-			elevToHeight.cancel();
-			addSequential(new ElevatorHardReset());
-		}
-		elevToHeight.setDest(destHeight);
-	}
+    @Override
+    public void initialize(){
+        double destHeight = getGoal();
+        elevToHeight.setDest(destHeight);
+    }
 
-	private double getGoal() {
-		double[] presets = Elevator.presets;
-		double height = Robot.elevator.getHeight();
-		double destHeight = presets[0];
-		int destPreset = 0;
-		for(int i = presets.length - 1; i >= 0; i--){
-			if(presets[i] < height - 1){ // if the preset is below current height
-				destPreset = i; // set that preset to our destination
-				break;
-			}
-		}
-		destHeight = presets[destPreset];
-		return destHeight;
-	}
+    private double getGoal() {
+        double[] presets = Elevator.presets;
+        double height = Robot.elevator.getHeight();
+        double destHeight = presets[0];
+        int destPreset = 0;
+        for(int i = presets.length - 1; i >= 0; i--){
+            if(presets[i] < height - 1){ // if the preset is below current height
+                destPreset = i; // set that preset to our destination
+                break;
+            }
+        }
+        destHeight = presets[destPreset];
+        return destHeight;
+    }
 }
