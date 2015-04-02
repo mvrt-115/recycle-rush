@@ -17,6 +17,8 @@ public class RollerArcadeWithJoystick extends Command {
 
 	private int moveAxis, rotateAxis;
 
+	private boolean rolling = false, rolltrigger_past = false;
+
 	public RollerArcadeWithJoystick(){
 		this(Robot.oi.getXboxJoystick(), OI.ROLLER_MOVE_AXIS, OI.ROLLER_ROTATE_AXIS);
 	}
@@ -36,9 +38,24 @@ public class RollerArcadeWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		double move = Robot.oi.getXboxAxis(moveAxis, true);
-		double rotate = Robot.oi.getXboxAxis(rotateAxis, true);
-		Robot.roller.control(move, rotate);
+
+		if(!rolltrigger_past && Robot.oi.rollerButtonPressed()) {
+			rolling = !rolling;
+		}
+		rolltrigger_past = Robot.oi.rollerButtonPressed();
+
+		if(rolling && !isDriving()) {
+			Robot.roller.control(-1, 0);
+		} else {
+			double move = Robot.oi.getXboxAxis(moveAxis, true);
+			double rotate = Robot.oi.getXboxAxis(rotateAxis, true);
+			Robot.roller.control(move, rotate);
+		}
+	}
+
+	private boolean isDriving() {
+		return Math.abs(Robot.oi.getXboxAxis(moveAxis, true)) <= 0.15
+				&& Math.abs(Robot.oi.getXboxAxis(rotateAxis, true)) <= 0.15;
 	}
 
 	@Override

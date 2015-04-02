@@ -27,113 +27,119 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
  */
 public class OI {
 
-    public static final int AXIS_CONTROL_ELEVATOR = RobotMap.XBOX_AXIS_LY;
-    public static final int BUTTON_PRECISION = RobotMap.JOYSTICK_BUTTON_TRIGGER;
-    public static final int ROLLER_MOVE_AXIS = RobotMap.XBOX_AXIS_RY;
-    public static final int ROLLER_ROTATE_AXIS = RobotMap.XBOX_AXIS_RX;
+	public static final int AXIS_CONTROL_ELEVATOR = RobotMap.XBOX_AXIS_LY;
+	public static final int BUTTON_PRECISION = RobotMap.JOYSTICK_BUTTON_TRIGGER;
+	public static final int ROLLER_MOVE_AXIS = RobotMap.XBOX_AXIS_RY;
+	public static final int ROLLER_ROTATE_AXIS = RobotMap.XBOX_AXIS_RX;
 
-    private Joystick driveJoystick, xboxJoystick;
+	private Joystick driveJoystick, xboxJoystick;
 
-    public OI() {
-        driveJoystick = new Joystick(RobotMap.JOYSTICK_DRIVE);
-        xboxJoystick = new Joystick(RobotMap.JOYSTICK_XBOX);
-    }
+	private JoystickButton rollerToggle;
 
-    public void initXbox() {
-        new XboxTrigger(xboxJoystick, RobotMap.XBOX_LT, 0.6)
-        .whenActive(new IntakeOpen());
-        new XboxTrigger(xboxJoystick, RobotMap.XBOX_RT, 0.6)
-        .whenActive(new IntakeClose());
-        new JoystickButton(xboxJoystick, RobotMap.XBOX_LB)
-        .whenPressed(new ClawOpen());
-        new JoystickButton(xboxJoystick, RobotMap.XBOX_RB)
-        .whenPressed(new ClawClose());
-        new JoystickButton(xboxJoystick, RobotMap.XBOX_Y)
-        .whenPressed(new StabilizerToggle());
-        new JoystickButton(xboxJoystick, RobotMap.XBOX_A)
-        .whenPressed(new OpenAll());
-        new POVTrigger(xboxJoystick, 0)
-        .whenActive(new ElevatorUp());
-        new POVTrigger(xboxJoystick, 180)
-        .whenActive(new ElevatorDown());
-        new POVTrigger(xboxJoystick, 90)
-        .whenActive(new StabilizeTotes());
-        new POVTrigger(xboxJoystick, 270)
-        .whenActive(new ElevatorHardReset());
-        new JoystickButton(xboxJoystick, RobotMap.XBOX_B)
-        .whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE, false));
-    }
+	public OI() {
+		driveJoystick = new Joystick(RobotMap.JOYSTICK_DRIVE);
+		xboxJoystick = new Joystick(RobotMap.JOYSTICK_XBOX);
+	}
 
-    public Joystick getDriveJoystick() {
-        return driveJoystick;
-    }
+	public void initXbox() {
+		new XboxTrigger(xboxJoystick, RobotMap.XBOX_LT, 0.6)
+		.whenActive(new IntakeOpen());
+		new XboxTrigger(xboxJoystick, RobotMap.XBOX_RT, 0.6)
+		.whenActive(new IntakeClose());
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_LB)
+		.whenPressed(new ClawOpen());
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_RB)
+		.whenPressed(new ClawClose());
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_Y)
+		.whenPressed(new StabilizerToggle());
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_A)
+		.whenPressed(new OpenAll());
+		new POVTrigger(xboxJoystick, 0)
+		.whenActive(new ElevatorUp());
+		new POVTrigger(xboxJoystick, 180)
+		.whenActive(new ElevatorDown());
+		new POVTrigger(xboxJoystick, 90)
+		.whenActive(new StabilizeTotes());
+		new POVTrigger(xboxJoystick, 270)
+		.whenActive(new ElevatorHardReset());
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_B)
+		.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE, false));
+	}
 
-    public Joystick getXboxJoystick() {
-        return xboxJoystick;
-    }
+	public boolean rollerButtonPressed() {
+		return xboxJoystick.getRawButton(RobotMap.XBOX_RAXIS_PRESS);
+	}
 
-    public boolean getJoystickButton(int button){
-        return driveJoystick.getRawButton(button);
-    }
+	public Joystick getDriveJoystick() {
+		return driveJoystick;
+	}
 
-    /**
-     * Gets the axis values of the joystick
-     * @param axis: The value of the current axis
-     * @param invert: Whether or not to invert the axis
-     * if invert is false, joystick forward = negative
-     * if it's true, joystick forward = positive
-     */
-    public double getXboxAxis(int axis, boolean invert){
-        int inv = invert?-1:1;
-        return inv * xboxJoystick.getRawAxis(axis);
-    }
+	public Joystick getXboxJoystick() {
+		return xboxJoystick;
+	}
 
-    public void rumbleXbox(final RumbleType type, final double strength, final long millis) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                xboxJoystick.setRumble(type, (float) strength);
-                try {
-                    Thread.sleep(millis);
-                } catch (InterruptedException e) {
-                    System.err.println("Rumble sleep failed");
-                }
-                xboxJoystick.setRumble(type, 0);
-            }
-        }).start();
-    }
+	public boolean getJoystickButton(int button){
+		return driveJoystick.getRawButton(button);
+	}
+
+	/**
+	 * Gets the axis values of the joystick
+	 * @param axis: The value of the current axis
+	 * @param invert: Whether or not to invert the axis
+	 * if invert is false, joystick forward = negative
+	 * if it's true, joystick forward = positive
+	 */
+	public double getXboxAxis(int axis, boolean invert){
+		int inv = invert?-1:1;
+		return inv * xboxJoystick.getRawAxis(axis);
+	}
+
+	public void rumbleXbox(final RumbleType type, final double strength, final long millis) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				xboxJoystick.setRumble(type, (float) strength);
+				try {
+					Thread.sleep(millis);
+				} catch (InterruptedException e) {
+					System.err.println("Rumble sleep failed");
+				}
+				xboxJoystick.setRumble(type, 0);
+			}
+		}).start();
+	}
 
 }
 
 class XboxTrigger extends Trigger {
-    private Joystick xboxJoystick;
-    private int channel;
-    private double threshold;
+	private Joystick xboxJoystick;
+	private int channel;
+	private double threshold;
 
-    public XboxTrigger(Joystick joystick, int channel, double threshold) {
-        this.xboxJoystick = joystick;
-        this.channel = channel;
-        this.threshold = threshold;
-    }
+	public XboxTrigger(Joystick joystick, int channel, double threshold) {
+		this.xboxJoystick = joystick;
+		this.channel = channel;
+		this.threshold = threshold;
+	}
 
-    @Override
-    public boolean get() {
-        return xboxJoystick.getRawAxis(channel) >= threshold;
-    }
+	@Override
+	public boolean get() {
+		return xboxJoystick.getRawAxis(channel) >= threshold;
+	}
 }
 
 class POVTrigger extends Trigger {
-    private Joystick xboxJoystick;
-    private int angle;
+	private Joystick xboxJoystick;
+	private int angle;
 
-    public POVTrigger(Joystick joystick, int angle) {
-        this.xboxJoystick = joystick;
-        this.angle = angle;
-    }
+	public POVTrigger(Joystick joystick, int angle) {
+		this.xboxJoystick = joystick;
+		this.angle = angle;
+	}
 
-    @Override
-    public boolean get() {
-        return xboxJoystick.getPOV() == angle;
-    }
+	@Override
+	public boolean get() {
+		return xboxJoystick.getPOV() == angle;
+	}
 }
 
