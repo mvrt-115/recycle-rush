@@ -20,7 +20,7 @@ public class AutoIntake extends CommandGroup {
 		addSequential(new ClawOpen());
 		addSequential(new ElevatorToHeight(Robot.elevator.PRESET_BOTTOM, false));
 		addSequential(new ClawClose());
-		addSequential(new Delay(0.1));
+		addSequential(new Delay(0.2));
 		addSequential(new ElevatorToHeight(heightAtEnd));
 	}
 }
