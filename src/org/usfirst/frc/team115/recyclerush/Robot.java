@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.commands.led.FadePulse;
+import org.usfirst.frc.team115.recyclerush.commands.led.SetColor;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.Drive;
@@ -12,6 +14,8 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
 import com.kauailabs.navx_mxp.AHRS;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
@@ -87,6 +91,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+		new FadePulse(LEDStrip.PURPLE, LEDStrip.GOLD, (short) 2000);
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
@@ -104,6 +109,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		if (DriverStation.getInstance().getAlliance().equals(Alliance.Blue)) {
+			new SetColor(LEDStrip.BLUE);
+		} else {
+			new SetColor(LEDStrip.RED);
+		}
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
