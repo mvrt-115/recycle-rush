@@ -20,6 +20,10 @@ public class LEDStrip extends Subsystem {
 	public static final short FUNCTION_BREATHE = (short)3;
 	public static final short FUNCTION_RAINBOW = (short)2;
 
+	public static final short PURPLE = 2;
+	public static final short GOLD = 11;
+	public static final short BLUE = 12;
+	public static final short RED = 0;
 	public static final short STRIP_ADDRESS = (short)0;
 
 	private String ip;
