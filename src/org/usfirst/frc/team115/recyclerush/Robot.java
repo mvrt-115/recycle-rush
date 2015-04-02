@@ -1,6 +1,12 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.auton.AllianceAuton;
+import org.usfirst.frc.team115.recyclerush.auton.AutonGroup;
+import org.usfirst.frc.team115.recyclerush.auton.CanMobility;
+import org.usfirst.frc.team115.recyclerush.auton.CanStaging;
+import org.usfirst.frc.team115.recyclerush.auton.Mobility;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
 import org.usfirst.frc.team115.recyclerush.subsystems.CompressorSystem;
 import org.usfirst.frc.team115.recyclerush.subsystems.Drive;
@@ -19,6 +25,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -43,6 +50,8 @@ public class Robot extends IterativeRobot {
 	public static LEDStrip ledStripPrimary;
 
 	public static AHRS navx;
+
+	private SendableChooser autonChooser;
 
 	private Command autonomousCommand;
 
@@ -69,6 +78,18 @@ public class Robot extends IterativeRobot {
 		firstIteration = true;
 
 		oi.initXbox();
+
+		initAutonChooser();
+	}
+
+	private void initAutonChooser() {
+		autonChooser = new SendableChooser();
+		autonChooser.addDefault("Alliance", new AllianceAuton());
+		autonChooser.addObject("Can Staging", new CanStaging());
+		autonChooser.addObject("Can Mobility", new CanMobility());
+		autonChooser.addObject("Mobility", new Mobility());
+		autonChooser.addObject("Nothing", null);
+		SmartDashboard.putData("Autonomous Selector", autonChooser);
 	}
 
 	@Override
@@ -88,8 +109,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
+		autonomousCommand = (Command) autonChooser.getSelected();
 		if (autonomousCommand != null) {
-			autonomousCommand.start();
+			new AutonGroup(autonomousCommand).start();
+		} else {
+			new ElevatorHardReset().start();
 		}
 	}
 
