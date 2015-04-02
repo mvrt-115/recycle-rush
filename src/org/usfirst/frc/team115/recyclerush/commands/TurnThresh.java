@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 public class TurnThresh extends PIDCommand{
 	public static double Speed = 0;
 	public static double Target = 0;
+	public static double Direction = 0;
 	public static final double DEFAULT_SPEED = 0.5;
 	public TurnThresh(double speed, double TurnAmount) {
 		super(0.1, 0, 0); //0.1 so that I can see which direction the PID wants to move in
@@ -56,6 +57,7 @@ public class TurnThresh extends PIDCommand{
 		getPIDController().setContinuous(true);
 		double dest = Math.abs((Robot.navx.getYaw() + Target + 180) % 360) - 180;
 		setSetpoint(dest);
+		Direction = Math.signum(output);
 	}
 
 	@Override
@@ -70,11 +72,11 @@ public class TurnThresh extends PIDCommand{
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Robot.drive.control(0, Speed*Math.signum(output));
+		Robot.drive.control(0, Speed*Direction);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return getPIDController().onTarget(); //Not using finished_past and such because this Threshold
+		return (getPIDController().onTarget()) && (Math.signum(output) == Direction); //Not using finished_past and such because this Threshold
 	}
 }
