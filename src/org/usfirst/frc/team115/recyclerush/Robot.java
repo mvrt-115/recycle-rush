@@ -3,8 +3,7 @@ package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.auton.AllianceAuton;
 import org.usfirst.frc.team115.recyclerush.auton.AutonGroup;
-import org.usfirst.frc.team115.recyclerush.auton.CanMobility;
-import org.usfirst.frc.team115.recyclerush.auton.CanStaging;
+import org.usfirst.frc.team115.recyclerush.auton.JuggernautA;
 import org.usfirst.frc.team115.recyclerush.auton.Mobility;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.commands.led.FadePulse;
@@ -27,6 +26,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -58,6 +58,12 @@ public class Robot extends IterativeRobot {
 	private SendableChooser autonChooser;
 
 	private Command autonomousCommand;
+	private CommandGroup autonGroup;
+
+	private static final int AUTON_ALLIANCE = 1;
+	private static final int AUTON_NULL = 0;
+	private static final int AUTON_MOBILITY = 2;
+	private static final int AUTON_JUGGER = 6;
 
 	private boolean firstIteration;
 
@@ -76,7 +82,7 @@ public class Robot extends IterativeRobot {
 		elevator.initResetTrigger();
 		claw = new Claw();
 		stabilizer = new Stabilizer();
-		ledStripPrimary = new LEDStrip(5803, "10.1.15.20");
+		ledStripPrimary = new LEDStrip(5803, "10.1.15.16");
 
 		navx = new AHRS(new SerialPort(57600, Port.kMXP));
 		firstIteration = true;
@@ -88,11 +94,10 @@ public class Robot extends IterativeRobot {
 
 	private void initAutonChooser() {
 		autonChooser = new SendableChooser();
-		autonChooser.addDefault("Alliance", new AllianceAuton());
-		autonChooser.addObject("Can Staging", new CanStaging());
-		autonChooser.addObject("Can Mobility", new CanMobility());
-		autonChooser.addObject("Mobility", new Mobility());
-		autonChooser.addObject("Nothing", null);
+		autonChooser.addDefault("Alliance", AUTON_ALLIANCE);
+		autonChooser.addObject("Mobility", AUTON_MOBILITY);
+		autonChooser.addObject("Juggernaut", AUTON_JUGGER);
+		autonChooser.addObject("Null", AUTON_NULL);
 		SmartDashboard.putData("Autonomous Selector", autonChooser);
 	}
 
@@ -114,9 +119,26 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		new FadePulse(LEDStrip.PURPLE, LEDStrip.GOLD, (short) 2000);
 		// schedule the autonomous command (example)
-		autonomousCommand = (Command) autonChooser.getSelected();
+		int autonomousCommandIndex = (int) autonChooser.getSelected();
+		switch(autonomousCommandIndex) {
+		case AUTON_NULL:
+			autonomousCommand = null;
+			break;
+		case AUTON_ALLIANCE:
+			autonomousCommand = new AllianceAuton();
+			break;
+		case AUTON_MOBILITY:
+			autonomousCommand = new Mobility();
+			break;
+		case AUTON_JUGGER:
+			autonomousCommand = new JuggernautA();
+			break;
+		default:
+			System.err.println("Autonomous Command not indexed");
+		}
 		if (autonomousCommand != null) {
-			new AutonGroup(autonomousCommand).start();
+			autonGroup = new AutonGroup(autonomousCommand);
+			autonGroup.start();
 		} else {
 			new ElevatorHardReset().start();
 		}
@@ -143,7 +165,7 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != null) {
-			autonomousCommand.cancel();
+			autonGroup.cancel();
 		}
 	}
 

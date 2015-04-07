@@ -16,6 +16,7 @@ public class Turn extends PIDCommand {
 
 	private double delta;
 	private boolean finished_past = false;
+	private static double TIMEOUT = 5;
 
 	public Turn(double delta) {
 		super(P, I, D);
@@ -32,6 +33,7 @@ public class Turn extends PIDCommand {
 		getPIDController().setContinuous(true);
 		double dest = Math.abs((Robot.navx.getYaw() + delta + 180) % 360) - 180;
 		setSetpoint(dest);
+		this.setTimeout(TIMEOUT);
 	}
 
 	@Override
@@ -53,7 +55,7 @@ public class Turn extends PIDCommand {
 	protected boolean isFinished() {
 		boolean past = finished_past;
 		finished_past = getPIDController().onTarget();
-		return past && finished_past;
+		return (past && finished_past) || isTimedOut();
 	}
 
 	@Override

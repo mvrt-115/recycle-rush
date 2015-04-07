@@ -20,6 +20,7 @@ public class BreatheColor extends Command {
 	 */
 	public BreatheColor(short color1, short color2) {
 		requires(Robot.ledStripPrimary);
+		this.setRunWhenDisabled(true);
 		this.color1 = color1;
 		this.color2 = color2;
 	}

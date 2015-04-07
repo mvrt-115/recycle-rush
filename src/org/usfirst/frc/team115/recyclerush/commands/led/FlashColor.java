@@ -24,6 +24,7 @@ public class FlashColor extends Command {
 	public FlashColor(short ledColor, short period_on, short period_off) {
 		requires(Robot.ledStripPrimary);
 		color = ledColor;
+		this.setRunWhenDisabled(true);
 		this.period_off = period_off;
 		this.period_on = period_on;
 	}

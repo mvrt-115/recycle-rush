@@ -1,0 +1,141 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="Elevator Straining" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1184" y="30"/>
+		<width>166</width>
+		<height>79</height>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="171" y="5"/>
+		<width>29</width>
+		<height>14</height>
+		<property name="Text" value="Drive"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.VideoStreamViewerExtension">
+		<location x="367" y="0"/>
+		<width>665</width>
+		<height>464</height>
+		<property name="Camera IP Address" value="10.1.15.11"/>
+	</static-widget>
+	<widget field="Drivetrain Motor 3 Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="278" y="3"/>
+		<width>105</width>
+		<height>70</height>
+	</widget>
+	<widget field="Drivetrain Motor 2 Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="182" y="2"/>
+		<width>100</width>
+		<height>69</height>
+	</widget>
+	<widget field="Drivetrain Motor 1 Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="6" y="2"/>
+		<width>89</width>
+		<height>63</height>
+	</widget>
+	<widget field="Drivetrain Motor 0 Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="92" y="4"/>
+		<width>97</width>
+		<height>64</height>
+	</widget>
+	<widget field="NavX Yaw" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.Compass">
+		<location x="1162" y="125"/>
+		<width>166</width>
+		<height>115</height>
+	</widget>
+	<widget field="Intake Open?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="19" y="162"/>
+		<width>102</width>
+		<height>25</height>
+	</widget>
+	<widget field="Compressor Enabled?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="21" y="126"/>
+		<width>136</width>
+		<height>25</height>
+	</widget>
+	<widget field="NavX IsRotating" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1233" y="303"/>
+	</widget>
+	<widget field="NavX IsMoving" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1234" y="328"/>
+	</widget>
+	<widget field="NavX Connected" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1227" y="253"/>
+	</widget>
+	<widget field="NavX IsCalibrating" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1227" y="277"/>
+	</widget>
+	<widget field="Elevator Limit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1035" y="33"/>
+		<width>147</width>
+		<height>77</height>
+	</widget>
+	<widget field="Autonomous Selector" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="9" y="79"/>
+		<property name="Use Radio Buttons" value="false"/>
+	</widget>
+	<widget field="Velocity_X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1052" y="223"/>
+		<width>106</width>
+	</widget>
+	<widget field="Velocity_Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1048" y="196"/>
+		<width>112</width>
+	</widget>
+	<widget field="Displacement_X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1084" y="302"/>
+		<width>132</width>
+	</widget>
+	<widget field="Displacement_Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1092" y="328"/>
+		<width>124</width>
+	</widget>
+	<widget field="Drive Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1201" y="412"/>
+		<width>129</width>
+	</widget>
+	<widget field="NavX Roll" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1201" y="384"/>
+		<width>127</width>
+	</widget>
+	<widget field="Elevator Height-ticks" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="10" y="390"/>
+	</widget>
+	<widget field="NavX Accel_X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1035" y="144"/>
+		<width>124</width>
+	</widget>
+	<widget field="NavX Accel_Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1037" y="171"/>
+		<width>120</width>
+	</widget>
+	<widget field="NavX CompassHeading" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1053" y="278"/>
+		<width>158</width>
+	</widget>
+	<widget field="NavX Temp_C" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1083" y="252"/>
+		<width>127</width>
+	</widget>
+	<widget field="NavX Pitch" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1194" y="355"/>
+	</widget>
+	<widget field="Elevator Height" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
+		<location x="10" y="418"/>
+		<width>343</width>
+		<height>39</height>
+		<property name="Foreground" value="102.0.102.255"/>
+		<property name="Maximum" value="52.0"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+	<hidden field="Elevator direction"/>
+	<hidden field="PDP Current"/>
+	<hidden field="Is Finished?"/>
+	<hidden field="Auton Selector"/>
+	<hidden field="DriveStraight Speed"/>
+	<hidden field="Elevator Break Num"/>
+	<hidden field="Elevator Draw"/>
+	<hidden field="Elevator Speed"/>
+	<hidden field="PDP Temp"/>
+</xml>

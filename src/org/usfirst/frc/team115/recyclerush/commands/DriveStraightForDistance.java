@@ -12,7 +12,8 @@ public class DriveStraightForDistance extends DriveStraight {
 	private static int THRESHOLD = 200; //100 ticks
 	private static int RAMP_THRESHOLD = 1000; //100 ticks
 	private static int ENCODER_SCALE = 1444;
-	private final double SCALE = (1 / (Math.PI * 8)) * 2 * ENCODER_SCALE; //ticks per inch
+	private static double ERROR = 2.5;
+	private final double SCALE = (1 / (Math.PI * 8)) * 2 * ENCODER_SCALE / ERROR; //ticks per inch
 
 	private double distance;
 
@@ -36,7 +37,7 @@ public class DriveStraightForDistance extends DriveStraight {
 		double scaler = 1;
 		//if distance remaining is less than the ramping threshold distance
 		if(Math.abs(distanceLeft()) < RAMP_THRESHOLD){
-			scaler = 0.2 + 0.8 * Math.abs(distanceLeft())/RAMP_THRESHOLD;
+			scaler = 0.2 + (0.8 * (Math.abs(distanceLeft())/RAMP_THRESHOLD));
 		}
 		return super.getSpeed() * scaler;
 	}

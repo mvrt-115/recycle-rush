@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class DriveStraight extends PIDCommand {
 
-	public static final double SPEED_DEFAULT = 0.5;
+	public static final double SPEED_DEFAULT = 0.7;
 	public static final double P = 0.02;
 	public static final double I = 0.0000001;
 	public static final double D = 0.004;

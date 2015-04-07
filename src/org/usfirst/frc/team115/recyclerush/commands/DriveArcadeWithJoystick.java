@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveArcadeWithJoystick extends Command {
 
-	private static final double SPEED_PRECISION_DEFAULT = 0.5;
+	private static final double SPEED_PRECISION_DEFAULT = 0.7;
 
 	private Joystick joystick;
 
