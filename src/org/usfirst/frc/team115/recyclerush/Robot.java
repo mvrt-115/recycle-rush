@@ -1,12 +1,10 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
-import org.usfirst.frc.team115.recyclerush.auton.AllianceAuton;
+import java.io.IOException;
+
 import org.usfirst.frc.team115.recyclerush.auton.AutonGroup;
-import org.usfirst.frc.team115.recyclerush.auton.CanMobility;
-import org.usfirst.frc.team115.recyclerush.auton.CanStaging;
-import org.usfirst.frc.team115.recyclerush.auton.Mobility;
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
+import org.usfirst.frc.team115.recyclerush.auton.selector.AutonSelector;
 import org.usfirst.frc.team115.recyclerush.commands.led.FadePulse;
 import org.usfirst.frc.team115.recyclerush.commands.led.SetColor;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
@@ -26,10 +24,15 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.networktables.NetworkTableProvider;
+import edu.wpi.first.wpilibj.networktables2.client.NetworkTableClient;
+import edu.wpi.first.wpilibj.networktables2.stream.IOStream;
+import edu.wpi.first.wpilibj.networktables2.stream.IOStreamFactory;
+import edu.wpi.first.wpilibj.networktables2.stream.SocketStream;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -52,12 +55,28 @@ public class Robot extends IterativeRobot {
 	public static Claw claw;
 	public static Stabilizer stabilizer;
 	public static LEDStrip ledStripPrimary;
+	private static int _port = NetworkTable.DEFAULT_PORT;
+	private static String _host = "10.1.15.2";
+	private static final IOStreamFactory configurableFactory = new IOStreamFactory() {
+
+		@Override
+		public IOStream createStream() throws IOException {
+			if(_host == null) {
+				return null;
+			}
+			return new SocketStream(_host, _port);
+		}
+
+	};
+
+	public static NetworkTableClient netTable = new NetworkTableClient(configurableFactory);
+	public static NetworkTableProvider provider = new NetworkTableProvider(netTable);
 
 	public static AHRS navx;
 
-	private SendableChooser autonChooser;
+	private AutonSelector selector;
 
-	private Command autonomousCommand;
+	private CommandGroup autonGroup;
 
 	private boolean firstIteration;
 
@@ -83,17 +102,7 @@ public class Robot extends IterativeRobot {
 
 		oi.initXbox();
 
-		initAutonChooser();
-	}
-
-	private void initAutonChooser() {
-		autonChooser = new SendableChooser();
-		autonChooser.addDefault("Alliance", new AllianceAuton());
-		autonChooser.addObject("Can Staging", new CanStaging());
-		autonChooser.addObject("Can Mobility", new CanMobility());
-		autonChooser.addObject("Mobility", new Mobility());
-		autonChooser.addObject("Nothing", null);
-		SmartDashboard.putData("Autonomous Selector", autonChooser);
+		selector = new AutonSelector(provider.getRootTable());
 	}
 
 	@Override
@@ -114,12 +123,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		new FadePulse(LEDStrip.PURPLE, LEDStrip.GOLD, (short) 2000);
 		// schedule the autonomous command (example)
-		autonomousCommand = (Command) autonChooser.getSelected();
-		if (autonomousCommand != null) {
-			new AutonGroup(autonomousCommand).start();
-		} else {
-			new ElevatorHardReset().start();
-		}
+		autonGroup = new AutonGroup(selector.getAuton());
 	}
 
 	/**
@@ -142,9 +146,7 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null) {
-			autonomousCommand.cancel();
-		}
+		autonGroup.cancel();
 	}
 
 	/**
