@@ -32,7 +32,7 @@ public class AutonSelector {
 					if(command.charAt(0) == '+') {
 						addSequential(parseString(command.substring(1)));
 					} else if(command.charAt(0) == '-') {
-						addSequential(parseString(command.substring(1)));
+						addParallel(parseString(command.substring(1)));
 					}
 				}
 			}
