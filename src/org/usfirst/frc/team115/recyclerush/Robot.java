@@ -101,8 +101,6 @@ public class Robot extends IterativeRobot {
 		firstIteration = true;
 
 		oi.initXbox();
-
-		selector = new AutonSelector(provider.getRootTable());
 	}
 
 	@Override
@@ -123,6 +121,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		new FadePulse(LEDStrip.PURPLE, LEDStrip.GOLD, (short) 2000);
 		// schedule the autonomous command (example)
+		selector = new AutonSelector(provider.getTable("AUTONOMOUS"));
 		autonGroup = new AutonGroup(selector.getAuton());
 	}
 

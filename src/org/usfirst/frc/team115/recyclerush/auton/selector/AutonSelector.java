@@ -26,17 +26,7 @@ public class AutonSelector {
 
 	public CommandGroup getAuton() {
 		String[] commands = getStringArray();
-		return new CommandGroup() {
-			public void initCommands() {
-				for(String command : commands) {
-					if(command.charAt(0) == '+') {
-						addSequential(parseString(command.substring(1)));
-					} else if(command.charAt(0) == '-') {
-						addParallel(parseString(command.substring(1)));
-					}
-				}
-			}
-		};
+		return new CustomCommandGroup(commands);
 	}
 
 	protected Command parseString(String command) {
@@ -114,7 +104,18 @@ public class AutonSelector {
 	}
 
 	public String[] getStringArray() {
-		ITable autonomous = container.getSubTable("AUTONOMOUS");
-		return (String[]) autonomous.getValue("Auton Array");
+		return (String[]) container.getValue("Auton Array");
+	}
+
+	private class CustomCommandGroup extends CommandGroup {
+		public CustomCommandGroup(String[] commands) {
+			for(String command : commands) {
+				if(command.charAt(0) == '+') {
+					addSequential(parseString(command.substring(1)));
+				} else if(command.charAt(0) == '-') {
+					addParallel(parseString(command.substring(1)));
+				}
+			}
+		}
 	}
 }
