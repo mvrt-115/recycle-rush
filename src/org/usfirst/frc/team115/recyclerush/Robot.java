@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.usfirst.frc.team115.recyclerush.auton.AutonGroup;
 import org.usfirst.frc.team115.recyclerush.auton.selector.AutonSelector;
+import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.commands.led.FadePulse;
 import org.usfirst.frc.team115.recyclerush.commands.led.SetColor;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
@@ -78,6 +79,11 @@ public class Robot extends IterativeRobot {
 
 	private CommandGroup autonGroup;
 
+	private static final int AUTON_ALLIANCE = 1;
+	private static final int AUTON_NULL = 0;
+	private static final int AUTON_MOBILITY = 2;
+	private static final int AUTON_JUGGER = 6;
+
 	private boolean firstIteration;
 
 	/**
@@ -95,7 +101,7 @@ public class Robot extends IterativeRobot {
 		elevator.initResetTrigger();
 		claw = new Claw();
 		stabilizer = new Stabilizer();
-		ledStripPrimary = new LEDStrip(5803, "10.1.15.20");
+		ledStripPrimary = new LEDStrip(5803, "10.1.15.16");
 
 		navx = new AHRS(new SerialPort(57600, Port.kMXP));
 		firstIteration = true;
@@ -122,7 +128,13 @@ public class Robot extends IterativeRobot {
 		new FadePulse(LEDStrip.PURPLE, LEDStrip.GOLD, (short) 2000);
 		// schedule the autonomous command (example)
 		selector = new AutonSelector(provider.getTable("AUTONOMOUS"));
-		autonGroup = new AutonGroup(selector.getAuton());
+		CommandGroup selectorGroup = selector.getAuton();
+		if(selectorGroup != null) {
+			autonGroup = new AutonGroup(selectorGroup);
+			autonGroup.start();
+		} else {
+			new ElevatorHardReset().start();
+		}
 	}
 
 	/**
@@ -145,7 +157,9 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		autonGroup.cancel();
+		if(autonGroup != null) {
+			autonGroup.cancel();
+		}
 	}
 
 	/**

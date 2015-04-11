@@ -24,6 +24,7 @@ public class FadePulse extends Command {
 	public FadePulse(short color1, short color2, short period) {
 		requires(Robot.ledStripPrimary);
 		this.color1 = color1;
+		this.setRunWhenDisabled(true);
 		this.color2 = color2;
 		this.period = period;
 	}

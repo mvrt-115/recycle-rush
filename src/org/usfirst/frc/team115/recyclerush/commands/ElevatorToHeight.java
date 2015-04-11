@@ -57,16 +57,16 @@ public class ElevatorToHeight extends Command {
 	}
 
 	public double getRamp(double percentToTarget) {
-		return ((1 - 1 / (1 + 40000*Math.exp(-0.11 * percentToTarget))));
+		return ((1 - 1 / (1 + 60000*Math.exp(-0.11 * percentToTarget))));
 	}
 
 	@Override
 	protected boolean isFinished() {
 		if(direction == UP){
-			return (Robot.elevator.getHeight() >= destHeight)|| (special && Robot.elevator.getHeight() <= 1);
+			return (Robot.elevator.getHeight() >= destHeight) || (special && Robot.elevator.getHeight() <= 1);
 		}
 		else{
-			return (Robot.elevator.getHeight() <= destHeight)|| (special && Robot.elevator.getHeight() <= 1);
+			return (Robot.elevator.getHeight() <= destHeight) || (special && Robot.elevator.getHeight() <= 1);
 		}
 	}
 

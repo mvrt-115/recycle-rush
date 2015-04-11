@@ -54,8 +54,8 @@ public class RollerArcadeWithJoystick extends Command {
 	}
 
 	private boolean isDriving() {
-		return Math.abs(Robot.oi.getXboxAxis(moveAxis, true)) <= 0.15
-				&& Math.abs(Robot.oi.getXboxAxis(rotateAxis, true)) <= 0.15;
+		return Math.abs(Robot.oi.getXboxAxis(moveAxis, true)) >= 0.15
+				&& Math.abs(Robot.oi.getXboxAxis(rotateAxis, true)) >= 0.15;
 	}
 
 	@Override

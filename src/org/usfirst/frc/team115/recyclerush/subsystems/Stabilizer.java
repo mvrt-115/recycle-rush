@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Stabilizer extends Subsystem {
 
-	public static final double TIME_TO_ACTUATE = 0.15;
+	public static final double TIME_TO_ACTUATE = 0.8;
 
 	private DoubleSolenoid stabSolenoid;
 

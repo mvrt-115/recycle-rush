@@ -17,6 +17,7 @@ public class SetColor extends Command {
 	 */
 	public SetColor(short ledColor) {
 		requires(Robot.ledStripPrimary);
+		this.setRunWhenDisabled(true);
 		color = ledColor;
 	}
 

@@ -17,6 +17,7 @@ public class Rainbow extends Command {
 	 */
 	public Rainbow(short period) {
 		requires(Robot.ledStripPrimary);
+		this.setRunWhenDisabled(true);
 		this.period = period;
 	}
 

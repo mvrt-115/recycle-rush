@@ -13,6 +13,7 @@ public class PulseColor extends Command {
 
 	public PulseColor(short period, short color) {
 		requires(Robot.ledStripPrimary);
+		this.setRunWhenDisabled(true);
 		this.period = period;
 		this.color = color;
 	}
