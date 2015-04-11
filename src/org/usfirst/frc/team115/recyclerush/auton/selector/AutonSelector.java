@@ -96,7 +96,7 @@ public class AutonSelector {
 			return Elevator.PRESET_STABILIZE_TOTES;
 		case "release":
 			return Elevator.PRESET_CLAW_RELEASE;
-		case "tote_iontake_three_totes":
+		case "tote_intake_three_totes":
 		case "tote_three_totes":
 			return Elevator.PRESET_TOTE_INTAKETHREETOTES;
 		}
@@ -104,7 +104,10 @@ public class AutonSelector {
 	}
 
 	public String[] getStringArray() {
-		return (String[]) container.getValue("Auton Array");
+		String s = container.getString("Auton Array");
+		s = s.substring(1, s.length() - 1);
+		String[] split = s.split(", ");
+		return split;
 	}
 
 	private class CustomCommandGroup extends CommandGroup {
