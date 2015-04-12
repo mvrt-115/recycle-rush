@@ -18,6 +18,7 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 public class AutonSelector {
 	ITable container;
@@ -25,7 +26,7 @@ public class AutonSelector {
 		this.container = table;
 	}
 
-	public CommandGroup getAuton() {
+	public CommandGroup getAuton() throws TableKeyNotDefinedException {
 		String[] commands = getStringArray();
 		return new CustomCommandGroup(commands);
 	}
@@ -106,7 +107,7 @@ public class AutonSelector {
 		return Elevator.PRESET_TOP;
 	}
 
-	public String[] getStringArray() {
+	public String[] getStringArray() throws TableKeyNotDefinedException {
 		String s = container.getString("Auton Array");
 		s = s.substring(1, s.length() - 1);
 		String[] split = s.split(", ");

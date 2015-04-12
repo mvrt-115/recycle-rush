@@ -1,8 +1,6 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
-import java.io.IOException;
-
 import org.usfirst.frc.team115.recyclerush.auton.AutonGroup;
 import org.usfirst.frc.team115.recyclerush.auton.selector.AutonSelector;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
@@ -29,12 +27,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.networktables.NetworkTableProvider;
-import edu.wpi.first.wpilibj.networktables2.client.NetworkTableClient;
-import edu.wpi.first.wpilibj.networktables2.stream.IOStream;
-import edu.wpi.first.wpilibj.networktables2.stream.IOStreamFactory;
-import edu.wpi.first.wpilibj.networktables2.stream.SocketStream;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -56,22 +50,6 @@ public class Robot extends IterativeRobot {
 	public static Claw claw;
 	public static Stabilizer stabilizer;
 	public static LEDStrip ledStripPrimary;
-	private static int _port = NetworkTable.DEFAULT_PORT;
-	private static String _host = "10.1.15.2";
-	private static final IOStreamFactory configurableFactory = new IOStreamFactory() {
-
-		@Override
-		public IOStream createStream() throws IOException {
-			if(_host == null) {
-				return null;
-			}
-			return new SocketStream(_host, _port);
-		}
-
-	};
-
-	public static NetworkTableClient netTable = new NetworkTableClient(configurableFactory);
-	public static NetworkTableProvider provider = new NetworkTableProvider(netTable);
 
 	public static AHRS navx;
 
@@ -127,13 +105,21 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		new FadePulse(LEDStrip.PURPLE, LEDStrip.GOLD, (short) 2000);
 		// schedule the autonomous command (example)
-		selector = new AutonSelector(provider.getTable("AUTONOMOUS"));
-		CommandGroup selectorGroup = selector.getAuton();
-		if(selectorGroup != null) {
-			autonGroup = new AutonGroup(selectorGroup);
-			autonGroup.start();
-		} else {
-			new ElevatorHardReset().start();
+		try {
+			selector = new AutonSelector(NetworkTable.getTable("AUTONOMOUS"));
+			CommandGroup selectorGroup = selector.getAuton();
+			if (selectorGroup != null) {
+				autonGroup = new AutonGroup(selectorGroup);
+			} else {
+				new ElevatorHardReset().start();
+			}
+		} catch (TableKeyNotDefinedException e) {
+			System.err.println("Auton Group not defined");
+			autonGroup = null;
+		} finally {
+			if (autonGroup != null) {
+				autonGroup.start();
+			}
 		}
 	}
 
