@@ -117,7 +117,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		new FadePulse(LEDStrip.PURPLE, LEDStrip.GOLD, (short) 2000);
+		new FadePulse(LEDStrip.PURPLE, LEDStrip.GOLD, (short) 2000).start();
 		// schedule the autonomous command (example)
 		int autonomousCommandIndex = (int) autonChooser.getSelected();
 		switch(autonomousCommandIndex) {
@@ -156,9 +156,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		if (DriverStation.getInstance().getAlliance().equals(Alliance.Blue)) {
-			new SetColor(LEDStrip.BLUE);
+			new SetColor(LEDStrip.BLUE).start();
 		} else {
-			new SetColor(LEDStrip.RED);
+			new SetColor(LEDStrip.RED).start();
 		}
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
@@ -175,6 +175,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit(){
+		new FadePulse(LEDStrip.PURPLE, LEDStrip.GOLD, (short) 5000).start();
 	}
 
 	/**
