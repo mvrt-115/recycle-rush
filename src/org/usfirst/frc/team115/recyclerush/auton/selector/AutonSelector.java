@@ -2,6 +2,7 @@ package org.usfirst.frc.team115.recyclerush.auton.selector;
 
 import java.util.Arrays;
 
+import org.usfirst.frc.team115.recyclerush.auton.Turn;
 import org.usfirst.frc.team115.recyclerush.commands.ClawClose;
 import org.usfirst.frc.team115.recyclerush.commands.ClawOpen;
 import org.usfirst.frc.team115.recyclerush.commands.DriveStraightForDistance;
@@ -68,6 +69,8 @@ public class AutonSelector {
 			}
 		} else if(split[0].equalsIgnoreCase("roller")) {
 			new RollerRotate(Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]));
+		} else if(split[0].equalsIgnoreCase("turn")) {
+			new Turn(Double.parseDouble(split[1]));
 		}
 		return null;
 	}
