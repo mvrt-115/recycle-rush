@@ -63,10 +63,10 @@ public class ElevatorToHeight extends Command {
 	@Override
 	protected boolean isFinished() {
 		if(direction == UP){
-			return (Robot.elevator.getHeight() >= destHeight) || (special && Robot.elevator.getHeight() <= 1);
+			return (Robot.elevator.getHeight() >= destHeight) || (special && Robot.elevator.getHeight() <= 3);
 		}
 		else{
-			return (Robot.elevator.getHeight() <= destHeight) || (special && Robot.elevator.getHeight() <= 1);
+			return (Robot.elevator.getHeight() <= destHeight) || (special && Robot.elevator.getHeight() <= 3);
 		}
 	}
 

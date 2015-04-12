@@ -63,7 +63,7 @@ public class OI {
 		new POVTrigger(xboxJoystick, 270)
 		.whenActive(new ElevatorHardReset());
 		new JoystickButton(xboxJoystick, RobotMap.XBOX_B)
-		.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE, false));
+		.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE, true, true));
 	}
 
 	public boolean rollerButtonPressed() {
