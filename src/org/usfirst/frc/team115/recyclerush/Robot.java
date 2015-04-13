@@ -6,7 +6,6 @@ import org.usfirst.frc.team115.recyclerush.auton.AutonGroup;
 import org.usfirst.frc.team115.recyclerush.auton.JuggernautA;
 import org.usfirst.frc.team115.recyclerush.auton.Mobility;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
-import org.usfirst.frc.team115.recyclerush.commands.ElevatorToHeight;
 import org.usfirst.frc.team115.recyclerush.commands.led.FadePulse;
 import org.usfirst.frc.team115.recyclerush.commands.led.SetColor;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
@@ -89,9 +88,6 @@ public class Robot extends IterativeRobot {
 		firstIteration = true;
 
 		oi.initXbox();
-
-		SmartDashboard.putData("To 40", new ElevatorToHeight(40, true));
-		SmartDashboard.putData("To 10", new ElevatorToHeight(10, true));
 
 		initAutonChooser();
 	}

@@ -112,6 +112,7 @@ public class Drive extends Subsystem {
 		for (int it = 0; it < motors.length; it++) {
 			CANTalon motor = motors[it];
 			SmartDashboard.putNumber("Drivetrain Motor " + it + " Current", motor.getOutputCurrent());
+			SmartDashboard.putNumber("Drivetrain Motor " + it + " Distance", motor.getEncPosition());
 		}
 
 		SmartDashboard.putNumber("Drive Distance", getDistance());

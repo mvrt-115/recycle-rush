@@ -37,7 +37,7 @@ public class DriveStraightForDistance extends DriveStraight {
 		double scaler = 1;
 		//if distance remaining is less than the ramping threshold distance
 		if(Math.abs(distanceLeft()) < RAMP_THRESHOLD){
-			scaler = 0.2 + (0.8 * (Math.abs(distanceLeft())/RAMP_THRESHOLD));
+			scaler = 0.15 + (0.85 * (Math.abs(distanceLeft())/RAMP_THRESHOLD));
 		}
 		return super.getSpeed() * scaler;
 	}
