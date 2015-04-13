@@ -12,7 +12,7 @@ import org.usfirst.frc.team115.recyclerush.commands.IntakeClose;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeOpen;
 import org.usfirst.frc.team115.recyclerush.commands.StabilizerClose;
 import org.usfirst.frc.team115.recyclerush.commands.StabilizerOpen;
-import org.usfirst.frc.team115.recyclerush.indep.RollerRotate;
+import org.usfirst.frc.team115.recyclerush.commands.indep.RollerRotate;
 import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;

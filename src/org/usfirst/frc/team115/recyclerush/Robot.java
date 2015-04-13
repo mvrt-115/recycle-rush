@@ -116,10 +116,9 @@ public class Robot extends IterativeRobot {
 		} catch (TableKeyNotDefinedException e) {
 			System.err.println("Auton Group not defined");
 			autonGroup = null;
-		} finally {
-			if (autonGroup != null) {
-				autonGroup.start();
-			}
+		}
+		if (autonGroup != null) {
+			autonGroup.start();
 		}
 	}
 

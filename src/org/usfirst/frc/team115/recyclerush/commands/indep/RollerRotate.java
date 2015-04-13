@@ -1,4 +1,4 @@
-package org.usfirst.frc.team115.recyclerush.indep;
+package org.usfirst.frc.team115.recyclerush.commands.indep;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
 
