@@ -3,6 +3,7 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -19,6 +20,10 @@ public class Intake extends Subsystem {
 	public Intake() {
 		intakeSolenoid = new DoubleSolenoid(RobotMap.PCM,
 				RobotMap.INTAKE_SOL_A, RobotMap.INTAKE_SOL_B);
+	}
+
+	public boolean isOpen(){
+		return intakeSolenoid.get().equals(Value.kForward);
 	}
 
 	public void open() {

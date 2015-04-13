@@ -2,11 +2,13 @@ package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.commands.ClawClose;
 import org.usfirst.frc.team115.recyclerush.commands.ClawOpen;
+import org.usfirst.frc.team115.recyclerush.commands.ClawToggle;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorDown;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorUp;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeClose;
 import org.usfirst.frc.team115.recyclerush.commands.IntakeOpen;
+import org.usfirst.frc.team115.recyclerush.commands.IntakeToggle;
 import org.usfirst.frc.team115.recyclerush.commands.OpenAll;
 import org.usfirst.frc.team115.recyclerush.commands.StabilizerToggle;
 import org.usfirst.frc.team115.recyclerush.commands.indep.AutoIntake;
@@ -41,7 +43,47 @@ public class OI {
 		xboxJoystick = new Joystick(RobotMap.JOYSTICK_XBOX);
 	}
 
-	public void initXbox() {
+
+	public void initXbox(){
+		initXboxSchemeTwo();
+	}
+
+	public void initXboxSchemeTwo(){
+		new XboxTrigger(xboxJoystick, RobotMap.XBOX_LT, 0.6)
+		.whenActive(new ClawToggle());
+		new XboxTrigger(xboxJoystick, RobotMap.XBOX_RT, 0.6)
+		.whenActive(new IntakeToggle());
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_Y)
+		.whenPressed(new StabilizerToggle());
+
+		//D-Pad Up/Down: Elev presets up and down
+		new POVTrigger(xboxJoystick, 0)
+		.whenActive(new ElevatorUp());
+		new POVTrigger(xboxJoystick, 180)
+		.whenActive(new ElevatorDown());
+
+		//D-PAD Right: Stabilize Totes
+		new POVTrigger(xboxJoystick, 90)
+		.whenActive(new StabilizeTotes());
+
+		//D-Pad Left: Hard Reset
+		new POVTrigger(xboxJoystick, 270)
+		.whenActive(new ElevatorHardReset());
+
+		//B button: autoIntake with ramp
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_B)
+		.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE + 3, true, true));
+
+		//X button: autoIntake no rollers
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_X)
+		.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE + 3, false, true));
+
+		//A button: open all
+		new JoystickButton(xboxJoystick, RobotMap.XBOX_A)
+		.whenPressed(new OpenAll());
+	}
+
+	public void initXboxSchemeOne() {
 		new XboxTrigger(xboxJoystick, RobotMap.XBOX_LT, 0.6)
 		.whenActive(new IntakeOpen());
 		new XboxTrigger(xboxJoystick, RobotMap.XBOX_RT, 0.6)

@@ -1,30 +1,34 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.recyclerush.Robot;
-import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
+import org.usfirst.frc.team115.recyclerush.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class StabilizerToggle extends Command {
+/**
+ * Closes the intake solenoid
+ * @author Lee Mracek
+ */
+public class IntakeToggle extends Command {
 
 	private boolean wasOpen;
 
-	public StabilizerToggle() {
-		requires(Robot.stabilizer);
+	public IntakeToggle() {
+		requires(Robot.intake);
 	}
 
 	@Override
 	protected void initialize() {
-		wasOpen = Robot.stabilizer.isOpen();
-		setTimeout(Stabilizer.TIME_TO_ACTUATE);
+		wasOpen = Robot.intake.isOpen();
+		setTimeout(Intake.TIME_TO_ACTUATE);
 	}
 
 	@Override
 	protected void execute() {
 		if(wasOpen) {
-			Robot.stabilizer.close();
+			Robot.intake.close();
 		} else {
-			Robot.stabilizer.open();
+			Robot.intake.open();
 		}
 	}
 
