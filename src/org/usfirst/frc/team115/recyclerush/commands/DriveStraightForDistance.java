@@ -12,7 +12,7 @@ public class DriveStraightForDistance extends DriveStraight {
 	private static int THRESHOLD = 200; //100 ticks
 	private static int RAMP_THRESHOLD = 1000; //100 ticks
 	private static int ENCODER_SCALE = 1444;
-	private static double ERROR = 2.5;
+	private static double ERROR = 1;
 	private final double SCALE = (1 / (Math.PI * 8)) * 2 * ENCODER_SCALE / ERROR; //ticks per inch
 
 	private double distance;
