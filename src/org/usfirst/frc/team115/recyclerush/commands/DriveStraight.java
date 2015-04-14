@@ -3,6 +3,7 @@ package org.usfirst.frc.team115.recyclerush.commands;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Drives the robot straight
@@ -12,8 +13,8 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 public class DriveStraight extends PIDCommand {
 
 	public static final double SPEED_DEFAULT = 0.7;
-	public static final double P = 0.02;
-	public static final double I = 0.0000001;
+	public static final double P = 0.025;
+	public static final double I = 0.00000012;
 	public static final double D = 0.004;
 
 	private double speed;
@@ -51,6 +52,7 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
+		SmartDashboard.putNumber("Output", output);
 		if(joystick){
 			Robot.drive.control(-Robot.oi.getDriveJoystick().getY() * getSpeed(), output);
 		}else{

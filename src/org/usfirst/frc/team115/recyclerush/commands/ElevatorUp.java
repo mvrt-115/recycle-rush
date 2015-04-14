@@ -30,7 +30,7 @@ public class ElevatorUp extends CommandGroup {
 		int destPreset = presets.length - 1;
 		double destHeight = 0;
 		for(int i = 0; i < presets.length; i++) {
-			if(presets[i] > height + 1) { // if the preset is above current height
+			if(presets[i] > height + 2) { // if the preset is above current height
 				destPreset = i; // set that preset to our destination
 				break;
 			}

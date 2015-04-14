@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class JuggernautA extends CommandGroup {
 
-	private static final double BIN_CLOSING_DISTANCE = 3;
+	private static final double BIN_CLOSING_DISTANCE = 10;
 
 	public JuggernautA() {
 		for(int i = 0; i < 2; i++) {

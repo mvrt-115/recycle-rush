@@ -3,6 +3,7 @@ package org.usfirst.frc.team115.recyclerush.commands;
 import org.usfirst.frc.team115.recyclerush.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Moves the elevator to a certain preset
@@ -53,11 +54,14 @@ public class ElevatorToHeight extends Command {
 	protected void execute() {
 		double x = (100 * Math.abs((distance - Math.abs(Robot.elevator.getHeight() - destHeight)) / distance));
 		double ramp = shouldRamp ? getRamp(x) : 1;
+
 		Robot.elevator.setSpeed(direction * PRESET_SPEED * ramp);
+		/*DEBUG*/SmartDashboard.putNumber("ElevatorSpeed", direction*PRESET_SPEED*ramp);
+		//SmartDashboard.putNumber("Ramp", ramp);
 	}
 
 	public double getRamp(double percentToTarget) {
-		return ((1 - 1 / (1 + 60000*Math.exp(-0.11 * percentToTarget))));
+		return ((1 - 0.70 / (1 + 12000*Math.exp(-0.115 * percentToTarget))));
 	}
 
 	@Override

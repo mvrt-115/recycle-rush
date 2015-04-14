@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakeTote extends Command {
 
-	private static final double DEFAULT_TIMEOUT = 1.3;
+	private static final double DEFAULT_TIMEOUT = 1.0;
 
 	private double timeout;
 
@@ -28,7 +28,7 @@ public class IntakeTote extends Command {
 	@Override
 	protected void execute() {
 		Robot.intake.close();
-		Robot.roller.control(0, 1);
+		Robot.roller.control(-1, 0);
 	}
 
 	@Override
