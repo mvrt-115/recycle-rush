@@ -12,6 +12,5 @@ public class StabilizeTotes extends CommandGroup {
 		addSequential(new ClawOpen());
 		addSequential(new ElevatorToHeight(Robot.elevator.PRESET_STABILIZE_TOTES));
 		addSequential(new ClawClose());
-		addSequential(new ElevatorToHeight(Robot.elevator.PRESET_STABILIZE_TOTES + 2));
 	}
 }
