@@ -22,7 +22,7 @@ public class ElevatorToHeight extends Command {
 	private static double PRESET_SPEED = 1;
 	private int direction = 0;
 	private boolean shouldRamp = true;
-	private boolean special = false;
+
 	public ElevatorToHeight(double destHeight) {
 		requires(Robot.elevator);
 		this.destHeight = destHeight;
@@ -31,11 +31,6 @@ public class ElevatorToHeight extends Command {
 	public ElevatorToHeight(double destHeight, boolean ramp) {
 		this(destHeight);
 		this.shouldRamp = ramp;
-	}
-
-	public ElevatorToHeight(double destHeight, boolean ramp, boolean special) {
-		this(destHeight, ramp);
-		this.special = special;
 	}
 
 	public void setDest(double dest){
@@ -67,18 +62,16 @@ public class ElevatorToHeight extends Command {
 	@Override
 	protected boolean isFinished() {
 		if(direction == UP){
-			return (Robot.elevator.getHeight() >= destHeight) || (special && Robot.elevator.getHeight() <= 3);
+			return (Robot.elevator.getHeight() >= destHeight);
 		}
 		else{
-			return (Robot.elevator.getHeight() <= destHeight) || (special && Robot.elevator.getHeight() <= 3);
+			return (Robot.elevator.getHeight() <= destHeight);
 		}
 	}
 
 	@Override
 	protected void end() {
-		if(!special) {
-			Robot.elevator.stop();
-		}
+		Robot.elevator.stop();
 	}
 
 	@Override

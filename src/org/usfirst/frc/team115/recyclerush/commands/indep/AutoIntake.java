@@ -1,7 +1,6 @@
 package org.usfirst.frc.team115.recyclerush.commands.indep;
 
 import org.usfirst.frc.team115.recyclerush.commands.ClawClose;
-import org.usfirst.frc.team115.recyclerush.commands.ClawOpen;
 import org.usfirst.frc.team115.recyclerush.commands.Delay;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorToHeight;
@@ -20,8 +19,7 @@ public class AutoIntake extends CommandGroup {
 			}
 			addSequential(new IntakeTote());
 		}
-		addSequential(new ElevatorToHeight(Elevator.PRESET_TOTE_INTAKETOTE, false, true));
-		addSequential(new ClawOpen());
+		addParallel(new ClawDelayedOpenCommand(Elevator.PRESET_AUTOINTAKE_OPEN));
 		addSequential(new ElevatorHardReset());
 		addSequential(new ClawClose());
 		addSequential(new Delay(0.2));

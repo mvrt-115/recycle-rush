@@ -72,11 +72,11 @@ public class OI {
 
 		//B button: autoIntake with ramp
 		new JoystickButton(xboxJoystick, RobotMap.XBOX_B)
-		.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE + 3, true, true));
+		.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE, true, true));
 
 		//X button: autoIntake no rollers
 		new JoystickButton(xboxJoystick, RobotMap.XBOX_X)
-		.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE + 3, false, true));
+		.whenPressed(new AutoIntake(Elevator.PRESET_TOTE_INTAKETOTE, false, true));
 
 		//A button: open all
 		new JoystickButton(xboxJoystick, RobotMap.XBOX_A)
