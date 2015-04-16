@@ -36,7 +36,7 @@ public class Elevator extends Subsystem {
 	private static final double TICKS_PER_INCH = TICKS_PER_ROTATION / INCHES_PER_ROTATION;
 
 	public static final double PRESET_CLAW_RELEASE = 9;
-	public static final double PRESET_STABILIZE_TOTES = 22;
+	public static final double PRESET_STABILIZE_TOTES = 20;
 
 	public static final double PRESET_BOTTOM = 0;
 	public static final double PRESET_TOTE_INTAKETOTE = 14;

@@ -13,27 +13,21 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveArcadeWithJoystick extends Command {
 
-	private static final double SPEED_PRECISION_DEFAULT = 0.7;
+	private static final double SPEED_PRECISION_DRIVE = 0.8;
+	private static final double SPEED_PRECISION_TURN = 0.7;
 
 	private Joystick joystick;
 
 	private boolean precision;
-	private double precisionSpeed;
 
 	public DriveArcadeWithJoystick(Joystick joystick) {
 		this(joystick, false);
 	}
 
 	public DriveArcadeWithJoystick(Joystick joystick, boolean precision){
-		this(joystick, precision, SPEED_PRECISION_DEFAULT);
-	}
-
-
-	public DriveArcadeWithJoystick(Joystick joystick, boolean precision, double precisionSpeed) {
 		requires(Robot.drive);
 		this.joystick = joystick;
 		this.precision = precision;
-		this.precisionSpeed = precisionSpeed;
 	}
 
 	@Override
@@ -44,7 +38,7 @@ public class DriveArcadeWithJoystick extends Command {
 	@Override
 	protected void execute() {
 		if(precision && Robot.oi.getJoystickButton(OI.BUTTON_PRECISION)) {
-			Robot.drive.control(joystick, precisionSpeed);
+			Robot.drive.control(joystick, SPEED_PRECISION_DRIVE, SPEED_PRECISION_TURN);
 		}else{
 			Robot.drive.control(joystick);
 		}

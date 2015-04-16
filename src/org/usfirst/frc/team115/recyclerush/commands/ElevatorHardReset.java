@@ -30,6 +30,9 @@ public class ElevatorHardReset extends Command {
 
 	@Override
 	protected boolean isFinished() {
+		if(isTimedOut()){
+			System.out.println("Elev Hard Reset timed out... is limit switch not being pressed?");
+		}
 		return Robot.elevator.isLimitPressed() || isTimedOut();
 	}
 
