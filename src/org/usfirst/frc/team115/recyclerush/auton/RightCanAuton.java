@@ -8,11 +8,11 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AllianceAuton extends CommandGroup {
-    public AllianceAuton() {
+public class RightCanAuton extends CommandGroup {
+    public RightCanAuton() {
         addSequential(new ClawClose());
         addSequential(new StabilizerOpen());
-        addSequential(new ElevatorToHeight(Elevator.PRESET_TOP - 4));
+        addSequential(new ElevatorToHeight(Elevator.PRESET_TOP - 10));
         addSequential(new StabilizerClose());
     }
 }
