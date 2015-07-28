@@ -1,0 +1,11 @@
+# Site settings
+title: MVRT JavaDocs
+email: webmaster@mvrt.com
+description: The new MVRT JavaDocs, where you can find all our code releases and more!
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://yourdomain.com" # the base hostname & protocol for your site
+twitter_username: mvrt115
+github_username:  akalari
+
+# Build settings
+markdown: kramdown
