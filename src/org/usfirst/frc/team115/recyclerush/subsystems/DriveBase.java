@@ -16,13 +16,9 @@ public class DriveBase extends Subsystem {
 
 	public DriveBase() {
 		super("Drivebase");
-		leftDriveBaseCenter.changeControlMode(ControlMode.Follower);
-		leftDriveBaseCenter.set(leftDriveBaseFront.getDeviceID());
 		leftDriveBaseRear.changeControlMode(ControlMode.Follower);
 		leftDriveBaseRear.set(leftDriveBaseFront.getDeviceID());
 
-		rightDriveBaseCenter.changeControlMode(ControlMode.Follower);
-		rightDriveBaseCenter.set(rightDriveBaseFront.getDeviceID());
 		rightDriveBaseRear.changeControlMode(ControlMode.Follower);
 		rightDriveBaseRear.set(rightDriveBaseFront.getDeviceID());
 	}
