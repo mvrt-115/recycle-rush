@@ -7,11 +7,6 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 
 public class DriveBase extends Subsystem {
-RobotMap.DRIVE_MOTOR_BACKLEFT);
-		motors[BACK_RIGHT] = new CANTalon(RobotMap.DRIVE_MOTOR_BACKRIGHT);
-		motors[FRONT_LEFT] = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTLEFT);
-		motors[FRONT_RIGHT] = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTRIGHT);
-
 	private CANTalon leftDriveBaseFront = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTLEFT);
 	private CANTalon leftDriveBaseRear = new CANTalon(RobotMap.DRIVE_MOTOR_BACKLEFT);
 
