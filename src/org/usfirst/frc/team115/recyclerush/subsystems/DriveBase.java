@@ -1,17 +1,18 @@
-package org.usfirst.frc.team115.robot.subsystems;
+package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import org.usfirst.frc.team115.lib.Subsystem;
-import org.usfirst.frc.team115.robot.Constants;
+import org.usfirst.frc.team115.recyclerush.Constants;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 
 public class DriveBase extends Subsystem {
-	private CANTalon leftDriveBaseFront = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTLEFT);
-	private CANTalon leftDriveBaseRear = new CANTalon(RobotMap.DRIVE_MOTOR_BACKLEFT);
 
-	private CANTalon rightDriveBaseFront = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTRIGHT);
-	private CANTalon rightDriveBaseRear = new CANTalon(RobotMap.DRIVE_MOTOR_BACKRIGHT);
+	private CANTalon leftDriveBaseFront = new CANTalon(Constants.LEFT_DRIVE_FRONT.getInt());
+	private CANTalon leftDriveBaseRear = new CANTalon(Constants.LEFT_DRIVE_REAR.getInt());
+
+	private CANTalon rightDriveBaseFront = new CANTalon(Constants.RIGHT_DRIVE_FRONT.getInt());
+	private CANTalon rightDriveBaseRear = new CANTalon(Constants.RIGHT_DRIVE_REAR.getInt());
 
 	public DriveBase() {
 		super("Drivebase");
