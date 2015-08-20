@@ -16,8 +16,6 @@ public class MVRTRobot {
 	public static final Joystick driverJoystick = new Joystick(Constants.driverJoystick.getInt());
 	public static final DriveSystem driveSystem = new DriveSystem(drive);
 
-	public static final DriveBase drivebase = new DriveBase();
-
 	public static void init() {
 		statePool.scheduleAtFixedRate(drive, 0, 20, TimeUnit.MILLISECONDS);
 	}
