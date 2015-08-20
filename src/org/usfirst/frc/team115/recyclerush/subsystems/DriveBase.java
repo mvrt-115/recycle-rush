@@ -7,14 +7,16 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 
 public class DriveBase extends Subsystem {
+RobotMap.DRIVE_MOTOR_BACKLEFT);
+		motors[BACK_RIGHT] = new CANTalon(RobotMap.DRIVE_MOTOR_BACKRIGHT);
+		motors[FRONT_LEFT] = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTLEFT);
+		motors[FRONT_RIGHT] = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTRIGHT);
 
-	private CANTalon leftDriveBaseFront = new CANTalon(Constants.LEFT_DRIVE_FRONT.getInt());
-	private CANTalon leftDriveBaseCenter = new CANTalon(Constants.LEFT_DRIVE_CENTER.getInt());
-	private CANTalon leftDriveBaseRear = new CANTalon(Constants.LEFT_DRIVE_REAR.getInt());
+	private CANTalon leftDriveBaseFront = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTLEFT);
+	private CANTalon leftDriveBaseRear = new CANTalon(RobotMap.DRIVE_MOTOR_BACKLEFT);
 
-	private CANTalon rightDriveBaseFront = new CANTalon(Constants.RIGHT_DRIVE_FRONT.getInt());
-	private CANTalon rightDriveBaseCenter = new CANTalon(Constants.RIGHT_DRIVE_CENTER.getInt());
-	private CANTalon rightDriveBaseRear = new CANTalon(Constants.RIGHT_DRIVE_REAR.getInt());
+	private CANTalon rightDriveBaseFront = new CANTalon(RobotMap.DRIVE_MOTOR_FRONTRIGHT);
+	private CANTalon rightDriveBaseRear = new CANTalon(RobotMap.DRIVE_MOTOR_BACKRIGHT);
 
 	public DriveBase() {
 		super("Drivebase");
