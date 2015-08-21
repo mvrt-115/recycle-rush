@@ -1,5 +1,6 @@
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.recyclerush.DriveSystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
@@ -8,16 +9,17 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the manifest file in the resource
  * directory.
- * @author Lee Mracek
  */
 public class MVRT extends IterativeRobot {
 
+    public static DriveSystem driveSystem;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
+	    driveSystem = new DriveSystem();
 		MVRTRobot.init();
 	}
 
@@ -31,7 +33,7 @@ public class MVRT extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		MVRTRobot.drive.turnOffControllers();
+		MVRTRobot.drivebase.turnOffControllers();
 	}
 
 	/**
@@ -39,15 +41,7 @@ public class MVRT extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		boolean quickTurn = MVRTRobot.driverJoystick.getTrigger();
-		double turn = MVRTRobot.driverJoystick.getX();
 
-		if (quickTurn) {
-			double sign = Math.signum(turn);
-			turn = turn * turn * sign;
-		}
-
-		MVRTRobot.driveSystem.drive(MVRTRobot.driverJoystick.getY(), turn, quickTurn);
 	}
 
 	@Override

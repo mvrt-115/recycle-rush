@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team115.recyclerush;
 
 import org.usfirst.frc.team115.recyclerush.auton.AllianceAuton;

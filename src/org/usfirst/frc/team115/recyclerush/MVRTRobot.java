@@ -9,7 +9,7 @@ import org.usfirst.frc.team115.robot.subsystems.DriveBase;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class MVRTRobot {
-	public static final ScheduledExecutorService statePool = Executors.newScheduledThreadPool(2);
+	//public static final ScheduledExecutorService statePool = Executors.newScheduledThreadPool(2);
 
 	public static final DriveBase drive = new DriveBase();
 
@@ -17,6 +17,6 @@ public class MVRTRobot {
 	public static final DriveSystem driveSystem = new DriveSystem(drive);
 
 	public static void init() {
-		statePool.scheduleAtFixedRate(drive, 0, 20, TimeUnit.MILLISECONDS);
+		//statePool.scheduleAtFixedRate(drive, 0, 20, TimeUnit.MILLISECONDS);
 	}
 }

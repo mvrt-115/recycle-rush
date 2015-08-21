@@ -1,13 +1,16 @@
-package org.usfirst.frc.team115.recyclerush;
-
-import org.usfirst.frc.team115.recyclerush.subsystems.DriveBase;
+package org.usfirst.frc.team115.recyclerush.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+
+import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team115.recyclerush.subsystems.DriveBase;
+
 /*
 *@author Lee Mracek
 */
 
-public class DriveSystem {
+public class DriveSystem extends Command {
+
 	private DriveBase drive;
 	private double oldWheel, quickStopAccumulator, negInertiaAccumulator = 0;
 	private double throttleDeadband = 0.02;
@@ -113,4 +116,31 @@ public class DriveSystem {
 	public static double limit(double v, double limit) {
 		return (Math.abs(v) < limit) ? v : limit * (v < 0 ? -1 : 1);
 	}
+
+	protected void initialize() {}
+
+    @Override
+    protected void execute() {
+        boolean quickTurn = MVRTRobot.driverJoystick.getTrigger();
+        double turn = MVRTRobot.driverJoystick.getX();
+
+        if (quickTurn) {
+			double sign = Math.signum(turn);
+			turn = turn * turn * sign;
+		}
+        drive(MVRTRobot.driverJoystick.getY(), turn, quickTurn);
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
+
+    @Override
+    protected void end() {}
+
+    @Override
+    protected void interrupted() {
+        end();
+    }
 }
