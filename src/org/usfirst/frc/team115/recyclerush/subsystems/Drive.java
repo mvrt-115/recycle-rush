@@ -102,6 +102,10 @@ public class Drive extends Subsystem {
 		return (motors[FRONT_LEFT].getPosition() + motors[FRONT_RIGHT].getPosition())/2;
 	}
 
+	public double getVelocity(){
+		return (motors[FRONT_LEFT].getSpeed() + motors[FRONT_RIGHT].getSpeed())/2;
+	}
+
 	public void resetEncoders(){
 		for(CANTalon t:motors){
 			t.setPosition(0);
