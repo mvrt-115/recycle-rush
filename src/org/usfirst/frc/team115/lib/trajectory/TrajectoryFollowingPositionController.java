@@ -1,4 +1,4 @@
-package com.usfirst.frc.team115.lib.trajectory;
+package org.usfirst.frc.team115.lib.trajectory;
 
 import org.usfirst.frc.team115.lib.Controller;
 

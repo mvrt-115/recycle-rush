@@ -1,4 +1,4 @@
-package com.usfirst.frc.team115.lib.trajectory;
+package org.usfirst.frc.team115.lib.trajectory;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -129,7 +129,7 @@ public class TrajectoryFollower {
 				nextState.position = xStart + xCruise + cruiseVelocity * deltaT
 						- .5 * config.maxAcceleration * deltaT * deltaT;
 				nextState.velocity = cruiseVelocity - config.maxAcceleration
-						 * deltaT;
+						* deltaT;
 				nextState.acceleration = -config.maxAcceleration;
 			} else {
 				nextState.position = distanceToGo;
@@ -143,15 +143,15 @@ public class TrajectoryFollower {
 			}
 
 			currentState.position += nextState.position;
-			currentState.velocity += nextState.velocity;
-			currentState.acceleration += nextState.acceleration;
+			currentState.velocity = nextState.velocity;
+			currentState.acceleration = nextState.acceleration;
 		}
 		double error = currentState.position - position;
 		if (reset) {
 			// prevent derivative jump on reset
 			reset = false;
 			lastError = error;
-			errorSum = error;
+			errorSum = 0;
 		}
 		double output = kP * error
 				+ kD * ((error - lastError) / dt - currentState.velocity)
