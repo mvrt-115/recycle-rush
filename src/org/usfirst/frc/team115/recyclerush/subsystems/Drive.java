@@ -65,6 +65,10 @@ public class Drive extends Subsystem {
 		drive.arcadeDrive(move * -1, rotate);
 	}
 
+	public void setLeftRightPower(float leftMotorOutput, float rightMotorOutput) {
+		drive.setLeftRightMotorOutputs(leftMotorOutput, rightMotorOutput);
+	}
+
 	/**
 	 * Controls the robot drive, using joystick values
 	 * for move and a speed value for rotate
