@@ -98,7 +98,6 @@ public class DriveArcadeWithJoystick extends Command {
 				negInertiaScalar = 3.0;
 			}
 		}
-		sensitivity = Constants.sensitivity.getDouble();
 
 		double negInertiaPower = negativeInertia * negInertiaScalar;
 		negInertiaAccumulator += negInertiaPower;
@@ -151,9 +150,13 @@ public class DriveArcadeWithJoystick extends Command {
 			leftPwm += overPower * (-1.0 - rightPwm);
 			rightPwm = -1.0;
 		}
-		drive.setLeftRightPower(leftPwm, rightPwm);
 
-        Robot.drive.control(leftPwm, rightPwm);
+        if (rightPwm > leftPwm) {
+            Robot.drive.control(rightPwm, wheel);
+        }
+        else {
+            Robot.drive.control(leftPwm, wheel);
+        }
 
 	}
 
