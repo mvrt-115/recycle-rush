@@ -151,13 +151,7 @@ public class DriveArcadeWithJoystick extends Command {
 			rightPwm = -1.0;
 		}
 
-        if (rightPwm > leftPwm) {
-            Robot.drive.control(rightPwm, wheel);
-        }
-        else {
-            Robot.drive.control(leftPwm, wheel);
-        }
-
+        Robot.drive.setLeftRightPower(leftPwm, rightPwm);
 	}
 
 	public double handleDeadband(double val, double deadband) {
