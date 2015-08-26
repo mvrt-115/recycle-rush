@@ -38,7 +38,7 @@ public class Elevator extends Subsystem {
 	public static final double PRESET_AUTOINTAKE_OPEN = 17;
 	public static final double PRESET_STABILIZE_TOTES = 20;
 
-	public static final double PRESET_BOTTOM = 0;
+	public static final double PRESET_BOTTOM = 0.00001;
 	public static final double PRESET_TOTE_INTAKETOTE = 14;
 
 	public static final double PRESET_BIN_INTAKETOTE = 24;
