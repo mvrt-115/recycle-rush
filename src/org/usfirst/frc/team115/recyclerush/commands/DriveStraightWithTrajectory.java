@@ -1,12 +1,11 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
 import org.usfirst.frc.team115.lib.SynchronousPID;
+import org.usfirst.frc.team115.lib.trajectory.TrajectoryFollower;
+import org.usfirst.frc.team115.lib.trajectory.TrajectoryFollower.TrajectorySetpoint;
+import org.usfirst.frc.team115.lib.trajectory.TrajectoryFollowingPositionController;
 import org.usfirst.frc.team115.recyclerush.Robot;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
-
-import com.usfirst.frc.team115.lib.trajectory.TrajectoryFollower;
-import com.usfirst.frc.team115.lib.trajectory.TrajectoryFollower.TrajectorySetpoint;
-import com.usfirst.frc.team115.lib.trajectory.TrajectoryFollowingPositionController;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -22,7 +21,7 @@ public class DriveStraightWithTrajectory extends Command {
 
 	public DriveStraightWithTrajectory(double goal, double maxVelocity) {
 		TrajectoryFollower.TrajectoryConfig config = new TrajectoryFollower.TrajectoryConfig();
-		config.dt = 20;
+		config.dt = 0.02;
 		config.maxAcceleration = RobotMap.DRIVE_MAX_ACCEL;
 
 		distanceController = new TrajectoryFollowingPositionController(
