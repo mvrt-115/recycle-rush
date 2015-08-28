@@ -2,6 +2,9 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.DriveArcadeWithJoystick;
+import org.usfirst.frc.team115.recyclerush.commands.ResetEncoder;
+
+import com.usfirst.frc.team115.lib.trajectory.SampleVelocity;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -120,6 +123,9 @@ public class Drive extends Subsystem {
 		}
 
 		SmartDashboard.putNumber("Drive Distance", getDistance());
+		SmartDashboard.putNumber("Drive in inches", (getDistance()/((1 / (Math.PI * 8)) * 2 * 1444 / 1)));
+
+
 	}
 
 	@Override
