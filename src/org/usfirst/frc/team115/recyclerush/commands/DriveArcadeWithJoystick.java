@@ -16,7 +16,7 @@ public class DriveArcadeWithJoystick extends Command {
     private double oldWheel, quickStopAccumulator, negInertiaAccumulator = 0;
 	private double throttleDeadband = 0.02;
 	private double wheelDeadband = 0.02;
-
+    private double logScale = 0.6;
 
     private Joystick joystick;
 
@@ -43,8 +43,7 @@ public class DriveArcadeWithJoystick extends Command {
         double turn = joystick.getX();
 
         if (quickTurn) {
-			double sign = Math.signum(turn);
-			turn = turn * turn * sign;
+			turn = turn * Math.abs(turn);
 		}
 
         drive(joystick.getY(), turn, quickTurn);
@@ -66,13 +65,8 @@ public class DriveArcadeWithJoystick extends Command {
     }
 
 	public void drive(double throttle, double wheel, boolean quickTurn) {
-		if (DriverStation.getInstance().isAutonomous())
-			return;
-
-		double logScale = 0.6;
-
-		wheel = handleDeadband(wheel, wheelDeadband);
-		throttle = handleDeadband(throttle, throttleDeadband);
+		wheel = checkDeadband(wheel, wheelDeadband);
+		throttle = checkDeadband(throttle, throttleDeadband);
 
 		double negativeInertia = wheel - oldWheel;
 
@@ -154,7 +148,7 @@ public class DriveArcadeWithJoystick extends Command {
         Robot.drive.setLeftRightPower(leftPwm, rightPwm);
 	}
 
-	public double handleDeadband(double val, double deadband) {
+	public double checkDeadband(double val, double deadband) {
 		return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
 	}
 

@@ -150,7 +150,6 @@ public class OI {
 			}
 		}).start();
 	}
-
 }
 
 class XboxTrigger extends Trigger {
