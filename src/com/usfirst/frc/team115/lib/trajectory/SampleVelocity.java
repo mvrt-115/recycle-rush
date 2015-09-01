@@ -42,14 +42,19 @@ public class SampleVelocity extends Command {
 	@Override
 	protected void execute() {
 		this.dt = Timer.getFPGATimestamp() - this.dt;
-		this.dx = Robot.drive.getDistance()/SCALE - this.dx;
+		this.instVel = Robot.drive.getVelocity();
 		this.elapsedT = Timer.getFPGATimestamp() - this.initial;
 		this.elapsedX = Robot.drive.getDistance()/SCALE;
+		this.avgVel = elapsedX/elapsedT;
+
+		/*this.dx = Robot.drive.getDistance()/SCALE - this.dx;
 		this.instAcc = (dx/dt-instVel)/dt;
 		this.instVel = dx/dt;
 		this.avgAcc = (this.avgAcc*(elapsedT-dt) + instAcc*dt)/elapsedT;
 		this.avgVel = elapsedX/elapsedT;
-		this.maxAcc = maxAcc > instAcc ? instAcc : maxAcc;
+		 */
+		//this.maxAcc = maxAcc > instAcc ? instAcc : maxAcc;
+
 		this.maxVel = maxVel > instVel ? instVel : maxVel;
 
 		this.log();
@@ -69,9 +74,9 @@ public class SampleVelocity extends Command {
 		SmartDashboard.putNumber("Avg Velocity", avgAcc);
 		SmartDashboard.putNumber("Max Velocity", maxAcc);
 
-		SmartDashboard.putNumber("Acceleration", instVel);
-		SmartDashboard.putNumber("Avg Acceleration", avgAcc);
-		SmartDashboard.putNumber("Acceleration", maxAcc);
+		//SmartDashboard.putNumber("Acceleration", instVel);
+		//SmartDashboard.putNumber("Avg Acceleration", avgAcc);
+		//SmartDashboard.putNumber("Acceleration", maxAcc);
 	}
 	@Override
 	protected void interrupted() {
