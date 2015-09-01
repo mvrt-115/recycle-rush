@@ -8,16 +8,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SampleVelocity extends Command {
 
 	double dt = 1; //ms
-	double dx = 0; //Inches
+
 	double elapsedT = 0;
 	double elapsedX = 0;
-	double initial = 0;
+
+	double initialTime = 0;
 	double instVel = 0;
 	double instAcc = 0;
 	double avgVel = 0;
 	double avgAcc = 0;
 	double maxVel = 0;
 	double maxAcc = 0;
+	double pastVel = 0;
 
 	double totAccErr = 0;
 	double totVelErr = 0;
@@ -28,7 +30,7 @@ public class SampleVelocity extends Command {
 
 	public SampleVelocity() {
 		setTimeout(7);
-		this.initial = Timer.getFPGATimestamp();
+		this.initialTime = Timer.getFPGATimestamp();
 
 	}
 
@@ -41,20 +43,17 @@ public class SampleVelocity extends Command {
 
 	@Override
 	protected void execute() {
-		this.dt = Timer.getFPGATimestamp() - this.dt;
-		this.instVel = Robot.drive.getVelocity();
-		this.elapsedT = Timer.getFPGATimestamp() - this.initial;
+		this.dt = Timer.getFPGATimestamp() - this.elapsedT; //This is the unupdated elapsed time from the last loop
+		this.elapsedT = Timer.getFPGATimestamp() - this.initialTime;
 		this.elapsedX = Robot.drive.getDistance()/SCALE;
+
+		this.instVel = Robot.drive.getVelocity();
 		this.avgVel = elapsedX/elapsedT;
 
-		/*this.dx = Robot.drive.getDistance()/SCALE - this.dx;
-		this.instAcc = (dx/dt-instVel)/dt;
-		this.instVel = dx/dt;
+		this.instAcc = (instVel-pastVel)/dt;
 		this.avgAcc = (this.avgAcc*(elapsedT-dt) + instAcc*dt)/elapsedT;
-		this.avgVel = elapsedX/elapsedT;
-		 */
-		//this.maxAcc = maxAcc > instAcc ? instAcc : maxAcc;
 
+		this.maxAcc = maxAcc > instAcc ? instAcc : maxAcc;
 		this.maxVel = maxVel > instVel ? instVel : maxVel;
 
 		this.log();
@@ -71,8 +70,8 @@ public class SampleVelocity extends Command {
 
 	protected void log() {
 		SmartDashboard.putNumber("Velocity", instVel);
-		SmartDashboard.putNumber("Avg Velocity", avgAcc);
-		SmartDashboard.putNumber("Max Velocity", maxAcc);
+		SmartDashboard.putNumber("Avg Velocity", avgVel);
+		SmartDashboard.putNumber("Max Velocity", maxVel);
 
 		//SmartDashboard.putNumber("Acceleration", instVel);
 		//SmartDashboard.putNumber("Avg Acceleration", avgAcc);
