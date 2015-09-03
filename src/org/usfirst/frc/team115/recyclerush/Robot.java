@@ -7,6 +7,7 @@ import org.usfirst.frc.team115.recyclerush.auton.JuggernautA;
 import org.usfirst.frc.team115.recyclerush.auton.LeftCanAuton;
 import org.usfirst.frc.team115.recyclerush.auton.Mobility;
 import org.usfirst.frc.team115.recyclerush.auton.RightCanAuton;
+import org.usfirst.frc.team115.recyclerush.commands.DriveStraight;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.commands.ResetEncoder;
 import org.usfirst.frc.team115.recyclerush.commands.led.FadePulse;
@@ -170,7 +171,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		SmartDashboard.putData("reset encoder", new ResetEncoder());
-		SmartDashboard.putData("sample velocuty", new SampleVelocity());
+		SmartDashboard.putData("DriveStraight", new DriveStraight(true));
+		SmartDashboard.putData("sample velocity", new SampleVelocity());
 		if (DriverStation.getInstance().getAlliance().equals(Alliance.Blue)) {
 			new SetColor(LEDStrip.BLUE).start();
 		} else {

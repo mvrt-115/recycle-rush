@@ -22,6 +22,7 @@ public class DriveStraight extends PIDCommand {
 
 	public DriveStraight(boolean joystick) {
 		this(SPEED_DEFAULT, joystick);
+		requires(Robot.drive);
 	}
 
 	public DriveStraight(double speed, boolean joystick) {
