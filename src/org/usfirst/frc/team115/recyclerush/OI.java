@@ -3,6 +3,7 @@ package org.usfirst.frc.team115.recyclerush;
 import org.usfirst.frc.team115.recyclerush.commands.ClawClose;
 import org.usfirst.frc.team115.recyclerush.commands.ClawOpen;
 import org.usfirst.frc.team115.recyclerush.commands.ClawToggle;
+import org.usfirst.frc.team115.recyclerush.commands.DriveStraight;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorDown;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorUp;
@@ -36,11 +37,14 @@ public class OI {
 
 	private Joystick driveJoystick, xboxJoystick;
 
-	private JoystickButton rollerToggle;
+	private JoystickButton rollerToggle, straightButton;
 
 	public OI() {
 		driveJoystick = new Joystick(RobotMap.JOYSTICK_DRIVE);
 		xboxJoystick = new Joystick(RobotMap.JOYSTICK_XBOX);
+		straightButton = new JoystickButton(driveJoystick, 0);
+
+		straightButton.whenPressed(new DriveStraight(true));
 	}
 
 
