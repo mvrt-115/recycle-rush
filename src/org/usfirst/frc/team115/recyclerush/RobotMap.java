@@ -67,16 +67,16 @@ public class RobotMap {
 	// Compressor
 	public static final int PCM = 1;
 
-	public static final double DRIVE_MAX_ACCEL = 0;
-	public static final int DRIVE_POSITION_KP = 0;
-	public static final int DRIVE_POSITION_KI = 0;
-	public static final int DRIVE_POSITION_KD = 0;
-	public static final int DRIVE_POSITION_KV = 0;
-	public static final int DRIVE_POSITION_KA = 0;
-	public static final int DRIVE_ON_TARGET_ERROR = 0;
+	public static final double DRIVE_MAX_ACCEL = 26;
+	public static final double DRIVE_POSITION_KP = 0.1;
+	public static final double DRIVE_POSITION_KI = 0;
+	public static final double DRIVE_POSITION_KD = 0;
+	public static final double DRIVE_POSITION_KV = 1/133;
+	public static final double DRIVE_POSITION_KA = 0;
+	public static final double DRIVE_ON_TARGET_ERROR = 0;
 
-	public static final int DRIVE_STRAIGHT_KP = 0;
-	public static final int DRIVE_STRAIGHT_KI = 0;
-	public static final int DRIVE_STRAIGHT_KD = 0;
+	public static final double DRIVE_STRAIGHT_KP = 0;
+	public static final double DRIVE_STRAIGHT_KI = 0;
+	public static final double DRIVE_STRAIGHT_KD = 0;
 
 }

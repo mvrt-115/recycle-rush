@@ -1,10 +1,9 @@
 package org.usfirst.frc.team115.recyclerush.subsystems;
 
+import org.usfirst.frc.team115.lib.trajectory.SampleVelocity;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.DriveArcadeWithJoystick;
 import org.usfirst.frc.team115.recyclerush.commands.ResetEncoder;
-
-import com.usfirst.frc.team115.lib.trajectory.SampleVelocity;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;

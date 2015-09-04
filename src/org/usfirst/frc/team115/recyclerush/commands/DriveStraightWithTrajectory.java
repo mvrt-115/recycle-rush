@@ -34,6 +34,7 @@ public class DriveStraightWithTrajectory extends Command {
 				config);
 
 		this.goal = goal;
+		requires(Robot.drive);
 	}
 
 	@Override

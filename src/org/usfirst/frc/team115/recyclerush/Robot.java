@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team115.recyclerush;
 
+import org.usfirst.frc.team115.lib.trajectory.SampleVelocity;
 import org.usfirst.frc.team115.recyclerush.auton.AllianceAuton;
 import org.usfirst.frc.team115.recyclerush.auton.AutonGroup;
 import org.usfirst.frc.team115.recyclerush.auton.JuggernautA;
@@ -22,7 +23,6 @@ import org.usfirst.frc.team115.recyclerush.subsystems.Roller;
 import org.usfirst.frc.team115.recyclerush.subsystems.Stabilizer;
 
 import com.kauailabs.navx_mxp.AHRS;
-import com.usfirst.frc.team115.lib.trajectory.SampleVelocity;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
