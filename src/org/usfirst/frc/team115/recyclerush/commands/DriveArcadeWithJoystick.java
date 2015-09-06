@@ -1,10 +1,6 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
-import org.usfirst.frc.team115.recyclerush.OI;
 import org.usfirst.frc.team115.recyclerush.Robot;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Drives the robot using a joystick and specified axis
@@ -13,56 +9,56 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveArcadeWithJoystick extends Command {
 
-    private double oldWheel, quickStopAccumulator, negInertiaAccumulator = 0;
+	private double oldWheel, quickStopAccumulator, negInertiaAccumulator = 0;
 	private double throttleDeadband = 0.02;
 	private double wheelDeadband = 0.02;
-    private double logScale = 0.6;
+	private double logScale = 0.6;
 
-    private Joystick joystick;
+	private Joystick joystick;
 
-    private boolean precision;
+	private boolean precision;
 
-    public DriveArcadeWithJoystick(Joystick joystick) {
-        this(joystick, false);
-    }
+	public DriveArcadeWithJoystick(Joystick joystick) {
+		this(joystick, false);
+	}
 
-    public DriveArcadeWithJoystick(Joystick joystick, boolean precision){
-        requires(Robot.drive);
-        this.joystick = joystick;
-        this.precision = precision;
-    }
+	public DriveArcadeWithJoystick(Joystick joystick, boolean precision){
+		requires(Robot.drive);
+		this.joystick = joystick;
+		this.precision = precision;
+	}
 
-    @Override
-    protected void initialize() {
-        Robot.drive.stop();
-    }
+	@Override
+	protected void initialize() {
+		Robot.drive.stop();
+	}
 
-    @Override
-    protected void execute() {
-        boolean quickTurn = joystick.getTrigger();
-        double turn = joystick.getX();
+	@Override
+	protected void execute() {
+		boolean quickTurn = joystick.getTrigger();
+		double turn = joystick.getX();
 
-        if (quickTurn) {
+		if (quickTurn) {
 			turn = turn * Math.abs(turn);
 		}
 
-        drive(joystick.getY(), turn, quickTurn);
-    }
+		drive(joystick.getY(), turn, quickTurn);
+	}
 
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
+	@Override
+	protected boolean isFinished() {
+		return false;
+	}
 
-    @Override
-    protected void end() {
-        Robot.drive.stop();
-    }
+	@Override
+	protected void end() {
+		Robot.drive.stop();
+	}
 
-    @Override
-    protected void interrupted() {
-        end();
-    }
+	@Override
+	protected void interrupted() {
+		end();
+	}
 
 	public void drive(double throttle, double wheel, boolean quickTurn) {
 		wheel = checkDeadband(wheel, wheelDeadband);
@@ -76,7 +72,7 @@ public class DriveArcadeWithJoystick extends Command {
 		wheel = Math.sin(Math.PI / 2.0 * logScale * wheel) / Math.sin(Math.PI / 2.0 * logScale);
 
 		double leftPwm, rightPwm, overPower;
-		double sensitivity;
+		double sensitivity = 0.75;
 
 		double angularPower;
 		double linearPower;
@@ -145,7 +141,7 @@ public class DriveArcadeWithJoystick extends Command {
 			rightPwm = -1.0;
 		}
 
-        Robot.drive.setLeftRightPower(leftPwm, rightPwm);
+		Robot.drive.setLeftRightPower((float)leftPwm, (float)rightPwm);
 	}
 
 	public double checkDeadband(double val, double deadband) {

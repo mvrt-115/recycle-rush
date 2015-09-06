@@ -3,13 +3,6 @@ package org.usfirst.frc.team115.recyclerush.subsystems;
 import org.usfirst.frc.team115.recyclerush.RobotMap;
 import org.usfirst.frc.team115.recyclerush.commands.DriveArcadeWithJoystick;
 
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  * Class defining the subsystem which encapsulates our DriveTrain
  *
@@ -65,8 +58,8 @@ public class Drive extends Subsystem {
 		drive.arcadeDrive(move * -1, rotate);
 	}
 
-	public void setLeftRightPower(double leftMotorOutput, double rightMotorOutput) {
-        drive.SetLeftRightMotorOutputs(leftMotorOutput, rightMotorOutput);
+	public void setLeftRightPower(float leftMotorOutput, float rightMotorOutput) {
+		drive.SetLeftRightMotorOutputs(leftMotorOutput, rightMotorOutput);
 	}
 
 	/**
