@@ -1,6 +1,10 @@
 package org.usfirst.frc.team115.recyclerush.commands;
 
+import org.usfirst.frc.team115.recyclerush.OI;
 import org.usfirst.frc.team115.recyclerush.Robot;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Drives the robot using a joystick and specified axis
@@ -68,7 +72,6 @@ public class DriveArcadeWithJoystick extends Command {
 
 		oldWheel = wheel;
 
-		wheel = Math.sin(Math.PI / 2.0 * logScale * wheel) / Math.sin(Math.PI / 2.0 * logScale);
 		wheel = Math.sin(Math.PI / 2.0 * logScale * wheel) / Math.sin(Math.PI / 2.0 * logScale);
 
 		double leftPwm, rightPwm, overPower;
