@@ -13,50 +13,145 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveArcadeWithJoystick extends Command {
 
-    private static final double SPEED_PRECISION_DRIVE = 0.6;
-    private static final double SPEED_PRECISION_TURN = 0.6;
+	private double oldWheel, quickStopAccumulator, negInertiaAccumulator = 0;
+	private double throttleDeadband = 0.02;
+	private double wheelDeadband = 0.02;
+	private double logScale = 0.6;
 
-    private Joystick joystick;
+	private Joystick joystick;
 
-    private boolean precision;
+	private boolean precision;
 
-    public DriveArcadeWithJoystick(Joystick joystick) {
-        this(joystick, false);
-    }
+	public DriveArcadeWithJoystick(Joystick joystick) {
+		this(joystick, false);
+	}
 
-    public DriveArcadeWithJoystick(Joystick joystick, boolean precision){
-        requires(Robot.drive);
-        this.joystick = joystick;
-        this.precision = precision;
-    }
+	public DriveArcadeWithJoystick(Joystick joystick, boolean precision){
+		requires(Robot.drive);
+		this.joystick = joystick;
+		this.precision = precision;
+	}
 
-    @Override
-    protected void initialize() {
-        Robot.drive.stop();
-    }
+	@Override
+	protected void initialize() {
+		Robot.drive.stop();
+	}
 
-    @Override
-    protected void execute() {
-        if(precision && Robot.oi.getJoystickButton(OI.BUTTON_PRECISION)) {
-            Robot.drive.control(joystick, SPEED_PRECISION_DRIVE, SPEED_PRECISION_TURN);
-        }else{
-            Robot.drive.control(joystick);
-        }
-    }
+	@Override
+	protected void execute() {
+		boolean quickTurn = joystick.getTrigger();
+		double turn = joystick.getX();
 
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
+		if (quickTurn) {
+			turn = turn * Math.abs(turn);
+		}
 
-    @Override
-    protected void end() {
-        Robot.drive.stop();
-    }
+		drive(joystick.getY(), turn, quickTurn);
+	}
 
-    @Override
-    protected void interrupted() {
-        end();
-    }
+	@Override
+	protected boolean isFinished() {
+		return false;
+	}
 
+	@Override
+	protected void end() {
+		Robot.drive.stop();
+	}
+
+	@Override
+	protected void interrupted() {
+		end();
+	}
+
+	public void drive(double throttle, double wheel, boolean quickTurn) {
+		wheel = checkDeadband(wheel, wheelDeadband);
+		throttle = checkDeadband(throttle, throttleDeadband);
+
+		double negativeInertia = wheel - oldWheel;
+
+		oldWheel = wheel;
+
+		wheel = Math.sin(Math.PI / 2.0 * logScale * wheel) / Math.sin(Math.PI / 2.0 * logScale);
+
+		double leftPwm, rightPwm, overPower;
+		double sensitivity = 0.75;
+
+		double angularPower;
+		double linearPower;
+
+		// Negative inertia!
+		double negInertiaScalar;
+		if (wheel * negativeInertia > 0) {
+			negInertiaScalar = 2.5;
+		} else {
+			if (Math.abs(wheel) > 0.65) {
+				negInertiaScalar = 5.0;
+			} else {
+				negInertiaScalar = 3.0;
+			}
+		}
+
+		double negInertiaPower = negativeInertia * negInertiaScalar;
+		negInertiaAccumulator += negInertiaPower;
+
+		wheel = wheel + negInertiaAccumulator;
+		if (negInertiaAccumulator > 1) {
+			negInertiaAccumulator -= 1;
+		} else if (negInertiaAccumulator < -1) {
+			negInertiaAccumulator += 1;
+		} else {
+			negInertiaAccumulator = 0;
+		}
+
+		linearPower = throttle;
+
+		if (quickTurn) {
+			if (Math.abs(linearPower) < 0.2) {
+				double alpha = 0.1;
+				quickStopAccumulator = (1 - alpha) * quickStopAccumulator + alpha * limit(wheel, 1.0) * 5;
+			}
+			overPower = 1.0;
+			sensitivity = 1.0;
+			angularPower = wheel;
+		} else {
+			overPower = 0.0;
+			angularPower = Math.abs(throttle) * wheel * sensitivity - quickStopAccumulator;
+			if (quickStopAccumulator > 1) {
+				quickStopAccumulator -= 1;
+			} else if (quickStopAccumulator < -1) {
+				quickStopAccumulator += 1;
+			} else {
+				quickStopAccumulator = 0.0;
+			}
+		}
+
+		rightPwm = leftPwm = linearPower;
+		leftPwm += angularPower;
+		rightPwm -= angularPower;
+
+		if (leftPwm > 1.0) {
+			rightPwm -= overPower * (leftPwm - 1.0);
+			leftPwm = 1.0;
+		} else if (rightPwm > 1.0) {
+			leftPwm -= overPower * (rightPwm - 1.0);
+			rightPwm = 1.0;
+		} else if (leftPwm < -1.0) {
+			rightPwm += overPower * (-1.0 - leftPwm);
+			leftPwm = -1.0;
+		} else if (rightPwm < -1.0) {
+			leftPwm += overPower * (-1.0 - rightPwm);
+			rightPwm = -1.0;
+		}
+
+		Robot.drive.setLeftRightPower((float)leftPwm, (float)rightPwm);
+	}
+
+	public double checkDeadband(double val, double deadband) {
+		return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
+	}
+
+	public static double limit(double v, double limit) {
+		return (Math.abs(v) < limit) ? v : limit * (v < 0 ? -1 : 1);
+	}
 }
