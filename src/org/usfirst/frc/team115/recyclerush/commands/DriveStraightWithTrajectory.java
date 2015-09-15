@@ -22,8 +22,9 @@ public class DriveStraightWithTrajectory extends Command {
 
 	public DriveStraightWithTrajectory(double goal, double maxVelocity) {
 		TrajectoryFollower.TrajectoryConfig config = new TrajectoryFollower.TrajectoryConfig();
-		config.dt = 20;
+		config.dt = 20 / 1000;
 		config.maxAcceleration = RobotMap.DRIVE_MAX_ACCEL;
+		config.maxVelocity = maxVelocity;
 
 		distanceController = new TrajectoryFollowingPositionController(
 				RobotMap.DRIVE_POSITION_KP,

@@ -129,7 +129,7 @@ public class TrajectoryFollower {
 				nextState.position = xStart + xCruise + cruiseVelocity * deltaT
 						- .5 * config.maxAcceleration * deltaT * deltaT;
 				nextState.velocity = cruiseVelocity - config.maxAcceleration
-						 * deltaT;
+						* deltaT;
 				nextState.acceleration = -config.maxAcceleration;
 			} else {
 				nextState.position = distanceToGo;
@@ -143,8 +143,8 @@ public class TrajectoryFollower {
 			}
 
 			currentState.position += nextState.position;
-			currentState.velocity += nextState.velocity;
-			currentState.acceleration += nextState.acceleration;
+			currentState.velocity = nextState.velocity;
+			currentState.acceleration = nextState.acceleration;
 		}
 		double error = currentState.position - position;
 		if (reset) {
