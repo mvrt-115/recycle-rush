@@ -8,6 +8,7 @@ import org.usfirst.frc.team115.recyclerush.auton.LeftCanAuton;
 import org.usfirst.frc.team115.recyclerush.auton.Mobility;
 import org.usfirst.frc.team115.recyclerush.auton.RightCanAuton;
 import org.usfirst.frc.team115.recyclerush.commands.ElevatorHardReset;
+import org.usfirst.frc.team115.recyclerush.commands.Watcher;
 import org.usfirst.frc.team115.recyclerush.commands.led.FadePulse;
 import org.usfirst.frc.team115.recyclerush.commands.led.SetColor;
 import org.usfirst.frc.team115.recyclerush.subsystems.Claw;
@@ -24,6 +25,7 @@ import com.kauailabs.navx_mxp.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.Timer;
@@ -54,6 +56,7 @@ public class Robot extends IterativeRobot {
     public static Claw claw;
     public static Stabilizer stabilizer;
     public static LEDStrip ledStripPrimary;
+    public static PowerDistributionPanel pdp;
 
     public static AHRS navx;
 
@@ -87,6 +90,7 @@ public class Robot extends IterativeRobot {
         claw = new Claw();
         stabilizer = new Stabilizer();
         ledStripPrimary = new LEDStrip(5803, "10.1.15.16");
+        pdp = new PowerDistributionPanel();
 
         navx = new AHRS(new SerialPort(57600, Port.kMXP));
         firstIteration = true;
@@ -94,6 +98,8 @@ public class Robot extends IterativeRobot {
         oi.initXbox();
 
         initAutonChooser();
+
+        new Watcher().start();
     }
 
     private void initAutonChooser() {
